@@ -192,10 +192,9 @@ const Entry = () => {
     <Layout>
       <Main>
         <Typography variant="h2"> Event Name </Typography>
-        <div> Dates </div>
+        <div> Dates - needs to be styled </div>
         <div className="event-details-text">
           <Typography variant="body1">
-            {" "}
             Event details <br />
             The CDC’s “show-and-tell” days are designed to help riders practice
             their tests in a simulated show environment with one-on-one feedback
