@@ -1,44 +1,54 @@
-html, body {
+html,
+body {
   margin: 0;
 }
 
 body {
-font-family: 'Roboto', sans-serif;
-font-size: 20px;
-
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
 }
 
-
 .hero {
-
   width: 100%;
   height: 70vh;
   margin-bottom: 1rem;
 }
 
+.hero > .overlay {
+  background: rgb(0, 0, 0, 0.3);
+  height: 70vh;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+}
 
+.short-about {
+  text-align: center;
+  color: darkslategrey;
+  padding: 1rem;
+}
 
-   .hero > .overlay {
-    height: 70vh;
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    position: absolute;
-    overflow: hidden;
-    top: 0;
-    left: 0;
-  }
+.short-about-container {
+  display: "flex";
+  justify-content: center;
+}
 
+.parallax-header {
+  width: 100%;
+}
 
-  .short-about {
-    text-align: center;
-    color: darkslategrey;
-    padding: 1rem;
-  }
+.MuiTypography-body1 {
+  font-size: 20px !important;
+}
 
-  .short-about-container {
-       display: 'flex';
-       justify-content: center;
-  }
+.step-buttons {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import {navigate} from 'gatsby'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -28,7 +29,9 @@ export default function ButtonAppBar() {
 <Grid item xs={9}  style={{display: 'flex' , justifyContent: 'flex-end', alignContent:'center'}}>
 
         <MenuList style={{ display: 'flex', flexDirection: 'row'}}>
-            <MenuItem className="menu-item">Events and Entries </MenuItem>
+            <MenuItem onClick={() => navigate('/entry')} className="menu-item">Events and Entries </MenuItem>
+                        <MenuItem className="menu-item">Calendar </MenuItem>
+
             <MenuItem className="menu-item">Membership </MenuItem>
             <MenuItem className="menu-item">Downloads </MenuItem>
             <MenuItem className="menu-item">About</MenuItem>

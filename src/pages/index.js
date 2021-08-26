@@ -7,13 +7,17 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { Typography, Button, Grid, Container , Paper} from "@material-ui/core"
+import { Parallax, Background } from 'react-parallax';
 
 const IndexPage = () => (
   <Layout>
 
+
 <div className="hero">
 
-      <StaticImage src="https://images.unsplash.com/photo-1523301758621-fe1569031789?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80"       layout="fullWidth" style={{height: '70vh'}} />
+        <Parallax strength={300} style={{height: '70vh', width: '100%'}}bgImage="https://images.unsplash.com/photo-1523301758621-fe1569031789?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80"   >
+
+        </Parallax>
 
  <div className="overlay">
           <div className="hero-text">
@@ -24,7 +28,7 @@ const IndexPage = () => (
           <Button variant="contained" color="primary"> See Events </Button> 
           </div>
         </div>
-</div>
+</div> 
 
 <Container>
 
