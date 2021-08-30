@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../components/layout"
 import Main from "../components/MainContent"
-import { useFromik, Formik, Form, Field } from "formik"
+import { useFormik, Formik, Form, Field } from "formik"
 import * as yup from "yup"
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"

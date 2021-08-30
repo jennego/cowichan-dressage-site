@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
 html,
 body {
   margin: 0;
@@ -8,8 +10,12 @@ body {
   font-size: 20px;
 }
 
-.logo-header {
-  cursor: pointer;
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Lato", sans-serif;
 }
 
 .hero {
@@ -55,4 +61,16 @@ body {
   margin-top: 1rem;
   display: flex;
   justify-content: center;
+}
+
+.logo-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+.logo-text {
+  font-size: 16px;
+  font-family: "Lato", sans-serif;
+  margin-top: 0px;
 }
