@@ -102,8 +102,12 @@ function Nav() {
             <div className="logo-header" onClick={() => navigate("/")}>
               <GatsbyImage
                 image={logo.file.childrenImageSharp[0].gatsbyImageData}
+                objectFit="contain"
+                style={{ width: "120px" }}
               />
-              <h1 className="logo-text">Cowichan Dressage Club</h1>
+              <div className="logo-text-container">
+                <h1 className="logo-text">Cowichan Dressage Club</h1>
+              </div>
               {console.log(logo.file.childrenImageSharp[0].gatsbyImageData)}
               {/* <Typography variant="h6">Cowichan Dressage Club</Typography> */}
             </div>

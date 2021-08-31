@@ -117,7 +117,7 @@ const MemberForm = () => {
           </Grid>
           <Grid item md={6}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Field name="date" component={BirthDatePickerField} />
+              {/* <Field name="date" component={BirthDatePickerField} /> */}
 
               {/* <TextField
                 fullWidth

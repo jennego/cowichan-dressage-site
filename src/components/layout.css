@@ -65,12 +65,17 @@ h5 {
 
 .logo-header {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   cursor: pointer;
+  justify-content: center;
+}
+.logo-text-container {
+  display: flex;
+  align-items: center;
 }
 .logo-text {
-  font-size: 16px;
+  font-size: 20px;
   font-family: "Lato", sans-serif;
-  margin-top: 0px;
+  margin: 0;
 }
