@@ -8,6 +8,7 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import { Typography, Button, Grid, Container, Paper } from "@material-ui/core"
 import { Parallax, Background } from "react-parallax"
+import logo from "../images/cdcpathwhitecrop.svg"
 
 const IndexPage = () => (
   <Layout>
@@ -24,7 +25,17 @@ const IndexPage = () => (
 
       <div className="overlay">
         <div className="hero-text">
-          <Typography variant="h2" style={{ color: "#fff" }}>
+          <div className="logo-container">
+            <div style={{ width: "70%" }}>
+              <img src={logo} />
+            </div>
+          </div>
+
+          <Typography
+            variant="h2"
+            style={{ color: "#fff" }}
+            className="hero-title"
+          >
             Cowichan Dressage Club
           </Typography>
           <br></br>

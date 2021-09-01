@@ -52,7 +52,7 @@ const MemberForm = () => {
     initialValues: {
       email: "foobar@example.com",
       name: "Bob",
-      birthdate: new Date(),
+      birthDate: new Date(),
     },
     validationSchema: validationSchema,
     onSubmit: values => {
@@ -117,9 +117,9 @@ const MemberForm = () => {
           </Grid>
           <Grid item md={6}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              {/* <Field name="date" component={BirthDatePickerField} /> */}
-
-              {/* <TextField
+              {/* <Field name="birthDate" component={DatePickerField} /> */}
+            </MuiPickersUtilsProvider>
+            {/* <TextField
                 fullWidth
                 id="birthdate"
                 name="birthdate"
@@ -134,7 +134,6 @@ const MemberForm = () => {
                   formik.touched.phonenumber && formik.errors.phonenumber
                 }
               /> */}
-            </MuiPickersUtilsProvider>
           </Grid>
         </Grid>
         <Button color="primary" variant="contained" type="submit">

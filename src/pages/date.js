@@ -1,19 +1,24 @@
 import React from "react"
 import { Grid } from "@material-ui/core"
 import { Formik, Form, Field } from "formik"
-import { KeyboardDatePicker } from "@material-ui/pickers"
+import { KeyboardDatePicker, DatePicker } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
 import MomentUtils from "@date-io/moment"
 import { MuiPickersUtilsProvider } from "@material-ui/pickers"
+import Button from "@material-ui/core/Button"
+
 const DatePickerField = ({ field, form, ...other }) => {
   const currentError = form.errors[field.name]
 
   return (
     <KeyboardDatePicker
       clearable
-      disablePast
+      placeholder=""
+      disableFuture
       name={field.name}
       value={field.value}
+      views={["year", "month", "date"]}
+      openTo="year"
       format="dd/MM/yyyy"
       helperText={currentError}
       error={Boolean(currentError)}
@@ -30,10 +35,17 @@ const DatePickerField = ({ field, form, ...other }) => {
   )
 }
 
+// values and errors can be just props if you aren't using them in that component
+
 const FormikExample = () => {
   return (
-    <Formik onSubmit={console.log} initialValues={{ date: new Date() }}>
-      {({ values, errors }) => (
+    <Formik
+      onSubmit={values => {
+        alert(JSON.stringify(values, null, 2))
+      }}
+      initialValues={{ date: null }}
+    >
+      {props => (
         <Form>
           <Grid container>
             <Grid item container justify="center" xs={12}>
@@ -43,9 +55,12 @@ const FormikExample = () => {
             </Grid>
 
             <Grid item xs={12} sm={12} style={{ margin: "24px" }}>
-              {JSON.stringify({ errors, values }, null, 2)}
+              {/* {JSON.stringify({ errors, values }, null, 2)} */}
             </Grid>
           </Grid>
+          <Button color="primary" variant="contained" type="submit">
+            Submit
+          </Button>
         </Form>
       )}
     </Formik>
