@@ -13,16 +13,27 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers"
+import InputAdornment from "@material-ui/core/InputAdornment"
+import EventIcon from "@material-ui/icons/Event"
+import AlternateEmailIcon from "@material-ui/icons/AlternateEmail"
+import PhoneIcon from "@material-ui/icons/Phone"
 
 const BirthDatePickerField = ({ field, form, ...other }) => {
   const currentError = form.errors[field.name]
 
   return (
     <KeyboardDatePicker
+      keyboardIcon={
+        <Button startIcon={<EventIcon />} color="primary" variant="outlined">
+          {" "}
+          Pick Date{" "}
+        </Button>
+      }
+      inputVariant="filled"
       fullWidth
       clearable
       label="Birth Date"
-      placeholder="Click icon to select date"
+      placeholder="MM/DD/YYYY"
       disableFuture
       name={field.name}
       value={field.value}
@@ -88,6 +99,7 @@ const MemberForm = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
+                variant="filled"
                 id="name"
                 name="name"
                 label="Name"
@@ -98,20 +110,40 @@ const MemberForm = () => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                id="email"
-                name="email"
-                label="Email"
-                value={props.values.email}
-                onChange={props.handleChange}
-                error={props.touched.email && Boolean(props.errors.email)}
-                helperText={props.touched.email && props.errors.email}
-              />
+              <Grid container spacing={0} alignItems="center">
+                <Grid item xs={1}>
+                  <div
+                    style={{
+                      background: "rgba(0, 0, 0, 0.10)",
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "55px",
+                    }}
+                  >
+                    <AlternateEmailIcon />
+                  </div>
+                </Grid>
+                <Grid item xs={11}>
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    id="email"
+                    name="email"
+                    label="Email"
+                    value={props.values.email}
+                    onChange={props.handleChange}
+                    error={props.touched.email && Boolean(props.errors.email)}
+                    helperText={props.touched.email && props.errors.email}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
+                variant="filled"
                 id="address"
                 name="address"
                 label="Address"
@@ -122,20 +154,40 @@ const MemberForm = () => {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                id="phone-number"
-                name="phone-number"
-                label="Phone Number"
-                value={props.values.phonenumber}
-                onChange={props.handleChange}
-                error={
-                  props.touched.phonenumber && Boolean(props.errors.phonenumber)
-                }
-                helperText={
-                  props.touched.phonenumber && props.errors.phonenumber
-                }
-              />
+              <Grid container spacing={0} alignItems="center">
+                <Grid item xs={1}>
+                  <div
+                    style={{
+                      background: "rgba(0, 0, 0, 0.10)",
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "55px",
+                    }}
+                  >
+                    <PhoneIcon />
+                  </div>
+                </Grid>
+                <Grid item xs={11}>
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    id="phone-number"
+                    name="phone-number"
+                    label="Phone Number"
+                    value={props.values.phonenumber}
+                    onChange={props.handleChange}
+                    error={
+                      props.touched.phonenumber &&
+                      Boolean(props.errors.phonenumber)
+                    }
+                    helperText={
+                      props.touched.phonenumber && props.errors.phonenumber
+                    }
+                  />
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -146,6 +198,7 @@ const MemberForm = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
+                variant="filled"
                 id="hcbc"
                 name="hcbc"
                 label="Horse Council BC Member Number"
@@ -159,6 +212,7 @@ const MemberForm = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
+                variant="filled"
                 id="emergContactName"
                 name="emergContactName"
                 label="Emergancy Contact Name"
@@ -178,6 +232,7 @@ const MemberForm = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
+                variant="filled"
                 id="emergContactPh"
                 name="emergContactPh"
                 label="Emergency Contact Phone Number"
