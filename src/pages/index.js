@@ -96,13 +96,14 @@ const IndexPage = () => (
           <Typography variant="h4">News</Typography>
           Blog posts or social media feed
         </Grid>
-
-        <Grid item md={6}>
-          Image
-        </Grid>
-        <Grid item md={6}></Grid>
       </Grid>
     </Container>
+
+    <div style={{ display: "flex", marginTop: "2rem" }}>
+      <StaticImage src="https://images.unsplash.com/flagged/photo-1568382007362-5d0d0a26b422?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" />
+      <StaticImage src="https://images.unsplash.com/photo-1610766920689-5d4c57e1dfba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=972&q=80" />
+      <StaticImage src="https://images.unsplash.com/photo-1595675759778-dcfbbc6629bd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" />
+    </div>
   </Layout>
 )
 
