@@ -5,7 +5,10 @@ import Main from "../components/MainContent"
 const Cal = () => {
   return (
     <Layout>
-      <Main>Events in Calendar format</Main>
+      <Main>
+        Events in Calendar format. I will work to have the dates made as event
+        entries, show up here.{" "}
+      </Main>
     </Layout>
   )
 }
