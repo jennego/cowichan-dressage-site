@@ -65,7 +65,7 @@ const FormikExample = () => {
       initialValues={{ date: new Date() }}
     >
       {({ values, errors }) => (
-        <Form name="date" netlify>
+        <Form name="date" data-netlify="true">
           <Grid container>
             <Grid item container justify="center" xs={12}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
