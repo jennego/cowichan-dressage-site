@@ -39,12 +39,28 @@ const DatePickerField = ({ field, form, ...other }) => {
 // values and errors can be just props if you aren't using them in that component
 
 const FormikExample = () => {
+  const encode = data => {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+      .join("&")
+  }
   return (
+    // format(values.date, "EEEE, MMMM d, yyyy")
     <Formik
-      onSubmit={values => {
-        format(values.date, "EEEE, MMMM d, yyyy")
-
-        alert(JSON.stringify(values, null, 2))
+      onSubmit={(values, actions) => {
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encode({ "form-name": "date", ...values }),
+        })
+          .then(() => {
+            alert("Success")
+            actions.resetForm()
+          })
+          .catch(() => {
+            alert("Error")
+          })
+          .finally(() => actions.setSubmitting(false))
       }}
       initialValues={{ date: new Date() }}
     >
