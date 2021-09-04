@@ -7,7 +7,7 @@ import MomentUtils from "@date-io/moment"
 import { MuiPickersUtilsProvider } from "@material-ui/pickers"
 import Button from "@material-ui/core/Button"
 import { format, formatDistance, formatRelative, subDays } from "date-fns"
-
+import { processForm } from "../components/formProcessing"
 const DatePickerField = ({ field, form, ...other }) => {
   const currentError = form.errors[field.name]
 
@@ -47,22 +47,10 @@ const FormikExample = () => {
   return (
     // format(values.date, "EEEE, MMMM d, yyyy")
     <Formik
-      onSubmit={(values, actions) => {
-        fetch("/", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: encode({ "form-name": "date", ...values }),
-        })
-          .then(() => {
-            alert("Success")
-            actions.resetForm()
-          })
-          .catch(() => {
-            alert("Error")
-          })
-          .finally(() => actions.setSubmitting(false))
+      onSubmit={processForm}
+      initialValues={{
+        date: new Date(),
       }}
-      initialValues={{ date: new Date() }}
     >
       {({ values, errors }) => (
         <Form name="date" data-netlify="true">
@@ -74,7 +62,6 @@ const FormikExample = () => {
             </Grid>
 
             <Grid item xs={12} sm={12} style={{ margin: "24px" }}>
-              {format(values.date, "EEEE, MMMM d, yyyy")}
               {JSON.stringify({ errors, values }, null, 2)}
             </Grid>
           </Grid>
