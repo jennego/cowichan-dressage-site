@@ -12,7 +12,7 @@ const Footer = () => {
       }}
     >
       <div style={{ marginLeft: "2rem" }}>
-        © {new Date().getFullYear()}, Built with{" "}
+        © {new Date().getFullYear()} Cowichan Dressage Club, Built with{" "}
         <a href="https://www.gatsbyjs.com" style={{ color: "lightblue" }}>
           Gatsby
         </a>

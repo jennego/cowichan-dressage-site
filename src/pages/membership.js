@@ -4,6 +4,7 @@ import Main from "../components/MainContent"
 import { useFormik, Formik, Form, Field } from "formik"
 import * as yup from "yup"
 import Button from "@material-ui/core/Button"
+import Checkbox from "@material-ui/core/Checkbox"
 import TextField from "@material-ui/core/TextField"
 import Grid from "@material-ui/core/Grid"
 import DateFnsUtils from "@date-io/date-fns"
@@ -17,6 +18,7 @@ import InputAdornment from "@material-ui/core/InputAdornment"
 import EventIcon from "@material-ui/icons/Event"
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail"
 import PhoneIcon from "@material-ui/icons/Phone"
+import { FormControlLabel } from "@material-ui/core"
 
 const BirthDatePickerField = ({ field, form, ...other }) => {
   const currentError = form.errors[field.name]
@@ -246,6 +248,26 @@ const MemberForm = () => {
                   props.touched.emergContactPh && props.errors.emergContactPh
                 }
               />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              Payment
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <Button variant="contained" color="primary">
+                  {" "}
+                  Pay by Credit Card{" "}
+                </Button>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={props.checked}
+                      onChange={props.handleChange}
+                      name="eTransfer"
+                      color="primary"
+                    />
+                  }
+                  label="Will pay by eTransfer"
+                />
+              </div>
             </Grid>
           </Grid>
           <div style={{ marginTop: "2rem" }}>
