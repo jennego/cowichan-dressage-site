@@ -14,81 +14,121 @@ import Avatar from "@material-ui/core/Avatar"
 import EventIcon from "@material-ui/icons/Event"
 import Grid from "@material-ui/core/Grid"
 
-const Event = () => {
+import Accordion from "@material-ui/core/Accordion"
+import AccordionSummary from "@material-ui/core/AccordionSummary"
+import AccordionDetails from "@material-ui/core/AccordionDetails"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
+
+import { graphql } from "gatsby"
+import { StaticImage, GatsbyImage } from "gatsby-plugin-image"
+
+import { format } from "date-fns"
+
+export const query = graphql`
+  {
+    contentfulEvent {
+      eventName
+      eventDates {
+        date
+        subtitle
+      }
+      eventInformation {
+        raw
+      }
+      rules {
+        raw
+      }
+      registrationInfo {
+        raw
+      }
+      locationName
+      location {
+        lat
+        lon
+      }
+    }
+  }
+`
+
+const Event = ({ data }) => {
+  const event = data.contentfulEvent
   return (
     <Layout>
       <Main>
-        <Typography variant="h2"> Show and Tell </Typography>
-
-        <List>
-          <Grid container>
-            <Grid item>
-              <ListItem button>
-                <ListItemIcon>
-                  <EventIcon fontSize="large" />
-                </ListItemIcon>
-                <ListItemText
-                  primary="September 26, 2021"
-                  secondary="closing date or other important info about date"
-                />
-              </ListItem>
-            </Grid>
-            <Grid item>
-              <ListItem button>
-                <ListItemIcon>
-                  <EventIcon fontSize="large" />
-                </ListItemIcon>
-                <ListItemText
-                  primary="October 26, 2021"
-                  secondary="closing date or other important info about date"
-                />
-              </ListItem>
-            </Grid>
-            <Grid item>
-              <ListItem button alignItems="flex-start">
-                <ListItemIcon>
-                  <EventIcon fontSize="large" />
-                </ListItemIcon>
-                <ListItemText
-                  primary="November 26, 2021"
-                  secondary="closing date or other important info about date"
-                />
-              </ListItem>
-            </Grid>
-            <Grid item>
-              <ListItem button>
-                <ListItemIcon>
-                  <EventIcon fontSize="large" />
-                </ListItemIcon>
-                <ListItemText
-                  primary="More dates!"
-                  secondary="closing date or other important info about date"
-                />
-              </ListItem>
-            </Grid>
+        <Typography variant="h3" style={{ paddingTop: "1rem" }}>
+          {event.eventName}
+        </Typography>
+        <Grid container>
+          <Grid item md={8}>
+            <List>
+              <Grid container>
+                {event.eventDates.map(date => (
+                  <Grid item>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <EventIcon fontSize="large" />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={format(
+                          new Date(date.date),
+                          "EEEE, LLLL d, yyyy"
+                        )}
+                        secondary={date.subtitle}
+                      />
+                    </ListItem>
+                  </Grid>
+                ))}
+              </Grid>
+            </List>
           </Grid>
-        </List>
-
-        <div className="event-details-text">
-          <Typography variant="body1">
-            Event details <br />
-            The CDC’s “show-and-tell” days are designed to help riders practice
-            their tests in a simulated show environment with one-on-one feedback
-            from the judge. Participants will ride their selected test which
-            will be judged/scored as it would be in a competition. Then the
-            judge will go through the test with the rider and suggest
-            improvements can be made to improve their score. Participants will
-            then ride their selected test again and try to improve their marks.
-            Each of these sessions will run for a half hour. Participants can
-            sign up for a maximum of 2 sessions (riding 2 different tests) but
-            spaces will be prioritized for those riding their first session.
-          </Typography>
-        </div>
-
-        <Button variant="contained" color="primary">
-          {" "}
-          Entry Form{" "}
-        </Button>
+          <Grid item md={4}>
+            <StaticImage src="https://images.unsplash.com/flagged/photo-1568382007362-5d0d0a26b422?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" />
+          </Grid>
+        </Grid>
+        <Accordion expanded>
+          <AccordionSummary
+            // expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography variant="h4" component="h2">
+              Event Info
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>{renderRichText(event.eventInformation)}</Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2a-content"
+            id="panel2a-header"
+          >
+            <Typography variant="h4" component="h2">
+              Rules
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>{renderRichText(event.rules)}</Typography>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel3a-content"
+            id="panel3a-header"
+          >
+            <Typography variant="h4" component="h2">
+              Registration
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>{renderRichText(event.registrationInfo)}</Typography>
+            <Button variant="contained">Entry Form</Button>
+          </AccordionDetails>
+        </Accordion>
       </Main>
     </Layout>
   )
