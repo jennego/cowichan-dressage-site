@@ -2,9 +2,6 @@ import React from "react"
 import Layout from "../components/layout"
 import Main from "../components/MainContent"
 
-import Stepper from "@material-ui/core/Stepper"
-import Step from "@material-ui/core/Step"
-import StepLabel from "@material-ui/core/StepLabel"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 
@@ -22,23 +19,33 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 
+import { useFormik, Formik, Form, Field } from "formik"
+
 function getSteps() {
   return ["Select Date", "Entry Form", "Waivers", "Payment and Confirmation"]
 }
 
-function getStepContent(stepIndex) {
-  switch (stepIndex) {
-    case 0:
-      return <DateForm />
-    case 1:
-      return <EntryForm />
-    case 2:
-      return <WaiverForm />
-    case 3:
-      return "payment info - pay up - buttons for stripe payment or checkbox for etransfer payment"
-    default:
-      return "Unknown stepIndex"
-  }
+const PaymentForm = () => {
+  return (
+    <RadioGroup aria-label="payment" name="payment">
+      <FormLabel component="legend">Payment</FormLabel>
+      <p>
+        Allow section of one only. Required field. See if square can input an
+        isPaid: true to the form upon success. Maybe toogle button group?
+      </p>
+
+      <FormControlLabel
+        value="square"
+        control={<Radio />}
+        label="Square Credit Card"
+      />
+      <FormControlLabel
+        value="etransfer"
+        control={<Radio />}
+        label="E-Transfer"
+      />
+    </RadioGroup>
+  )
 }
 
 const WaiverForm = () => {
@@ -191,55 +198,20 @@ const Entry = () => {
   return (
     <Layout>
       <Main>
-        <Typography variant="h2"> Event Name </Typography>
-        <div> Dates - needs to be styled </div>
-        <div className="event-details-text">
-          <Typography variant="body1">
-            Event details <br />
-            The CDC’s “show-and-tell” days are designed to help riders practice
-            their tests in a simulated show environment with one-on-one feedback
-            from the judge. Participants will ride their selected test which
-            will be judged/scored as it would be in a competition. Then the
-            judge will go through the test with the rider and suggest
-            improvements can be made to improve their score. Participants will
-            then ride their selected test again and try to improve their marks.
-            Each of these sessions will run for a half hour. Participants can
-            sign up for a maximum of 2 sessions (riding 2 different tests) but
-            spaces will be prioritized for those riding their first session.
-          </Typography>
-        </div>
-
-        <Stepper activeStep={activeStep} alternativeLabel>
-          {steps.map(label => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-        <div>
-          {activeStep === steps.length ? (
-            <div>
-              <Typography>All steps completed</Typography>
-              <Button onClick={handleReset}>Reset</Button>
-            </div>
-          ) : (
-            <div>
-              <Typography>{getStepContent(activeStep)}</Typography>
-              <div className="step-buttons">
-                <Button disabled={activeStep === 0} onClick={handleBack}>
-                  Back
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNext}
-                >
-                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                </Button>
-              </div>
-            </div>
-          )}
-        </div>
+        <Formik>
+          <div>
+            <DateForm />
+            <EntryForm />
+            <WaiverForm />
+            <PaymentForm />
+            <Button variant="contained" color="secondary">
+              Clear
+            </Button>
+            <Button variant="contained" color="primary">
+              Submit
+            </Button>
+          </div>
+        </Formik>
       </Main>
     </Layout>
   )
