@@ -47,7 +47,7 @@ const FormikExample = () => {
   return (
     // format(values.date, "EEEE, MMMM d, yyyy")
     <Formik
-      onSubmit={processForm}
+      onSubmit={() => processForm("date")}
       initialValues={{
         date: new Date(),
       }}

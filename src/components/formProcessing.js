@@ -4,11 +4,11 @@ const encode = data => {
     .join("&")
 }
 
-export const processForm = (values, actions) => {
+export const processForm = (values, actions, formName) => {
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: encode({ "form-name": "date", ...values }),
+    body: encode({ "form-name": formName, ...values }),
   })
     .then(() => {
       alert("Success")

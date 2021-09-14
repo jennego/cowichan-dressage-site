@@ -14,16 +14,16 @@ import FormLabel from "@material-ui/core/FormLabel"
 import { DropzoneArea } from "material-ui-dropzone"
 
 import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf"
+import AlternateEmailIcon from "@material-ui/icons/AlternateEmail"
+import PhoneIcon from "@material-ui/icons/Phone"
+
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 
 import { useFormik, Formik, Form, Field } from "formik"
-
-function getSteps() {
-  return ["Select Date", "Entry Form", "Waivers", "Payment and Confirmation"]
-}
+import * as yup from "yup"
 
 const PaymentForm = () => {
   return (
@@ -68,10 +68,22 @@ const WaiverForm = () => {
 
       <p>Upload waivers</p>
 
-      <DropzoneArea
-        dropzoneText="Drop (or click to upload) completed waivers here"
-        onChange={files => console.log("Files:", files)}
-      />
+      <Grid container>
+        <Grid item sm={6}>
+          <DropzoneArea
+            filesLimit={1}
+            dropzoneText="Drop (or click to upload) Waiver One"
+            onChange={files => console.log("Files:", files)}
+          />
+        </Grid>
+        <Grid item sm={6}>
+          <DropzoneArea
+            filesLimit={1}
+            dropzoneText="Drop (or click to upload) Waiver Two"
+            onChange={files => console.log("Files:", files)}
+          />
+        </Grid>
+      </Grid>
     </div>
   )
 }
@@ -102,28 +114,91 @@ const DateForm = () => {
   )
 }
 
-const EntryForm = () => {
+const validationSchema = yup.object({
+  email: yup
+    .string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
+  name: yup.string("Enter your name").required("Name is required"),
+  address: yup.string("Enter your address"),
+  birthDate: yup.date("Enter a date"),
+  hcbc: yup.number().typeError("Needs to be a number"),
+})
+
+const EntryForm = props => {
   return (
     <FormGroup>
       <FormLabel component="legend">Rider Info </FormLabel>
 
       <Grid container spacing={3}>
         <Grid item sm={6}>
-          <TextField id="standard-basic" label="Rider Name" fullWidth />
+          <TextField
+            fullWidth
+            variant="filled"
+            id="name"
+            name="name"
+            label="Name"
+            value={props.values.name}
+            onChange={props.handleChange}
+            error={props.touched.name && Boolean(props.errors.name)}
+            helperText={props.touched.name && props.errors.name}
+          />
         </Grid>
         <Grid item sm={6}>
-          <TextField id="standard-basic" label="Horse Name" fullWidth />
+          <TextField
+            fullWidth
+            variant="filled"
+            id="horseName"
+            name="horseName"
+            label="horseName"
+            value={props.values.horseName}
+            onChange={props.handleChange}
+            error={props.touched.horseName && Boolean(props.errors.horseName)}
+            helperText={props.touched.horseName && props.errors.horseName}
+          />
         </Grid>
-        <Grid item sm={3}>
+        <Grid item md={3} xs={12}>
           <TextField label="Rider Email" fullWidth></TextField>
         </Grid>
-        <Grid item sm={3}>
-          <TextField id="standard-basic" label="Rider Phone" fullWidth />
+        <Grid item md={3} xs={12}>
+          <Grid container spacing={0} alignItems="center">
+            <Grid item xs={1}>
+              <div
+                style={{
+                  background: "rgba(0, 0, 0, 0.10)",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "55px",
+                }}
+              >
+                <PhoneIcon />
+              </div>
+            </Grid>
+            <Grid item xs={11}>
+              <TextField
+                fullWidth
+                variant="filled"
+                id="phone-number"
+                name="phone-number"
+                label="Phone Number"
+                value={props.values.phonenumber}
+                onChange={props.handleChange}
+                error={
+                  props.touched.phonenumber && Boolean(props.errors.phonenumber)
+                }
+                helperText={
+                  props.touched.phonenumber && props.errors.phonenumber
+                }
+              />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item sm={3}>
+        <Grid item md={3} xs={6}>
           <TextField label="HCBC Number" fullWidth></TextField>
         </Grid>
-        <Grid item sm={2}>
+        <Grid item md={2} xs={6}>
           <RadioGroup aria-label="age" name="age">
             <FormLabel component="legend">Age</FormLabel>
 
@@ -180,37 +255,34 @@ const EntryForm = () => {
 }
 
 const Entry = () => {
-  const [activeStep, setActiveStep] = React.useState(0)
-  const steps = getSteps()
-
-  const handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1)
-  }
-
-  const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1)
-  }
-
-  const handleReset = () => {
-    setActiveStep(0)
-  }
-
   return (
     <Layout>
       <Main>
-        <Formik>
-          <div>
-            <DateForm />
-            <EntryForm />
-            <WaiverForm />
-            <PaymentForm />
-            <Button variant="contained" color="secondary">
-              Clear
-            </Button>
-            <Button variant="contained" color="primary">
-              Submit
-            </Button>
-          </div>
+        <Formik
+          onSubmit={values => {
+            alert(JSON.stringify(values, null, 2))
+          }}
+          validationSchema={validationSchema}
+          initialValues={{
+            name: "Winnie the Pooh",
+            horseName: "Tigger Too",
+            phonenumber: "123-123-1234",
+          }}
+        >
+          {props => (
+            <div>
+              <DateForm />
+              <EntryForm {...props} />
+              <WaiverForm />
+              <PaymentForm />
+              <Button variant="contained" color="secondary">
+                Clear
+              </Button>
+              <Button variant="contained" color="primary">
+                Submit
+              </Button>
+            </div>
+          )}
         </Formik>
       </Main>
     </Layout>
