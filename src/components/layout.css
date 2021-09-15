@@ -7,7 +7,6 @@ body {
 
 body {
   font-family: "Roboto", sans-serif;
-  font-size: 20px;
 }
 
 h1,
@@ -51,10 +50,6 @@ h5 {
 
 .parallax-header {
   width: 100%;
-}
-
-.MuiTypography-body1 {
-  font-size: 20px !important;
 }
 
 .step-buttons {
