@@ -23,7 +23,9 @@ import HomeIcon from "@material-ui/icons/Home"
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone"
 import ContactsIcon from "@material-ui/icons/Contacts"
 
-import { FormControlLabel } from "@material-ui/core"
+import Radio from "@material-ui/core/Radio"
+import RadioGroup from "@material-ui/core/RadioGroup"
+import FormControlLabel from "@material-ui/core/FormControlLabel"
 
 const BirthDatePickerField = ({ field, form, props, ...other }) => {
   const currentError = form.errors[field.name]
@@ -78,7 +80,10 @@ const validationSchema = yup.object({
   emergContactName: yup
     .string("Enter name of emergency contact")
     .required("Emergency contact name is required"),
-  emergContactPh: yup.number().typeError("Needs to be a number"),
+  emergContactPh: yup
+    .number()
+    .typeError("Needs to be a number")
+    .required("Emergency contact phone number is required"),
 })
 
 const MemberForm = () => {
@@ -104,6 +109,8 @@ const MemberForm = () => {
         name: "",
         address: "",
         birthDate: null,
+        paymentMethod: "",
+        emergContactName: "",
       }}
     >
       {props => (
@@ -290,36 +297,32 @@ const MemberForm = () => {
                     label="Emergency Contact Phone Number"
                     value={props.values.emergContactPh}
                     onChange={props.handleChange}
-                    error={
-                      props.touched.emergContactPh &&
-                      Boolean(props.errors.emergContactPh)
-                    }
-                    helperText={
-                      props.touched.emergContactPh &&
-                      props.errors.emergContactPh
-                    }
+                    error={Boolean(props.errors.emergContactPh)}
+                    helperText={props.errors.emergContactPh}
                   />
                 </Grid>
               </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
               Payment
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <Button variant="contained" color="primary">
-                  Pay by Credit Card
-                </Button>
+              <RadioGroup
+                aria-label="payment method"
+                name="paymentMethod"
+                onChange={props.handleChange}
+              >
                 <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={props.checked}
-                      onChange={props.handleChange}
-                      name="eTransfer"
-                      color="primary"
-                    />
-                  }
-                  label="Will pay by eTransfer"
+                  value="square"
+                  name="paymentMethod"
+                  control={<Radio />}
+                  label="Square Credit Card"
                 />
-              </div>
+                <FormControlLabel
+                  name="paymentMethod"
+                  value="etransfer"
+                  control={<Radio />}
+                  label="E-Transfer"
+                />
+              </RadioGroup>
             </Grid>
           </Grid>
           <div style={{ marginTop: "2rem" }}>
