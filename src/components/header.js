@@ -15,6 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem"
 import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
 import useBreakpoint from "use-breakpoint"
+import useMediaQuery from "@material-ui/core/useMediaQuery"
 
 import logo from "../images/cdclogo.png"
 
@@ -29,18 +30,21 @@ const DesktopMenu = ({ children }) => (
 const HamburgerMenu = ({ children }) => {
   const [anchorEl, setAnchorEl] = React.useState(null)
 
+  /// fix this so menu is viewable, maybe use pull out instead
+
   return (
     <div>
-      <IconButton
+      <Button
         aria-controls="simple-menu"
         aria-haspopup="true"
         onClick={e => setAnchorEl(e.currentTarget)}
         edge="end"
         color="inherit"
         style={{ alignSelf: "flex-end" }}
+        endIcon={<MenuIcon style={{ fontSize: 40 }} />}
       >
-        <MenuIcon style={{ fontSize: 40 }} />
-      </IconButton>
+        Menu
+      </Button>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -77,6 +81,7 @@ const MenuItems = () => (
 
 function Nav() {
   const { breakpoint } = useBreakpoint(BREAKPOINTS)
+  const matches = useMediaQuery("(max-width:1080px)")
 
   const logo = useStaticQuery(graphql`
     {
@@ -123,7 +128,7 @@ function Nav() {
               alignItems: "center",
             }}
           >
-            {breakpoint === "md" ? (
+            {matches ? (
               <HamburgerMenu>
                 <MenuItems />
               </HamburgerMenu>

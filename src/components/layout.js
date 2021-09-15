@@ -10,14 +10,8 @@ import Footer from "./footer"
 
 const theme = createTheme({
   typography: {
-    subtitle1: {
-      fontSize: 12,
-    },
     body1: {
       fontSize: 20,
-    },
-    button: {
-      fontStyle: "italic",
     },
   },
 })

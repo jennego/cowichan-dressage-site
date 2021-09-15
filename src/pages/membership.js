@@ -14,21 +14,27 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers"
-import InputAdornment from "@material-ui/core/InputAdornment"
+
 import EventIcon from "@material-ui/icons/Event"
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail"
 import PhoneIcon from "@material-ui/icons/Phone"
+import PersonIcon from "@material-ui/icons/Person"
+import HomeIcon from "@material-ui/icons/Home"
+import ContactPhoneIcon from "@material-ui/icons/ContactPhone"
+import ContactsIcon from "@material-ui/icons/Contacts"
+
 import { FormControlLabel } from "@material-ui/core"
 
-const BirthDatePickerField = ({ field, form, ...other }) => {
+const BirthDatePickerField = ({ field, form, props, ...other }) => {
   const currentError = form.errors[field.name]
+  console.log("current error", Boolean(currentError))
+  console.log("props from datepicker", props)
 
   return (
     <KeyboardDatePicker
       keyboardIcon={
         <Button startIcon={<EventIcon />} color="primary" variant="outlined">
-          {" "}
-          Pick Date{" "}
+          Pick Date
         </Button>
       }
       inputVariant="filled"
@@ -38,18 +44,20 @@ const BirthDatePickerField = ({ field, form, ...other }) => {
       placeholder="MM/DD/YYYY"
       disableFuture
       name={field.name}
-      value={field.value}
+      value={props.values.birthDate}
       views={["year", "month", "date"]}
       openTo="year"
       format="MM/dd/yyyy"
-      helperText={currentError}
-      error={Boolean(currentError)}
-      onError={error => {
-        // handle as a side effect
-        if (error !== currentError) {
-          form.setFieldError(field.name, error)
-        }
-      }}
+      error={props.touched.birthDate && Boolean(props.errors.birthDate)}
+      helperText={props.touched.birthDate && props.errors.birthDate}
+      // helperText={currentError}
+      // error={Boolean(currentError)}
+      // onError={error => {
+      //   // handle as a side effect
+      //   if (error !== currentError) {
+      //     form.setFieldError(field.name, error)
+      //   }
+      // }}
       // if you are using custom validation schema you probably want to pass `true` as third argument
       onChange={date => form.setFieldValue(field.name, date, false)}
       {...other}
@@ -63,9 +71,14 @@ const validationSchema = yup.object({
     .email("Enter a valid email")
     .required("Email is required"),
   name: yup.string("Enter your name").required("Name is required"),
-  address: yup.string("Enter your address"),
-  birthDate: yup.date("Enter a date"),
+  address: yup.string("Enter your address").required("Address is required"),
+  birthDate: yup.date().typeError("Enter a date").required("Enter a date"),
   hcbc: yup.number().typeError("Needs to be a number"),
+  phonenumber: yup.number().typeError("Needs to be a number"),
+  emergContactName: yup
+    .string("Enter name of emergency contact")
+    .required("Emergency contact name is required"),
+  emergContactPh: yup.number().typeError("Needs to be a number"),
 })
 
 const MemberForm = () => {
@@ -90,40 +103,39 @@ const MemberForm = () => {
         email: "",
         name: "",
         address: "",
-        phonenumber: "",
         birthDate: null,
       }}
     >
       {props => (
         <Form>
           {console.log("formik props", props)}
-          <Grid container spacing={3}>
+          <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                variant="filled"
-                id="name"
-                name="name"
-                label="Name"
-                value={props.values.name}
-                onChange={props.handleChange}
-                error={props.touched.name && Boolean(props.errors.name)}
-                helperText={props.touched.name && props.errors.name}
-              />
+              <Grid container>
+                <Grid item xs={1}>
+                  <div className="icon-background">
+                    <PersonIcon />
+                  </div>
+                </Grid>
+                <Grid item xs={11}>
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    id="name"
+                    name="name"
+                    label="Name"
+                    value={props.values.name}
+                    onChange={props.handleChange}
+                    error={props.touched.name && Boolean(props.errors.name)}
+                    helperText={props.touched.name && props.errors.name}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Grid container spacing={0} alignItems="center">
+              <Grid container>
                 <Grid item xs={1}>
-                  <div
-                    style={{
-                      background: "rgba(0, 0, 0, 0.10)",
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "55px",
-                    }}
-                  >
+                  <div className="icon-background">
                     <AlternateEmailIcon />
                   </div>
                 </Grid>
@@ -143,31 +155,31 @@ const MemberForm = () => {
               </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                variant="filled"
-                id="address"
-                name="address"
-                label="Address"
-                value={props.values.address}
-                onChange={props.handleChange}
-                error={props.touched.email && Boolean(props.errors.address)}
-                helperText={props.touched.email && props.errors.address}
-              />
+              <Grid container>
+                <Grid item xs={1}>
+                  <div className="icon-background">
+                    <HomeIcon />
+                  </div>
+                </Grid>
+                <Grid item xs={11}>
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    id="address"
+                    name="address"
+                    label="Address"
+                    value={props.values.address}
+                    onChange={props.handleChange}
+                    error={props.touched.email && Boolean(props.errors.address)}
+                    helperText={props.touched.email && props.errors.address}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Grid container spacing={0} alignItems="center">
                 <Grid item xs={1}>
-                  <div
-                    style={{
-                      background: "rgba(0, 0, 0, 0.10)",
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "55px",
-                    }}
-                  >
+                  <div className="icon-background">
                     <PhoneIcon />
                   </div>
                 </Grid>
@@ -192,69 +204,109 @@ const MemberForm = () => {
               </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Field name="birthDate" component={BirthDatePickerField} />
-              </MuiPickersUtilsProvider>
+              <Grid container>
+                <Grid item xs={1}>
+                  <div className="icon-background">
+                    <EventIcon />
+                  </div>
+                </Grid>
+                <Grid item xs={11}>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <Field
+                      name="birthDate"
+                      component={BirthDatePickerField}
+                      props={props}
+                    />
+                  </MuiPickersUtilsProvider>
+                </Grid>
+              </Grid>
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                variant="filled"
-                id="hcbc"
-                name="hcbc"
-                label="Horse Council BC Member Number"
-                value={props.values.hcbc}
-                onChange={props.handleChange}
-                error={props.touched.hcbc && Boolean(props.errors.hcbc)}
-                helperText={props.touched.hcbc && props.errors.hcbc}
-              />
+              <Grid container>
+                <Grid item xs={1}>
+                  <div className="icon-background">
+                    <span style={{ fontSize: "30px" }}>#</span>
+                  </div>
+                </Grid>
+                <Grid item xs={11}>
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    id="hcbc"
+                    name="hcbc"
+                    label="Horse Council BC Member Number"
+                    value={props.values.hcbc}
+                    onChange={props.handleChange}
+                    error={props.touched.hcbc && Boolean(props.errors.hcbc)}
+                    helperText={props.touched.hcbc && props.errors.hcbc}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                variant="filled"
-                id="emergContactName"
-                name="emergContactName"
-                label="Emergancy Contact Name"
-                value={props.values.emergContactName}
-                onChange={props.handleChange}
-                error={
-                  props.touched.emergContactName &&
-                  Boolean(props.errors.emergContactName)
-                }
-                helperText={
-                  props.touched.emergContactName &&
-                  props.errors.emergContactName
-                }
-              />
+              <Grid container>
+                <Grid item xs={1}>
+                  <div className="icon-background">
+                    <ContactsIcon />
+                  </div>
+                </Grid>
+                <Grid item xs={11}>
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    id="emergContactName"
+                    name="emergContactName"
+                    label="Emergancy Contact Name"
+                    value={props.values.emergContactName}
+                    onChange={props.handleChange}
+                    error={
+                      props.touched.emergContactName &&
+                      Boolean(props.errors.emergContactName)
+                    }
+                    helperText={
+                      props.touched.emergContactName &&
+                      props.errors.emergContactName
+                    }
+                  />
+                </Grid>
+              </Grid>
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                variant="filled"
-                id="emergContactPh"
-                name="emergContactPh"
-                label="Emergency Contact Phone Number"
-                value={props.values.emergContactPh}
-                onChange={props.handleChange}
-                error={
-                  props.touched.emergContactPh &&
-                  Boolean(props.errors.emergContactPh)
-                }
-                helperText={
-                  props.touched.emergContactPh && props.errors.emergContactPh
-                }
-              />
+              <Grid container>
+                <Grid item xs={1}>
+                  <div className="icon-background">
+                    <ContactPhoneIcon />
+                  </div>
+                </Grid>
+                <Grid item xs={11}>
+                  <TextField
+                    fullWidth
+                    variant="filled"
+                    id="emergContactPh"
+                    name="emergContactPh"
+                    label="Emergency Contact Phone Number"
+                    value={props.values.emergContactPh}
+                    onChange={props.handleChange}
+                    error={
+                      props.touched.emergContactPh &&
+                      Boolean(props.errors.emergContactPh)
+                    }
+                    helperText={
+                      props.touched.emergContactPh &&
+                      props.errors.emergContactPh
+                    }
+                  />
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
               Payment
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <Button variant="contained" color="primary">
-                  {" "}
-                  Pay by Credit Card{" "}
+                  Pay by Credit Card
                 </Button>
                 <FormControlLabel
                   control={
@@ -271,6 +323,10 @@ const MemberForm = () => {
             </Grid>
           </Grid>
           <div style={{ marginTop: "2rem" }}>
+            <Button color="secondary" variant="contained" type="submit">
+              Clear
+            </Button>
+
             <Button color="primary" variant="contained" type="submit">
               Submit
             </Button>

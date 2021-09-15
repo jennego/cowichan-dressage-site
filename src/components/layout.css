@@ -85,3 +85,12 @@ h5 {
   font-family: "Lato", sans-serif !important;
   opacity: 0.9;
 }
+
+.icon-background {
+  background: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
