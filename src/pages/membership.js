@@ -326,7 +326,7 @@ const MemberForm = () => {
             </Grid>
           </Grid>
           <div style={{ marginTop: "2rem" }}>
-            <Button color="secondary" variant="contained" type="submit">
+            <Button color="secondary" variant="contained">
               Clear
             </Button>
 

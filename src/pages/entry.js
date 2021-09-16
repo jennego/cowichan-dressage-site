@@ -25,26 +25,38 @@ import ListItemText from "@material-ui/core/ListItemText"
 import { useFormik, Formik, Form, Field } from "formik"
 import * as yup from "yup"
 
-const PaymentForm = () => {
+const DateForm = ({ props }) => {
   return (
-    <RadioGroup aria-label="payment" name="payment">
-      <FormLabel component="legend">Payment</FormLabel>
-      <p>
-        Allow section of one only. Required field. See if square can input an
-        isPaid: true to the form upon success. Maybe toogle button group?
-      </p>
-
-      <FormControlLabel
-        value="square"
-        control={<Radio />}
-        label="Square Credit Card"
-      />
-      <FormControlLabel
-        value="etransfer"
-        control={<Radio />}
-        label="E-Transfer"
-      />
-    </RadioGroup>
+    <div style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
+      <FormControl component="fieldset">
+        <FormLabel component="legend">Date</FormLabel>
+        <RadioGroup
+          aria-label="date"
+          name="dateSelect"
+          onChange={props.handleChange}
+        >
+          <FormControlLabel
+            name="dateSelect"
+            value="August 22, 2021"
+            disabled
+            control={<Radio />}
+            label="August 22, 2021"
+          />
+          <FormControlLabel
+            name="dateSelect"
+            value="September 26, 2021"
+            control={<Radio />}
+            label="September 26, 2021"
+          />
+          <FormControlLabel
+            name="dateSelect"
+            value="November 7, 2021"
+            control={<Radio />}
+            label="November 7, 2021"
+          />
+        </RadioGroup>
+      </FormControl>
+    </div>
   )
 }
 
@@ -88,44 +100,30 @@ const WaiverForm = () => {
   )
 }
 
-const DateForm = () => {
+const PaymentForm = ({ props }) => {
   return (
-    <FormControl component="fieldset">
-      <FormLabel component="legend">Date</FormLabel>
-      <RadioGroup aria-label="gender" name="gender1">
-        <FormControlLabel
-          value="date"
-          disabled
-          control={<Radio />}
-          label="August 22, 2021"
-        />
-        <FormControlLabel
-          value="male"
-          control={<Radio />}
-          label="September 26, 2021"
-        />
-        <FormControlLabel
-          value="other"
-          control={<Radio />}
-          label="November 7, 2021"
-        />
-      </RadioGroup>
-    </FormControl>
+    <RadioGroup
+      aria-label="payment method"
+      name="paymentMethod"
+      onChange={props.handleChange}
+    >
+      <FormControlLabel
+        value="square"
+        name="paymentMethod"
+        control={<Radio />}
+        label="Square Credit Card"
+      />
+      <FormControlLabel
+        name="paymentMethod"
+        value="etransfer"
+        control={<Radio />}
+        label="E-Transfer"
+      />
+    </RadioGroup>
   )
 }
 
-const validationSchema = yup.object({
-  email: yup
-    .string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
-  name: yup.string("Enter your name").required("Name is required"),
-  address: yup.string("Enter your address"),
-  birthDate: yup.date("Enter a date"),
-  hcbc: yup.number().typeError("Needs to be a number"),
-})
-
-const EntryForm = props => {
+const EntryForm = ({ props }) => {
   return (
     <FormGroup>
       <FormLabel component="legend">Rider Info </FormLabel>
@@ -253,6 +251,15 @@ const EntryForm = props => {
     </FormGroup>
   )
 }
+const validationSchema = yup.object({
+  email: yup
+    .string("Enter your email")
+    .email("Enter a valid email")
+    .required("Email is required"),
+  name: yup.string("Enter your name").required("Name is required"),
+  address: yup.string("Enter your address"),
+  hcbc: yup.number().typeError("Needs to be a number"),
+})
 
 const Entry = () => {
   return (
@@ -262,7 +269,7 @@ const Entry = () => {
           onSubmit={values => {
             alert(JSON.stringify(values, null, 2))
           }}
-          validationSchema={validationSchema}
+          // validationSchema={validationSchema}
           initialValues={{
             name: "Winnie the Pooh",
             horseName: "Tigger Too",
@@ -270,18 +277,20 @@ const Entry = () => {
           }}
         >
           {props => (
-            <div>
-              <DateForm />
-              <EntryForm {...props} />
+            <Form>
+              {console.log(props)}
+              <Typography variant="h3"> Entry Form for event </Typography>
+              <DateForm props={props} />
+              <EntryForm props={props} />
               <WaiverForm />
-              <PaymentForm />
+              <PaymentForm props={props} />
               <Button variant="contained" color="secondary">
                 Clear
               </Button>
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" type="submit">
                 Submit
               </Button>
-            </div>
+            </Form>
           )}
         </Formik>
       </Main>
