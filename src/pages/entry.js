@@ -1,3 +1,5 @@
+// figure out what to do with number fields - initial values and parse
+
 import React from "react"
 import Layout from "../components/layout"
 import Main from "../components/MainContent"
@@ -16,6 +18,11 @@ import { DropzoneArea } from "material-ui-dropzone"
 import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf"
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail"
 import PhoneIcon from "@material-ui/icons/Phone"
+import ListAltIcon from "@material-ui/icons/ListAlt"
+import PersonIcon from "@material-ui/icons/Person"
+import ContactPhoneIcon from "@material-ui/icons/ContactPhone"
+import ContactsIcon from "@material-ui/icons/Contacts"
+import HorseHeadIcon from "../components/horseHeadIcon"
 
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
@@ -24,6 +31,7 @@ import ListItemText from "@material-ui/core/ListItemText"
 
 import { useFormik, Formik, Form, Field } from "formik"
 import * as yup from "yup"
+import { number } from "prop-types"
 
 const DateForm = ({ props }) => {
   return (
@@ -85,14 +93,14 @@ const WaiverForm = () => {
           <DropzoneArea
             filesLimit={1}
             dropzoneText="Drop (or click to upload) Waiver One"
-            onChange={files => console.log("Files:", files)}
+            // onChange={files => console.log("Files:", files)}
           />
         </Grid>
         <Grid item sm={6}>
           <DropzoneArea
             filesLimit={1}
             dropzoneText="Drop (or click to upload) Waiver Two"
-            onChange={files => console.log("Files:", files)}
+            // onChange={files => console.log("Files:", files)}
           />
         </Grid>
       </Grid>
@@ -126,51 +134,82 @@ const PaymentForm = ({ props }) => {
 const EntryForm = ({ props }) => {
   return (
     <FormGroup>
-      <FormLabel component="legend">Rider Info </FormLabel>
-
       <Grid container spacing={3}>
-        <Grid item sm={6}>
-          <TextField
-            fullWidth
-            variant="filled"
-            id="name"
-            name="name"
-            label="Name"
-            value={props.values.name}
-            onChange={props.handleChange}
-            error={props.touched.name && Boolean(props.errors.name)}
-            helperText={props.touched.name && props.errors.name}
-          />
+        <Grid item xs={12}>
+          <FormLabel component="legend">Rider Info </FormLabel>
         </Grid>
-        <Grid item sm={6}>
-          <TextField
-            fullWidth
-            variant="filled"
-            id="horseName"
-            name="horseName"
-            label="horseName"
-            value={props.values.horseName}
-            onChange={props.handleChange}
-            error={props.touched.horseName && Boolean(props.errors.horseName)}
-            helperText={props.touched.horseName && props.errors.horseName}
-          />
+        <Grid item md={6} xs={12}>
+          <Grid container>
+            <Grid item xs={1}>
+              <div className="icon-background">
+                <PersonIcon />
+              </div>
+            </Grid>
+            <Grid item xs={11}>
+              <TextField
+                fullWidth
+                variant="filled"
+                id="name"
+                name="name"
+                label="Name"
+                value={props.values.name}
+                onChange={props.handleChange}
+                error={props.touched.name && Boolean(props.errors.name)}
+                helperText={props.touched.name && props.errors.name}
+              />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item md={3} xs={12}>
-          <TextField label="Rider Email" fullWidth></TextField>
+        <Grid item md={6} xs={12}>
+          <Grid container>
+            <Grid item xs={1}>
+              <div className="icon-background">
+                <HorseHeadIcon />
+              </div>
+            </Grid>
+            <Grid item xs={11}>
+              <TextField
+                fullWidth
+                variant="filled"
+                id="horseName"
+                name="horseName"
+                label="Horse Name"
+                value={props.values.horseName}
+                onChange={props.handleChange}
+                error={
+                  props.touched.horseName && Boolean(props.errors.horseName)
+                }
+                helperText={props.touched.horseName && props.errors.horseName}
+              />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item md={3} xs={12}>
+        <Grid item md={6} xs={12}>
+          <Grid container>
+            <Grid item xs={1}>
+              <div className="icon-background">
+                <AlternateEmailIcon />
+              </div>
+            </Grid>
+            <Grid item xs={11}>
+              <TextField
+                fullWidth
+                variant="filled"
+                id="email"
+                name="email"
+                label="Email"
+                value={props.values.email}
+                onChange={props.handleChange}
+                error={props.touched.email && Boolean(props.errors.email)}
+                helperText={props.touched.email && props.errors.email}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item md={6} xs={12}>
           <Grid container spacing={0} alignItems="center">
             <Grid item xs={1}>
-              <div
-                style={{
-                  background: "rgba(0, 0, 0, 0.10)",
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "55px",
-                }}
-              >
+              <div className="icon-background">
                 <PhoneIcon />
               </div>
             </Grid>
@@ -178,73 +217,161 @@ const EntryForm = ({ props }) => {
               <TextField
                 fullWidth
                 variant="filled"
-                id="phone-number"
-                name="phone-number"
+                id="phoneNumber"
+                name="phoneNumber"
                 label="Phone Number"
-                value={props.values.phonenumber}
+                parse={parseInt(props.values.phoneNumber)}
+                value={props.values.phoneNumber}
                 onChange={props.handleChange}
                 error={
-                  props.touched.phonenumber && Boolean(props.errors.phonenumber)
+                  props.touched.phoneNumber && Boolean(props.errors.phoneNumber)
                 }
                 helperText={
-                  props.touched.phonenumber && props.errors.phonenumber
+                  props.touched.phoneNumber && props.errors.phoneNumber
                 }
               />
             </Grid>
           </Grid>
         </Grid>
-        <Grid item md={3} xs={6}>
-          <TextField label="HCBC Number" fullWidth></TextField>
+        <Grid item md={6} xs={12}>
+          <Grid container>
+            <Grid item xs={1}>
+              <div className="icon-background">
+                <span style={{ fontSize: "30px" }}>#</span>
+              </div>
+            </Grid>
+            <Grid item xs={11}>
+              <TextField
+                fullWidth
+                variant="filled"
+                id="hcbc"
+                name="hcbc"
+                label="Horse Council BC Member Number"
+                value={props.values.hcbc}
+                onChange={props.handleChange}
+                error={props.touched.hcbc && Boolean(props.errors.hcbc)}
+                helperText={props.touched.hcbc && props.errors.hcbc}
+              />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item md={2} xs={6}>
-          <RadioGroup aria-label="age" name="age">
-            <FormLabel component="legend">Age</FormLabel>
-
+        <Grid item md={6} xs={12}>
+          <FormLabel component="legend">Age</FormLabel>
+          <RadioGroup
+            aria-label="age"
+            name="age"
+            style={{ display: "flex", flexDirection: "row", marginTop: "0" }}
+          >
             <FormControlLabel
               value="junior"
               control={<Radio />}
               label="Junior"
+              name="age"
             />
             <FormControlLabel
               value="senior"
               control={<Radio />}
               label="Senior"
+              name="age"
             />
           </RadioGroup>
         </Grid>
-        <Grid item sm={6}>
-          <TextField
-            id="standard-basic"
-            label="Emergency Contact Name"
-            fullWidth
-          />
+        <Grid item sm={6} xs={12}>
+          <Grid container>
+            <Grid item xs={1}>
+              <div className="icon-background">
+                <ContactsIcon />
+              </div>
+            </Grid>
+            <Grid item xs={11}>
+              <TextField
+                fullWidth
+                variant="filled"
+                id="emergContactName"
+                name="emergContactName"
+                label="Emergancy Contact Name"
+                value={props.values.emergContactName}
+                onChange={props.handleChange}
+                error={
+                  props.touched.emergContactName &&
+                  Boolean(props.errors.emergContactName)
+                }
+                helperText={
+                  props.touched.emergContactName &&
+                  props.errors.emergContactName
+                }
+              />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item sm={6}>
-          <TextField
-            id="standard-basic"
-            label="Emergency Contact Phone Number"
-            fullWidth
-          />
+        <Grid item md={6} xs={12}>
+          <Grid container>
+            <Grid item xs={1}>
+              <div className="icon-background">
+                <ContactPhoneIcon />
+              </div>
+            </Grid>
+            <Grid item xs={11}>
+              <TextField
+                fullWidth
+                variant="filled"
+                id="emergContactPh"
+                name="emergContactPh"
+                label="Emergency Contact Phone Number"
+                value={props.values.emergContactPh}
+                onChange={props.handleChange}
+                error={Boolean(props.errors.emergContactPh)}
+                helperText={props.errors.emergContactPh}
+              />
+            </Grid>
+          </Grid>
         </Grid>
 
         <Grid item xs={12}>
           <FormLabel component="legend">Test Info </FormLabel>
         </Grid>
-        <Grid item sm={12}>
-          <TextField id="standard-basic" label="Test 1 Source" fullWidth />
+        <Grid item xs={12}>
+          <Grid container>
+            <Grid item xs={1}>
+              <div className="icon-background">
+                <ListAltIcon />
+              </div>
+            </Grid>
+            <Grid
+              item
+              xs={11}
+              style={{ display: "flex", flexDirection: "row" }}
+            >
+              <TextField
+                id="test1"
+                variant="filled"
+                name="test1"
+                label="Test 1 Source"
+                fullWidth
+                value={props.values.test1}
+                onChange={props.handleChange}
+                error={props.touched.test1 && Boolean(props.errors.test1)}
+                helperText={props.touched.test1 && props.errors.test1}
+              />
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item sm={12}>
-          <TextField id="standard-basic" label="Test 2 Source" fullWidth />
-        </Grid>
+
         <Grid item xs={12}>
           <TextField
+            id="notes"
+            name="notes"
             label="Notes"
-            placeholder="MultiLine with rows: 2 and rowsMax: 4"
+            placeholder="Any special needs and/or considerations"
             multiline
             rows={4}
             rowsMax={6}
             fullWidth
             variant="filled"
+            value={props.values.notes}
+            onChange={props.handleChange}
+            error={props.touched.notes && Boolean(props.errors.notes)}
+            helperText={props.touched.notes && props.errors.notes}
           />
         </Grid>
       </Grid>
@@ -271,9 +398,9 @@ const Entry = () => {
           }}
           // validationSchema={validationSchema}
           initialValues={{
-            name: "Winnie the Pooh",
-            horseName: "Tigger Too",
-            phonenumber: "123-123-1234",
+            name: "",
+            horseName: "",
+            phoneNumber: "",
           }}
         >
           {props => (
