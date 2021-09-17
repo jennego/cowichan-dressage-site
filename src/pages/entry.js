@@ -417,7 +417,7 @@ const Entry = () => {
               <Typography variant="h3"> Entry Form for event </Typography>
               <DateForm props={props} />
               <EntryForm props={props} />
-              <WaiverForm />
+              {/* <WaiverForm /> */}
               <PaymentForm props={props} />
               <Button variant="contained" color="secondary">
                 Clear
