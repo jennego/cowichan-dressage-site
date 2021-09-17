@@ -9,6 +9,7 @@
     "@date-io/moment": "^1.3.13",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/pickers": "^3.3.10",
     "@zach.codes/react-calendar": "^0.3.1",
     "date-fns": "^2.23.0",
@@ -32,7 +33,8 @@
     "react-helmet": "^6.1.0",
     "react-parallax": "^3.3.0",
     "use-breakpoint": "^2.0.1",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "yup-phone": "^1.2.19"
   },
   "devDependencies": {
     "prettier": "2.3.2"

@@ -29,6 +29,8 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 
+import SelectCreateBox from "../components/selectCreateBox"
+
 import { useFormik, Formik, Form, Field } from "formik"
 import * as yup from "yup"
 import { number } from "prop-types"
@@ -132,6 +134,8 @@ const PaymentForm = ({ props }) => {
 }
 
 const EntryForm = ({ props }) => {
+  const list = [{ label: "EC" }, { label: "HCBC" }, { label: "Western" }]
+
   return (
     <FormGroup>
       <Grid container spacing={3}>
@@ -337,16 +341,19 @@ const EntryForm = ({ props }) => {
                 <ListAltIcon />
               </div>
             </Grid>
-            <Grid
-              item
-              xs={11}
-              style={{ display: "flex", flexDirection: "row" }}
-            >
+            <Grid item xs={11} sm={4}>
+              <Field
+                name="testSource"
+                list={list}
+                component={SelectCreateBox}
+              />
+            </Grid>
+            <Grid item xs={12} sm={7}>
               <TextField
                 id="test1"
                 variant="filled"
                 name="test1"
-                label="Test 1 Source"
+                label="Test 1 Details"
                 fullWidth
                 value={props.values.test1}
                 onChange={props.handleChange}
@@ -361,13 +368,14 @@ const EntryForm = ({ props }) => {
           <TextField
             id="notes"
             name="notes"
-            label="Notes"
-            placeholder="Any special needs and/or considerations"
+            label="Notes (preferences etc) "
+            placeholder="Note to organizers (preferred ride times, travel considerations, etc.)"
             multiline
             rows={4}
             rowsMax={6}
             fullWidth
             variant="filled"
+            helperText=""
             value={props.values.notes}
             onChange={props.handleChange}
             error={props.touched.notes && Boolean(props.errors.notes)}

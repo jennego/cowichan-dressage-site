@@ -8,6 +8,8 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers"
 import Button from "@material-ui/core/Button"
 import { format, formatDistance, formatRelative, subDays } from "date-fns"
 import { processForm } from "../components/formProcessing"
+import SelectCreateBox from "../components/selectCreateBox"
+
 const DatePickerField = ({ field, form, ...other }) => {
   const currentError = form.errors[field.name]
 
@@ -30,7 +32,7 @@ const DatePickerField = ({ field, form, ...other }) => {
         }
       }}
       // if you are using custom validation schema you probably want to pass `true` as third argument
-      onChange={date => form.setFieldValue(field.name, date, false)}
+      onChange={date => form.setFieldValue(field.name, date, true)}
       {...other}
     />
   )
@@ -39,21 +41,24 @@ const DatePickerField = ({ field, form, ...other }) => {
 // values and errors can be just props if you aren't using them in that component
 
 const FormikExample = () => {
-  const encode = data => {
-    return Object.keys(data)
-      .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-      .join("&")
-  }
+  const list = [{ label: "EC" }, { label: "HCBC" }, { label: "Western" }]
+
   return (
     // format(values.date, "EEEE, MMMM d, yyyy")
     <Formik
-      onSubmit={() => processForm("date")}
+      onSubmit={values => {
+        alert(JSON.stringify(values, null, 2))
+      }}
+      // onSubmit={() => processForm("date")}
       initialValues={{
         date: new Date(),
+        testSource: "",
       }}
     >
       {({ values, errors }) => (
         <Form name="date" data-netlify="true">
+          <Field name="testSource" list={list} component={SelectCreateBox} />
+
           <Grid container>
             <Grid item container justify="center" xs={12}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
