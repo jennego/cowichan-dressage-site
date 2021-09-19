@@ -14,6 +14,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel"
 import FormControl from "@material-ui/core/FormControl"
 import FormLabel from "@material-ui/core/FormLabel"
 import { DropzoneArea } from "material-ui-dropzone"
+import Checkbox from "@material-ui/core/Checkbox"
 
 import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf"
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail"
@@ -333,8 +334,24 @@ const EntryForm = ({ props }) => {
         </Grid>
 
         <Grid item xs={12}>
-          {/* <FormLabel component="legend">Test Info </FormLabel> */}
-          <TestInfo props={props} />
+          <Grid container>
+            <Grid item style={{ marginTop: "10px" }}>
+              <Checkbox color="primary" checked />
+            </Grid>
+            <Grid item style={{ flexGrow: "1" }}>
+              <FormLabel> Session 1 - $100 </FormLabel>
+              <div style={{ border: "1px solid", padding: "0.5rem" }}>
+                <Typography variant="body1" style={{ padding: "0.5rem" }}>
+                  Description if required
+                </Typography>
+                {/* <FormLabel component="legend">Test Info </FormLabel> */}
+                <TestInfo props={props} />
+              </div>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12} style={{ textAlign: "right" }}>
+          Cost: $100
         </Grid>
 
         <Grid item xs={12}>
