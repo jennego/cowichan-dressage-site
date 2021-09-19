@@ -34,6 +34,7 @@ import SelectCreateBox from "../components/selectCreateBox"
 import { useFormik, Formik, Form, Field } from "formik"
 import * as yup from "yup"
 import { number } from "prop-types"
+import TestInfo from "../components/selectWithOther"
 
 const DateForm = ({ props }) => {
   return (
@@ -332,36 +333,8 @@ const EntryForm = ({ props }) => {
         </Grid>
 
         <Grid item xs={12}>
-          <FormLabel component="legend">Test Info </FormLabel>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container>
-            <Grid item xs={1}>
-              <div className="icon-background">
-                <ListAltIcon />
-              </div>
-            </Grid>
-            <Grid item xs={11} sm={4}>
-              <Field
-                name="testSource"
-                list={list}
-                component={SelectCreateBox}
-              />
-            </Grid>
-            <Grid item xs={12} sm={7}>
-              <TextField
-                id="test1"
-                variant="filled"
-                name="test1"
-                label="Test 1 Details"
-                fullWidth
-                value={props.values.test1}
-                onChange={props.handleChange}
-                error={props.touched.test1 && Boolean(props.errors.test1)}
-                helperText={props.touched.test1 && props.errors.test1}
-              />
-            </Grid>
-          </Grid>
+          {/* <FormLabel component="legend">Test Info </FormLabel> */}
+          <TestInfo props={props} />
         </Grid>
 
         <Grid item xs={12}>
@@ -409,6 +382,7 @@ const Entry = () => {
             name: "",
             horseName: "",
             phoneNumber: "",
+            testSource: "",
           }}
         >
           {props => (

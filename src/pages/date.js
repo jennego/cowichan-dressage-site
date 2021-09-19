@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button"
 import { format, formatDistance, formatRelative, subDays } from "date-fns"
 import { processForm } from "../components/formProcessing"
 import SelectCreateBox from "../components/selectCreateBox"
+import TestInfo from "../components/selectWithOther"
 
 const DatePickerField = ({ field, form, ...other }) => {
   const currentError = form.errors[field.name]
@@ -45,31 +46,30 @@ const FormikExample = () => {
 
   return (
     // format(values.date, "EEEE, MMMM d, yyyy")
+
     <Formik
       onSubmit={values => {
         alert(JSON.stringify(values, null, 2))
       }}
       // onSubmit={() => processForm("date")}
       initialValues={{
-        date: new Date(),
         testSource: "",
       }}
     >
-      {({ values, errors }) => (
+      {props => (
         <Form name="date" data-netlify="true">
-          <Field name="testSource" list={list} component={SelectCreateBox} />
-
           <Grid container>
-            <Grid item container justify="center" xs={12}>
+            {/* <Grid item container justify="center" xs={12}>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <Field name="date" component={DatePickerField} />
+              <Field name="date" component={DatePickerField} />
               </MuiPickersUtilsProvider>
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12} sm={12} style={{ margin: "24px" }}>
-              {JSON.stringify({ errors, values }, null, 2)}
+              {JSON.stringify(props.values, null, 2)}
             </Grid>
           </Grid>
+          <TestInfo props={props} />
           <Button color="primary" variant="contained" type="submit">
             Submit
           </Button>
