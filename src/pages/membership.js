@@ -26,6 +26,7 @@ import ContactsIcon from "@material-ui/icons/Contacts"
 import Radio from "@material-ui/core/Radio"
 import RadioGroup from "@material-ui/core/RadioGroup"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
+import { processForm } from "../components/formProcessing"
 
 const BirthDatePickerField = ({ field, form, props, ...other }) => {
   const currentError = form.errors[field.name]
@@ -100,8 +101,8 @@ const MemberForm = () => {
   // })
   return (
     <Formik
-      onSubmit={values => {
-        alert(JSON.stringify(values, null, 2))
+      onSubmit={() => {
+        processForm("membership")
       }}
       validationSchema={validationSchema}
       initialValues={{
@@ -114,8 +115,7 @@ const MemberForm = () => {
       }}
     >
       {props => (
-        <Form>
-          {console.log("formik props", props)}
+        <Form data-netlify="true" name="membership">
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Grid container>
