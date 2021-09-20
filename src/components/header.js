@@ -88,7 +88,7 @@ function Nav() {
       file(name: { eq: "cdclogo" }) {
         id
         childrenImageSharp {
-          gatsbyImageData(height: 69, width: 170)
+          gatsbyImageData(height: 69, width: 170, placeholder: BLURRED)
         }
       }
     }

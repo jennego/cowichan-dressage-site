@@ -3,15 +3,7 @@ import Main from "../components/MainContent"
 import Layout from "../components/layout"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
-import Menu from "@material-ui/core/Menu"
-import MenuItem from "@material-ui/core/MenuItem"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemText from "@material-ui/core/ListItemText"
-import ListItemAvatar from "@material-ui/core/ListItemAvatar"
-import { ListItemIcon } from "@material-ui/core"
-import Avatar from "@material-ui/core/Avatar"
-import EventIcon from "@material-ui/icons/Event"
+
 import Grid from "@material-ui/core/Grid"
 
 import Accordion from "@material-ui/core/Accordion"
@@ -23,11 +15,11 @@ import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { graphql } from "gatsby"
 import { StaticImage, GatsbyImage } from "gatsby-plugin-image"
 
-import { format } from "date-fns"
+import { DateList } from "../components/dateButtonList"
 
 export const query = graphql`
-  {
-    contentfulEvent {
+  query eventQuery($id: String!) {
+    contentfulEvent(id: { eq: $id }) {
       eventName
       eventDates {
         date
@@ -61,26 +53,7 @@ const Event = ({ data, pageContext }) => {
         </Typography>
         <Grid container>
           <Grid item md={8}>
-            <List>
-              <Grid container>
-                {event.eventDates.map(date => (
-                  <Grid item>
-                    <ListItem button>
-                      <ListItemIcon>
-                        <EventIcon fontSize="large" />
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={format(
-                          new Date(date.date),
-                          "EEEE, LLLL d, yyyy"
-                        )}
-                        secondary={date.subtitle}
-                      />
-                    </ListItem>
-                  </Grid>
-                ))}
-              </Grid>
-            </List>
+            <DateList eventDates={event.eventDates} />
           </Grid>
           <Grid item md={4}>
             <StaticImage src="https://images.unsplash.com/flagged/photo-1568382007362-5d0d0a26b422?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" />

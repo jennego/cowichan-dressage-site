@@ -13,6 +13,7 @@ import enUS from "date-fns/locale/en-US"
 import toDate from "date-fns/toDate"
 
 import "react-big-calendar/lib/css/react-big-calendar.css"
+import { Typography } from "@material-ui/core"
 
 const MyAgendaEvent = e => (
   <>

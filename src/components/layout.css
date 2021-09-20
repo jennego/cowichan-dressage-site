@@ -102,3 +102,13 @@ h5 {
 .rbc-header {
   display: none;
 }
+
+.rbc-toolbar-label {
+  font-size: 2.5rem;
+  font-family: "Lato", sans-serif;
+}
+
+.date-menu {
+  text-align: right;
+  font-size: 1.0625rem;
+}
