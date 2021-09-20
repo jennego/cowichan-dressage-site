@@ -101,9 +101,7 @@ const MemberForm = () => {
   // })
   return (
     <Formik
-      onSubmit={() => {
-        processForm("membership")
-      }}
+      onSubmit={(values, actions) => processForm("membership")}
       validationSchema={validationSchema}
       initialValues={{
         email: "",
