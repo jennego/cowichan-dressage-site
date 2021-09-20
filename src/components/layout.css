@@ -94,3 +94,11 @@ h5 {
   align-items: center;
   height: 60px;
 }
+
+.rbc-agenda-time-cell {
+  display: none;
+}
+
+.rbc-header {
+  display: none;
+}
