@@ -87,6 +87,12 @@ const validationSchema = yup.object({
     .required("Emergency contact phone number is required"),
 })
 
+const encode = data => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&")
+}
+
 const MemberForm = () => {
   // const formik = useFormik({
   //   initialValues: {
@@ -101,7 +107,21 @@ const MemberForm = () => {
   // })
   return (
     <Formik
-      onSubmit={(values, actions) => processForm("membership")}
+      onSubmit={(values, actions) => {
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encode({ "form-name": "membership", ...values }),
+        })
+          .then(() => {
+            alert("Success")
+            actions.resetForm()
+          })
+          .catch(() => {
+            alert("Error")
+          })
+          .finally(() => actions.setSubmitting(false))
+      }}
       validationSchema={validationSchema}
       initialValues={{
         email: "",
