@@ -65,7 +65,7 @@ const IndexPage = () => (
       </div>
 
       <Grid container spacing={3}>
-        <Grid item md={6}>
+        <Grid item xs={12} md={6}>
           <Typography variant="h4">Upcoming Events</Typography>
 
           <List>
@@ -92,9 +92,16 @@ const IndexPage = () => (
           <Button variant="contained">See All Events</Button>
         </Grid>
 
-        <Grid item md={6}>
-          <Typography variant="h4">News</Typography>
-          Blog posts or social media feed
+        <Grid item xs={12} md={6}>
+          <iframe
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCowichanDressageClub&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=936287190463514"
+            width="450"
+            height="500"
+            scrolling="no"
+            frameborder="0"
+            allowfullscreen="true"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          ></iframe>
         </Grid>
       </Grid>
     </Container>
