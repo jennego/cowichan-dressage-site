@@ -150,7 +150,12 @@ const MemberForm = () => {
       }}
     >
       {props => (
-        <Form data-netlify="true" name="membership">
+        <Form
+          data-netlify="true"
+          name="membership"
+          data-netlify-recaptcha="true"
+          netlify-honeypot="bot-field"
+        >
           <AlertDialog
             title={title}
             content={content}
@@ -380,6 +385,7 @@ const MemberForm = () => {
             <Button color="secondary" variant="contained">
               Clear
             </Button>
+            <div data-netlify-recaptcha="true" />
 
             <Button color="primary" variant="contained" type="submit">
               Submit
