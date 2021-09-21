@@ -153,6 +153,7 @@ const MemberForm = () => {
         phonenumber: "",
         hcbc: "",
         paymentMethod: "",
+        recaptcha: "",
       }}
     >
       {props => (
@@ -162,11 +163,7 @@ const MemberForm = () => {
           data-netlify-recaptcha="true"
           netlify-honeypot="bot-field"
         >
-          <p style={{ display: "none" }}>
-            <label>
-              Don’t fill this out if you’re human: <input name="bot-field" />
-            </label>
-          </p>
+          <Field type="hidden" name="bot-field" />
 
           <AlertDialog
             title={title}
@@ -399,7 +396,7 @@ const MemberForm = () => {
             </Button> */}
             <ReCAPTCHA
               sitekey="6LcpmH8cAAAAAAxPsO8hrUvpeg81VRHdeE5ekNJH"
-              onChange={onChange}
+              onChange={value => setFieldValue("recaptcha", value)}
             />
             <Button color="primary" variant="contained" type="submit">
               Submit
