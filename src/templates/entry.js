@@ -74,7 +74,7 @@ export const query = graphql`
   }
 `
 
-const DateForm = ({ data, props }) => {
+const DateForm = ({ data, props, location }) => {
   console.log(location)
   return (
     <div style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
@@ -85,14 +85,24 @@ const DateForm = ({ data, props }) => {
           name="dateSelect"
           onChange={props.handleChange}
         >
-          {data.contentfulEvent.eventDates.map(date => (
-            <FormControlLabel
-              name="dateSelect"
-              value={date.date}
-              control={<Radio />}
-              label={format(new Date(date.date), "EEEE, MMMM d, yyyy")}
-            />
-          ))}
+          {data.contentfulEvent.eventDates.map(date =>
+            location.state ? (
+              <FormControlLabel
+                name="dateSelect"
+                checked={date.date === location.state.date ? true : false}
+                value={date.date}
+                control={<Radio />}
+                label={format(new Date(date.date), "EEEE, MMMM d, yyyy")}
+              />
+            ) : (
+              <FormControlLabel
+                name="dateSelect"
+                value={date.date}
+                control={<Radio />}
+                label={format(new Date(date.date), "EEEE, MMMM d, yyyy")}
+              />
+            )
+          )}
         </RadioGroup>
       </FormControl>
     </div>
@@ -491,7 +501,7 @@ const Entry = ({ pageContext, data, location }) => {
           }}
           // validationSchema={validationSchema}
           initialValues={{
-            dateSelect: "2021-21-08",
+            dateSelect: location.state ? location.state.date : "",
             name: "",
             horseName: "",
             phoneNumber: "",
@@ -506,7 +516,7 @@ const Entry = ({ pageContext, data, location }) => {
               netlify-honeypot="bot-field"
             >
               {console.log(props)}
-              <DateForm props={props} data={data} />
+              <DateForm props={props} data={data} location={location} />
               <EntryForm props={props} data={data} />
               {/* <WaiverForm /> */}
               <PaymentForm props={props} data={data} />
