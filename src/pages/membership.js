@@ -153,10 +153,10 @@ const MemberForm = () => {
         <Form
           data-netlify="true"
           name="membership"
-          data-netlify-recaptcha="true"
+          // data-netlify-recaptcha="true"
           netlify-honeypot="bot-field"
         >
-          <p class="hidden">
+          <p style={{ display: "none" }}>
             <label>
               Don’t fill this out if you’re human: <input name="bot-field" />
             </label>
