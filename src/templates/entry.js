@@ -39,6 +39,8 @@ import { number } from "prop-types"
 import TestInfo from "../components/selectWithOther"
 import ResponsiveDialog from "../components/infoDialog"
 
+import { format, isBefore, startOfToday } from "date-fns"
+
 export const query = graphql`
   query entryQuery($id: String!) {
     contentfulEvent(id: { eq: $id }) {
@@ -72,7 +74,8 @@ export const query = graphql`
   }
 `
 
-const DateForm = ({ props }) => {
+const DateForm = ({ data, props }) => {
+  console.log(data)
   return (
     <div style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
       <FormControl component="fieldset">
@@ -82,24 +85,20 @@ const DateForm = ({ props }) => {
           name="dateSelect"
           onChange={props.handleChange}
         >
+          {data.contentfulEvent.eventDates.map(date => (
+            <FormControlLabel
+              name="dateSelect"
+              value={date.date}
+              control={<Radio />}
+              label={format(new Date(date.date), "EEE, MMMM d, yyyy")}
+            />
+          ))}
+
           <FormControlLabel
             name="dateSelect"
             value="August 22, 2021"
-            disabled
             control={<Radio />}
             label="August 22, 2021"
-          />
-          <FormControlLabel
-            name="dateSelect"
-            value="September 26, 2021"
-            control={<Radio />}
-            label="September 26, 2021"
-          />
-          <FormControlLabel
-            name="dateSelect"
-            value="November 7, 2021"
-            control={<Radio />}
-            label="November 7, 2021"
           />
         </RadioGroup>
       </FormControl>
@@ -438,7 +437,6 @@ const Entry = ({ pageContext, data }) => {
           ) : (
             ""
           )}
-          {console.log("graphql data", data)}
           <Checkbox color="primary" /> I have read the rules{" "}
         </div>
         <hr />
@@ -457,10 +455,10 @@ const Entry = ({ pageContext, data }) => {
           {props => (
             <Form>
               {console.log(props)}
-              <DateForm props={props} />
-              <EntryForm props={props} />
+              <DateForm props={props} data={data} />
+              <EntryForm props={props} data={data} />
               {/* <WaiverForm /> */}
-              <PaymentForm props={props} />
+              <PaymentForm props={props} data={data} />
               <Button variant="contained" color="secondary">
                 Clear
               </Button>
