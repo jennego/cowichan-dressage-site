@@ -33,6 +33,8 @@ import FormHelperText from "@material-ui/core/FormHelperText"
 import { processForm } from "../components/formProcessing"
 import AlertDialog from "../alertDialog"
 
+import ReCAPTCHA from "react-google-recaptcha"
+
 const BirthDatePickerField = ({ field, form, props, ...other }) => {
   const currentError = form.errors[field.name]
   console.log("current error", Boolean(currentError))
@@ -115,6 +117,10 @@ const MemberForm = () => {
     setOpen(false)
   }
 
+  function onChange(value) {
+    console.log("Captcha value:", value)
+  }
+
   return (
     <Formik
       onSubmit={(values, actions) => {
@@ -153,8 +159,8 @@ const MemberForm = () => {
         <Form
           data-netlify="true"
           name="membership"
-          // data-netlify-recaptcha="true"
-          // netlify-honeypot="bot-field"
+          data-netlify-recaptcha="true"
+          netlify-honeypot="bot-field"
         >
           <p style={{ display: "none" }}>
             <label>
@@ -391,7 +397,10 @@ const MemberForm = () => {
             {/* <Button color="secondary" variant="contained">
               Clear
             </Button> */}
-            <div data-netlify-recaptcha="true"></div>
+            <ReCAPTCHA
+              sitekey="6LcpmH8cAAAAAAxPsO8hrUvpeg81VRHdeE5ekNJH"
+              onChange={onChange}
+            />
             <Button color="primary" variant="contained" type="submit">
               Submit
             </Button>
