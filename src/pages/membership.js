@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useState } from "react"
 import Layout from "../components/layout"
 import Main from "../components/MainContent"
+import { navigate } from "gatsby-link"
 import { useFormik, Formik, Form, Field } from "formik"
 import * as yup from "yup"
 import Button from "@material-ui/core/Button"
@@ -26,7 +27,11 @@ import ContactsIcon from "@material-ui/icons/Contacts"
 import Radio from "@material-ui/core/Radio"
 import RadioGroup from "@material-ui/core/RadioGroup"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
+import FormControl from "@material-ui/core/FormControl"
+import FormHelperText from "@material-ui/core/FormHelperText"
+
 import { processForm } from "../components/formProcessing"
+import AlertDialog from "../alertDialog"
 
 const BirthDatePickerField = ({ field, form, props, ...other }) => {
   const currentError = form.errors[field.name]
@@ -44,13 +49,13 @@ const BirthDatePickerField = ({ field, form, props, ...other }) => {
       fullWidth
       clearable
       label="Birth Date"
-      placeholder="MM/DD/YYYY"
+      // placeholder="MM/DD/YYYY"
       disableFuture
       name={field.name}
       value={props.values.birthDate}
       views={["year", "month", "date"]}
       openTo="year"
-      format="MM/dd/yyyy"
+      format="yyyy-MM-dd"
       error={props.touched.birthDate && Boolean(props.errors.birthDate)}
       helperText={props.touched.birthDate && props.errors.birthDate}
       // helperText={currentError}
@@ -77,14 +82,12 @@ const validationSchema = yup.object({
   address: yup.string("Enter your address").required("Address is required"),
   birthDate: yup.date().typeError("Enter a date").required("Enter a date"),
   hcbc: yup.number().typeError("Needs to be a number"),
-  phonenumber: yup.number().typeError("Needs to be a number"),
+  phonenumber: yup.string().typeError("Needs to be a number"),
   emergContactName: yup
     .string("Enter name of emergency contact")
     .required("Emergency contact name is required"),
-  emergContactPh: yup
-    .number()
-    .typeError("Needs to be a number")
-    .required("Emergency contact phone number is required"),
+  emergContactPh: yup.string().typeError("Needs to be a number"),
+  paymentMethod: yup.string().required("You must choose a payment method"),
 })
 
 const encode = data => {
@@ -94,17 +97,24 @@ const encode = data => {
 }
 
 const MemberForm = () => {
-  // const formik = useFormik({
-  //   initialValues: {
-  //     email: "foobar@example.com",
-  //     name: "Bob",
-  //     birthDate: new Date(),
-  //   },
-  //   validationSchema: validationSchema,
-  //   onSubmit: values => {
-  //     alert(JSON.stringify(values, null, 2))
-  //   },
-  // })
+  const [open, setOpen] = React.useState(false)
+  const [title, setTitle] = useState("")
+  const [content, setContent] = useState("")
+
+  const handleOpen = (title, content) => {
+    setOpen(true)
+    setTitle(title)
+    setContent(content)
+
+    setTimeout(() => {
+      setOpen(false)
+    }, 2000)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   return (
     <Formik
       onSubmit={(values, actions) => {
@@ -114,10 +124,13 @@ const MemberForm = () => {
           body: encode({ "form-name": "membership", ...values }),
         })
           .then(() => {
-            alert("Success")
+            alert(JSON.stringify(values, null, 2))
+            handleOpen("Success!", "Form has been successfully submitted!")
             actions.resetForm()
           })
           .catch(() => {
+            alert(JSON.stringify(values, null, 2))
+
             alert("Error")
           })
           .finally(() => actions.setSubmitting(false))
@@ -130,10 +143,20 @@ const MemberForm = () => {
         birthDate: null,
         paymentMethod: "",
         emergContactName: "",
+        emergContactPh: "",
+        phonenumber: "",
+        hcbc: "",
+        paymentMethod: "",
       }}
     >
       {props => (
         <Form data-netlify="true" name="membership">
+          <AlertDialog
+            title={title}
+            content={content}
+            open={open}
+            handleClose={handleClose}
+          />
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Grid container>
@@ -212,8 +235,8 @@ const MemberForm = () => {
                   <TextField
                     fullWidth
                     variant="filled"
-                    id="phone-number"
-                    name="phone-number"
+                    id="phonenumber"
+                    name="phonenumber"
                     label="Phone Number"
                     value={props.values.phonenumber}
                     onChange={props.handleChange}
@@ -322,25 +345,35 @@ const MemberForm = () => {
               </Grid>
             </Grid>
             <Grid item xs={12} sm={6}>
-              Payment
-              <RadioGroup
-                aria-label="payment method"
-                name="paymentMethod"
-                onChange={props.handleChange}
+              <FormControl
+                error={
+                  props.touched.paymentMethod &&
+                  Boolean(props.errors.paymentMethod)
+                }
               >
-                <FormControlLabel
-                  value="square"
+                Payment
+                <RadioGroup
+                  aria-label="payment method"
                   name="paymentMethod"
-                  control={<Radio />}
-                  label="Square Credit Card"
-                />
-                <FormControlLabel
-                  name="paymentMethod"
-                  value="etransfer"
-                  control={<Radio />}
-                  label="E-Transfer"
-                />
-              </RadioGroup>
+                  onChange={props.handleChange}
+                >
+                  <FormControlLabel
+                    value="square"
+                    name="paymentMethod"
+                    control={<Radio />}
+                    label="Square Credit Card"
+                  />
+                  <FormControlLabel
+                    name="paymentMethod"
+                    value="etransfer"
+                    control={<Radio />}
+                    label="E-Transfer"
+                  />
+                </RadioGroup>
+                <FormHelperText>
+                  {props.touched.paymentMethod && props.errors.paymentMethod}
+                </FormHelperText>
+              </FormControl>
             </Grid>
           </Grid>
           <div style={{ marginTop: "2rem" }}>
