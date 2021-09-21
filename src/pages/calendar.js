@@ -67,9 +67,11 @@ const Cal = () => {
     title: node.event ? node.event[0].eventName : "",
     allDay: true,
     slug: node.event ? node.event[0].slug : "",
-    locationName: node.locationName
-      ? node.locationName
-      : node.event[0].locationName,
+    // locationName: node.locationName
+    //   ? node.locationName
+    //   : node.event[0]
+    //   ? node.event[0].locationName
+    //   : "",
   }))
 
   console.log(dateArr)
