@@ -396,7 +396,7 @@ const MemberForm = () => {
             </Button> */}
             <ReCAPTCHA
               sitekey="6LcpmH8cAAAAAAxPsO8hrUvpeg81VRHdeE5ekNJH"
-              onChange={value => setFieldValue("recaptcha", value)}
+              onChange={value => props.setFieldValue("recaptcha", value)}
             />
             <Button color="primary" variant="contained" type="submit">
               Submit

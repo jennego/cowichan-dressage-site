@@ -105,11 +105,11 @@ function Nav() {
             style={{ display: "flex", alignItems: "center" }}
           >
             <div className="logo-header" onClick={() => navigate("/")}>
-              <GatsbyImage
+              {/* <GatsbyImage
                 image={logo.file.childrenImageSharp[0].gatsbyImageData}
                 objectFit="contain"
                 style={{ width: "120px" }}
-              />
+              /> */}
               <div className="logo-text-container">
                 <h1 className="logo-text">Cowichan Dressage Club</h1>
               </div>
