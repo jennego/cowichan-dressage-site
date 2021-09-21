@@ -60,18 +60,18 @@ const HamburgerMenu = ({ children }) => {
 
 const MenuItems = () => (
   <>
-    <MenuItem onClick={() => navigate("/event")} className="menu-item">
-      Events and Entries{" "}
+    <MenuItem onClick={() => navigate("/events")} className="menu-item">
+      Events
     </MenuItem>
     <MenuItem className="menu-item" onClick={() => navigate("/calendar")}>
-      Calendar{" "}
+      Calendar
     </MenuItem>
 
     <MenuItem className="menu-item" onClick={() => navigate("/membership")}>
-      Membership{" "}
+      Membership
     </MenuItem>
     <MenuItem className="menu-item" onClick={() => navigate("/downloads")}>
-      Downloads{" "}
+      Downloads
     </MenuItem>
     <MenuItem className="menu-item" onClick={() => navigate("/about")}>
       About

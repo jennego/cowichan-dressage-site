@@ -60,15 +60,6 @@ const BirthDatePickerField = ({ field, form, props, ...other }) => {
       format="yyyy-MM-dd"
       error={props.touched.birthDate && Boolean(props.errors.birthDate)}
       helperText={props.touched.birthDate && props.errors.birthDate}
-      // helperText={currentError}
-      // error={Boolean(currentError)}
-      // onError={error => {
-      //   // handle as a side effect
-      //   if (error !== currentError) {
-      //     form.setFieldError(field.name, error)
-      //   }
-      // }}
-      // if you are using custom validation schema you probably want to pass `true` as third argument
       onChange={date => form.setFieldValue(field.name, date, false)}
       {...other}
     />

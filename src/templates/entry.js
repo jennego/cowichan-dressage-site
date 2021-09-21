@@ -47,8 +47,15 @@ export const query = graphql`
         date
         subtitle
       }
-      eventInformation {
-        raw
+      contacts {
+        email
+        name
+        title
+      }
+      sessions {
+        testFields
+        cost
+        description
       }
       rules {
         raw

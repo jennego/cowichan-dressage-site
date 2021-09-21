@@ -28,7 +28,7 @@ async function createEvents(graphql, actions) {
 
   pageEdges.forEach((edge, index) => {
     const { id, slug, eventName } = edge.node
-    const path = `/event/${slug}/`
+    const path = `/events/${slug}/`
 
     createPage({
       path,
@@ -65,7 +65,7 @@ async function createEventEntries(graphql, actions) {
 
   pageEdges.forEach((edge, index) => {
     const { id, slug, eventName } = edge.node
-    const path = `/event/${slug}/entry`
+    const path = `/events/${slug}/entry`
 
     createPage({
       path,

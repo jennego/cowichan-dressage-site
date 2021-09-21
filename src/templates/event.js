@@ -25,6 +25,11 @@ export const query = graphql`
         date
         subtitle
       }
+      contacts {
+        email
+        name
+        title
+      }
       eventInformation {
         raw
       }
@@ -53,7 +58,7 @@ const Event = ({ data, pageContext }) => {
         </Typography>
         <Grid container>
           <Grid item md={8}>
-            <DateList eventDates={event.eventDates} />
+            <DateList eventDates={event.eventDates} entryURL="entry" />
           </Grid>
           <Grid item md={4}>
             <StaticImage src="https://images.unsplash.com/flagged/photo-1568382007362-5d0d0a26b422?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" />

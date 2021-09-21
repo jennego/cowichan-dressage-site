@@ -18,7 +18,7 @@ import ExpandLess from "@material-ui/icons/ExpandLess"
 import ExpandMore from "@material-ui/icons/ExpandMore"
 import Collapse from "@material-ui/core/Collapse"
 
-export const DateList = ({ eventDates, event }) => {
+export const DateList = ({ eventDates, entryURL }) => {
   const [selectedIndex, setSelectedIndex] = React.useState("")
 
   const handleClick = index => {
@@ -64,7 +64,7 @@ export const DateList = ({ eventDates, event }) => {
                     className="date-menu"
                   />
                 </ListItem>
-                <ListItem button onClick={() => navigate("entry")}>
+                <ListItem button onClick={() => navigate(entryURL)}>
                   <ListItemText
                     disableTypography
                     primary="Entry Form"
