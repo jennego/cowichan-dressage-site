@@ -81,6 +81,9 @@ const validationSchema = yup.object({
     .required("Emergency contact name is required"),
   emergContactPh: yup.string().typeError("Needs to be a number"),
   paymentMethod: yup.string().required("You must choose a payment method"),
+  "g-recaptcha-response": yup
+    .string()
+    .required("Make sure to confirm that you are not a robot!"),
 })
 
 const encode = data => {
@@ -146,7 +149,7 @@ const MemberForm = () => {
       {props => (
         <Form
           data-netlify="true"
-          name="membership"
+          name="Membership"
           data-netlify-recaptcha="true"
           netlify-honeypot="bot-field"
         >
@@ -387,6 +390,12 @@ const MemberForm = () => {
                 props.setFieldValue("g-recaptcha-response", value, true)
               }
             />
+            <FormHelperText style={{ color: "red" }}>
+              {props.errors["g-recaptcha-response"] &&
+                props.touched["g-recaptcha-response"] && (
+                  <p>{props.errors["g-recaptcha-response"]}</p>
+                )}
+            </FormHelperText>
             <Button color="primary" variant="contained" type="submit">
               Submit
             </Button>

@@ -1,14 +1,14 @@
 // figure out what to do with number fields - initial values and parse
 
 import { graphql } from "gatsby"
-import React from "react"
+import React, { useState } from "react"
 import Layout from "../components/layout"
 import Main from "../components/MainContent"
 
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 
-import { Grid, FormGroup, TextField } from "@material-ui/core"
+import { Grid, FormGroup, TextField, CardContent } from "@material-ui/core"
 import Radio from "@material-ui/core/Radio"
 import RadioGroup from "@material-ui/core/RadioGroup"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
@@ -31,15 +31,15 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 
-import SelectCreateBox from "../components/selectCreateBox"
+import Card from "@material-ui/core/Card"
 
 import { useFormik, Formik, Form, Field } from "formik"
 import * as yup from "yup"
-import { number } from "prop-types"
 import TestInfo from "../components/selectWithOther"
 import ResponsiveDialog from "../components/infoDialog"
 
 import { format, isBefore, startOfToday } from "date-fns"
+import { location } from "gatsby"
 
 export const query = graphql`
   query entryQuery($id: String!) {
@@ -75,7 +75,7 @@ export const query = graphql`
 `
 
 const DateForm = ({ data, props }) => {
-  console.log(data)
+  console.log(location)
   return (
     <div style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
       <FormControl component="fieldset">
@@ -90,16 +90,9 @@ const DateForm = ({ data, props }) => {
               name="dateSelect"
               value={date.date}
               control={<Radio />}
-              label={format(new Date(date.date), "EEE, MMMM d, yyyy")}
+              label={format(new Date(date.date), "EEEE, MMMM d, yyyy")}
             />
           ))}
-
-          <FormControlLabel
-            name="dateSelect"
-            value="August 22, 2021"
-            control={<Radio />}
-            label="August 22, 2021"
-          />
         </RadioGroup>
       </FormControl>
     </div>
@@ -169,7 +162,7 @@ const PaymentForm = ({ props }) => {
   )
 }
 
-const EntryForm = ({ props }) => {
+const EntryForm = ({ props, data }) => {
   const list = [{ label: "EC" }, { label: "HCBC" }, { label: "Western" }]
 
   return (
@@ -316,7 +309,7 @@ const EntryForm = ({ props }) => {
             />
           </RadioGroup>
         </Grid>
-        <Grid item sm={6} xs={12}>
+        <Grid item md={6} xs={12}>
           <Grid container>
             <Grid item xs={1}>
               <div className="icon-background">
@@ -368,24 +361,33 @@ const EntryForm = ({ props }) => {
         </Grid>
 
         <Grid item xs={12}>
-          <Grid container>
-            <Grid item style={{ marginTop: "10px" }}>
-              <Checkbox color="primary" checked />
+          {data.contentfulEvent.sessions.map((session, index) => (
+            <Grid container>
+              <Grid item style={{ marginTop: "10px" }}>
+                <Checkbox color="primary" />
+              </Grid>
+              <Grid item style={{ flexGrow: "1" }}>
+                <FormLabel>
+                  Session {index + 1} - Cost:{" "}
+                  {session.cost >= 1 ? "$" + session.cost : "Free"}
+                </FormLabel>
+                <Card elevation="3" style={{ marginBottom: "1rem" }}>
+                  <CardContent>
+                    <Typography variant="body1" style={{ padding: "0.5rem" }}>
+                      Description if required
+                    </Typography>
+                    {/* <FormLabel component="legend">Test Info </FormLabel> */}
+                    {session.testFields}
+                    {session.testFields ? <TestInfo props={props} /> : ""}
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
-            <Grid item style={{ flexGrow: "1" }}>
-              <FormLabel> Session 1 - $100 </FormLabel>
-              <div style={{ border: "1px solid", padding: "0.5rem" }}>
-                <Typography variant="body1" style={{ padding: "0.5rem" }}>
-                  Description if required
-                </Typography>
-                {/* <FormLabel component="legend">Test Info </FormLabel> */}
-                <TestInfo props={props} />
-              </div>
-            </Grid>
-          </Grid>
+          ))}
         </Grid>
+
         <Grid item xs={12} style={{ textAlign: "right" }}>
-          Cost: $100
+          Cost: add when selected
         </Grid>
 
         <Grid item xs={12}>
@@ -411,6 +413,7 @@ const EntryForm = ({ props }) => {
   )
 }
 const validationSchema = yup.object({
+  dateSelect: yup.date(),
   email: yup
     .string("Enter your email")
     .email("Enter a valid email")
@@ -420,7 +423,31 @@ const validationSchema = yup.object({
   hcbc: yup.number().typeError("Needs to be a number"),
 })
 
-const Entry = ({ pageContext, data }) => {
+const encode = data => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&")
+}
+
+const Entry = ({ pageContext, data, location }) => {
+  const [open, setOpen] = React.useState(false)
+  const [title, setTitle] = useState("")
+  const [content, setContent] = useState("")
+
+  const handleOpen = (title, content) => {
+    setOpen(true)
+    setTitle(title)
+    setContent(content)
+
+    setTimeout(() => {
+      setOpen(false)
+    }, 2000)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   return (
     <Layout>
       <Main>
@@ -441,11 +468,27 @@ const Entry = ({ pageContext, data }) => {
         </div>
         <hr />
         <Formik
-          onSubmit={values => {
-            alert(JSON.stringify(values, null, 2))
+          onSubmit={(values, actions) => {
+            fetch("/", {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: encode({ "form-name": "membership", ...values }),
+            })
+              .then(() => {
+                alert(JSON.stringify(values, null, 2))
+                handleOpen("Success!", "Form has been successfully submitted!")
+                actions.resetForm()
+              })
+              .catch(() => {
+                alert(JSON.stringify(values, null, 2))
+
+                alert("Error")
+              })
+              .finally(() => actions.setSubmitting(false))
           }}
           // validationSchema={validationSchema}
           initialValues={{
+            dateSelect: "2021-21-08",
             name: "",
             horseName: "",
             phoneNumber: "",
@@ -453,7 +496,12 @@ const Entry = ({ pageContext, data }) => {
           }}
         >
           {props => (
-            <Form>
+            <Form
+              data-netlify="true"
+              name={`${data.eventName} Entries`}
+              data-netlify-recaptcha="true"
+              netlify-honeypot="bot-field"
+            >
               {console.log(props)}
               <DateForm props={props} data={data} />
               <EntryForm props={props} data={data} />

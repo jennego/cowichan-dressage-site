@@ -17,7 +17,7 @@ import { Typography } from "@material-ui/core"
 
 const MyAgendaEvent = e => (
   <>
-    <Link to={`/event/${e.slug}`}>{e.title}</Link>
+    <Link to={`/events/${e.slug}`}>{e.title}</Link>
     <em> at {e.event.locationName} </em>
   </>
 )
@@ -66,7 +66,7 @@ const Cal = () => {
       : toDate(new Date(node.date)),
     title: node.event ? node.event[0].eventName : "",
     allDay: true,
-    slug: node.event ? node.event[0].eventName : "",
+    slug: node.event ? node.event[0].slug : "",
     locationName: node.locationName
       ? node.locationName
       : node.event[0].locationName,
@@ -100,7 +100,7 @@ const Cal = () => {
             startAccessor="start"
             endAccessor="end"
             style={{ height: "90vh" }}
-            onSelectEvent={e => navigate(`/event/${e.slug}`)}
+            onSelectEvent={e => navigate(`/events/${e.slug}`)}
             length={365}
           />
         </div>

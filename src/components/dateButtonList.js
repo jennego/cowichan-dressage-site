@@ -64,7 +64,14 @@ export const DateList = ({ eventDates, entryURL }) => {
                     className="date-menu"
                   />
                 </ListItem>
-                <ListItem button onClick={() => navigate(entryURL)}>
+                <ListItem
+                  button
+                  onClick={() =>
+                    navigate(entryURL, {
+                      state: { date: date.date },
+                    })
+                  }
+                >
                   <ListItemText
                     disableTypography
                     primary="Entry Form"
