@@ -472,11 +472,14 @@ const Entry = ({ pageContext, data, location }) => {
             fetch("/", {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              body: encode({ "form-name": "membership", ...values }),
+              body: encode({
+                "form-name": `${pageContext.eventName} Entries`,
+                ...values,
+              }),
             })
               .then(() => {
                 alert(JSON.stringify(values, null, 2))
-                handleOpen("Success!", "Form has been successfully submitted!")
+                // handleOpen("Success!", "Form has been successfully submitted!")
                 actions.resetForm()
               })
               .catch(() => {
