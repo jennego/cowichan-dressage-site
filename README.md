@@ -1,3 +1,10 @@
+Current issues to fix
+
+- flash of unstyled content (especially icons!)
+- menu links does not allow right click
+- various console errors
+- calendar links not implemented yet
+
 Gatsby site and form-based registration system.
 
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->

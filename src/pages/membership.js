@@ -117,10 +117,6 @@ const MemberForm = () => {
     setOpen(false)
   }
 
-  function onChange(value) {
-    console.log("Captcha value:", value)
-  }
-
   return (
     <Formik
       onSubmit={(values, actions) => {
@@ -153,7 +149,7 @@ const MemberForm = () => {
         phonenumber: "",
         hcbc: "",
         paymentMethod: "",
-        recaptcha: "",
+        "g-recaptcha-response": "",
       }}
     >
       {props => (
@@ -396,7 +392,9 @@ const MemberForm = () => {
             </Button> */}
             <ReCAPTCHA
               sitekey="6LcpmH8cAAAAAAxPsO8hrUvpeg81VRHdeE5ekNJH"
-              onChange={value => props.setFieldValue("recaptcha", value)}
+              onChange={value =>
+                props.setFieldValue("g-recaptcha-response", value, true)
+              }
             />
             <Button color="primary" variant="contained" type="submit">
               Submit
