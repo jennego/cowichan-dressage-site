@@ -154,7 +154,7 @@ const MemberForm = () => {
           data-netlify="true"
           name="membership"
           // data-netlify-recaptcha="true"
-          netlify-honeypot="bot-field"
+          // netlify-honeypot="bot-field"
         >
           <p style={{ display: "none" }}>
             <label>
