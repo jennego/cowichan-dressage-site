@@ -498,8 +498,8 @@ const Entry = ({ pageContext, data, location }) => {
           {props => (
             <Form
               data-netlify="true"
-              name={`${data.eventName} Entries`}
-              data-netlify-recaptcha="true"
+              name={`${pageContext.eventName} Entries`}
+              // data-netlify-recaptcha="true"
               netlify-honeypot="bot-field"
             >
               {console.log(props)}
