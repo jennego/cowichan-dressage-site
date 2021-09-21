@@ -156,6 +156,12 @@ const MemberForm = () => {
           data-netlify-recaptcha="true"
           netlify-honeypot="bot-field"
         >
+          <p class="hidden">
+            <label>
+              Don’t fill this out if you’re human: <input name="bot-field" />
+            </label>
+          </p>
+
           <AlertDialog
             title={title}
             content={content}
@@ -382,11 +388,10 @@ const MemberForm = () => {
             </Grid>
           </Grid>
           <div style={{ marginTop: "2rem" }}>
-            <Button color="secondary" variant="contained">
+            {/* <Button color="secondary" variant="contained">
               Clear
-            </Button>
-            <div data-netlify-recaptcha="true" />
-
+            </Button> */}
+            <div data-netlify-recaptcha="true"></div>
             <Button color="primary" variant="contained" type="submit">
               Submit
             </Button>
