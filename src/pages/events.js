@@ -40,9 +40,9 @@ const Events = () => {
           Events
         </Typography>
         {data.allContentfulEvent.edges.map(({ node }) => (
-          <Card variant="outlined" style={{ marginBottom: "1rem" }}>
+          <Card elevation="3" style={{ marginBottom: "2rem" }}>
             <Grid container>
-              <Grid item style={{ flexGrow: 1 }}>
+              <Grid item md={8}>
                 <CardContent>
                   <Typography gutterBottom variant="h4">
                     {node.eventName}
@@ -58,6 +58,18 @@ const Events = () => {
                       style={{ margin: "0.5rem 0" }}
                     >
                       More Info
+                    </Button>
+                  </Link>
+                  <Link
+                    to={`${node.slug}/entry`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      style={{ margin: "0.5rem 0.2rem" }}
+                    >
+                      Entry Form
                     </Button>
                   </Link>
                   <DateList

@@ -85,24 +85,15 @@ const DateForm = ({ data, props, location }) => {
           name="dateSelect"
           onChange={props.handleChange}
         >
-          {data.contentfulEvent.eventDates.map(date =>
-            location.state ? (
-              <FormControlLabel
-                name="dateSelect"
-                checked={date.date === location.state.date ? true : false}
-                value={date.date}
-                control={<Radio />}
-                label={format(new Date(date.date), "EEEE, MMMM d, yyyy")}
-              />
-            ) : (
-              <FormControlLabel
-                name="dateSelect"
-                value={date.date}
-                control={<Radio />}
-                label={format(new Date(date.date), "EEEE, MMMM d, yyyy")}
-              />
-            )
-          )}
+          {console.log(props.values.dateSelect)}
+          {data.contentfulEvent.eventDates.map(date => (
+            <FormControlLabel
+              name="dateSelect"
+              value={date.date}
+              control={<Radio />}
+              label={format(new Date(date.date), "EEEE, MMMM d, yyyy")}
+            />
+          ))}
         </RadioGroup>
       </FormControl>
     </div>
