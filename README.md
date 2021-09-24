@@ -7,6 +7,13 @@ Current issues to fix
 
 Gatsby site and form-based registration system.
 
+Tech
+
+- Gatsby/React
+- Material UI
+- Contentful CMS
+- Netlify
+
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.com">
