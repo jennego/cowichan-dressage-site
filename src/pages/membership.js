@@ -117,7 +117,7 @@ const MemberForm = () => {
         fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: encode({ "form-name": "membership", ...values }),
+          body: encode({ "form-name": "Membership", ...values }),
         })
           .then(() => {
             alert(JSON.stringify(values, null, 2))

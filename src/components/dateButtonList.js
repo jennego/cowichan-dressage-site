@@ -10,7 +10,7 @@ import { ListItemIcon } from "@material-ui/core"
 import Avatar from "@material-ui/core/Avatar"
 import EventIcon from "@material-ui/icons/Event"
 import Grid from "@material-ui/core/Grid"
-import { format, parse } from "date-fns"
+import { format, parse, parseISO } from "date-fns"
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
 
@@ -45,7 +45,10 @@ export const DateList = ({ eventDates, entryURL }) => {
                 <EventIcon fontSize="large" />
               </ListItemIcon>
               <ListItemText
-                primary={format(new Date(date.date), "EEE, LLLL d, yyyy")}
+                primary={format(
+                  new Date(parseISO(date.date)),
+                  "EEE, LLLL d, yyyy"
+                )}
                 secondary={date.subtitle}
                 style={{ paddingRight: "0.5rem" }}
               />

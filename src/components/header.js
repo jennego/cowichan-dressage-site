@@ -70,8 +70,8 @@ const MenuItems = () => (
     <MenuItem className="menu-item" onClick={() => navigate("/membership")}>
       Membership
     </MenuItem>
-    <MenuItem className="menu-item" onClick={() => navigate("/downloads")}>
-      Downloads
+    <MenuItem className="menu-item" onClick={() => navigate("/resources")}>
+      Resources
     </MenuItem>
     <MenuItem className="menu-item" onClick={() => navigate("/about")}>
       About
