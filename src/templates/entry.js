@@ -57,7 +57,9 @@ export const query = graphql`
       sessions {
         testFields
         cost
-        description
+        description {
+          description
+        }
       }
       rules {
         raw
