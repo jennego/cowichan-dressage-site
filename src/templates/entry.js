@@ -38,7 +38,7 @@ import * as yup from "yup"
 import TestInfo from "../components/selectWithOther"
 import ResponsiveDialog from "../components/infoDialog"
 
-import { format, isBefore, startOfToday } from "date-fns"
+import { format, parseISO, isBefore, startOfToday } from "date-fns"
 import { location } from "gatsby"
 
 export const query = graphql`
@@ -93,7 +93,7 @@ const DateForm = ({ data, props, location }) => {
               name="dateSelect"
               value={date.date}
               control={<Radio />}
-              label={format(new Date(date.date), "EEEE, MMMM d, yyyy")}
+              label={format(new Date(parseISO(date.date)), "EEE, LLLL d, yyyy")}
             />
           ))}
         </RadioGroup>
