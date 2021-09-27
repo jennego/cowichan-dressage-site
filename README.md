@@ -2,17 +2,28 @@ Current issues to fix
 
 - flash of unstyled content (especially icons!)
 - menu links does not allow right click
-- various console errors
-- calendar links not implemented yet
+  - improve mobile menu
+  - improve menu
+  - fix various console errors mostly due to menu
+- implement calendar links
+- implement session selection, including cost tally and select list (send select list to form, cost to form success page)
+- form success page - include contact, cost, event calendar link
+- pdf upload in forms
+- customize agenda view to be bigger/more readable
+  - default to agenda view?
+- actually put the event dates on the homepage
+- style footer
+- control accordion via url for deeplinking
 
-Gatsby site and form-based registration system.
+Gatsby site and form-based serverless registration system using Netlify forms.
 
 Tech
 
-- Gatsby/React
-- Material UI
 - Contentful CMS
 - Netlify
+- Gatsby/React
+- Material UI (v4)
+- Formik
 
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">

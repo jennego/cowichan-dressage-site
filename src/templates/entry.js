@@ -86,8 +86,8 @@ const DateForm = ({ data, props, location }) => {
           aria-label="date"
           name="dateSelect"
           onChange={props.handleChange}
+          value={props.values.dateSelect}
         >
-          {console.log(props.values.dateSelect)}
           {data.contentfulEvent.eventDates.map(date => (
             <FormControlLabel
               name="dateSelect"
