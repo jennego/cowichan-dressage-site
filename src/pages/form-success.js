@@ -23,9 +23,11 @@ const FormSuccess = () => {
   return (
     <Layout>
       <Main>
-        <Typography variant="h2">Yay! Form submitted successfully.</Typography>
+        <Typography variant="h2" style={{ textAlign: "center" }}>
+          Yay! Form submitted successfully.
+        </Typography>
 
-        <Typography>
+        <Typography gutterBottom>
           You should be contacted about your entry via email.
         </Typography>
 

@@ -112,3 +112,9 @@ h5 {
   text-align: right;
   font-size: 1.0625rem;
 }
+
+a.menu-item {
+  color: whitesmoke;
+  padding: 0 1rem;
+  font-size: 1.1rem;
+}

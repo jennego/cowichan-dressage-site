@@ -27,7 +27,7 @@ const IndexPage = () => (
         <div className="hero-text">
           <div className="logo-container">
             <div style={{ width: "70%" }}>
-              <img src={logo} />
+              <img src={logo} alt="Cowichan Dressage Club" />
             </div>
           </div>
 
@@ -99,8 +99,8 @@ const IndexPage = () => (
             height="500"
             style={{ border: "none", overflow: "hidden" }}
             scrolling="no"
-            frameborder="0"
-            allowfullscreen="true"
+            frameBorder="0"
+            allowFullScreen={true}
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
           ></iframe>
         </Grid>
@@ -108,9 +108,18 @@ const IndexPage = () => (
     </Container>
 
     <div style={{ display: "flex", marginTop: "2rem", maxHeigh: "500px" }}>
-      <StaticImage src="https://images.unsplash.com/flagged/photo-1568382007362-5d0d0a26b422?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" />
-      <StaticImage src="https://images.unsplash.com/photo-1610766920689-5d4c57e1dfba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=972&q=80" />
-      <StaticImage src="https://images.unsplash.com/photo-1595675759778-dcfbbc6629bd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" />
+      <StaticImage
+        src="https://images.unsplash.com/flagged/photo-1568382007362-5d0d0a26b422?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
+        alt="filler"
+      />
+      <StaticImage
+        src="https://images.unsplash.com/photo-1610766920689-5d4c57e1dfba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=972&q=80"
+        alt="filler"
+      />
+      <StaticImage
+        src="https://images.unsplash.com/photo-1595675759778-dcfbbc6629bd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
+        alt="filler"
+      />
     </div>
   </Layout>
 )

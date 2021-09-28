@@ -1,4 +1,4 @@
-Current issues to fix
+TO DO LIST
 
 - flash of unstyled content (especially icons!)
 - menu links does not allow right click
@@ -15,7 +15,7 @@ Current issues to fix
 - style footer
 - control accordion via url for deeplinking
 
-Gatsby site and form-based serverless registration system using Netlify forms.
+Responsive Gatsby site and form-based serverless registration system using Netlify forms. Forms customizable via Contentful CMS.
 
 Tech
 
@@ -24,6 +24,8 @@ Tech
 - Gatsby/React
 - Material UI (v4)
 - Formik
+- Big Calendar
+- Date-Fns
 
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">

@@ -1,5 +1,5 @@
 import React from "react"
-import { navigate } from "gatsby"
+import { navigate, Link as GatsbyLink } from "gatsby"
 import { useStaticQuery, graphql } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import { makeStyles } from "@material-ui/core/styles"
@@ -16,6 +16,7 @@ import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
 import useBreakpoint from "use-breakpoint"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
+import Link from "@material-ui/core/Link"
 
 import logo from "../images/cdclogo.png"
 
@@ -52,7 +53,9 @@ const HamburgerMenu = ({ children }) => {
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        {children}
+        <MenuItem style={{ flexDirection: "column", background: "slategray" }}>
+          {children}
+        </MenuItem>
       </Menu>
     </div>
   )
@@ -60,22 +63,48 @@ const HamburgerMenu = ({ children }) => {
 
 const MenuItems = () => (
   <>
-    <MenuItem onClick={() => navigate("/events")} className="menu-item">
+    <Link
+      component={GatsbyLink}
+      to="/events"
+      className="menu-item"
+      style={{ color: "primary", alignSelf: "center" }}
+    >
       Events
-    </MenuItem>
-    <MenuItem className="menu-item" onClick={() => navigate("/calendar")}>
-      Calendar
-    </MenuItem>
+    </Link>
 
-    <MenuItem className="menu-item" onClick={() => navigate("/membership")}>
+    <Link
+      component={GatsbyLink}
+      to="/calendar"
+      className="menu-item"
+      style={{ alignSelf: "center" }}
+    >
+      Calendar
+    </Link>
+
+    <Link
+      component={GatsbyLink}
+      to="/membership"
+      className="menu-item"
+      style={{ alignSelf: "center" }}
+    >
       Membership
-    </MenuItem>
-    <MenuItem className="menu-item" onClick={() => navigate("/resources")}>
+    </Link>
+    <Link
+      component={GatsbyLink}
+      to="/events"
+      className="menu-item"
+      style={{ alignSelf: "center" }}
+    >
       Resources
-    </MenuItem>
-    <MenuItem className="menu-item" onClick={() => navigate("/about")}>
+    </Link>
+    <Link
+      component={GatsbyLink}
+      to="/events"
+      className="menu-item"
+      style={{ alignSelf: "center" }}
+    >
       About
-    </MenuItem>
+    </Link>
   </>
 )
 
@@ -109,6 +138,7 @@ function Nav() {
                 image={logo.file.childrenImageSharp[0].gatsbyImageData}
                 objectFit="contain"
                 style={{ width: "120px" }}
+                alt="Cowichan Dresage Club logo"
               />
               <div className="logo-text-container">
                 <h1 className="logo-text">Cowichan Dressage Club</h1>

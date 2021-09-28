@@ -61,7 +61,14 @@ const Event = ({ data, pageContext }) => {
             <DateList eventDates={event.eventDates} entryURL="entry" />
           </Grid>
           <Grid item md={4}>
-            <StaticImage src="https://images.unsplash.com/flagged/photo-1568382007362-5d0d0a26b422?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" />
+            {event.image ? (
+              <GatsbyImage
+                image={event.image.GatsbyImage}
+                alt={event.image.GatsbyImage}
+              />
+            ) : (
+              ""
+            )}
           </Grid>
         </Grid>
         <Accordion expanded>

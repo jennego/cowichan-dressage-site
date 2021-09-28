@@ -80,7 +80,10 @@ const Events = () => {
               </Grid>
               {node.image ? (
                 <Grid item md={4}>
-                  <GatsbyImage image={node.image.gatsbyImageData} />
+                  <GatsbyImage
+                    image={node.image.gatsbyImageData}
+                    alt={node.image.description ? node.image.description : ""}
+                  />
                 </Grid>
               ) : (
                 ""
