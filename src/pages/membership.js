@@ -32,6 +32,7 @@ import FormHelperText from "@material-ui/core/FormHelperText"
 
 import { processForm } from "../components/formProcessing"
 import AlertDialog from "../alertDialog"
+import Paper from "@material-ui/core/Paper"
 
 import ReCAPTCHA from "react-google-recaptcha"
 
@@ -152,6 +153,7 @@ const MemberForm = () => {
           name="Membership"
           data-netlify-recaptcha="true"
           netlify-honeypot="bot-field"
+          className="form-style"
         >
           <Field type="hidden" name="bot-field" />
 
@@ -410,11 +412,15 @@ const Membership = () => {
   return (
     <Layout>
       <Main>
-        <h2>Membership Info</h2>
-        <p>Blah blah</p>
-        <h2>Membership Form</h2>
+        <Paper>
+          <h2>Membership Info</h2>
+          <p>Blah blah</p>
+        </Paper>
+        <Paper>
+          <h2>Membership Form</h2>
 
-        <MemberForm />
+          <MemberForm />
+        </Paper>
       </Main>
     </Layout>
   )

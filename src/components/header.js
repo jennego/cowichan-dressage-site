@@ -91,7 +91,7 @@ const MenuItems = () => (
     </Link>
     <Link
       component={GatsbyLink}
-      to="/events"
+      to="/resources"
       className="menu-item"
       style={{ alignSelf: "center" }}
     >
@@ -99,7 +99,7 @@ const MenuItems = () => (
     </Link>
     <Link
       component={GatsbyLink}
-      to="/events"
+      to="/about"
       className="menu-item"
       style={{ alignSelf: "center" }}
     >

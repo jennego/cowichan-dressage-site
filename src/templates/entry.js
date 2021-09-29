@@ -8,7 +8,13 @@ import Main from "../components/MainContent"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 
-import { Grid, FormGroup, TextField, CardContent } from "@material-ui/core"
+import {
+  Grid,
+  FormGroup,
+  TextField,
+  CardContent,
+  Paper,
+} from "@material-ui/core"
 import Radio from "@material-ui/core/Radio"
 import RadioGroup from "@material-ui/core/RadioGroup"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
@@ -374,7 +380,13 @@ const EntryForm = ({ props, data }) => {
                   Session {index + 1} - Cost:{" "}
                   {session.cost >= 1 ? "$" + session.cost : "Free"}
                 </FormLabel>
-                <Card elevation="3" style={{ marginBottom: "1rem" }}>
+                <Card
+                  variant="outlined"
+                  style={{
+                    borderWidth: "2px",
+                    marginBottom: "1rem",
+                  }}
+                >
                   <CardContent>
                     <Typography variant="body1" style={{ padding: "0.5rem" }}>
                       Description if required
@@ -502,24 +514,27 @@ const Entry = ({ pageContext, data, location }) => {
           }}
         >
           {props => (
-            <Form
-              data-netlify="true"
-              name={`${pageContext.eventName} Entries`}
-              // data-netlify-recaptcha="true"
-              netlify-honeypot="bot-field"
-            >
-              {console.log(props)}
-              <DateForm props={props} data={data} location={location} />
-              <EntryForm props={props} data={data} />
-              {/* <WaiverForm /> */}
-              <PaymentForm props={props} data={data} />
-              <Button variant="contained" color="secondary">
-                Clear
-              </Button>
-              <Button variant="contained" color="primary" type="submit">
-                Submit
-              </Button>
-            </Form>
+            <Paper>
+              <Form
+                data-netlify="true"
+                name={`${pageContext.eventName} Entries`}
+                // data-netlify-recaptcha="true"
+                netlify-honeypot="bot-field"
+                className="form-style"
+              >
+                {console.log(props)}
+                <DateForm props={props} data={data} location={location} />
+                <EntryForm props={props} data={data} />
+                {/* <WaiverForm /> */}
+                <PaymentForm props={props} data={data} />
+                <Button variant="contained" color="secondary">
+                  Clear
+                </Button>
+                <Button variant="contained" color="primary" type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </Paper>
           )}
         </Formik>
       </Main>

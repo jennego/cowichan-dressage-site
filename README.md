@@ -1,11 +1,12 @@
 TO DO LIST
 
-- flash of unstyled content (especially icons!)
+- fix flash of unstyled content (especially icons!)
 - menu links does not allow right click
   - improve mobile menu
   - improve menu
-  - fix various console errors mostly due to menu
 - implement calendar links
+- fix calendar
+- source dates from events instead of eventDates as the latter doesn't seem to update (??)
 - implement session selection, including cost tally and select list (send select list to form, cost to form success page)
 - form success page - include contact, cost, event calendar link
 - pdf upload in forms
@@ -14,6 +15,7 @@ TO DO LIST
 - actually put the event dates on the homepage
 - style footer
 - control accordion via url for deeplinking
+- is full badge
 
 Responsive Gatsby site and form-based serverless registration system using Netlify forms. Forms customizable via Contentful CMS.
 

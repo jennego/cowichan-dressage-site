@@ -13,7 +13,7 @@ import enUS from "date-fns/locale/en-US"
 import toDate from "date-fns/toDate"
 
 import "react-big-calendar/lib/css/react-big-calendar.css"
-import { Typography } from "@material-ui/core"
+import { Typography, Paper } from "@material-ui/core"
 
 const MyAgendaEvent = e => (
   <>
@@ -93,20 +93,22 @@ const Cal = () => {
   return (
     <Layout>
       <Main>
-        <div>
-          {console.log("data", data)}
-          <Calendar
-            components={components}
-            localizer={localizer}
-            events={dateArr}
-            views={["month", "agenda"]}
-            startAccessor="start"
-            endAccessor="end"
-            style={{ height: "90vh" }}
-            onSelectEvent={e => navigate(`/events/${e.slug}`)}
-            length={365}
-          />
-        </div>
+        <Paper>
+          <div>
+            {console.log("data", data)}
+            <Calendar
+              components={components}
+              localizer={localizer}
+              events={dateArr}
+              views={["month", "agenda"]}
+              startAccessor="start"
+              endAccessor="end"
+              style={{ height: "90vh" }}
+              onSelectEvent={e => navigate(`/events/${e.slug}`)}
+              length={365}
+            />
+          </div>
+        </Paper>
       </Main>
     </Layout>
   )
