@@ -81,7 +81,7 @@ const UploadComponent = props => {
     <div>
       {}
       <div {...getRootProps({ className: "dropzone" })}>
-        <input {...getInputProps()} />
+        <input {...getInputProps({ name: "file" })} />
         {isDragActive ? (
           <p>Drop the files here ...</p>
         ) : (
