@@ -151,9 +151,8 @@ const MemberForm = () => {
             handleOpen("Success!", "Form has been successfully submitted!")
             actions.resetForm()
           })
-          .catch(() => {
+          .catch(error => {
             alert(JSON.stringify(values, null, 2))
-
             alert("Error")
           })
           .finally(() => actions.setSubmitting(false))
@@ -172,6 +171,7 @@ const MemberForm = () => {
         paymentMethod: "",
         "g-recaptcha-response": "",
         file: null,
+        pdf: null,
       }}
     >
       {props => (
