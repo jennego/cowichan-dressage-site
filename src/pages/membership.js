@@ -143,7 +143,7 @@ const MemberForm = () => {
       onSubmit={(values, actions) => {
         fetch("/", {
           method: "POST",
-          headers: { "Content-Type": "multipart/form-data" },
+          // headers: { "Content-Type": "multipart/form-data" },
           body: encode({ "form-name": "Membership", ...values }),
         })
           .then(() => {
