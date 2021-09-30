@@ -72,7 +72,8 @@ const BirthDatePickerField = ({ field, form, props, ...other }) => {
 const UploadComponent = props => {
   const { setFieldValue } = props
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: "image/*",
+    accept: ".pdf",
+    multiple: false,
     onDrop: acceptedFiles => {
       setFieldValue("files", acceptedFiles)
     },
