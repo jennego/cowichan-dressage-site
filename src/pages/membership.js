@@ -75,7 +75,7 @@ const UploadComponent = props => {
     accept: ".pdf",
     multiple: false,
     onDrop: acceptedFiles => {
-      setFieldValue("files", acceptedFiles)
+      setFieldValue("file", acceptedFiles)
     },
   })
   return (
@@ -411,12 +411,8 @@ const MemberForm = () => {
 
             <Grid item xs={12}>
               <UploadComponent setFieldValue={props.setFieldValue} />
-              {props.values.files &&
-                props.values.files.map((file, i) => (
-                  <li key={i}>
-                    {`File:${file.name} Type:${file.type} Size:${file.size} bytes`}{" "}
-                  </li>
-                ))}
+              {props.values.file !== null ? props.values.file[0].name : ""}
+              {console.log(props.values.file)}
             </Grid>
           </Grid>
           <div style={{ marginTop: "2rem" }}>
