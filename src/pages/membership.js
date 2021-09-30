@@ -16,6 +16,8 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers"
 
+import { useDropzone } from "react-dropzone"
+
 import EventIcon from "@material-ui/icons/Event"
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail"
 import PhoneIcon from "@material-ui/icons/Phone"
@@ -64,6 +66,29 @@ const BirthDatePickerField = ({ field, form, props, ...other }) => {
       onChange={date => form.setFieldValue(field.name, date, false)}
       {...other}
     />
+  )
+}
+
+const UploadComponent = props => {
+  const { setFieldValue } = props
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: "image/*",
+    onDrop: acceptedFiles => {
+      setFieldValue("files", acceptedFiles)
+    },
+  })
+  return (
+    <div>
+      {}
+      <div {...getRootProps({ className: "dropzone" })}>
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <p>Drop the files here ...</p>
+        ) : (
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        )}
+      </div>
+    </div>
   )
 }
 
@@ -132,7 +157,7 @@ const MemberForm = () => {
           })
           .finally(() => actions.setSubmitting(false))
       }}
-      validationSchema={validationSchema}
+      // validationSchema={validationSchema}
       initialValues={{
         email: "",
         name: "",
@@ -145,6 +170,7 @@ const MemberForm = () => {
         hcbc: "",
         paymentMethod: "",
         "g-recaptcha-response": "",
+        files: null,
       }}
     >
       {props => (
@@ -380,6 +406,16 @@ const MemberForm = () => {
                   {props.touched.paymentMethod && props.errors.paymentMethod}
                 </FormHelperText>
               </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <UploadComponent setFieldValue={props.setFieldValue} />
+              {props.values.files &&
+                props.values.files.map((file, i) => (
+                  <li key={i}>
+                    {`File:${file.name} Type:${file.type} Size:${file.size} bytes`}{" "}
+                  </li>
+                ))}
             </Grid>
           </Grid>
           <div style={{ marginTop: "2rem" }}>

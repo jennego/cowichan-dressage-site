@@ -48,55 +48,73 @@ const IndexPage = () => (
     </div>
 
     <Container>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          paddingBottom: "2rem",
-        }}
-      >
-        <div className="short-about">
-          We are a dressage club in the Cowichan Valley!
-        </div>
-        <Button variant="contained" color="primary">
-          Join Us!
-        </Button>
-      </div>
-
       <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Paper
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              paddingBottom: "2rem",
+            }}
+          >
+            <div className="short-about">
+              We are a dressage club in the Cowichan Valley!
+            </div>
+            <Button variant="contained" color="primary">
+              Join Us!
+            </Button>
+          </Paper>
+        </Grid>
         <Grid item xs={12} md={6}>
-          <Typography variant="h4">Upcoming Events</Typography>
+          <Paper>
+            <Typography variant="h4">Upcoming Events</Typography>
 
-          <List>
-            <ListItem button>
-              <ListItemText primary="Show and Tell" secondary="Jun 9, 2014" />
-              <Button edge="end" aria-label="more-info" variant="outlined">
-                More Info
-              </Button>
-            </ListItem>
-            <ListItem button>
-              <ListItemText primary="Schooling Show" secondary="July 7, 2014" />
-              <Button edge="end" variant="outlined" aria-label="more-info">
-                More Info
-              </Button>
-            </ListItem>
-            <ListItem button>
-              <ListItemText primary="Clinic" secondary="August 20, 2014" />
-              <Button edge="end" variant="outlined" aria-label="more-info">
-                More Info
-              </Button>
-            </ListItem>
-          </List>
+            <List>
+              <ListItem button>
+                <ListItemText primary="Show and Tell" secondary="Jun 9, 2014" />
+                <Button edge="end" aria-label="more-info" variant="outlined">
+                  More Info
+                </Button>
+              </ListItem>
+              <ListItem button>
+                <ListItemText
+                  primary="Schooling Show"
+                  secondary="July 7, 2014"
+                />
+                <Button edge="end" variant="outlined" aria-label="more-info">
+                  More Info
+                </Button>
+              </ListItem>
+              <ListItem button>
+                <ListItemText primary="Clinic" secondary="August 20, 2014" />
+                <Button edge="end" variant="outlined" aria-label="more-info">
+                  Add to Calendar
+                </Button>
+                <Button edge="end" variant="outlined" aria-label="more-info">
+                  Entry
+                </Button>
+                <Button edge="end" variant="outlined" aria-label="more-info">
+                  More Info
+                </Button>
+              </ListItem>
+            </List>
 
-          <Button variant="contained">See All Events</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ marginLeft: "0.8rem", marginBottom: "1rem" }}
+            >
+              See All Events
+            </Button>
+          </Paper>
         </Grid>
 
         <Grid item xs={12} md={6}>
           <iframe
-            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCowichanDressageClub&tabs=timeline&width=450&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=936287190463514"
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCowichanDressageClub&tabs=timeline&width=450&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=936287190463514"
             width="450"
-            height="500"
+            height="600"
             style={{ border: "none", overflow: "hidden" }}
             scrolling="no"
             frameBorder="0"

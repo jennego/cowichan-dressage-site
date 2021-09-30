@@ -123,3 +123,7 @@ a.menu-item {
 .form-style {
   margin: 0.5rem;
 }
+
+.dropzone {
+  border: 3px dashed grey;
+}

@@ -8,7 +8,7 @@ const WhatForm = () => {
     <Layout>
       <Main>
         <Typography variant="h2">
-          Uh oh! I looks like you haven't actually submitted a form.{" "}
+          Uh oh! I looks like you haven't actually submitted a form.
         </Typography>
         <Typography>
           If you got here via link or something, you may be looking for contact
@@ -23,15 +23,24 @@ const FormSuccess = () => {
   return (
     <Layout>
       <Main>
-        <Typography variant="h2" style={{ textAlign: "center" }}>
-          Yay! Form submitted successfully.
+        <Typography variant="h3" gutterBottom>
+          Thank you for submitting!
         </Typography>
-
-        <Typography gutterBottom>
+        <Typography variant="body1" gutterBottom>
           You should be contacted about your entry via email.
         </Typography>
+        <Typography variant="h4" gutterBottom>
+          You have entered in event Name
+        </Typography>
+        <p> Add to calendar </p>
 
-        <Typography>Contacts</Typography>
+        <Typography variant="h4">Payment</Typography>
+        <Typography variant="body1" gutterBottom>
+          You have chosen to pay via payment method . Please pay payment cost
+          via e-transfer to [email].
+        </Typography>
+
+        <Typography variant="h4">Contacts</Typography>
       </Main>
     </Layout>
   )
