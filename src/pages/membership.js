@@ -41,7 +41,6 @@ import ReCAPTCHA from "react-google-recaptcha"
 const BirthDatePickerField = ({ field, form, props, ...other }) => {
   const currentError = form.errors[field.name]
   console.log("current error", Boolean(currentError))
-  console.log("props from datepicker", props)
 
   return (
     <KeyboardDatePicker
@@ -75,14 +74,14 @@ const UploadComponent = props => {
     accept: ".pdf",
     multiple: false,
     onDrop: acceptedFiles => {
-      setFieldValue("file", acceptedFiles)
+      setFieldValue("file", acceptedFiles[0])
     },
   })
   return (
     <div>
       {}
       <div {...getRootProps({ className: "dropzone" })}>
-        <input {...getInputProps({ name: "file" })} />
+        <input {...getInputProps()} />
         {isDragActive ? (
           <p>Drop the files here ...</p>
         ) : (
@@ -178,8 +177,6 @@ const MemberForm = () => {
         hcbc: "",
         paymentMethod: "",
         "g-recaptcha-response": "",
-        file: null,
-        pdf: null,
       }}
     >
       {props => (
@@ -453,6 +450,7 @@ const MemberForm = () => {
             <Button color="primary" variant="contained" type="submit">
               Submit
             </Button>
+            {console.log("form props", props)}
           </div>
         </Form>
       )}
