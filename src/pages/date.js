@@ -57,6 +57,7 @@ function App() {
         action="/form-success"
         name="file-upload-dropzone"
         method="post"
+        data-netlify="true"
       >
         <p>
           <label>
