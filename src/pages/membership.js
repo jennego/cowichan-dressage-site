@@ -82,7 +82,7 @@ const UploadComponent = props => {
     <div>
       {}
       <div {...getRootProps({ className: "dropzone" })}>
-        <input {...getInputProps()} />
+        <input {...getInputProps({ name: "file" })} />
         {isDragActive ? (
           <p>Drop the files here ...</p>
         ) : (
@@ -171,7 +171,7 @@ const MemberForm = () => {
         hcbc: "",
         paymentMethod: "",
         "g-recaptcha-response": "",
-        files: null,
+        file: null,
       }}
     >
       {props => (
@@ -417,9 +417,6 @@ const MemberForm = () => {
                     {`File:${file.name} Type:${file.type} Size:${file.size} bytes`}{" "}
                   </li>
                 ))}
-              <label>
-                Picture: <input type="file" name="picture" />
-              </label>
             </Grid>
           </Grid>
           <div style={{ marginTop: "2rem" }}>
