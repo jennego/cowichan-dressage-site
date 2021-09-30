@@ -411,8 +411,19 @@ const MemberForm = () => {
 
             <Grid item xs={12}>
               <UploadComponent setFieldValue={props.setFieldValue} />
-              {props.values.file !== null ? props.values.file[0].name : ""}
+              {/* {props.values.file !== null ? props.values.file[0].name : ""} */}
               {console.log(props.values.file)}
+
+              <label>
+                Waiver:{" "}
+                <input
+                  type="file"
+                  name="pdf"
+                  onChange={props.handleChange}
+                  value={props.values.pdf}
+                />
+                {console.log(props.values.pdf)}
+              </label>
             </Grid>
           </Grid>
           <div style={{ marginTop: "2rem" }}>

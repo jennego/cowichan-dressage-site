@@ -1,82 +1,100 @@
-import React from "react"
-import { Grid } from "@material-ui/core"
-import { Formik, Form, Field } from "formik"
-import { KeyboardDatePicker, DatePicker } from "@material-ui/pickers"
-import DateFnsUtils from "@date-io/date-fns"
-import MomentUtils from "@date-io/moment"
-import { MuiPickersUtilsProvider } from "@material-ui/pickers"
-import Button from "@material-ui/core/Button"
-import { format, formatDistance, formatRelative, subDays } from "date-fns"
-import { processForm } from "../components/formProcessing"
-import SelectCreateBox from "../components/selectCreateBox"
-import TestInfo from "../components/selectWithOther"
+import React, { useState, useCallback } from "react"
+import { useDropzone } from "react-dropzone"
 
-const DatePickerField = ({ field, form, ...other }) => {
-  const currentError = form.errors[field.name]
+function App() {
+  const [name, setName] = useState("")
+  const [status, setStatus] = useState("")
+  const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
+  const [file, setFile] = useState({})
+
+  const onDrop = useCallback(acceptedFiles => {
+    console.log(acceptedFiles)
+    setFile(acceptedFiles[0])
+  }, [])
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
+  const encode = data => {
+    const formData = new FormData()
+    Object.keys(data).forEach(k => {
+      formData.append(k, data[k])
+    })
+    return formData
+  }
+
+  const handleSubmit = e => {
+    const data = { "form-name": "contact", name, email, message, file }
+
+    fetch("/", {
+      method: "POST",
+      // headers: { "Content-Type": 'multipart/form-data; boundary=random' },
+      body: encode(data),
+    })
+      .then(() => setStatus("Form Submission Successful!!"))
+      .catch(error => setStatus("Form Submission Failed!"))
+
+    e.preventDefault()
+  }
+
+  const handleChange = e => {
+    const { name, value } = e.target
+    if (name === "name") {
+      return setName(value)
+    }
+    if (name === "email") {
+      return setEmail(value)
+    }
+    if (name === "message") {
+      return setMessage(value)
+    }
+  }
 
   return (
-    <KeyboardDatePicker
-      clearable
-      placeholder=""
-      disableFuture
-      name={field.name}
-      value={field.value}
-      views={["year", "month", "date"]}
-      openTo="year"
-      format="dd/MM/yyyy"
-      helperText={currentError}
-      error={Boolean(currentError)}
-      onError={error => {
-        // handle as a side effect
-        if (error !== currentError) {
-          form.setFieldError(field.name, error)
-        }
-      }}
-      // if you are using custom validation schema you probably want to pass `true` as third argument
-      onChange={date => form.setFieldValue(field.name, date, true)}
-      {...other}
-    />
+    <div className="App">
+      <form onSubmit={handleSubmit} action="/thank-you/">
+        <p>
+          <label>
+            Your Name:{" "}
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={handleChange}
+            />
+          </label>
+        </p>
+        <p>
+          <label>
+            Your Email:{" "}
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+            />
+          </label>
+        </p>
+        <p>
+          <label>
+            Message:{" "}
+            <textarea name="message" value={message} onChange={handleChange} />
+          </label>
+        </p>
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>Drag 'n' drop some files here, or click to select files</p>
+          )}
+        </div>
+        <p>
+          <button type="submit">Send</button>
+        </p>
+      </form>
+      <h3>{status}</h3>
+    </div>
   )
 }
 
-// values and errors can be just props if you aren't using them in that component
-
-const FormikExample = () => {
-  const list = [{ label: "EC" }, { label: "HCBC" }, { label: "Western" }]
-
-  return (
-    // format(values.date, "EEEE, MMMM d, yyyy")
-
-    <Formik
-      onSubmit={values => {
-        alert(JSON.stringify(values, null, 2))
-      }}
-      // onSubmit={() => processForm("date")}
-      initialValues={{
-        testSource: "",
-      }}
-    >
-      {props => (
-        <Form name="date" data-netlify="true">
-          <Grid container>
-            {/* <Grid item container justify="center" xs={12}>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Field name="date" component={DatePickerField} />
-              </MuiPickersUtilsProvider>
-            </Grid> */}
-
-            <Grid item xs={12} sm={12} style={{ margin: "24px" }}>
-              {JSON.stringify(props.values, null, 2)}
-            </Grid>
-          </Grid>
-          <TestInfo props={props} />
-          <Button color="primary" variant="contained" type="submit">
-            Submit
-          </Button>
-        </Form>
-      )}
-    </Formik>
-  )
-}
-
-export default FormikExample
+export default App
