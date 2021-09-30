@@ -114,10 +114,18 @@ const validationSchema = yup.object({
 })
 
 const encode = data => {
-  return Object.keys(data)
-    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&")
+  const formData = new FormData()
+  for (const key of Object.keys(data)) {
+    formData.append(key, data[key])
+  }
+  return formData
 }
+
+// const encode = data => {
+//   return Object.keys(data)
+//     .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+//     .join("&")
+// }
 
 const MemberForm = () => {
   const [open, setOpen] = React.useState(false)
