@@ -24,7 +24,13 @@ function App() {
   }
 
   const handleSubmit = e => {
-    const data = { "form-name": "contact", name, email, message, file }
+    const data = {
+      "form-name": "file-upload-dropzone",
+      name,
+      email,
+      message,
+      file,
+    }
 
     fetch("/", {
       method: "POST",
