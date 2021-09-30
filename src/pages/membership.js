@@ -417,6 +417,9 @@ const MemberForm = () => {
                     {`File:${file.name} Type:${file.type} Size:${file.size} bytes`}{" "}
                   </li>
                 ))}
+              <label>
+                Picture: <input type="file" name="picture" />
+              </label>
             </Grid>
           </Grid>
           <div style={{ marginTop: "2rem" }}>
