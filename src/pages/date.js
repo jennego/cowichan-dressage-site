@@ -27,7 +27,7 @@ function App() {
 
     fetch("/", {
       method: "POST",
-      // headers: { "Content-Type": 'multipart/form-data; boundary=random' },
+      headers: { "Content-Type": "multipart/form-data" },
       body: encode(data),
     })
       .then(() => setStatus("Form Submission Successful!!"))
