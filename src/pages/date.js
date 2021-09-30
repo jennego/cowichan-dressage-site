@@ -52,7 +52,12 @@ function App() {
 
   return (
     <div className="App">
-      <form onSubmit={handleSubmit} action="/thank-you/">
+      <form
+        onSubmit={handleSubmit}
+        action="/form-success"
+        name="file-upload-dropzone"
+        method="post"
+      >
         <p>
           <label>
             Your Name:{" "}
