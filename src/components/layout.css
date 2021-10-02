@@ -96,13 +96,13 @@ h5 {
   height: 60px;
 }
 
-.rbc-agenda-time-cell {
+/* .rbc-agenda-time-cell {
   display: none;
 }
 
 .rbc-header {
   display: none;
-}
+} */
 
 .rbc-toolbar-label {
   font-size: 2.5rem;

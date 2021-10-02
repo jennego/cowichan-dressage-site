@@ -6,7 +6,9 @@ import { useStaticQuery, graphql, navigate, Link } from "gatsby"
 import { Calendar, dateFnsLocalizer } from "react-big-calendar"
 
 import format from "date-fns/format"
+import parseISO from "date-fns/parseISO"
 import parse from "date-fns/parse"
+
 import startOfWeek from "date-fns/startOfWeek"
 import getDay from "date-fns/getDay"
 import enUS from "date-fns/locale/en-US"
@@ -14,6 +16,7 @@ import toDate from "date-fns/toDate"
 
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import { Typography, Paper } from "@material-ui/core"
+import { AgendaView } from "../components/customAgenda"
 
 const MyAgendaEvent = e => (
   <>
@@ -37,20 +40,24 @@ const localizer = dateFnsLocalizer({
 const Cal = () => {
   const data = useStaticQuery(graphql`
     {
-      allContentfulEventDate {
+      allContentfulEvent {
         edges {
           node {
             id
-            date
+            eventName
+            slug
             locationName
             location {
               lat
               lon
             }
-            event {
-              eventName
-              slug
+            eventDates {
+              date
               locationName
+              location {
+                lat
+                lon
+              }
             }
           }
         }
@@ -58,23 +65,21 @@ const Cal = () => {
     }
   `)
 
-  const dateArr = data.allContentfulEventDate.edges.map(({ node }, index) => ({
-    id: index,
-    start: toDate(new Date(node.date)),
-    end: node.endDate
-      ? toDate(new Date(node.endDate))
-      : toDate(new Date(node.date)),
-    title: node.event ? node.event[0].eventName : "",
-    allDay: true,
-    slug: node.event ? node.event[0].slug : "",
-    locationName: node.locationName
-      ? node.locationName
-      : node.event
-      ? node.event[0].locationName
-      : "",
-  }))
+  const dateArrays = data.allContentfulEvent.edges.map(({ node }, index) =>
+    node.eventDates.map(date => ({
+      id: node.id,
+      start: toDate(new Date(parseISO(date.date))),
+      end: date.endDate
+        ? toDate(new Date(parseISO(date.endDate)))
+        : toDate(new Date(parseISO(date.date))),
+      title: node.eventName,
+      slug: node.slug,
+      locationName: date.locationName ? date.locationName : node.locationName,
+      allDay: true,
+    }))
+  )
 
-  console.log(dateArr)
+  const dateArr = [].concat.apply([], dateArrays)
 
   let components = {
     agenda: {
@@ -100,7 +105,7 @@ const Cal = () => {
               components={components}
               localizer={localizer}
               events={dateArr}
-              views={["month", "agenda"]}
+              views={{ month: true, agenda: AgendaView }}
               startAccessor="start"
               endAccessor="end"
               style={{ height: "90vh" }}
@@ -108,6 +113,7 @@ const Cal = () => {
               length={365}
             />
           </div>
+          {console.log(dateArr)}
         </Paper>
       </Main>
     </Layout>
