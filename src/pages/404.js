@@ -11,7 +11,8 @@ const NotFoundPage = () => (
     <Main>
       <Typography variant="h1">404: Not Found</Typography>
       <Typography gutterBottom>
-        You just hit a url that doesn&#39;t exist... the sadness. 🙁
+        You are at a url that doesn&#39;t exist on this site... well, that
+        wasn't supposed to happen 🙁.
       </Typography>
       <Button variant="contained" color="primary" href="/">
         Go to home page

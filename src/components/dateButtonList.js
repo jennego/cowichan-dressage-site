@@ -10,7 +10,7 @@ import { ListItemIcon } from "@material-ui/core"
 import Avatar from "@material-ui/core/Avatar"
 import EventIcon from "@material-ui/icons/Event"
 import Grid from "@material-ui/core/Grid"
-import { format, parse, parseISO } from "date-fns"
+import { format, parse, parseISO, isBefore } from "date-fns"
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
 
@@ -33,7 +33,7 @@ export const DateList = ({ eventDates, entryURL }) => {
     <List>
       <Grid container>
         {eventDates.map((date, index) => (
-          <Grid item>
+          <Grid item key={index}>
             <ListItem
               button
               key={index}
@@ -67,6 +67,8 @@ export const DateList = ({ eventDates, entryURL }) => {
                     className="date-menu"
                   />
                 </ListItem>
+                {isBefore(parseISO(date.date), new Date()).toString()}
+                {Date()}
                 <ListItem
                   button
                   onClick={() =>
