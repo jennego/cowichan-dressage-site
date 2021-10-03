@@ -81,6 +81,15 @@ const Cal = () => {
 
   const dateArr = [].concat.apply([], dateArrays)
 
+  let formats = {
+    dateFormat: "d",
+    agendaHeaderFormat: ({ start, end }, culture, localizer) =>
+      localizer.format(start, "MMM d, yyyy", culture) +
+      " — " +
+      localizer.format(end, "MMM d, yyyy", culture),
+    agendaDateFormat: "EEE MMMM d, yyyy",
+  }
+
   let components = {
     agenda: {
       event: MyAgendaEvent, // with the agenda view use a different component to render events
@@ -102,6 +111,7 @@ const Cal = () => {
           <div>
             {console.log("data", data)}
             <Calendar
+              formats={formats}
               components={components}
               localizer={localizer}
               events={dateArr}

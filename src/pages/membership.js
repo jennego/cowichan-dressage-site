@@ -177,6 +177,7 @@ const MemberForm = () => {
         hcbc: "",
         paymentMethod: "",
         "g-recaptcha-response": "",
+        file: null,
       }}
     >
       {props => (

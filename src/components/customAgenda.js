@@ -5,6 +5,7 @@ import cn from "classnames"
 import dayjs from "dayjs"
 import styles from "../components/layout.css"
 import Grid from "@material-ui/core/Grid"
+import { Link } from "gatsby"
 
 function rangeFunc(start, end, unit = "day") {
   let current = start
@@ -50,19 +51,36 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                   width: "100%",
                   display: "flex",
                   padding: "1rem",
+                  alignItems: "center",
                 }}
+                className="agendaDateRow"
               >
-                <Grid item sm={4}>
+                <Grid item xs={4}>
                   <div
                     className="agendaDate"
-                    style={{ textAlign: "right", paddingRight: "1rem" }}
+                    style={{
+                      textAlign: "right",
+                      paddingRight: "1rem",
+                      fontWeight: "500",
+                    }}
                   >
-                    {localizer.format(day, "MMMM dd")}
+                    {localizer.format(day, "EEE, MMMM d, yyyy")}
                   </div>
                 </Grid>
-                <Grid item sm={8}>
-                  <div className="eventTitle">{accessors.title(event)}</div>
-                  <div className="details"></div>
+                <Grid item xs={8}>
+                  <div className="eventTitle">
+                    <Link to={`/events/${event.slug}`}>
+                      {accessors.title(event)}
+                    </Link>
+                    {console.log("custom agenda", event)}
+                    {event.locationName ? (
+                      <span style={{ fontStyle: "italic" }}>
+                        &nbsp; at {event.locationName}
+                      </span>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </Grid>
               </div>
             )}
