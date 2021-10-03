@@ -31,12 +31,17 @@ import RadioGroup from "@material-ui/core/RadioGroup"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 import FormControl from "@material-ui/core/FormControl"
 import FormHelperText from "@material-ui/core/FormHelperText"
+import Tooltip from "@material-ui/core/Tooltip"
 
 import { processForm } from "../components/formProcessing"
 import AlertDialog from "../alertDialog"
 import Paper from "@material-ui/core/Paper"
 
+import { Close, PictureAsPdf, Delete } from "@material-ui/icons"
+
 import ReCAPTCHA from "react-google-recaptcha"
+import Alert from "@material-ui/lab/Alert"
+import { FormLabel } from "@material-ui/core"
 
 const BirthDatePickerField = ({ field, form, props, ...other }) => {
   const currentError = form.errors[field.name]
@@ -68,24 +73,46 @@ const BirthDatePickerField = ({ field, form, props, ...other }) => {
   )
 }
 
-const UploadComponent = props => {
-  const { setFieldValue } = props
+const UploadComponent = ({ formik, label }, props) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: ".pdf",
     multiple: false,
     onDrop: acceptedFiles => {
-      setFieldValue("file", acceptedFiles[0])
+      formik.setFieldValue("file", acceptedFiles[0])
     },
   })
   return (
     <div>
-      {}
-      <div {...getRootProps({ className: "dropzone" })}>
-        <input {...getInputProps({ name: "file" })} />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
+      <FormLabel>{label} </FormLabel>
+      <div className="dashed-border">
+        {formik.values.file === null ? (
+          <div {...getRootProps({ className: "dropzone" })}>
+            <input {...getInputProps({ name: "file" })} />
+            {isDragActive ? (
+              <p>Drop the files here ...</p>
+            ) : (
+              <div style={{ padding: "1rem" }}>
+                <Button variant="outlined" color="primary">
+                  Drag and Drop file here or click to upload{" "}
+                </Button>
+              </div>
+            )}
+          </div>
         ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
+          <Alert
+            icon={<PictureAsPdf />}
+            action={
+              <Tooltip title="Remove file">
+                <Delete
+                  onClick={() => {
+                    formik.setFieldValue("file", null)
+                  }}
+                />
+              </Tooltip>
+            }
+          >
+            {formik.values.file.name}
+          </Alert>
         )}
       </div>
     </div>
@@ -416,8 +443,11 @@ const MemberForm = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <UploadComponent setFieldValue={props.setFieldValue} />
-              {props.values.file !== null ? props.values.file[0].name : ""}
+              <UploadComponent
+                setFieldValue={props.setFieldValue}
+                formik={props}
+                label="Event Waiver"
+              />
               {console.log(props.values.file)}
             </Grid>
           </Grid>
