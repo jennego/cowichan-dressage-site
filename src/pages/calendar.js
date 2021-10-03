@@ -115,6 +115,7 @@ const Cal = () => {
               components={components}
               localizer={localizer}
               events={dateArr}
+              defaultView="agenda"
               views={{ month: true, agenda: AgendaView }}
               startAccessor="start"
               endAccessor="end"
