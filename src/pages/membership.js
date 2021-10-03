@@ -92,8 +92,8 @@ const UploadComponent = ({ formik, label }, props) => {
               <p>Drop the files here ...</p>
             ) : (
               <div style={{ padding: "1rem" }}>
-                <Button variant="outlined" color="primary">
-                  Drag and Drop file here or click to upload{" "}
+                <Button variant="contained" color="primary">
+                  Drag and Drop file here or click to upload
                 </Button>
               </div>
             )}
@@ -102,7 +102,7 @@ const UploadComponent = ({ formik, label }, props) => {
           <Alert
             icon={<PictureAsPdf />}
             action={
-              <Tooltip title="Remove file">
+              <Tooltip title="Remove this file">
                 <Delete
                   onClick={() => {
                     formik.setFieldValue("file", null)
@@ -183,7 +183,7 @@ const MemberForm = () => {
           .then(() => {
             alert(JSON.stringify(values, null, 2))
             handleOpen("Success!", "Form has been successfully submitted!")
-            actions.resetForm()
+            actions.navigate("/form-success")
           })
           .catch(error => {
             alert(JSON.stringify(values, null, 2))

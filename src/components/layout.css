@@ -130,3 +130,7 @@ a.menu-item {
 .bottom-button {
   padding-bottom: 2rem;
 }
+
+.MuiFormLabel-root {
+  color: #171717 !important;
+}
