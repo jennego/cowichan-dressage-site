@@ -46,6 +46,7 @@ import ResponsiveDialog from "../components/infoDialog"
 
 import { format, parseISO, isBefore, startOfToday } from "date-fns"
 import { location } from "gatsby"
+import Sessions from "../components/sessions"
 
 export const query = graphql`
   query entryQuery($id: String!) {
@@ -370,7 +371,9 @@ const EntryForm = ({ props, data }) => {
         </Grid>
 
         <Grid item xs={12}>
-          {data.contentfulEvent.sessions.map((session, index) => (
+          <Sessions sessionArr={data.contentfulEvent.sessions} props={props} />
+        </Grid>
+        {/* {data.contentfulEvent.sessions.map((session, index) => (
             <Grid container>
               <Grid item style={{ marginTop: "10px" }}>
                 <Checkbox color="primary" />
@@ -391,7 +394,7 @@ const EntryForm = ({ props, data }) => {
                     <Typography variant="body1" style={{ padding: "0.5rem" }}>
                       Description if required
                     </Typography>
-                    {/* <FormLabel component="legend">Test Info </FormLabel> */}
+                    <FormLabel component="legend">Test Info </FormLabel>
                     {session.testFields}
                     {session.testFields ? <TestInfo props={props} /> : ""}
                   </CardContent>
@@ -399,7 +402,7 @@ const EntryForm = ({ props, data }) => {
               </Grid>
             </Grid>
           ))}
-        </Grid>
+        </Grid> */}
 
         <Grid item xs={12} style={{ textAlign: "right" }}>
           Cost: add when selected
