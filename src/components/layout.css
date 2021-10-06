@@ -134,3 +134,12 @@ a.menu-item {
 .MuiFormLabel-root {
   color: #171717 !important;
 }
+
+.session-selected {
+  border: 2px #969696 solid !important;
+}
+
+.session-selected {
+  background: #ebebeb !important;
+  border: 2px #3f50b5 solid !important;
+}

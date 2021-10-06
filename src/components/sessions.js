@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Checkbox from "@material-ui/core/Checkbox"
 import FormLabel from "@material-ui/core/FormLabel"
 import Grid from "@material-ui/core/Grid"
@@ -7,21 +7,39 @@ import { Card, CardContent, Typography } from "@material-ui/core"
 
 const Sessions = ({ sessionArr, props }) => {
   const [selectedSessions, setSelectedSessions] = useState([])
-  console.log(selectedSessions)
+  const [sessions, setAllSessions] = useState([])
 
-  const sessions = sessionArr.map((session, index) => ({
+  console.log("selected", selectedSessions)
+
+  const newSessionArr = sessionArr.map((session, index) => ({
     id: index,
-    // checked: false,
+    title: `Session ${index + 1}`,
+    checked: false,
     ...session,
   }))
 
-  console.log(sessions)
+  useEffect(() => {
+    setAllSessions(newSessionArr)
+  }, [])
+
+  console.log("sessions", sessions)
+
+  const totalCost = selectedSessions.reduce(function (prev, cur) {
+    return prev + cur.cost
+  }, 0)
+
+  const renderCost = totalCost > 1 ? "$" + totalCost : "Free"
 
   const handleSelections = (e, session, index) => {
     console.log(e.target.checked, session, index)
     if (e.target.checked === true) {
+      sessions.map(item =>
+        session.id === item.id ? (item.checked = true) : item
+      )
+
       setSelectedSessions(selectedSessions => [...selectedSessions, session])
     } else {
+      session.checked = false
       setSelectedSessions(selectedSessions.filter(item => index !== item.id))
     }
   }
@@ -29,9 +47,12 @@ const Sessions = ({ sessionArr, props }) => {
   return (
     <div>
       {sessions.map((session, index) => (
-        <Grid container>
-          <Grid item style={{ marginTop: "10px" }}>
+        <Grid container style={{ margin: "1.5rem 0" }}>
+          <Grid item>
             <Checkbox
+              style={{
+                transform: "scale(1.2)",
+              }}
               color="primary"
               onChange={e => handleSelections(e, session, index)}
             />
@@ -42,26 +63,44 @@ const Sessions = ({ sessionArr, props }) => {
               {session.cost >= 1 ? "$" + session.cost : "Free"}
             </FormLabel>
             <Card
+              className={
+                session.checked === true ? "session-selected" : "session"
+              }
               variant="outlined"
-              style={{
-                borderWidth: "2px",
-                marginBottom: "1rem",
-              }}
             >
               <CardContent>
-                <Typography variant="body1" style={{ padding: "0.5rem" }}>
-                  Description if required
-                </Typography>
+                {session.description && (
+                  <Typography variant="body1" style={{ padding: "0.5rem" }}>
+                    {session.description.description}
+                  </Typography>
+                )}
                 <div style={{ marginTop: "0.5rem" }}>
-                  <FormLabel component="legend">Test Info </FormLabel>
-                  {session.testFields}
-                  {session.testFields ? <TestInfo props={props} /> : ""}
+                  {session.testFields ? (
+                    <TestInfo props={props} testNumber={index + 1} />
+                  ) : (
+                    ""
+                  )}
                 </div>
               </CardContent>
             </Card>
           </Grid>
         </Grid>
       ))}
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div>
+          {selectedSessions.length > 0
+            ? `You have selected
+          ${selectedSessions.length}
+          session(s): ${selectedSessions.map(item => item.title).join(", ")}`
+            : "No sessions currently selected"}
+        </div>
+
+        <div style={{ textAlign: "right" }}>
+          {selectedSessions.length < 1
+            ? "Select sessions to see cost"
+            : `Cost: ${renderCost}`}
+        </div>
+      </div>
     </div>
   )
 }

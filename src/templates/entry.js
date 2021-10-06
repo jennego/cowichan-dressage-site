@@ -1,6 +1,6 @@
 // figure out what to do with number fields - initial values and parse
 
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import React, { useState } from "react"
 import Layout from "../components/layout"
 import Main from "../components/MainContent"
@@ -404,10 +404,6 @@ const EntryForm = ({ props, data }) => {
           ))}
         </Grid> */}
 
-        <Grid item xs={12} style={{ textAlign: "right" }}>
-          Cost: add when selected
-        </Grid>
-
         <Grid item xs={12}>
           <TextField
             id="notes"
@@ -473,6 +469,17 @@ const Entry = ({ pageContext, data, location }) => {
           <Typography variant="h2">
             Entry form for {pageContext.eventName}{" "}
           </Typography>
+          <Button variant="outlined" color="primary">
+            Contacts
+          </Button>
+          <Button
+            variant="outlined"
+            component={Link}
+            to="/membership"
+            color="primary"
+          >
+            Membership
+          </Button>
           {data.contentfulEvent.rules ? (
             <ResponsiveDialog
               title="Rules and Important Info"

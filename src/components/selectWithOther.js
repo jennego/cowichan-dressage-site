@@ -7,7 +7,7 @@ import FormControl from "@material-ui/core/FormControl"
 import TextField from "@material-ui/core/TextField"
 import Grid from "@material-ui/core/Grid"
 
-const TestInfo = ({ form, props }) => {
+const TestInfo = ({ form, props, testNumber }) => {
   const [otherValue, setOtherValue] = React.useState("")
   const [isOther, setIsOther] = React.useState(false)
 
@@ -21,17 +21,17 @@ const TestInfo = ({ form, props }) => {
 
   return (
     <Grid container>
-      <Grid item xs={2}>
+      <Grid item xs={3}>
         <FormControl fullWidth>
           <InputLabel id="testSource">Test Source</InputLabel>
           <Select
-            labelId="testSource"
-            id="testSource"
+            labelId={`testSource${testNumber}`}
+            id={`testSource${testNumber}`}
             variant="filled"
             name="testSource"
             displayEmpty
             fullWidth
-            value={props.values.testSource}
+            value={props.values[`testSource${testNumber}`]}
             onChange={props.handleChange}
           >
             {/* <MenuItem value={``}>Test Source</MenuItem> */}
@@ -50,17 +50,21 @@ const TestInfo = ({ form, props }) => {
       </Grid>
 
       {isOther ? (
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <TextField
-            name="otherDetails"
-            id="otherDetails"
+            name={`otherDetails${testNumber}`}
+            id={`otherDetails${testNumber}`}
             variant="filled"
             label="Specify Other"
             helperText="details for other test source"
             fullWidth
-            value={props.values.otherDetails}
+            value={props.values[`otherDetails${testNumber}`]}
             onChange={e =>
-              props.setFieldValue("otherDetails", e.target.value, true)
+              props.setFieldValue(
+                `otherDetails${testNumber}`,
+                e.target.value,
+                true
+              )
             }
           />
         </Grid>
@@ -70,16 +74,22 @@ const TestInfo = ({ form, props }) => {
 
       <Grid item style={{ flexGrow: "1" }}>
         <TextField
-          id="testDetails"
+          id={`testDetails${testNumber}`}
           variant="filled"
           name="testDetails"
           label="Test Details"
           placeholder="level and number/name etc"
           fullWidth
-          value={props.values.test1}
+          value={props.values[`testDetails${testNumber}`]}
           onChange={props.handleChange}
-          error={props.touched.test1 && Boolean(props.errors.test1)}
-          helperText={props.touched.test1 && props.errors.test1}
+          error={
+            props.touched[`testDetails${testNumber}`] &&
+            Boolean(props.errors[`testDetails${testNumber}`])
+          }
+          helperText={
+            props.touched[`testDetails${testNumber}`] &&
+            props.errors[`testDetails${testNumber}`]
+          }
         />
       </Grid>
 
