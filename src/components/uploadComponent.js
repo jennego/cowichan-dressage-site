@@ -10,7 +10,6 @@ import { Typography, Paper } from "@material-ui/core"
 
 export const UploadComponent = ({ formik, label, inputName }, props) => {
   console.log("file", inputName)
-  const [hasError, setHasError] = useState(false)
 
   // useEffect(() => {
   //   if (formik.values[inputName] === undefined) {
@@ -18,18 +17,22 @@ export const UploadComponent = ({ formik, label, inputName }, props) => {
   //   }
   // }, [])
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    acceptedFiles,
+    fileRejections,
+  } = useDropzone({
     accept: ".pdf",
     multiple: false,
     onDrop: acceptedFiles => {
-      setHasError(false)
       formik.setFieldValue(inputName, acceptedFiles[0])
     },
-    onDrop: fileRejections => {
-      setHasError(true)
-      console.log(fileRejections)
-    },
   })
+
+  // console.log("reject", fileRejections.length, "accepted", acceptedFiles)
+  // console.log(formik)
 
   return (
     <div>
@@ -39,8 +42,8 @@ export const UploadComponent = ({ formik, label, inputName }, props) => {
 
       <div style={{ margin: "0.5rem 0 1rem 0" }}>
         <Typography gutterBottom variant="body2">
-          Download PDF, fill it out (if not a fillable PDF, you can use software
-          such as&nbsp;
+          Please download listed PDFs, fill it out (if not a fillable PDF, you
+          can use software such as&nbsp;
           <a
             href="https://get.adobe.com/reader/"
             target="_blank"
@@ -56,7 +59,7 @@ export const UploadComponent = ({ formik, label, inputName }, props) => {
         <PDFListItem />
         <FormLabel>Upload Completed {label} </FormLabel>
         <div className="dashed-border">
-          {formik.values[inputName] === null ? (
+          {acceptedFiles.length === 0 ? (
             <div {...getRootProps({ className: "dropzone" })}>
               <input {...getInputProps({ name: inputName })} />
               {isDragActive ? (
@@ -67,7 +70,7 @@ export const UploadComponent = ({ formik, label, inputName }, props) => {
                 </div>
               ) : (
                 <div style={{ padding: "1rem" }}>
-                  {hasError ? (
+                  {fileRejections.length > 0 ? (
                     <Alert severity="error" style={{ marginBottom: "1rem" }}>
                       Please upload a PDF file.
                     </Alert>
@@ -87,13 +90,15 @@ export const UploadComponent = ({ formik, label, inputName }, props) => {
                 <Tooltip title="Remove this file">
                   <Delete
                     onClick={() => {
+                      acceptedFiles.length = 0
                       formik.setFieldValue(inputName, null)
                     }}
                   />
                 </Tooltip>
               }
             >
-              {formik.values[inputName].name}
+              {acceptedFiles[0].name}
+              {/* {formik.values[inputName].name} */}
             </Alert>
           )}
         </div>

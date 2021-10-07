@@ -11,6 +11,7 @@ import { PictureAsPdf } from "@material-ui/icons"
 import GetAppIcon from "@material-ui/icons/GetApp"
 import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
+import Tooltip from "@material-ui/core/Tooltip"
 
 const PDFListItem = () => {
   return (
@@ -23,11 +24,13 @@ const PDFListItem = () => {
           <ListItemText primary="PDF Name" />
           <ListItemSecondaryAction>
             <a href="#">
-              <ListItemAvatar>
-                <Avatar style={{ background: "#3f50b5" }}>
-                  <GetAppIcon />
-                </Avatar>
-              </ListItemAvatar>
+              <Tooltip title="Download File">
+                <ListItemAvatar>
+                  <Avatar style={{ background: "#3f50b5" }}>
+                    <GetAppIcon />
+                  </Avatar>
+                </ListItemAvatar>
+              </Tooltip>
             </a>
           </ListItemSecondaryAction>
         </ListItem>
