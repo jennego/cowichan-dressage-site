@@ -7,22 +7,29 @@ import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import IconButton from "@material-ui/core/IconButton"
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction"
-import { PictureAsPdf, DownloadForOffline } from "@material-ui/icons"
+import { PictureAsPdf } from "@material-ui/icons"
+import GetAppIcon from "@material-ui/icons/GetApp"
+import ListItemAvatar from "@material-ui/core/ListItemAvatar"
+import Avatar from "@material-ui/core/Avatar"
 
 const PDFListItem = () => {
   return (
     <Grid item xs={12}>
       <List>
-        <ListItem button component="a" target="_blank">
+        <ListItem button component="a" style={{ border: "1px solid #000" }}>
           <ListItemIcon>
             <PictureAsPdf />
           </ListItemIcon>
           <ListItemText primary="PDF Name" />
-          {/* <ListItemSecondaryAction>
+          <ListItemSecondaryAction>
             <a href="#">
-              <DownloadForOffline />
+              <ListItemAvatar>
+                <Avatar style={{ background: "#3f50b5" }}>
+                  <GetAppIcon />
+                </Avatar>
+              </ListItemAvatar>
             </a>
-          </ListItemSecondaryAction> */}
+          </ListItemSecondaryAction>
         </ListItem>
       </List>
     </Grid>
