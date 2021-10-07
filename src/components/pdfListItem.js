@@ -9,20 +9,20 @@ import IconButton from "@material-ui/core/IconButton"
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction"
 import { PictureAsPdf, DownloadForOffline } from "@material-ui/icons"
 
-const PDFListItem = ({ pdf }) => {
+const PDFListItem = () => {
   return (
     <Grid item xs={12}>
       <List>
-        <ListItem button component="a" href={pdf.file} target="_blank">
+        <ListItem button component="a" target="_blank">
           <ListItemIcon>
             <PictureAsPdf />
           </ListItemIcon>
-          <ListItemText primary={pdf.title} />
-          <ListItemSecondaryAction>
+          <ListItemText primary="PDF Name" />
+          {/* <ListItemSecondaryAction>
             <a href="#">
               <DownloadForOffline />
             </a>
-          </ListItemSecondaryAction>
+          </ListItemSecondaryAction> */}
         </ListItem>
       </List>
     </Grid>

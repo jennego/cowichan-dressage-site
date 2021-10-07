@@ -5,6 +5,7 @@ import FormLabel from "@material-ui/core/FormLabel"
 import { PictureAsPdf, Delete } from "@material-ui/icons"
 import Alert from "@material-ui/lab/Alert"
 import Button from "@material-ui/core/Button"
+import PDFListItem from "./pdfListItem"
 
 export const UploadComponent = ({ formik, label, inputName }, props) => {
   console.log("file", inputName)
@@ -25,6 +26,7 @@ export const UploadComponent = ({ formik, label, inputName }, props) => {
 
   return (
     <div>
+      <PDFListItem />
       <FormLabel>{label} </FormLabel>
       <div className="dashed-border">
         {formik.values[inputName] === null ? (

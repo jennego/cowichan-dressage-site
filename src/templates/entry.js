@@ -99,7 +99,8 @@ const DateForm = ({ data, props, location }) => {
             <FormControlLabel
               name="dateSelect"
               value={date.date}
-              control={<Radio />}
+              control={<Radio color="primary" />}
+              color="primary"
               label={format(new Date(parseISO(date.date)), "EEE, LLLL d, yyyy")}
             />
           ))}
@@ -110,43 +111,7 @@ const DateForm = ({ data, props, location }) => {
 }
 
 const WaiverForm = () => {
-  return (
-    <div>
-      <p>Waivers</p>
-      <Grid container>
-        <Grid item xs={12} md={6}>
-          <List>
-            <ListItem button style={{ border: "1px solid" }}>
-              <ListItemIcon>
-                <PictureAsPdfIcon />
-              </ListItemIcon>
-              <ListItemText primary="Waiver one" secondary="additional note" />
-              <Button variant="outlined">Download PDF</Button>
-            </ListItem>
-          </List>
-        </Grid>
-      </Grid>
-
-      <p>Upload waivers</p>
-
-      <Grid container>
-        <Grid item sm={6}>
-          <DropzoneArea
-            filesLimit={1}
-            dropzoneText="Drop (or click to upload) Waiver One"
-            // onChange={files => console.log("Files:", files)}
-          />
-        </Grid>
-        <Grid item sm={6}>
-          <DropzoneArea
-            filesLimit={1}
-            dropzoneText="Drop (or click to upload) Waiver Two"
-            // onChange={files => console.log("Files:", files)}
-          />
-        </Grid>
-      </Grid>
-    </div>
-  )
+  return <div></div>
 }
 
 const PaymentForm = ({ props }) => {
@@ -159,13 +124,13 @@ const PaymentForm = ({ props }) => {
       <FormControlLabel
         value="square"
         name="paymentMethod"
-        control={<Radio />}
+        control={<Radio color="primary" />}
         label="Square Credit Card"
       />
       <FormControlLabel
         name="paymentMethod"
         value="etransfer"
-        control={<Radio />}
+        control={<Radio color="primary" />}
         label="E-Transfer"
       />
     </RadioGroup>
@@ -535,8 +500,8 @@ const Entry = ({ pageContext, data, location }) => {
                 {console.log(props)}
                 <DateForm props={props} data={data} location={location} />
                 <EntryForm props={props} data={data} />
-                {/* <WaiverForm /> */}
                 <PaymentForm props={props} data={data} />
+                {/* <WaiverForm /> */}
                 <Button variant="contained" color="secondary">
                   Clear
                 </Button>
