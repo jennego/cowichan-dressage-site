@@ -19,6 +19,11 @@ const Events = () => {
           node {
             eventName
             slug
+            locationName
+            location {
+              lat
+              lon
+            }
             summary {
               summary
             }
@@ -75,6 +80,7 @@ const Events = () => {
                   <DateList
                     eventDates={node.eventDates}
                     entryURL={`${node.slug}/entry`}
+                    event={node}
                   />
                 </CardContent>
               </Grid>

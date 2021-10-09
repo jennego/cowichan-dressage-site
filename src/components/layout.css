@@ -162,3 +162,7 @@ a.menu-item {
   );
   background-size: 56.57px 56.57px;
 }
+
+.cal-options {
+  font-size: 1rem !important;
+}

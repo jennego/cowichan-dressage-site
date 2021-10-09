@@ -17,8 +17,10 @@ import Card from "@material-ui/core/Card"
 import ExpandLess from "@material-ui/icons/ExpandLess"
 import ExpandMore from "@material-ui/icons/ExpandMore"
 import Collapse from "@material-ui/core/Collapse"
+import AddToCalendarHOC from "react-add-to-calendar-hoc"
+import AddToCalendar from "./addToCalendar"
 
-export const DateList = ({ eventDates, entryURL }) => {
+export const DateList = ({ eventDates, entryURL, event }) => {
   const [selectedIndex, setSelectedIndex] = React.useState("")
 
   const handleClick = index => {
@@ -34,6 +36,7 @@ export const DateList = ({ eventDates, entryURL }) => {
       <Grid container>
         {eventDates.map((date, index) => (
           <Grid item key={index}>
+            <AddToCalendar date={date.date} event={event} />
             <ListItem
               button
               key={index}
@@ -60,12 +63,10 @@ export const DateList = ({ eventDates, entryURL }) => {
                 disablePadding
                 style={{ background: "#e3e3e3" }}
               >
-                <ListItem button>
-                  <ListItemText
-                    disableTypography
-                    primary="Add to Calendar Service"
-                    className="date-menu"
-                  />
+                <ListItem
+                  style={{ display: "flex", justifyContent: "flex-end" }}
+                >
+                  <AddToCalendar date={date.date} event={event} />
                 </ListItem>
                 {isAfter(parseISO(date.date), new Date()) ? (
                   <ListItem

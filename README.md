@@ -1,6 +1,7 @@
 TO DO LIST
 
 - fix flash of unstyled content (especially icons!)
+
 - add current to menu
 - change mobile menu? - maybe later as it currently works ok
 - implement calendar links

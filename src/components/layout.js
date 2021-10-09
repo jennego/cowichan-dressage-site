@@ -17,6 +17,9 @@ const theme = createTheme({
       fontSize: 16,
     },
   },
+  palette: {
+    canvasColor: "#fff",
+  },
 })
 
 const Layout = ({ children }) => {
