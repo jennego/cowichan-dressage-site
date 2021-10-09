@@ -36,7 +36,6 @@ export const DateList = ({ eventDates, entryURL, event }) => {
       <Grid container>
         {eventDates.map((date, index) => (
           <Grid item key={index}>
-            <AddToCalendar date={date.date} event={event} />
             <ListItem
               button
               key={index}

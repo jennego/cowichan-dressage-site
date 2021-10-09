@@ -58,7 +58,11 @@ const Event = ({ data, pageContext }) => {
         </Typography>
         <Grid container>
           <Grid item md={8}>
-            <DateList eventDates={event.eventDates} entryURL="entry" />
+            <DateList
+              eventDates={event.eventDates}
+              entryURL="entry"
+              event={event}
+            />
           </Grid>
           <Grid item md={4}>
             {event.image ? (
