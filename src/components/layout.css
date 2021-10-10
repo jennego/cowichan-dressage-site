@@ -106,7 +106,10 @@ h5 {
 
 .date-menu {
   text-align: right;
-  font-size: 1.0625rem;
+  font-size: 0.9rem;
+  text-transform: uppercase !important;
+  font-weight: 500;
+  padding-right: 0.6rem;
 }
 
 a.menu-item {

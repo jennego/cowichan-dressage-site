@@ -80,7 +80,103 @@ async function createEventEntries(graphql, actions) {
   })
 }
 
+async function createDatePages(graphql, actions) {
+  const { createPage } = actions
+  const result = await graphql(`
+    {
+      allContentfulEventDate {
+        edges {
+          node {
+            date
+            id
+            event {
+              eventName
+              id
+            }
+            results {
+              title
+              file {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  if (result.errors) throw result.errors
+
+  const pageEdges = (result.data.allContentfulEventDate || {}).edges || []
+
+  pageEdges.forEach((edge, index) => {
+    const { id, date } = edge.node
+    const path = `/${date}/`
+    console.log(edge)
+
+    createPage({
+      path,
+      component: require.resolve("./src/templates/date.js"),
+      context: {
+        id,
+        // prev: index === 0 ? null : pageEdges[index - 1].node,
+        // next: index === pageEdges.length - 1 ? null : pageEdges[index + 1].node,
+      },
+    })
+  })
+}
+
+async function createResultPages(graphql, actions) {
+  const { createPage } = actions
+  const result = await graphql(`
+    {
+      allContentfulEventDate {
+        edges {
+          node {
+            date
+            id
+            event {
+              eventName
+              id
+            }
+            results {
+              title
+              file {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  if (result.errors) throw result.errors
+
+  const pageEdges = (result.data.allContentfulEventDate || {}).edges || []
+
+  pageEdges.forEach((edge, index) => {
+    const { id, date, results, event } = edge.node
+    const path = `/${date}/results`
+
+    createPage({
+      path,
+      component: require.resolve("./src/templates/results.js"),
+      context: {
+        id,
+        results,
+        date,
+        event,
+        // prev: index === 0 ? null : pageEdges[index - 1].node,
+        // next: index === pageEdges.length - 1 ? null : pageEdges[index + 1].node,
+      },
+    })
+  })
+}
+
 exports.createPages = async ({ graphql, actions }) => {
   await createEvents(graphql, actions)
   await createEventEntries(graphql, actions)
+  await createDatePages(graphql, actions)
+  await createResultPages(graphql, actions)
 }

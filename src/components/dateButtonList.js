@@ -83,7 +83,10 @@ export const DateList = ({ eventDates, entryURL, event }) => {
                     />
                   </ListItem>
                 ) : (
-                  <ListItem button>
+                  <ListItem
+                    button
+                    onClick={() => navigate(`/${date.date}/results`)}
+                  >
                     <ListItemText
                       disableTypography
                       primary="Results"
