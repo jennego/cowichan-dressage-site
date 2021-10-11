@@ -7,6 +7,23 @@ import styles from "../components/layout.css"
 import Grid from "@material-ui/core/Grid"
 import { Link } from "gatsby"
 import { DateList } from "./dateButtonList"
+import { format, parseISO } from "date-fns"
+import { navigate } from "gatsby"
+
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import { ListItemIcon } from "@material-ui/core"
+import EventIcon from "@material-ui/icons/Event"
+import { parse, isBefore, isAfter } from "date-fns"
+import Button from "@material-ui/core/Button"
+import Card from "@material-ui/core/Card"
+
+import ExpandLess from "@material-ui/icons/ExpandLess"
+import ExpandMore from "@material-ui/icons/ExpandMore"
+import Collapse from "@material-ui/core/Collapse"
+import AddToCalendarHOC from "react-add-to-calendar-hoc"
+import AddToCalendar from "./addToCalendar"
 
 function rangeFunc(start, end, unit = "day") {
   let current = start
@@ -29,13 +46,27 @@ function inRange(e, start, end, accessors) {
 }
 
 export const AgendaView = ({ accessors, localizer, length, date, events }) => {
+  const [selectedIndex, setSelectedIndex] = React.useState("")
+
+  const handleClick = index => {
+    if (selectedIndex === index) {
+      setSelectedIndex("")
+    } else {
+      setSelectedIndex(index)
+    }
+  }
+
+  console.log(selectedIndex)
+
   const renderDay = (day, events) => {
     events = events.filter(e =>
       inRange(e, dates.startOf(day, "day"), dates.endOf(day, "day"), accessors)
     )
+
     return events.map((event, idx) => {
       return (
         <Grid container>
+          {console.log(event)}
           <div
             key={idx}
             style={{
@@ -56,7 +87,98 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                 }}
                 className="agendaDateRow"
               >
-                <Grid item xs={4}>
+                <Grid item xs={12}>
+                  <Grid>
+                    <ListItem
+                      button
+                      onClick={() => {
+                        handleClick(event.id)
+                      }}
+                    >
+                      <ListItemIcon>
+                        <EventIcon fontSize="large" />
+                      </ListItemIcon>
+                      <ListItemText
+                        secondary={date.subtitle}
+                        style={{
+                          // paddingRight: "0.5rem",
+                          justifyContent: "center",
+                        }}
+                      />
+                      <Grid container>
+                        <Grid item xs={12} sm={6}>
+                          <div>
+                            {format(new Date(event.start), "EEE, LLLL d, yyyy")}
+                          </div>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <div>{event.title}</div>
+                        </Grid>
+                      </Grid>
+                      {event.id === selectedIndex ? (
+                        <ExpandLess />
+                      ) : (
+                        <ExpandMore />
+                      )}
+                    </ListItem>
+                    <Collapse
+                      in={event.id === selectedIndex}
+                      timeout="auto"
+                      unmountOnExit
+                    >
+                      <List
+                        component="div"
+                        disablePadding
+                        style={{ background: "#e3e3e3" }}
+                      >
+                        <ListItem
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                          }}
+                        >
+                          More Info
+                        </ListItem>
+                        <ListItem
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                          }}
+                        >
+                          {/* <AddToCalendar date={date.date} event={event} /> */}
+                        </ListItem>
+                        {isAfter(event.start, new Date()) ? (
+                          <ListItem
+                            button
+                            onClick={() =>
+                              navigate(`${event.slug}`, {
+                                state: { date: date.date },
+                              })
+                            }
+                          >
+                            <ListItemText
+                              disableTypography
+                              primary="Entry Form"
+                              className="date-menu"
+                            />
+                          </ListItem>
+                        ) : (
+                          <ListItem
+                            button
+                            onClick={() => navigate(`/${date.date}/results`)}
+                          >
+                            <ListItemText
+                              disableTypography
+                              primary="Results"
+                              className="date-menu"
+                            />
+                          </ListItem>
+                        )}
+                      </List>
+                    </Collapse>
+                  </Grid>
+                </Grid>
+                {/* <Grid item xs={4}>
                   <div
                     className="agendaDate"
                     style={{
@@ -82,7 +204,7 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                       ""
                     )}
                   </div>
-                </Grid>
+                </Grid> */}
               </div>
             )}
           </div>

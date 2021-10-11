@@ -43,7 +43,6 @@ const Cal = () => {
       allContentfulEvent {
         edges {
           node {
-            id
             eventName
             slug
             locationName
@@ -67,7 +66,7 @@ const Cal = () => {
 
   const dateArrays = data.allContentfulEvent.edges.map(({ node }, index) =>
     node.eventDates.map(date => ({
-      id: node.id,
+      id: index,
       start: toDate(new Date(parseISO(date.date))),
       end: date.endDate
         ? toDate(new Date(parseISO(date.endDate)))

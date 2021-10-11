@@ -44,7 +44,7 @@ export const DateList = ({ entryURL, event, date, index }) => {
           <EventIcon fontSize="large" />
         </ListItemIcon>
         <ListItemText
-          primary={format(new Date(parseISO(date.date)), "EEE, LLLL d, yyyy")}
+          primary={format(new Date(parseISO(date)), "EEE, LLLL d, yyyy")}
           secondary={date.subtitle}
           style={{ paddingRight: "0.5rem" }}
         />
