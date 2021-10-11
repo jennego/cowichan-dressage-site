@@ -6,6 +6,7 @@ import dayjs from "dayjs"
 import styles from "../components/layout.css"
 import Grid from "@material-ui/core/Grid"
 import { Link } from "gatsby"
+import { DateList } from "./dateButtonList"
 
 function rangeFunc(start, end, unit = "day") {
   let current = start

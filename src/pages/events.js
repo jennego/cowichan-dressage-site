@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 import { GatsbyImage } from "gatsby-plugin-image"
 import Grid from "@material-ui/core/Grid"
+import List from "@material-ui/core/List"
 import { DateList } from "../components/dateButtonList"
 
 const Events = () => {
@@ -77,11 +78,19 @@ const Events = () => {
                       Entry Form
                     </Button>
                   </Link>
-                  <DateList
-                    eventDates={node.eventDates}
-                    entryURL={`${node.slug}/entry`}
-                    event={node}
-                  />
+
+                  <List>
+                    <Grid container>
+                      {node.eventDates.map((date, index) => (
+                        <DateList
+                          date={date}
+                          index={index}
+                          entryURL={`${node.slug}/entry`}
+                          event={node}
+                        />
+                      ))}
+                    </Grid>
+                  </List>
                 </CardContent>
               </Grid>
               {node.image ? (

@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 
 import Grid from "@material-ui/core/Grid"
-
+import List from "@material-ui/core/List"
 import Accordion from "@material-ui/core/Accordion"
 import AccordionSummary from "@material-ui/core/AccordionSummary"
 import AccordionDetails from "@material-ui/core/AccordionDetails"
@@ -58,11 +58,18 @@ const Event = ({ data, pageContext }) => {
         </Typography>
         <Grid container>
           <Grid item md={8}>
-            <DateList
-              eventDates={event.eventDates}
-              entryURL="entry"
-              event={event}
-            />
+            <List>
+              <Grid container>
+                {event.eventDates.map((date, index) => (
+                  <DateList
+                    date={date}
+                    index={index}
+                    entryURL={`entry`}
+                    event={event}
+                  />
+                ))}
+              </Grid>
+            </List>
           </Grid>
           <Grid item md={4}>
             {event.image ? (
