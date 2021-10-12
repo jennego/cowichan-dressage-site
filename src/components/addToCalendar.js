@@ -7,7 +7,7 @@ import parseISO from "date-fns/parseISO"
 import toDate from "date-fns/toDate"
 import { createTheme, ThemeProvider } from "@material-ui/core/styles"
 
-const AddToCalendar = ({ event, date }) => {
+const AddToCalendar = ({ event, date, isCalArr }) => {
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const handleClick = event => {
@@ -18,6 +18,14 @@ const AddToCalendar = ({ event, date }) => {
     setAnchorEl(null)
   }
 
+  const eventInfoCalArray = {
+    title: event.title ? event.title : " ",
+    location: event.locationName ? event.locationName : " ",
+    description: event.description ? event.description : " ",
+    start: toDate(new Date(event.start)),
+    end: event.end ? toDate(new Date(event.end)) : "",
+  }
+
   const eventInfo = {
     title: event.eventName ? event.eventName : " ",
     location: event.locationName ? event.locationName : " ",
@@ -26,9 +34,13 @@ const AddToCalendar = ({ event, date }) => {
   }
 
   console.log(event)
-  const googleCalendar = new GoogleCalendar(eventInfo)
-  const icalendar = new ICalendar(eventInfo)
-  const outlookCal = new OutlookCalendar(eventInfo)
+  const googleCalendar = new GoogleCalendar(
+    isCalArr ? eventInfoCalArray : eventInfo
+  )
+  const icalendar = new ICalendar(isCalArr ? eventInfoCalArray : eventInfo)
+  const outlookCal = new OutlookCalendar(
+    isCalArr ? eventInfoCalArray : eventInfo
+  )
   return (
     <div>
       <Button
@@ -73,6 +85,9 @@ const AddToCalendar = ({ event, date }) => {
       </Menu>
     </div>
   )
+}
+AddToCalendar.defaultProps = {
+  isCalArr: false,
 }
 
 export default AddToCalendar

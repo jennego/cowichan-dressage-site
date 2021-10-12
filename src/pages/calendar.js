@@ -43,7 +43,11 @@ const Cal = () => {
       allContentfulEvent {
         edges {
           node {
+            id
             eventName
+            summary {
+              summary
+            }
             slug
             locationName
             location {
@@ -51,6 +55,7 @@ const Cal = () => {
               lon
             }
             eventDates {
+              id
               date
               locationName
               location {
@@ -64,9 +69,9 @@ const Cal = () => {
     }
   `)
 
-  const dateArrays = data.allContentfulEvent.edges.map(({ node }, index) =>
-    node.eventDates.map(date => ({
-      id: index,
+  const dateArrays = data.allContentfulEvent.edges.map(({ node }) =>
+    node.eventDates.map((date, index) => ({
+      id: node.id + date.id + index,
       start: toDate(new Date(parseISO(date.date))),
       end: date.endDate
         ? toDate(new Date(parseISO(date.endDate)))
@@ -75,6 +80,7 @@ const Cal = () => {
       slug: node.slug,
       locationName: date.locationName ? date.locationName : node.locationName,
       allDay: true,
+      description: node.summary.summary,
     }))
   )
 

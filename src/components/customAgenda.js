@@ -5,9 +5,7 @@ import cn from "classnames"
 import dayjs from "dayjs"
 import styles from "../components/layout.css"
 import Grid from "@material-ui/core/Grid"
-import { Link } from "gatsby"
-import { DateList } from "./dateButtonList"
-import { format, parseISO } from "date-fns"
+import { format, parseISO, isAfter } from "date-fns"
 import { navigate } from "gatsby"
 
 import List from "@material-ui/core/List"
@@ -15,14 +13,10 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import { ListItemIcon } from "@material-ui/core"
 import EventIcon from "@material-ui/icons/Event"
-import { parse, isBefore, isAfter } from "date-fns"
-import Button from "@material-ui/core/Button"
-import Card from "@material-ui/core/Card"
 
 import ExpandLess from "@material-ui/icons/ExpandLess"
 import ExpandMore from "@material-ui/icons/ExpandMore"
 import Collapse from "@material-ui/core/Collapse"
-import AddToCalendarHOC from "react-add-to-calendar-hoc"
 import AddToCalendar from "./addToCalendar"
 
 function rangeFunc(start, end, unit = "day") {
@@ -106,12 +100,12 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                         }}
                       />
                       <Grid container>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={6} md={4}>
                           <div>
                             {format(new Date(event.start), "EEE, LLLL d, yyyy")}
                           </div>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={6} md={8}>
                           <div>{event.title}</div>
                         </Grid>
                       </Grid>
@@ -136,8 +130,16 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                             display: "flex",
                             justifyContent: "flex-end",
                           }}
+                          button
+                          onClick={() => {
+                            navigate(`/events/${event.slug}`)
+                          }}
                         >
-                          More Info
+                          <ListItemText
+                            disableTypography
+                            primary="More Info"
+                            className="date-menu"
+                          />
                         </ListItem>
                         <ListItem
                           style={{
@@ -145,7 +147,7 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                             justifyContent: "flex-end",
                           }}
                         >
-                          {/* <AddToCalendar date={date.date} event={event} /> */}
+                          <AddToCalendar event={event} isCalArr={true} />
                         </ListItem>
                         {isAfter(event.start, new Date()) ? (
                           <ListItem
@@ -178,33 +180,6 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                     </Collapse>
                   </Grid>
                 </Grid>
-                {/* <Grid item xs={4}>
-                  <div
-                    className="agendaDate"
-                    style={{
-                      textAlign: "right",
-                      paddingRight: "1rem",
-                      fontWeight: "500",
-                    }}
-                  >
-                    {localizer.format(day, "EEE, MMMM d, yyyy")}
-                  </div>
-                </Grid>
-                <Grid item xs={8}>
-                  <div className="eventTitle">
-                    <Link to={`/events/${event.slug}`}>
-                      {accessors.title(event)}
-                    </Link>
-                    {console.log("custom agenda", event)}
-                    {event.locationName ? (
-                      <span style={{ fontStyle: "italic" }}>
-                        &nbsp; at {event.locationName}
-                      </span>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </Grid> */}
               </div>
             )}
           </div>

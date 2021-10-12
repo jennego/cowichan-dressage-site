@@ -87,6 +87,7 @@ const Events = () => {
                           index={index}
                           entryURL={`${node.slug}/entry`}
                           event={node}
+                          isCalArr={false}
                         />
                       ))}
                     </Grid>
