@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import List from "@material-ui/core/List"
@@ -50,6 +50,24 @@ const IndexPage = () => {
           }
         }
       }
+      allContentfulSiteInfo {
+        edges {
+          node {
+            siteName
+            homePageMainPhoto {
+              gatsbyImageData(placeholder: BLURRED)
+              title
+            }
+            homeOpeningStatement {
+              homeOpeningStatement
+            }
+            homePageBottomPhotos {
+              gatsbyImageData(placeholder: BLURRED)
+              title
+            }
+          }
+        }
+      }
     }
   `)
 
@@ -87,14 +105,16 @@ const IndexPage = () => {
     }
   }
 
-  console.log(selectedIndex)
+  console.log(data)
+
+  const siteInfo = data.allContentfulSiteInfo.edges[0].node
 
   return (
     <Layout>
       <div className="hero">
-        <StaticImage
-          src="https://images.unsplash.com/photo-1523301758621-fe1569031789?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80"
-          alt="fill murray"
+        <GatsbyImage
+          image={siteInfo.homePageMainPhoto.gatsbyImageData}
+          alt={siteInfo.homePageMainPhoto.title}
           objectPosition="top"
           style={{
             height: "70vh",
@@ -105,7 +125,7 @@ const IndexPage = () => {
         <div className="overlay">
           <div className="hero-text">
             <div className="logo-container">
-              <div style={{ width: "70%" }}>
+              <div style={{ width: "50%" }}>
                 <img src={logo} alt="Cowichan Dressage Club" />
               </div>
             </div>
@@ -115,11 +135,10 @@ const IndexPage = () => {
               style={{ color: "#fff" }}
               className="hero-title"
             >
-              Cowichan Dressage Club
+              {siteInfo.siteName}
             </Typography>
             <br></br>
             <Button variant="contained" color="primary">
-              {" "}
               See Events{" "}
             </Button>
           </div>
@@ -326,7 +345,7 @@ const IndexPage = () => {
       </Container>
 
       <div style={{ display: "flex", marginTop: "2rem", maxHeigh: "500px" }}>
-        <StaticImage
+        {/* <StaticImage
           src="https://images.unsplash.com/flagged/photo-1568382007362-5d0d0a26b422?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
           alt="filler"
         />
@@ -337,7 +356,7 @@ const IndexPage = () => {
         <StaticImage
           src="https://images.unsplash.com/photo-1595675759778-dcfbbc6629bd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
           alt="filler"
-        />
+        /> */}
       </div>
     </Layout>
   )
