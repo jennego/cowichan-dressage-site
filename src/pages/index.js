@@ -117,7 +117,7 @@ const IndexPage = () => {
           alt={siteInfo.homePageMainPhoto.title}
           objectPosition="top"
           style={{
-            height: "70vh",
+            height: "80vh",
             width: "100%",
           }}
         />
@@ -157,7 +157,9 @@ const IndexPage = () => {
               }}
             >
               <div className="short-about">
-                We are a dressage club in the Cowichan Valley!
+                <Typography variant="body">
+                  {siteInfo.homeOpeningStatement.homeOpeningStatement}
+                </Typography>
               </div>
               <Button variant="contained" color="primary">
                 Join Us!
@@ -286,39 +288,6 @@ const IndexPage = () => {
                 ))}
               </Grid>
 
-              {/* <List>
-                <ListItem button>
-                  <ListItemText
-                    primary="Show and Tell"
-                    secondary="Jun 9, 2014"
-                  />
-                  <Button edge="end" aria-label="more-info" variant="outlined">
-                    More Info
-                  </Button>
-                </ListItem>
-                <ListItem button>
-                  <ListItemText
-                    primary="Schooling Show"
-                    secondary="July 7, 2014"
-                  />
-                  <Button edge="end" variant="outlined" aria-label="more-info">
-                    More Info
-                  </Button>
-                </ListItem>
-                <ListItem button>
-                  <ListItemText primary="Clinic" secondary="August 20, 2014" />
-                  <Button edge="end" variant="outlined" aria-label="more-info">
-                    Add to Calendar
-                  </Button>
-                  <Button edge="end" variant="outlined" aria-label="more-info">
-                    Entry
-                  </Button>
-                  <Button edge="end" variant="outlined" aria-label="more-info">
-                    More Info
-                  </Button>
-                </ListItem>
-              </List> */}
-
               <Button
                 variant="contained"
                 color="primary"
@@ -344,19 +313,14 @@ const IndexPage = () => {
         </Grid>
       </Container>
 
-      <div style={{ display: "flex", marginTop: "2rem", maxHeigh: "500px" }}>
-        {/* <StaticImage
-          src="https://images.unsplash.com/flagged/photo-1568382007362-5d0d0a26b422?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
-          alt="filler"
-        />
-        <StaticImage
-          src="https://images.unsplash.com/photo-1610766920689-5d4c57e1dfba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=972&q=80"
-          alt="filler"
-        />
-        <StaticImage
-          src="https://images.unsplash.com/photo-1595675759778-dcfbbc6629bd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80"
-          alt="filler"
-        /> */}
+      <div style={{ display: "flex", marginTop: "2rem", maxHeight: "300px" }}>
+        {siteInfo.homePageBottomPhotos.map(photo => (
+          <GatsbyImage
+            image={photo.gatsbyImageData}
+            alt={photo.title}
+            style={{ maxWidth: "40%" }}
+          />
+        ))}
       </div>
     </Layout>
   )
