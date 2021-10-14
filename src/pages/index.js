@@ -111,7 +111,7 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <div className="hero">
+      <div className="hero" style={{ height: "80vh" }}>
         <GatsbyImage
           image={siteInfo.homePageMainPhoto.gatsbyImageData}
           alt={siteInfo.homePageMainPhoto.title}
@@ -157,7 +157,7 @@ const IndexPage = () => {
               }}
             >
               <div className="short-about">
-                <Typography variant="body">
+                <Typography variant="body1">
                   {siteInfo.homeOpeningStatement.homeOpeningStatement}
                 </Typography>
               </div>

@@ -16,6 +16,7 @@ import { graphql } from "gatsby"
 import { StaticImage, GatsbyImage } from "gatsby-plugin-image"
 
 import { DateList } from "../components/dateButtonList"
+import ContactCard from "../components/contactCard"
 
 export const query = graphql`
   query eventQuery($id: String!) {
@@ -29,6 +30,10 @@ export const query = graphql`
         email
         name
         title
+        phoneNumber
+        details {
+          details
+        }
       }
       eventInformation {
         raw
@@ -120,11 +125,35 @@ const Event = ({ data, pageContext }) => {
               Registration
             </Typography>
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails style={{ flexDirection: "column" }}>
             <Typography>{renderRichText(event.registrationInfo)}</Typography>
-            <Button variant="contained">Entry Form</Button>
+            <Button variant="contained" color="primary">
+              Entry Form
+            </Button>
           </AccordionDetails>
         </Accordion>
+        {event.contacts ? (
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel4a-content"
+              id="panel4a-header"
+            >
+              <Typography variant="h4" component="h2">
+                Contacts
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container spacing={3}>
+                {event.contacts.map(contact => (
+                  <ContactCard contact={contact} />
+                ))}
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
+        ) : (
+          ""
+        )}
       </Main>
     </Layout>
   )

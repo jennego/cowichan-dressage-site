@@ -38,6 +38,7 @@
     "react-dropzone": "^11.4.0",
     "react-google-recaptcha": "^2.1.0",
     "react-helmet": "^6.1.0",
+    "react-obfuscate": "^3.6.8",
     "react-parallax": "^3.3.0",
     "react-pdfobject": "^1.2.0",
     "use-breakpoint": "^2.0.1",
