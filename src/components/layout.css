@@ -91,13 +91,9 @@ h5 {
   height: 60px;
 }
 
-/* .rbc-agenda-time-cell {
-  display: none;
+.active-nav {
+  text-decoration: underline !important;
 }
-
-.rbc-header {
-  display: none;
-} */
 
 .rbc-toolbar-label {
   font-size: 2.5rem;
@@ -168,4 +164,20 @@ a.menu-item {
 
 .cal-options {
   font-size: 1rem !important;
+}
+
+.dialog-text {
+  color: #171717;
+}
+
+.dialog-text li {
+  line-height: 0.625rem;
+}
+
+.MuiTypography-body1 li {
+  line-height: 0.625rem;
+}
+
+.event-border {
+  border-bottom: #969dff solid 2px !important;
 }

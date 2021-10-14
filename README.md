@@ -1,32 +1,39 @@
 TO DO LIST
 
-- fix flash of unstyled content (especially icons!)
+- implement calendar links - done
+- fix flash of unstyled content (especially icons!) - needs testing
+- add current to menu - done
+- pdf upload/download in forms - done
+- actually put the event dates on the homepage - done
+- pages for times/results (tied to date?) / pdf display - done
 
-- add current to menu
 - change mobile menu? - maybe later as it currently works ok
-- implement calendar links
-- implement session selection, including cost tally and select list (send select list to form, cost to form success page)
+- implement session selection, including cost tally and select list (send select list to form, cost to form success page) - still need to send to form sucess
 - form success page - include contact, cost, event calendar link
-- pdf upload/download in forms
-- have both forms send
-- actually put the event dates on the homepage
+- have both forms send sucessfully
+- dynamically generate initial values and validation for form variables and arrays
 - style footer
 - control accordion via url for deeplinking
+- contacts entry form
+- style headers (before form) for entry and membership forms (rules, contacts etc)
+  - add rule agreements to validation?
 - is full badge
-- pages for times/results (tied to date?) / pdf display
 - possibly eventdate pages or at least component
 
-Responsive Gatsby site and form-based serverless registration system using Netlify forms. Forms customizable via Contentful CMS.
+Responsive Gatsby site and form-based serverless registration system using Netlify forms. Forms customizable via Contentful CMS, dynamically generated on rebuild.
 
 Tech
 
 - Contentful CMS
 - Netlify
 - Gatsby/React
-- Material UI (v4)
+- Material UI (v4) and Material Icons
 - Formik
 - Big Calendar
 - Date-Fns
+- Datebook (for ics/google cal generation)
+
+Makes use of GatsbyImage, Contentful/Gatsby provided GraphQL and hooks.
 
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">

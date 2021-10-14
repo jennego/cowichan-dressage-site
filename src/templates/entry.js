@@ -60,6 +60,10 @@ export const query = graphql`
         email
         name
         title
+        phoneNumber
+        details {
+          details
+        }
       }
       sessions {
         testFields

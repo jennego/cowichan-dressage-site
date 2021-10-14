@@ -8,6 +8,8 @@ import DialogTitle from "@material-ui/core/DialogTitle"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import { useTheme } from "@material-ui/core/styles"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
+import { Close } from "@material-ui/icons"
+import { IconButton, Typography } from "@material-ui/core"
 
 export default function ResponsiveDialog({ content, label, title }) {
   const [open, setOpen] = React.useState(false)
@@ -34,9 +36,29 @@ export default function ResponsiveDialog({ content, label, title }) {
         aria-labelledby="responsive-dialog-title"
         maxWidth="lg"
       >
-        <DialogTitle id="responsive-dialog-title">{title}</DialogTitle>
+        <DialogTitle
+          id="responsive-dialog-title"
+          disableTypography
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography
+            variant="h4"
+            component="h1"
+            style={{ marginTop: "0.5rem" }}
+          >
+            {title}
+          </Typography>
+          <IconButton onClick={handleClose}>
+            <Close fontSize="large" />
+          </IconButton>
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>{renderRichText(content)}</DialogContentText>
+          <DialogContentText className="dialog-text">
+            {renderRichText(content)}
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary" autoFocus>

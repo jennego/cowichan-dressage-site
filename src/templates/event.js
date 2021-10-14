@@ -87,7 +87,7 @@ const Event = ({ data, pageContext }) => {
             )}
           </Grid>
         </Grid>
-        <Accordion expanded>
+        <Accordion expanded className="event-border">
           <AccordionSummary
             // expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -101,7 +101,7 @@ const Event = ({ data, pageContext }) => {
             <Typography>{renderRichText(event.eventInformation)}</Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion>
+        <Accordion className="event-border">
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel2a-content"
@@ -115,7 +115,7 @@ const Event = ({ data, pageContext }) => {
             <Typography>{renderRichText(event.rules)}</Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion>
+        <Accordion className="event-border">
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel3a-content"
@@ -133,7 +133,7 @@ const Event = ({ data, pageContext }) => {
           </AccordionDetails>
         </Accordion>
         {event.contacts ? (
-          <Accordion>
+          <Accordion className="event-border">
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel4a-content"

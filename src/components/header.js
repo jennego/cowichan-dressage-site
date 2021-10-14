@@ -67,7 +67,9 @@ const MenuItems = () => (
       component={GatsbyLink}
       to="/events"
       className="menu-item"
-      style={{ color: "primary", alignSelf: "center" }}
+      style={{ alignSelf: "center" }}
+      activeClassName="active-nav"
+      partiallyActive={true}
     >
       Events
     </Link>
@@ -77,6 +79,8 @@ const MenuItems = () => (
       to="/calendar"
       className="menu-item"
       style={{ alignSelf: "center" }}
+      activeClassName="active-nav"
+      partiallyActive={true}
     >
       Calendar
     </Link>
@@ -86,6 +90,8 @@ const MenuItems = () => (
       to="/membership"
       className="menu-item"
       style={{ alignSelf: "center" }}
+      activeClassName="active-nav"
+      partiallyActive={true}
     >
       Membership
     </Link>
@@ -94,6 +100,8 @@ const MenuItems = () => (
       to="/resources"
       className="menu-item"
       style={{ alignSelf: "center" }}
+      activeClassName="active-nav"
+      partiallyActive={true}
     >
       Resources
     </Link>
@@ -102,6 +110,8 @@ const MenuItems = () => (
       to="/about"
       className="menu-item"
       style={{ alignSelf: "center" }}
+      activeClassName="active-nav"
+      partiallyActive={true}
     >
       About
     </Link>
