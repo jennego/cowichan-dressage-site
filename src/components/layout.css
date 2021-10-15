@@ -180,5 +180,10 @@ a.menu-item {
 }
 
 .event-border {
-  border-bottom: #969dff solid 2px !important;
+  border-bottom: #b9bdfa solid 2px !important;
+}
+
+.event-border:hover {
+  background: #f5f5f5;
+  transition: background 0.5s;
 }
