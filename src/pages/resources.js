@@ -15,7 +15,7 @@ const Downloads = () => {
           <Typography variant="body1">
             For issues with web forms or website
           </Typography>
-          <ContactCard />
+          {/* <ContactCard /> */}
         </Grid>
       </Main>
     </Layout>

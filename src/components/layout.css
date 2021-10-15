@@ -166,8 +166,9 @@ a.menu-item {
   font-size: 1rem !important;
 }
 
-.dialog-text {
+.dialog-content {
   color: #171717;
+  min-width: 70vw;
 }
 
 .dialog-text li {

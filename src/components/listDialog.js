@@ -9,9 +9,10 @@ import useMediaQuery from "@material-ui/core/useMediaQuery"
 import { useTheme } from "@material-ui/core/styles"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { Close } from "@material-ui/icons"
-import { IconButton, Typography } from "@material-ui/core"
+import { IconButton, Typography, Grid } from "@material-ui/core"
+import ContactCard from "./contactCard"
 
-export default function ResponsiveDialog({ content, label, title }) {
+export default function ResponsiveDialogContacts({ content, label, title }) {
   const [open, setOpen] = React.useState(false)
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
@@ -57,7 +58,11 @@ export default function ResponsiveDialog({ content, label, title }) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText className="dialog-content">
-            {renderRichText(content)}
+            <Grid container spacing={1}>
+              {content.map((item, index) => (
+                <ContactCard contact={item} />
+              ))}
+            </Grid>
           </DialogContentText>
         </DialogContent>
         <DialogActions>

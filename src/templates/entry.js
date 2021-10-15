@@ -47,6 +47,7 @@ import ResponsiveDialog from "../components/infoDialog"
 import { format, parseISO, isBefore, startOfToday } from "date-fns"
 import { location } from "gatsby"
 import Sessions from "../components/sessions"
+import ResponsiveDialogContacts from "../components/listDialog"
 
 export const query = graphql`
   query entryQuery($id: String!) {
@@ -438,9 +439,6 @@ const Entry = ({ pageContext, data, location }) => {
           <Typography variant="h2">
             Entry form for {pageContext.eventName}{" "}
           </Typography>
-          <Button variant="outlined" color="primary">
-            Contacts
-          </Button>
           <Button
             variant="outlined"
             component={Link}
@@ -449,6 +447,11 @@ const Entry = ({ pageContext, data, location }) => {
           >
             Membership
           </Button>
+          <ResponsiveDialogContacts
+            title="Contacts"
+            label="Contacts"
+            content={data.contentfulEvent.contacts}
+          />
           {data.contentfulEvent.rules ? (
             <ResponsiveDialog
               title="Rules and Important Info"
