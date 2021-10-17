@@ -2,21 +2,15 @@ import React from "react"
 import Main from "../components/MainContent"
 import Layout from "../components/layout"
 import Typography from "@material-ui/core/Typography"
-import Button from "@material-ui/core/Button"
 
 import Grid from "@material-ui/core/Grid"
 import List from "@material-ui/core/List"
-import Accordion from "@material-ui/core/Accordion"
-import AccordionSummary from "@material-ui/core/AccordionSummary"
-import AccordionDetails from "@material-ui/core/AccordionDetails"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import { renderRichText } from "gatsby-source-contentful/rich-text"
 
 import { graphql } from "gatsby"
-import { StaticImage, GatsbyImage } from "gatsby-plugin-image"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 import { DateList } from "../components/dateButtonList"
-import ContactCard from "../components/contactCard"
+import EventAccordion from "../components/eventAccordion"
 
 export const query = graphql`
   query eventQuery($id: String!) {
@@ -87,73 +81,7 @@ const Event = ({ data, pageContext }) => {
             )}
           </Grid>
         </Grid>
-        <Accordion expanded className="event-border">
-          <AccordionSummary
-            // expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            <Typography variant="h4" component="h2">
-              Event Info
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>{renderRichText(event.eventInformation)}</Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion className="event-border">
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2a-content"
-            id="panel2a-header"
-          >
-            <Typography variant="h4" component="h2">
-              Rules
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>{renderRichText(event.rules)}</Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion className="event-border">
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3a-content"
-            id="panel3a-header"
-          >
-            <Typography variant="h4" component="h2">
-              Registration
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails style={{ flexDirection: "column" }}>
-            <Typography>{renderRichText(event.registrationInfo)}</Typography>
-            <Button variant="contained" color="primary">
-              Entry Form
-            </Button>
-          </AccordionDetails>
-        </Accordion>
-        {event.contacts ? (
-          <Accordion className="event-border">
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel4a-content"
-              id="panel4a-header"
-            >
-              <Typography variant="h4" component="h2">
-                Contacts
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Grid container spacing={3}>
-                {event.contacts.map(contact => (
-                  <ContactCard contact={contact} />
-                ))}
-              </Grid>
-            </AccordionDetails>
-          </Accordion>
-        ) : (
-          ""
-        )}
+        <EventAccordion event={event} />
       </Main>
     </Layout>
   )

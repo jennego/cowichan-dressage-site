@@ -7,7 +7,6 @@ import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import { Typography, Button, Grid, Container, Paper } from "@material-ui/core"
-import { Parallax, Background } from "react-parallax"
 import logo from "../images/cdcpathwhitecrop.svg"
 
 import { format, parseISO, isAfter, toDate } from "date-fns"
@@ -292,8 +291,11 @@ const IndexPage = () => {
                 variant="contained"
                 color="primary"
                 style={{ marginLeft: "0.8rem", marginBottom: "1rem" }}
+                onClick={() => {
+                  navigate("/calendar")
+                }}
               >
-                See All Events
+                See All Events and Dates
               </Button>
             </Paper>
           </Grid>
@@ -301,6 +303,7 @@ const IndexPage = () => {
           <Grid item xs={12} md={6}>
             <iframe
               src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCowichanDressageClub&tabs=timeline&width=450&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=936287190463514"
+              title="facebook"
               width="450"
               height="600"
               style={{ border: "none", overflow: "hidden" }}

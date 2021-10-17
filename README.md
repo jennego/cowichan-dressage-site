@@ -1,20 +1,20 @@
 TO DO LIST
 
-- implement calendar links - done
-- fix flash of unstyled content (especially icons!) - needs testing
-- add current to menu - done
-- pdf upload/download in forms - done
-- actually put the event dates on the homepage - done
-- pages for times/results (tied to date?) / pdf display - done
+1. Create linked accordions that open and scroll by url on event page
+2. Create variable for displaying child/adult waivers
+3. Make sure all variable in the cms is reflected in the entry page
+4. Have all forms send + validate + have initial values / show contacts/cost/event on success page
+5. Crate dynamic initial values and validation
+6. Have fallbacks for all non-required cms content
+7. Styling stuff (menu, footer, is full badge, buttons on top of forms, send button etc)
 
 - change mobile menu? - maybe later as it currently works ok
-- implement session selection, including cost tally and select list (send select list to form, cost to form success page) - still need to send to form sucess
+- implement session selection, including cost tally and select list (send select list to form, cost to form success page) - still need to send to form success
 - form success page - include contact, cost, event calendar link
 - have both forms send sucessfully
 - dynamically generate initial values and validation for form variables and arrays
 - style footer
 - control accordion via url for deeplinking
-- contacts entry form
 - style headers (before form) for entry and membership forms (rules, contacts etc)
   - add rule agreements to validation?
 - is full badge
@@ -25,7 +25,7 @@ Responsive Gatsby site and form-based serverless registration system using Netli
 Tech
 
 - Contentful CMS
-- Netlify
+- Netlify (and Netlify Forms)
 - Gatsby/React
 - Material UI (v4) and Material Icons
 - Formik
@@ -33,7 +33,7 @@ Tech
 - Date-Fns
 - Datebook (for ics/google cal generation)
 
-Makes use of GatsbyImage, Contentful/Gatsby provided GraphQL and hooks.
+Makes use of GatsbyImage, Contentful/Gatsby provided GraphQL and hooks. Runs on Netlify and makes use of Netlify forms.
 
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
