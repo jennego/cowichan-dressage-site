@@ -16,6 +16,20 @@ export const query = graphql`
   query eventQuery($id: String!) {
     contentfulEvent(id: { eq: $id }) {
       eventName
+      image {
+        gatsbyImageData
+        title
+      }
+      adultWaivers {
+        file {
+          url
+        }
+      }
+      juniorWaivers {
+        file {
+          url
+        }
+      }
       eventDates {
         date
         subtitle
@@ -49,6 +63,7 @@ export const query = graphql`
 
 const Event = ({ data, pageContext }) => {
   const event = data.contentfulEvent
+  console.log("event", event)
   return (
     <Layout>
       <Main>
@@ -73,8 +88,8 @@ const Event = ({ data, pageContext }) => {
           <Grid item md={4}>
             {event.image ? (
               <GatsbyImage
-                image={event.image.GatsbyImage}
-                alt={event.image.GatsbyImage}
+                image={event.image.gatsbyImageData}
+                alt={event.image.title}
               />
             ) : (
               ""

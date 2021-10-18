@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useLayoutEffect } from "react"
 
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
@@ -9,15 +9,59 @@ import AccordionDetails from "@material-ui/core/AccordionDetails"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import ContactCard from "./contactCard"
+import { set } from "date-fns"
 
 const EventAccordion = ({ event }) => {
-  const [setPanelOpen, panelOpen] = useState({ panel: "info", open: true })
+  const [expand, setExpand] = useState({ info: true })
+  const [open, setOpen] = useState()
+
+  console.log("expand", expand)
+
+  useLayoutEffect(accordionId => {
+    const anchor = window.location.hash.split("#")[1]
+    if (anchor) {
+      const anchorEl = document.getElementById(anchor)
+      if (anchorEl) {
+        let result = [...expand]
+        result[anchor] = true
+        setExpand(result)
+        anchorEl.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        })
+      }
+    }
+  }, [])
+
+  const handleChange = idString => {
+    if (expand[idString] === true) {
+      let result = [...expand]
+      result[idString] = false
+      setExpand(result)
+    } else {
+      let result = [...expand]
+      result[idString] = true
+      setExpand(result)
+    }
+
+    // setExpand(expand => [...expand, { idString: true }])
+    // setSelectedSessions(selectedSessions => [...selectedSessions, session])
+    // if ((expand[id] = true)) {
+    //   setExpand(...expand, { id: false })
+    // } else {
+    //   setExpand(...expand, { id: true })
+    // }
+  }
 
   return (
     <div>
-      <Accordion expanded className="event-border">
+      <Accordion
+        onChange={() => handleChange("info")}
+        className="event-border"
+        expanded={expand["info"]}
+      >
         <AccordionSummary
-          // expandIcon={<ExpandMoreIcon />}
+          expandIcon={<ExpandMoreIcon />}
           aria-controls="info-content"
           id="info"
         >
@@ -29,9 +73,14 @@ const EventAccordion = ({ event }) => {
           <Typography>{renderRichText(event.eventInformation)}</Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion className="event-border">
+      <Accordion
+        className="event-border"
+        onChange={() => handleChange("rules")}
+        expanded={expand["rules"]}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
+          expand={expand["rules"]}
           aria-controls="rules"
           id="rules"
         >
