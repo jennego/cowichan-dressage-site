@@ -9,10 +9,11 @@ import AccordionDetails from "@material-ui/core/AccordionDetails"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import ContactCard from "./contactCard"
-import { set } from "date-fns"
+
+// push or remove ids to an array, determine true/false based on presence in array
 
 const EventAccordion = ({ event }) => {
-  const [expand, setExpand] = useState({ info: true })
+  const [expand, setExpand] = useState([])
   const [open, setOpen] = useState()
 
   console.log("expand", expand)
@@ -35,11 +36,11 @@ const EventAccordion = ({ event }) => {
 
   const handleChange = idString => {
     if (expand[idString] === true) {
-      let result = [...expand]
+      let result = expand
       result[idString] = false
       setExpand(result)
     } else {
-      let result = [...expand]
+      let result = expand
       result[idString] = true
       setExpand(result)
     }
