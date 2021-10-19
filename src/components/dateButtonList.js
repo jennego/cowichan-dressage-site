@@ -33,7 +33,7 @@ export const DateList = ({ entryURL, event, date, index }) => {
 
   return (
     <Grid item xs={12} md={6} lg={6} key={index}>
-      <Paper variant="outlined">
+      <Paper variant="outlined" style={{ height: "100%" }}>
         <ListItem
           button
           key={index}
