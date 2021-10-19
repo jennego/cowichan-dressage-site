@@ -13,8 +13,7 @@ import ContactCard from "./contactCard"
 // push or remove ids to an array, determine true/false based on presence in array
 
 const EventAccordion = ({ event }) => {
-  const [expand, setExpand] = useState([])
-  const [open, setOpen] = useState()
+  const [expand, setExpand] = useState("")
 
   console.log("expand", expand)
 
@@ -23,26 +22,20 @@ const EventAccordion = ({ event }) => {
     if (anchor) {
       const anchorEl = document.getElementById(anchor)
       if (anchorEl) {
-        let result = [...expand]
-        result[anchor] = true
-        setExpand(result)
+        setExpand(anchor)
         anchorEl.scrollIntoView({
           behavior: "smooth",
-          block: "nearest",
+          block: "start",
         })
       }
     }
   }, [])
 
   const handleChange = idString => {
-    if (expand[idString] === true) {
-      let result = expand
-      result[idString] = false
-      setExpand(result)
+    if (expand === idString) {
+      setExpand(null)
     } else {
-      let result = expand
-      result[idString] = true
-      setExpand(result)
+      setExpand(idString)
     }
 
     // setExpand(expand => [...expand, { idString: true }])
@@ -59,7 +52,7 @@ const EventAccordion = ({ event }) => {
       <Accordion
         onChange={() => handleChange("info")}
         className="event-border"
-        expanded={expand["info"]}
+        expanded={expand === "info" ? true : false}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -77,11 +70,10 @@ const EventAccordion = ({ event }) => {
       <Accordion
         className="event-border"
         onChange={() => handleChange("rules")}
-        expanded={expand["rules"]}
+        expanded={expand === "rules" ? true : false}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
-          expand={expand["rules"]}
           aria-controls="rules"
           id="rules"
         >
@@ -93,7 +85,11 @@ const EventAccordion = ({ event }) => {
           <Typography>{renderRichText(event.rules)}</Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion className="event-border">
+      <Accordion
+        className="event-border"
+        onChange={() => handleChange("reg")}
+        expanded={expand === "reg" ? true : false}
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="reg"
@@ -111,7 +107,11 @@ const EventAccordion = ({ event }) => {
         </AccordionDetails>
       </Accordion>
       {event.contacts ? (
-        <Accordion className="event-border">
+        <Accordion
+          className="event-border"
+          onChange={() => handleChange("contacts")}
+          expanded={expand === "contacts" ? true : false}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="contacts-info"
