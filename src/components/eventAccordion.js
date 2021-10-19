@@ -13,7 +13,7 @@ import ContactCard from "./contactCard"
 // push or remove ids to an array, determine true/false based on presence in array
 
 const EventAccordion = ({ event }) => {
-  const [expand, setExpand] = useState("")
+  const [expand, setExpand] = useState("info")
 
   console.log("expand", expand)
 
@@ -51,7 +51,9 @@ const EventAccordion = ({ event }) => {
     <div>
       <Accordion
         onChange={() => handleChange("info")}
-        className="event-border"
+        className={
+          expand === "info" ? "event-border" : "event-border accordion-hover"
+        }
         expanded={expand === "info" ? true : false}
       >
         <AccordionSummary
@@ -68,9 +70,11 @@ const EventAccordion = ({ event }) => {
         </AccordionDetails>
       </Accordion>
       <Accordion
-        className="event-border"
         onChange={() => handleChange("rules")}
         expanded={expand === "rules" ? true : false}
+        className={
+          expand === "rules" ? "event-border" : "event-border accordion-hover"
+        }
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -86,9 +90,11 @@ const EventAccordion = ({ event }) => {
         </AccordionDetails>
       </Accordion>
       <Accordion
-        className="event-border"
         onChange={() => handleChange("reg")}
         expanded={expand === "reg" ? true : false}
+        className={
+          expand === "reg" ? "event-border" : "event-border accordion-hover"
+        }
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -108,9 +114,13 @@ const EventAccordion = ({ event }) => {
       </Accordion>
       {event.contacts ? (
         <Accordion
-          className="event-border"
           onChange={() => handleChange("contacts")}
           expanded={expand === "contacts" ? true : false}
+          className={
+            expand === "contacts"
+              ? "event-border"
+              : "event-border accordion-hover"
+          }
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

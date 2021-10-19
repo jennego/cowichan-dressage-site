@@ -13,11 +13,11 @@ import Grid from "@material-ui/core/Grid"
 import { format, parse, parseISO, isBefore, isAfter } from "date-fns"
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
+import Paper from "@material-ui/core/Paper"
 
 import ExpandLess from "@material-ui/icons/ExpandLess"
 import ExpandMore from "@material-ui/icons/ExpandMore"
 import Collapse from "@material-ui/core/Collapse"
-import AddToCalendarHOC from "react-add-to-calendar-hoc"
 import AddToCalendar from "./addToCalendar"
 
 export const DateList = ({ entryURL, event, date, index }) => {
@@ -33,23 +33,25 @@ export const DateList = ({ entryURL, event, date, index }) => {
 
   return (
     <Grid item xs={12} md={6} lg={6} key={index}>
-      <ListItem
-        button
-        key={index}
-        onClick={() => {
-          handleClick(index)
-        }}
-      >
-        <ListItemIcon>
-          <EventIcon fontSize="large" />
-        </ListItemIcon>
-        <ListItemText
-          primary={format(new Date(parseISO(date.date)), "EEE, LLLL d, yyyy")}
-          secondary={date.subtitle}
-          style={{ paddingRight: "0.5rem" }}
-        />
-        {index === selectedIndex ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
+      <Paper variant="outlined">
+        <ListItem
+          button
+          key={index}
+          onClick={() => {
+            handleClick(index)
+          }}
+        >
+          <ListItemIcon>
+            <EventIcon fontSize="large" />
+          </ListItemIcon>
+          <ListItemText
+            primary={format(new Date(parseISO(date.date)), "EEE, LLLL d, yyyy")}
+            // secondary={date.subtitle}
+            style={{ paddingRight: "0.5rem" }}
+          />
+          {index === selectedIndex ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+      </Paper>
       <Collapse in={index === selectedIndex} timeout="auto" unmountOnExit>
         <List component="div" disablePadding style={{ background: "#e3e3e3" }}>
           <ListItem style={{ display: "flex", justifyContent: "flex-end" }}>

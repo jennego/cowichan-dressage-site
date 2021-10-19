@@ -183,7 +183,7 @@ a.menu-item {
   border-bottom: #b9bdfa solid 2px !important;
 }
 
-.event-border:hover {
-  background: #f5f5f5;
+.accordion-hover:hover {
+  background: #eeeeee;
   transition: background 0.5s;
 }

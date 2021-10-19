@@ -70,7 +70,7 @@ const Event = ({ data, pageContext }) => {
         <Typography variant="h3" style={{ paddingTop: "1rem" }}>
           {pageContext.eventName}
         </Typography>
-        <Grid container>
+        <Grid container spacing={1} style={{ marginBottom: "1rem" }}>
           <Grid item md={8}>
             <List>
               <Grid container>
