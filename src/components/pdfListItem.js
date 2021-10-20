@@ -23,7 +23,7 @@ const PDFListItem = () => {
           </ListItemIcon>
           <ListItemText primary="PDF Name" />
           <ListItemSecondaryAction>
-            <a href="#">
+            <a href="#" download>
               <Tooltip title="Download File">
                 <ListItemAvatar>
                   <Avatar style={{ background: "#3f50b5" }}>

@@ -6,7 +6,7 @@ import { PictureAsPdf, Delete } from "@material-ui/icons"
 import Alert from "@material-ui/lab/Alert"
 import Button from "@material-ui/core/Button"
 import PDFListItem from "./pdfListItem"
-import { Typography, Paper } from "@material-ui/core"
+import { Typography, Paper, Grid } from "@material-ui/core"
 
 export const UploadComponent = ({ formik, label, inputName }, props) => {
   console.log("file", inputName)
@@ -55,53 +55,62 @@ export const UploadComponent = ({ formik, label, inputName }, props) => {
         </Typography>
       </div>
       <Paper elevation={5} className="pdf-item">
-        <FormLabel> Download {label} </FormLabel>
-        <PDFListItem />
-        <FormLabel>Upload Completed {label} </FormLabel>
-        <div className="dashed-border">
-          {acceptedFiles.length === 0 ? (
-            <div {...getRootProps({ className: "dropzone" })}>
-              <input {...getInputProps({ name: inputName })} />
-              {isDragActive ? (
-                <div style={{ padding: "1rem" }}>
-                  <Typography variant="body1">
-                    Drop the file here ...
-                  </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <FormLabel> Download {label} </FormLabel>
+            <PDFListItem />
+          </Grid>
+          <Grid item xs={12}>
+            <FormLabel>Upload Completed {label} </FormLabel>
+            <div className="dashed-border">
+              {acceptedFiles.length === 0 ? (
+                <div {...getRootProps({ className: "dropzone" })}>
+                  <input {...getInputProps({ name: inputName })} />
+                  {isDragActive ? (
+                    <div style={{ padding: "1rem" }}>
+                      <Typography variant="body1">
+                        Drop the file here ...
+                      </Typography>
+                    </div>
+                  ) : (
+                    <div style={{ padding: "1rem" }}>
+                      {fileRejections.length > 0 ? (
+                        <Alert
+                          severity="error"
+                          style={{ marginBottom: "1rem" }}
+                        >
+                          Please upload a PDF file.
+                        </Alert>
+                      ) : (
+                        ""
+                      )}
+                      <Button variant="contained" color="primary">
+                        Drag and Drop file here or click to upload
+                      </Button>
+                    </div>
+                  )}
                 </div>
               ) : (
-                <div style={{ padding: "1rem" }}>
-                  {fileRejections.length > 0 ? (
-                    <Alert severity="error" style={{ marginBottom: "1rem" }}>
-                      Please upload a PDF file.
-                    </Alert>
-                  ) : (
-                    ""
-                  )}
-                  <Button variant="contained" color="primary">
-                    Drag and Drop file here or click to upload
-                  </Button>
-                </div>
+                <Alert
+                  icon={<PictureAsPdf />}
+                  action={
+                    <Tooltip title="Remove this file">
+                      <Delete
+                        onClick={() => {
+                          acceptedFiles.length = 0
+                          formik.setFieldValue(inputName, null)
+                        }}
+                      />
+                    </Tooltip>
+                  }
+                >
+                  {acceptedFiles[0].name}
+                  {/* {formik.values[inputName].name} */}
+                </Alert>
               )}
             </div>
-          ) : (
-            <Alert
-              icon={<PictureAsPdf />}
-              action={
-                <Tooltip title="Remove this file">
-                  <Delete
-                    onClick={() => {
-                      acceptedFiles.length = 0
-                      formik.setFieldValue(inputName, null)
-                    }}
-                  />
-                </Tooltip>
-              }
-            >
-              {acceptedFiles[0].name}
-              {/* {formik.values[inputName].name} */}
-            </Alert>
-          )}
-        </div>
+          </Grid>
+        </Grid>
       </Paper>
     </div>
   )

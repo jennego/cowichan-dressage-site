@@ -1,12 +1,6 @@
 TO DO LIST
 
-1. Create linked accordions that open and scroll by url on event page (and add conditional to hover style)
-2. Create variable for displaying child/adult waivers
-3. Make sure all variable in the cms is reflected in the entry page
-4. Have all forms send + validate + have initial values / show contacts/cost/event on success page
-5. Crate dynamic initial values and validation
-6. Have fallbacks for all non-required cms content
-7. Styling stuff (menu, footer, is full badge, buttons on top of forms, send button etc)
+~1. Create linked accordions that open and scroll by url on event page (and add conditional to hover style)~ - DONE 2. Create variable for displaying child/adult waivers 3. Make sure all variable in the cms is reflected in the entry page 4. Have all forms send + validate + have initial values / show contacts/cost/event on success page 5. Crate dynamic initial values and validation 6. Have fallbacks for all non-required cms content 7. Styling stuff (menu, footer, is full badge, buttons on top of forms, send button etc)
 
 Final touches
 
@@ -14,6 +8,7 @@ Final touches
 - testing - chrome, edge, firefox, limited IE (even if just a banner), mobile
 - be ready for production by end of October
 - test outlook cal
+- quick wira check
 - contact people for demo and instruction on cms etc
 
 Next step

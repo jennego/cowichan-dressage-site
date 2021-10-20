@@ -402,7 +402,7 @@ const MemberForm = () => {
               {console.log(props.values.file)}
             </Grid>
           </Grid>
-          <div style={{ marginTop: "2rem" }}>
+          <div className="human-check-submit">
             {/* <Button color="secondary" variant="contained">
               Clear
             </Button> */}
@@ -412,15 +412,18 @@ const MemberForm = () => {
                 props.setFieldValue("g-recaptcha-response", value, true)
               }
             />
+
             <FormHelperText style={{ color: "red" }}>
               {props.errors["g-recaptcha-response"] &&
                 props.touched["g-recaptcha-response"] && (
                   <p>{props.errors["g-recaptcha-response"]}</p>
                 )}
             </FormHelperText>
-            <Button color="primary" variant="contained" type="submit">
-              Submit
-            </Button>
+            <div style={{ marginLeft: "1rem" }}>
+              <Button color="primary" variant="contained" type="submit">
+                Submit
+              </Button>
+            </div>
             {console.log("form props", props)}
           </div>
         </Form>
