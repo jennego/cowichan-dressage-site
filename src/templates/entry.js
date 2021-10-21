@@ -48,6 +48,7 @@ import { format, parseISO, isBefore, startOfToday } from "date-fns"
 import { location } from "gatsby"
 import Sessions from "../components/sessions"
 import ResponsiveDialogContacts from "../components/listDialog"
+import { UploadComponent } from "../components/uploadComponent"
 
 export const query = graphql`
   query entryQuery($id: String!) {
@@ -83,6 +84,20 @@ export const query = graphql`
       location {
         lat
         lon
+      }
+      juniorWaivers {
+        title
+        file {
+          url
+          fileName
+        }
+      }
+      adultWaivers {
+        title
+        file {
+          url
+          fileName
+        }
       }
     }
   }
@@ -507,8 +522,12 @@ const Entry = ({ pageContext, data, location }) => {
                 {console.log(props)}
                 <DateForm props={props} data={data} location={location} />
                 <EntryForm props={props} data={data} />
+                <UploadComponent
+                  props={props}
+                  fileArray={data.contentfulEvent.adultWaivers}
+                />
                 <PaymentForm props={props} data={data} />
-                {/* <WaiverForm /> */}
+
                 <Button variant="contained" color="secondary">
                   Clear
                 </Button>

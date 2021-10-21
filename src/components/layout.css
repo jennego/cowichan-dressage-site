@@ -135,17 +135,14 @@ a.menu-item {
 }
 
 .session-selected {
-  border: 2px #969696 solid !important;
-}
-
-.session-selected {
-  background: #ebebeb !important;
+  background: #edf5f4 !important;
   border: 2px #3f50b5 solid !important;
 }
 
 .pdf-item {
   border: 2px solid #3f50b5;
   padding: 1rem;
+  margin-bottom: 1rem;
 }
 
 .dropzone {
@@ -192,4 +189,8 @@ a.menu-item {
   display: flex;
   align-items: center;
   padding: 1.3rem 0;
+}
+
+#testSource {
+  padding-left: 0.5rem;
 }

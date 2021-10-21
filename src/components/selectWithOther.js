@@ -34,8 +34,6 @@ const TestInfo = ({ form, props, testNumber }) => {
             value={props.values[`testSource${testNumber}`]}
             onChange={props.handleChange}
           >
-            {/* <MenuItem value={``}>Test Source</MenuItem> */}
-
             <MenuItem value={"EC"} onClick={() => setIsOther(false)}>
               EC
             </MenuItem>
@@ -45,6 +43,7 @@ const TestInfo = ({ form, props, testNumber }) => {
             <MenuItem value={"Other"} onClick={() => setIsOther(true)}>
               Other (specify)
             </MenuItem>
+            <MenuItem value={``}>Clear</MenuItem>
           </Select>
         </FormControl>
       </Grid>

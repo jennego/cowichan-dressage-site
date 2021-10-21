@@ -13,17 +13,22 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
 import Tooltip from "@material-ui/core/Tooltip"
 
-const PDFListItem = () => {
+const PDFListItem = ({ file }) => {
   return (
     <Grid item xs={12}>
       <List>
-        <ListItem button component="a" style={{ border: "1px solid #000" }}>
+        <ListItem
+          button
+          component="a"
+          style={{ border: "1px solid #000", color: "blue" }}
+          href={file.url}
+        >
           <ListItemIcon>
             <PictureAsPdf />
           </ListItemIcon>
-          <ListItemText primary="PDF Name" />
+          <ListItemText primary={file.fileName} />
           <ListItemSecondaryAction>
-            <a href="#" download>
+            <a href={file.url} download={file.fileName} target="_blank">
               <Tooltip title="Download File">
                 <ListItemAvatar>
                   <Avatar style={{ background: "#3f50b5" }}>
