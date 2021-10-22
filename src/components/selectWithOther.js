@@ -32,7 +32,9 @@ const TestInfo = ({ form, props, testNumber }) => {
             displayEmpty
             fullWidth
             value={props.values[`testSource${testNumber}`]}
-            onChange={props.handleChange}
+            onChange={e =>
+              props.setFieldValue(`testSource${testNumber}`, e.target.value)
+            }
           >
             <MenuItem value={"EC"} onClick={() => setIsOther(false)}>
               EC
@@ -43,7 +45,7 @@ const TestInfo = ({ form, props, testNumber }) => {
             <MenuItem value={"Other"} onClick={() => setIsOther(true)}>
               Other (specify)
             </MenuItem>
-            <MenuItem value={``}>Clear</MenuItem>
+            <MenuItem value={""}>Clear</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -80,7 +82,9 @@ const TestInfo = ({ form, props, testNumber }) => {
           placeholder="level and number/name etc"
           fullWidth
           value={props.values[`testDetails${testNumber}`]}
-          onChange={props.handleChange}
+          onChange={e =>
+            props.setFieldValue(`testDetails${testNumber}`, e.target.value)
+          }
           error={
             props.touched[`testDetails${testNumber}`] &&
             Boolean(props.errors[`testDetails${testNumber}`])

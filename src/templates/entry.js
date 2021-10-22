@@ -49,6 +49,7 @@ import { location } from "gatsby"
 import Sessions from "../components/sessions"
 import ResponsiveDialogContacts from "../components/listDialog"
 import { UploadComponent } from "../components/uploadComponent"
+import { assign } from "lodash"
 
 export const query = graphql`
   query entryQuery($id: String!) {
@@ -445,6 +446,18 @@ const Entry = ({ pageContext, data, location }) => {
     setOpen(false)
   }
 
+  let testData = data.contentfulEvent.sessions.filter(
+    test => test.testFields === true
+  )
+
+  let initialTestsArr = testData.map((test, index) => ({
+    ["testSource" + (index + 1)]: "",
+    ["testOther" + (index + 1)]: "",
+    ["testDetails" + (index + 1)]: "",
+  }))
+
+  const initialTests = Object.assign({}, ...initialTestsArr)
+
   return (
     <Layout>
       <Main>
@@ -505,7 +518,7 @@ const Entry = ({ pageContext, data, location }) => {
             name: "",
             horseName: "",
             phoneNumber: "",
-            testSource: "",
+            ...initialTests,
           }}
         >
           {props => (
