@@ -1,6 +1,13 @@
 TO DO LIST
 
-~1. Create linked accordions that open and scroll by url on event page (and add conditional to hover style)~ - DONE 2. Create variable for displaying child/adult waivers 3. Make sure all variable in the cms is reflected in the entry page 4. Have all forms send + validate + have initial values / show contacts/cost/event on success page 5. Crate dynamic initial values and validation 6. Have fallbacks for all non-required cms content 7. Styling stuff (menu, footer, is full badge, buttons on top of forms, send button etc)
+~1. Create linked accordions that open and scroll by url on event page (and add conditional to hover style)~ -
+
+2. Create variable for displaying child/adult waivers - need to do membership page
+3. Make sure all variable in the cms is reflected in the entry page
+4. Have all forms send + validate + have initial values / show contacts/cost/event on success page
+5. Crate dynamic initial values and validation - initial values for tests done
+6. Have fallbacks for all non-required cms content
+7. Styling stuff (menu, footer, is full badge, buttons on top of forms, send button etc)
 
 Final touches
 

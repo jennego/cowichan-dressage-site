@@ -393,13 +393,12 @@ const MemberForm = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <UploadComponent
+              {/* <UploadComponent
                 inputName="file"
                 setFieldValue={props.setFieldValue}
                 formik={props}
                 label="Event Waiver"
-              />
-              {console.log(props.values.file)}
+              /> */}
             </Grid>
           </Grid>
           <div className="human-check-submit">

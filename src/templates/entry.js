@@ -534,15 +534,20 @@ const Entry = ({ pageContext, data, location }) => {
                 <DateForm props={props} data={data} location={location} />
                 <EntryForm props={props} data={data} />
 
-                <UploadComponent
-                  waiverType={props.values.age}
-                  props={props}
-                  fileArray={
-                    props.values.age === "junior"
-                      ? data.contentfulEvent.juniorWaivers
-                      : data.contentfulEvent.adultWaivers
-                  }
-                />
+                {data.contentfulEvent.juniorWaivers &&
+                data.contentfulEvent.adultWaivers ? (
+                  <UploadComponent
+                    waiverType={props.values.age}
+                    props={props}
+                    fileArray={
+                      props.values.age === "junior"
+                        ? data.contentfulEvent.juniorWaivers
+                        : data.contentfulEvent.adultWaivers
+                    }
+                  />
+                ) : (
+                  ""
+                )}
                 <PaymentForm props={props} data={data} />
 
                 <Button variant="contained" color="secondary">
