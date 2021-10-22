@@ -130,10 +130,6 @@ const DateForm = ({ data, props, location }) => {
   )
 }
 
-const WaiverForm = () => {
-  return <div></div>
-}
-
 const PaymentForm = ({ props }) => {
   return (
     <RadioGroup
@@ -289,6 +285,8 @@ const EntryForm = ({ props, data }) => {
             aria-label="age"
             name="age"
             style={{ display: "flex", flexDirection: "row", marginTop: "0" }}
+            value={props.values.age}
+            onChange={props.handleChange}
           >
             <FormControlLabel
               value="junior"
@@ -519,12 +517,18 @@ const Entry = ({ pageContext, data, location }) => {
                 netlify-honeypot="bot-field"
                 className="form-style"
               >
-                {console.log(props)}
+                {console.log(props.values)}
                 <DateForm props={props} data={data} location={location} />
                 <EntryForm props={props} data={data} />
+
                 <UploadComponent
+                  waiverType={props.values.age}
                   props={props}
-                  fileArray={data.contentfulEvent.adultWaivers}
+                  fileArray={
+                    props.values.age === "junior"
+                      ? data.contentfulEvent.juniorWaivers
+                      : data.contentfulEvent.adultWaivers
+                  }
                 />
                 <PaymentForm props={props} data={data} />
 

@@ -9,10 +9,12 @@ import PDFListItem from "./pdfListItem"
 import { Typography, Paper, Grid } from "@material-ui/core"
 
 export const UploadComponent = (
-  { formik, label, inputName, fileArray },
+  { formik, label, inputName, fileArray, waiverType },
   props
 ) => {
   console.log("file", inputName)
+
+  const isJunior = waiverType === "junior"
 
   // useEffect(() => {
   //   if (formik.values[inputName] === undefined) {
@@ -54,10 +56,15 @@ export const UploadComponent = (
           </a>
           ) and upload it in the appropriate upload section.
         </Typography>
+        <Typography gutterBottom variant="body2">
+          Showing {waiverType ? "junior" : "adult"} waivers. Select&nbsp;
+          {waiverType ? "adult" : "junior"} age group to see&nbsp;
+          {waiverType ? "adult" : "junior"} waivers.
+        </Typography>
       </div>
       {fileArray.map((doc, index) => (
         <Paper elevation={5} className="pdf-item">
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             <Grid item xs={12}>
               <FormLabel>
                 Download
