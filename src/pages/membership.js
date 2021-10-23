@@ -394,7 +394,7 @@ const MemberForm = () => {
 
             <Grid item xs={12}>
               {/* <UploadComponent
-                inputName="file"
+                waiver="file"
                 setFieldValue={props.setFieldValue}
                 formik={props}
                 label="Event Waiver"

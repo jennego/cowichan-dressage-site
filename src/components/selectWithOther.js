@@ -45,7 +45,7 @@ const TestInfo = ({ form, props, testNumber }) => {
             <MenuItem value={"Other"} onClick={() => setIsOther(true)}>
               Other (specify)
             </MenuItem>
-            <MenuItem value={""}>Clear</MenuItem>
+            {/* <MenuItem value={""}>Clear</MenuItem> */}
           </Select>
         </FormControl>
       </Grid>
