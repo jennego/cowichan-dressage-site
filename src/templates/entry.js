@@ -8,13 +8,7 @@ import Main from "../components/MainContent"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 
-import {
-  Grid,
-  FormGroup,
-  TextField,
-  CardContent,
-  Paper,
-} from "@material-ui/core"
+import { Grid, FormGroup, TextField, Paper } from "@material-ui/core"
 import Radio from "@material-ui/core/Radio"
 import RadioGroup from "@material-ui/core/RadioGroup"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
@@ -414,12 +408,6 @@ const validationSchema = yup.object({
   hcbc: yup.number().typeError("Needs to be a number"),
 })
 
-const encode = data => {
-  return Object.keys(data)
-    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-    .join("&")
-}
-
 const Entry = ({ pageContext, data, location }) => {
   const [open, setOpen] = React.useState(false)
   const [title, setTitle] = useState("")
@@ -450,6 +438,14 @@ const Entry = ({ pageContext, data, location }) => {
   }))
 
   const initialTests = Object.assign({}, ...initialTestsArr)
+
+  const encode = data => {
+    const formData = new FormData()
+    for (const key of Object.keys(data)) {
+      formData.append(key, data[key])
+    }
+    return formData
+  }
 
   return (
     <Layout>

@@ -97,6 +97,7 @@ const IndexPage = () => {
   const [selectedIndex, setSelectedIndex] = React.useState("")
 
   const handleClick = index => {
+    console.log(index)
     if (selectedIndex === index) {
       setSelectedIndex("")
     } else {
@@ -290,7 +291,7 @@ const IndexPage = () => {
               <Button
                 variant="contained"
                 color="primary"
-                style={{ marginLeft: "0.8rem", marginBottom: "1rem" }}
+                style={{ margin: "1rem 2rem" }}
                 onClick={() => {
                   navigate("/calendar")
                 }}

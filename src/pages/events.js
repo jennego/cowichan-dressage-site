@@ -19,6 +19,7 @@ const Events = () => {
         edges {
           node {
             eventName
+            id
             slug
             locationName
             location {
@@ -32,6 +33,7 @@ const Events = () => {
               gatsbyImageData
             }
             eventDates {
+              id
               date
             }
           }
@@ -84,7 +86,7 @@ const Events = () => {
                       {node.eventDates.map((date, index) => (
                         <DateList
                           date={date}
-                          index={index}
+                          indexId={node.id + date.id + index}
                           entryURL={`${node.slug}/entry`}
                           event={node}
                           isCalArr={false}

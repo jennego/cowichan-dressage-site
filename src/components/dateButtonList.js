@@ -20,32 +20,33 @@ import ExpandMore from "@material-ui/icons/ExpandMore"
 import Collapse from "@material-ui/core/Collapse"
 import AddToCalendar from "./addToCalendar"
 
-export const DateList = ({ entryURL, event, date, index }) => {
+export const DateList = ({ entryURL, event, date, indexId }) => {
   const [selectedIndex, setSelectedIndex] = React.useState("")
 
-  const handleClick = index => {
-    if (selectedIndex === index) {
+  const handleClick = indexId => {
+    console.log(indexId)
+    if (selectedIndex === indexId) {
       setSelectedIndex("")
     } else {
-      setSelectedIndex(index)
+      setSelectedIndex(indexId)
     }
   }
 
   return (
-    <Grid item xs={12} md={6} lg={6} key={index}>
+    <Grid item xs={12} md={6} lg={6}>
       <Paper
         variant="outlined"
         style={
-          selectedIndex !== index
+          selectedIndex !== indexId
             ? { height: "100%" }
             : { height: "fit-content" }
         }
       >
         <ListItem
           button
-          key={index}
+          key={indexId}
           onClick={() => {
-            handleClick(index)
+            handleClick(indexId)
           }}
         >
           <ListItemIcon>
@@ -56,10 +57,10 @@ export const DateList = ({ entryURL, event, date, index }) => {
             // secondary={date.subtitle}
             style={{ paddingRight: "0.5rem" }}
           />
-          {index === selectedIndex ? <ExpandLess /> : <ExpandMore />}
+          {indexId === selectedIndex ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
       </Paper>
-      <Collapse in={index === selectedIndex} timeout="auto" unmountOnExit>
+      <Collapse in={indexId === selectedIndex} timeout="auto" unmountOnExit>
         <List component="div" disablePadding style={{ background: "#e3e3e3" }}>
           <ListItem style={{ display: "flex", justifyContent: "flex-end" }}>
             <AddToCalendar date={date.date} event={event} />

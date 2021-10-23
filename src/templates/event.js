@@ -77,7 +77,7 @@ const Event = ({ data, pageContext }) => {
                 {event.eventDates.map((date, index) => (
                   <DateList
                     date={date}
-                    index={index}
+                    indexId={index}
                     entryURL={`entry`}
                     event={event}
                   />
