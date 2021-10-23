@@ -28,7 +28,6 @@
     "gatsby-source-contentful": "^5.13.0",
     "gatsby-source-filesystem": "^3.11.0",
     "gatsby-transformer-sharp": "^3.11.0",
-    "material-ui-dropzone": "^3.5.0",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",

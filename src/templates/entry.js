@@ -20,36 +20,29 @@ import RadioGroup from "@material-ui/core/RadioGroup"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 import FormControl from "@material-ui/core/FormControl"
 import FormLabel from "@material-ui/core/FormLabel"
-import { DropzoneArea } from "material-ui-dropzone"
 import Checkbox from "@material-ui/core/Checkbox"
 
-import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf"
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail"
 import PhoneIcon from "@material-ui/icons/Phone"
-import ListAltIcon from "@material-ui/icons/ListAlt"
 import PersonIcon from "@material-ui/icons/Person"
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone"
 import ContactsIcon from "@material-ui/icons/Contacts"
 import HorseHeadIcon from "../components/horseHeadIcon"
 
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
+// import List from "@material-ui/core/List"
+// import ListItem from "@material-ui/core/ListItem"
+// import ListItemIcon from "@material-ui/core/ListItemIcon"
+// import ListItemText from "@material-ui/core/ListItemText"
+// import Card from "@material-ui/core/Card"
 
-import Card from "@material-ui/core/Card"
-
-import { useFormik, Formik, Form, Field } from "formik"
+import { Formik, Form } from "formik"
 import * as yup from "yup"
-import TestInfo from "../components/selectWithOther"
 import ResponsiveDialog from "../components/infoDialog"
 
-import { format, parseISO, isBefore, startOfToday } from "date-fns"
-import { location } from "gatsby"
+import { format, parseISO, isBefore } from "date-fns"
 import Sessions from "../components/sessions"
 import ResponsiveDialogContacts from "../components/listDialog"
 import { UploadComponent } from "../components/uploadComponent"
-import { assign } from "lodash"
 
 export const query = graphql`
   query entryQuery($id: String!) {
@@ -494,7 +487,7 @@ const Entry = ({ pageContext, data, location }) => {
           onSubmit={(values, actions) => {
             fetch("/", {
               method: "POST",
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              // headers: { "Content-Type": "multipart/form-data" },
               body: encode({
                 "form-name": `${pageContext.eventName} Entries`,
                 ...values,
@@ -502,12 +495,11 @@ const Entry = ({ pageContext, data, location }) => {
             })
               .then(() => {
                 alert(JSON.stringify(values, null, 2))
-                // handleOpen("Success!", "Form has been successfully submitted!")
-                actions.resetForm()
+                handleOpen("Success!", "Form has been successfully submitted!")
+                actions.navigate("/form-success")
               })
-              .catch(() => {
+              .catch(error => {
                 alert(JSON.stringify(values, null, 2))
-
                 alert("Error")
               })
               .finally(() => actions.setSubmitting(false))
