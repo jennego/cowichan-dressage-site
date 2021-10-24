@@ -194,3 +194,11 @@ a.menu-item {
 #testSource {
   padding-left: 0.5rem;
 }
+
+.entry-toolbar {
+  display: flex;
+}
+
+.entry-toolbar > div {
+  margin: 5px;
+}

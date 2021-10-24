@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { navigate } from "gatsby"
 import Menu from "@material-ui/core/Menu"
 import MenuItem from "@material-ui/core/MenuItem"
@@ -21,14 +21,15 @@ import Collapse from "@material-ui/core/Collapse"
 import AddToCalendar from "./addToCalendar"
 
 export const DateList = ({ entryURL, event, date, indexId }) => {
-  const [selectedIndex, setSelectedIndex] = React.useState("")
+  const [selectedIndex, setSelectedIndex] = useState("")
+  const [isOpen, setOpen] = useState(false)
 
   const handleClick = indexId => {
     console.log(indexId)
-    if (selectedIndex === indexId) {
-      setSelectedIndex("")
+    if (indexId === selectedIndex) {
+      setOpen(false)
     } else {
-      setSelectedIndex(indexId)
+      setOpen(true)
     }
   }
 
@@ -60,11 +61,22 @@ export const DateList = ({ entryURL, event, date, indexId }) => {
           {indexId === selectedIndex ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
       </Paper>
-      <Collapse in={indexId === selectedIndex} timeout="auto" unmountOnExit>
+      <Collapse in={isOpen} timeout="auto" unmountOnExit>
         <List component="div" disablePadding style={{ background: "#e3e3e3" }}>
           <ListItem style={{ display: "flex", justifyContent: "flex-end" }}>
             <AddToCalendar date={date.date} event={event} />
           </ListItem>
+
+          {date.times && (
+            <ListItem button onClick={() => navigate(`/${date.date}/results`)}>
+              <ListItemText
+                disableTypography
+                primary="Results"
+                className="date-menu"
+              />
+            </ListItem>
+          )}
+
           {isAfter(parseISO(date.date), new Date()) ? (
             <ListItem
               button

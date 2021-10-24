@@ -303,7 +303,7 @@ const EntryForm = ({ props, data }) => {
                 variant="filled"
                 id="emergContactName"
                 name="emergContactName"
-                label="Emergancy Contact Name"
+                label="Emergency Contact Name"
                 value={props.values.emergContactName}
                 onChange={props.handleChange}
                 error={
@@ -454,29 +454,38 @@ const Entry = ({ pageContext, data, location }) => {
           <Typography variant="h2">
             Entry form for {pageContext.eventName}{" "}
           </Typography>
-          <Button
-            variant="outlined"
-            component={Link}
-            to="/membership"
-            color="primary"
-          >
-            Membership
-          </Button>
-          <ResponsiveDialogContacts
-            title="Contacts"
-            label="Contacts"
-            content={data.contentfulEvent.contacts}
-          />
-          {data.contentfulEvent.rules ? (
-            <ResponsiveDialog
-              title="Rules and Important Info"
-              label="Rules"
-              content={data.contentfulEvent.rules}
+          <div className="entry-toolbar">
+            <div>
+              <Button
+                variant="outlined"
+                component={Link}
+                to="/membership"
+                color="primary"
+              >
+                Membership
+              </Button>
+            </div>
+            <ResponsiveDialogContacts
+              title="Contacts"
+              label="Contacts"
+              content={data.contentfulEvent.contacts}
             />
-          ) : (
-            ""
-          )}
-          <Checkbox color="primary" /> I have read the rules{" "}
+            {data.contentfulEvent.rules ? (
+              <ResponsiveDialog
+                title="Rules and Important Info"
+                label="Rules"
+                content={data.contentfulEvent.rules}
+              />
+            ) : (
+              ""
+            )}
+            <FormControlLabel
+              control={<Checkbox name="rules agreement" color="primary" />}
+              label={
+                <Typography variant="body2"> I have read the rules </Typography>
+              }
+            />
+          </div>
         </div>
         <hr />
         <Formik
@@ -496,7 +505,7 @@ const Entry = ({ pageContext, data, location }) => {
               })
               .catch(error => {
                 alert(JSON.stringify(values, null, 2))
-                alert("Error")
+                console.log(error)
               })
               .finally(() => actions.setSubmitting(false))
           }}

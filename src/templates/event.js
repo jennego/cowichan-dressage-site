@@ -12,6 +12,8 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import { DateList } from "../components/dateButtonList"
 import EventAccordion from "../components/eventAccordion"
 
+// add eventdate results and ride times
+
 export const query = graphql`
   query eventQuery($id: String!) {
     contentfulEvent(id: { eq: $id }) {
@@ -77,7 +79,7 @@ const Event = ({ data, pageContext }) => {
                 {event.eventDates.map((date, index) => (
                   <DateList
                     date={date}
-                    indexId={index}
+                    index={index}
                     entryURL={`entry`}
                     event={event}
                   />

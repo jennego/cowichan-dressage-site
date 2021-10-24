@@ -86,10 +86,9 @@ const Events = () => {
                       {node.eventDates.map((date, index) => (
                         <DateList
                           date={date}
-                          indexId={node.id + date.id + index}
+                          indexId={index}
                           entryURL={`${node.slug}/entry`}
                           event={node}
-                          isCalArr={false}
                         />
                       ))}
                     </Grid>
