@@ -61,7 +61,7 @@ export default function ResponsiveDialog({ content, label, title }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={handleClose} color="primary">
             Close
           </Button>
         </DialogActions>
