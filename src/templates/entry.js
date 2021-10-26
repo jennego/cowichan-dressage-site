@@ -412,6 +412,9 @@ const Entry = ({ pageContext, data, location }) => {
   const [open, setOpen] = React.useState(false)
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
+  const [selectedWaivers, setSelectedWaivers] = useState(
+    data.contentfulEvent.adultWaivers
+  )
 
   const handleOpen = (title, content) => {
     setOpen(true)
@@ -437,7 +440,12 @@ const Entry = ({ pageContext, data, location }) => {
     ["testDetails" + (index + 1)]: "",
   }))
 
+  let initialWaiversArr = selectedWaivers.map((test, index) => ({
+    ["waiver" + (index + 1)]: "",
+  }))
+
   const initialTests = Object.assign({}, ...initialTestsArr)
+  const initialWaivers = Object.assign({}, ...initialWaiversArr)
 
   const encode = data => {
     const formData = new FormData()
@@ -516,6 +524,7 @@ const Entry = ({ pageContext, data, location }) => {
             horseName: "",
             phoneNumber: "",
             ...initialTests,
+            ...initialWaivers,
           }}
         >
           {props => (
@@ -536,11 +545,12 @@ const Entry = ({ pageContext, data, location }) => {
                   <UploadComponent
                     waiverType={props.values.age}
                     props={props}
-                    fileArray={
+                    onChange={
                       props.values.age === "junior"
-                        ? data.contentfulEvent.juniorWaivers
-                        : data.contentfulEvent.adultWaivers
+                        ? setSelectedWaivers(data.contentfulEvent.juniorWaivers)
+                        : setSelectedWaivers(data.contentfulEvent.adultWaivers)
                     }
+                    fileArray={selectedWaivers}
                   />
                 ) : (
                   ""
