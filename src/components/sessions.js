@@ -50,10 +50,12 @@ const Sessions = ({ sessionArr, props }) => {
     }
   }
 
+  // try for each instead of map? Use formik array methods?
+
   return (
     <div>
       <Field type="hidden" name="sessions-detect" />
-      {sessions.map((session, index) => (
+      {sessions.forEach((session, index) => (
         <Grid container style={{ margin: "1.5rem 0" }}>
           <Grid item>
             <Field type="hidden" name={`sessions-detect-${index}`} />
