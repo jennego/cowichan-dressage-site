@@ -29,7 +29,7 @@ import HorseHeadIcon from "../components/horseHeadIcon"
 // import ListItemText from "@material-ui/core/ListItemText"
 // import Card from "@material-ui/core/Card"
 
-import { Formik, Form } from "formik"
+import { Formik, Form, Field } from "formik"
 import * as yup from "yup"
 import ResponsiveDialog from "../components/infoDialog"
 
@@ -342,38 +342,13 @@ const EntryForm = ({ props, data }) => {
         </Grid>
 
         <Grid item xs={12}>
-          <Sessions sessionArr={data.contentfulEvent.sessions} props={props} />
+          <Field
+            component={Sessions}
+            name="sessions"
+            sessionArr={data.contentfulEvent.sessions}
+            props={props}
+          />
         </Grid>
-        {/* {data.contentfulEvent.sessions.map((session, index) => (
-            <Grid container>
-              <Grid item style={{ marginTop: "10px" }}>
-                <Checkbox color="primary" />
-              </Grid>
-              <Grid item style={{ flexGrow: "1" }}>
-                <FormLabel>
-                  Session {index + 1} - Cost:{" "}
-                  {session.cost >= 1 ? "$" + session.cost : "Free"}
-                </FormLabel>
-                <Card
-                  variant="outlined"
-                  style={{
-                    borderWidth: "2px",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  <CardContent>
-                    <Typography variant="body1" style={{ padding: "0.5rem" }}>
-                      Description if required
-                    </Typography>
-                    <FormLabel component="legend">Test Info </FormLabel>
-                    {session.testFields}
-                    {session.testFields ? <TestInfo props={props} /> : ""}
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          ))}
-        </Grid> */}
 
         <Grid item xs={12}>
           <TextField
