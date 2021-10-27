@@ -5,6 +5,8 @@ import Grid from "@material-ui/core/Grid"
 import TestInfo from "../components/selectWithOther"
 import { Card, CardContent, Typography } from "@material-ui/core"
 
+import { Formik, Form, Field, FieldArray } from "formik"
+
 const Sessions = ({ sessionArr, props }) => {
   const [selectedSessions, setSelectedSessions] = useState([])
   const [sessions, setAllSessions] = useState([])
@@ -38,6 +40,10 @@ const Sessions = ({ sessionArr, props }) => {
       )
 
       setSelectedSessions(selectedSessions => [...selectedSessions, session])
+      props.setFieldValue(
+        "sessionsSelected",
+        selectedSessions.map(item => item.title).join(", ")
+      )
     } else {
       session.checked = false
       setSelectedSessions(selectedSessions.filter(item => index !== item.id))
@@ -45,7 +51,7 @@ const Sessions = ({ sessionArr, props }) => {
   }
 
   return (
-    <div>
+    <div name="sessionsSelected">
       {sessions.map((session, index) => (
         <Grid container style={{ margin: "1.5rem 0" }}>
           <Grid item>
@@ -77,12 +83,18 @@ const Sessions = ({ sessionArr, props }) => {
                 <div style={{ marginTop: "0.5rem" }}>
                   {session.testFields ? (
                     <div>
-                      <TestInfo
+                      <Field
+                        name="Test"
+                        component={TestInfo}
                         props={props}
                         testNumber={index + 1}
                         index={index}
                       />
-                      {console.log(props.values)}
+                      {/* <TestInfo
+                        props={props}
+                        testNumber={index + 1}
+                        index={index}
+                      /> */}
                     </div>
                   ) : (
                     ""

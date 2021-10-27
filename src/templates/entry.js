@@ -386,7 +386,6 @@ const EntryForm = ({ props, data }) => {
             rowsMax={6}
             fullWidth
             variant="filled"
-            helperText=""
             value={props.values.notes}
             onChange={props.handleChange}
             error={props.touched.notes && Boolean(props.errors.notes)}
@@ -544,6 +543,7 @@ const Entry = ({ pageContext, data, location }) => {
             horseName: "",
             phoneNumber: "",
             age: "adult",
+            sessionsSelected: "",
             sessions,
           }}
         >
