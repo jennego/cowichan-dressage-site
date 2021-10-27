@@ -25,10 +25,10 @@ const TestInfo = ({ form, props, testNumber, index }) => {
         <FormControl fullWidth>
           <InputLabel id="testSource">Test Source</InputLabel>
           <Select
-            labelId={`testSource${testNumber}`}
-            id={`testSource${testNumber}`}
+            labelId={`sessions[${index}].testSource${testNumber}`}
+            id={`sessions[${index}].testSource${testNumber}`}
             variant="filled"
-            name="testSource"
+            name={`sessions[${index}].testSource${testNumber}`}
             displayEmpty
             fullWidth
             value={props.values.sessions[index]["testSource" + testNumber]}
@@ -77,9 +77,9 @@ const TestInfo = ({ form, props, testNumber, index }) => {
 
       <Grid item style={{ flexGrow: "1" }}>
         <TextField
-          id={`testDetails${testNumber}`}
+          id={`sessions[${index}].testDetails${testNumber}`}
           variant="filled"
-          name="testDetails"
+          id={`sessions[${index}].testDetails${testNumber}`}
           label="Test Details"
           placeholder="level and number/name etc"
           fullWidth
