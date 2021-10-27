@@ -397,16 +397,6 @@ const EntryForm = ({ props, data }) => {
     </FormGroup>
   )
 }
-const validationSchema = yup.object({
-  dateSelect: yup.date(),
-  email: yup
-    .string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
-  name: yup.string("Enter your name").required("Name is required"),
-  address: yup.string("Enter your address"),
-  hcbc: yup.number().typeError("Needs to be a number"),
-})
 
 const Entry = ({ pageContext, data, location }) => {
   const [open, setOpen] = React.useState(false)
@@ -434,7 +424,7 @@ const Entry = ({ pageContext, data, location }) => {
     test => test.testFields === true
   )
 
-  let initialTestsArr = testData.map((test, index) => ({
+  let sessions = testData.map((test, index) => ({
     ["testSource" + (index + 1)]: "",
     ["testOther" + (index + 1)]: "",
     ["testDetails" + (index + 1)]: "",
@@ -444,8 +434,35 @@ const Entry = ({ pageContext, data, location }) => {
     ["waiver" + (index + 1)]: "",
   }))
 
-  const initialTests = Object.assign({}, ...initialTestsArr)
-  const initialWaivers = Object.assign({}, ...initialWaiversArr)
+  // const initialTests = Object.assign({}, ...initialTestsArr)
+  // const initialWaivers = Object.assign({}, ...initialWaiversArr)
+
+  const testSchema = yup.object().shape({
+    sessions: yup.array().of(
+      yup.object().shape({
+        testSource: yup.string().required("Source is required"),
+        testDetails: yup.string().required("Details are required"),
+      })
+    ),
+  })
+
+  const validationSchema = yup.object({
+    dateSelect: yup.date(),
+    email: yup
+      .string("Enter your email")
+      .email("Enter a valid email")
+      .required("Email is required"),
+    name: yup.string("Enter your name").required("Name is required"),
+    address: yup.string("Enter your address").required(),
+    hcbc: yup.number().typeError("Needs to be a number").required(),
+    horseName: yup.string("Enter your name").required("Horse Name is required"),
+    sessions: yup.array().of(
+      yup.object().shape({
+        testSource: yup.string().required("Source is required"),
+        testDetails: yup.string().required("Details are required"),
+      })
+    ),
+  })
 
   const encode = data => {
     const formData = new FormData()
@@ -517,14 +534,14 @@ const Entry = ({ pageContext, data, location }) => {
               })
               .finally(() => actions.setSubmitting(false))
           }}
-          // validationSchema={validationSchema}
+          validationSchema={validationSchema}
           initialValues={{
             dateSelect: location.state ? location.state.date : "",
-            name: "",
+            name: "Bob",
             horseName: "",
             phoneNumber: "",
-            ...initialTests,
-            ...initialWaivers,
+            age: "adult",
+            sessions,
           }}
         >
           {props => (

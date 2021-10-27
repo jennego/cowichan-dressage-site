@@ -77,7 +77,11 @@ const Sessions = ({ sessionArr, props }) => {
                 <div style={{ marginTop: "0.5rem" }}>
                   {session.testFields ? (
                     <div>
-                      <TestInfo props={props} testNumber={index + 1} />
+                      <TestInfo
+                        props={props}
+                        testNumber={index + 1}
+                        index={index}
+                      />
                       {console.log(props.values)}
                     </div>
                   ) : (

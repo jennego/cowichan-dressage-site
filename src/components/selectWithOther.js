@@ -7,7 +7,7 @@ import FormControl from "@material-ui/core/FormControl"
 import TextField from "@material-ui/core/TextField"
 import Grid from "@material-ui/core/Grid"
 
-const TestInfo = ({ form, props, testNumber }) => {
+const TestInfo = ({ form, props, testNumber, index }) => {
   const [otherValue, setOtherValue] = React.useState("")
   const [isOther, setIsOther] = React.useState(false)
 
@@ -31,9 +31,12 @@ const TestInfo = ({ form, props, testNumber }) => {
             name="testSource"
             displayEmpty
             fullWidth
-            value={props.values[`testSource${testNumber}`]}
+            value={props.values.sessions[index]["testSource" + testNumber]}
             onChange={e =>
-              props.setFieldValue(`testSource${testNumber}`, e.target.value)
+              props.setFieldValue(
+                `sessions[${index}][testSource${testNumber}]`,
+                e.target.value
+              )
             }
           >
             <MenuItem value={"EC"} onClick={() => setIsOther(false)}>
@@ -53,18 +56,17 @@ const TestInfo = ({ form, props, testNumber }) => {
       {isOther ? (
         <Grid item xs={4}>
           <TextField
-            name={`otherDetails${testNumber}`}
+            name={`sessions${index}.otherDetails${testNumber}`}
             id={`otherDetails${testNumber}`}
             variant="filled"
             label="Specify Other"
             helperText="details for other test source"
             fullWidth
-            value={props.values[`otherDetails${testNumber}`]}
+            value={props.values[`sessions${index}.otherDetails${testNumber}`]}
             onChange={e =>
               props.setFieldValue(
-                `otherDetails${testNumber}`,
-                e.target.value,
-                true
+                `sessions[${index}][otherDetails${testNumber}]`,
+                e.target.value
               )
             }
           />
@@ -81,17 +83,20 @@ const TestInfo = ({ form, props, testNumber }) => {
           label="Test Details"
           placeholder="level and number/name etc"
           fullWidth
-          value={props.values[`testDetails${testNumber}`]}
+          value={props.values.sessions[index]["testDetails"]}
           onChange={e =>
-            props.setFieldValue(`testDetails${testNumber}`, e.target.value)
+            props.setFieldValue(
+              `sessions[${index}][testDetails]`,
+              e.target.value
+            )
           }
           error={
-            props.touched[`testDetails${testNumber}`] &&
-            Boolean(props.errors[`testDetails${testNumber}`])
+            Boolean(props.errors.sessions) &&
+            props.errors.sessions[index]["testDetails"]
           }
           helperText={
-            props.touched[`testDetails${testNumber}`] &&
-            props.errors[`testDetails${testNumber}`]
+            Boolean(props.errors.sessions) &&
+            props.errors.sessions[index]["testDetails"]
           }
         />
       </Grid>
