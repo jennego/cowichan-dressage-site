@@ -341,14 +341,16 @@ const EntryForm = ({ props, data }) => {
           </Grid>
         </Grid>
 
-        <Grid item xs={12}>
-          <Field
-            component={Sessions}
-            name="sessions"
-            sessionArr={data.contentfulEvent.sessions}
-            props={props}
-          />
-        </Grid>
+        {data.contentfulEvent.sessions && (
+          <Grid item xs={12}>
+            <Field
+              component={Sessions}
+              name="sessions"
+              sessionArr={data.contentfulEvent.sessions}
+              props={props}
+            />
+          </Grid>
+        )}
 
         <Grid item xs={12}>
           <TextField

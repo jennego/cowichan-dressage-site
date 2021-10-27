@@ -56,6 +56,8 @@ const Sessions = ({ sessionArr, props }) => {
       {sessions.map((session, index) => (
         <Grid container style={{ margin: "1.5rem 0" }}>
           <Grid item>
+            <Field type="hidden" name={`sessions-detect-${index}`} />
+
             <Checkbox
               name="sessionsSelected"
               style={{
