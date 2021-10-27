@@ -531,6 +531,8 @@ const Entry = ({ pageContext, data, location }) => {
                 netlify-honeypot="bot-field"
                 className="form-style"
               >
+                <Field type="hidden" name="bot-field" />
+
                 {console.log(props.values)}
                 <DateForm props={props} data={data} location={location} />
                 <EntryForm props={props} data={data} />
