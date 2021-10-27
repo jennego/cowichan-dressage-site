@@ -25,23 +25,28 @@ export const DateList = ({ entryURL, event, date, indexId }) => {
   const [isOpen, setOpen] = useState(false)
 
   const handleClick = indexId => {
-    console.log(indexId)
-    if (indexId === selectedIndex) {
+    if (selectedIndex === indexId) {
+      setSelectedIndex("")
+
       setOpen(false)
     } else {
+      setSelectedIndex(indexId)
+
       setOpen(true)
     }
   }
+
+  console.log(indexId)
 
   return (
     <Grid item xs={12} md={6} lg={6}>
       <Paper
         variant="outlined"
-        style={
-          selectedIndex !== indexId
-            ? { height: "100%" }
-            : { height: "fit-content" }
-        }
+        // style={
+        //   selectedIndex !== indexId
+        //     ? { height: "100%" }
+        //     : { height: "fit-content" }
+        // }
       >
         <ListItem
           button
@@ -58,10 +63,10 @@ export const DateList = ({ entryURL, event, date, indexId }) => {
             // secondary={date.subtitle}
             style={{ paddingRight: "0.5rem" }}
           />
-          {indexId === selectedIndex ? <ExpandLess /> : <ExpandMore />}
+          {selectedIndex === indexId ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
       </Paper>
-      <Collapse in={isOpen} timeout="auto" unmountOnExit>
+      <Collapse in={indexId === selectedIndex} timeout="auto" unmountOnExit>
         <List component="div" disablePadding style={{ background: "#e3e3e3" }}>
           <ListItem style={{ display: "flex", justifyContent: "flex-end" }}>
             <AddToCalendar date={date.date} event={event} />

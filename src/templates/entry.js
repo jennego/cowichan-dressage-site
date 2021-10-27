@@ -283,7 +283,7 @@ const EntryForm = ({ props, data }) => {
               name="age"
             />
             <FormControlLabel
-              value="senior"
+              value="adult"
               control={<Radio />}
               label="Senior"
               name="age"
@@ -448,14 +448,16 @@ const Entry = ({ pageContext, data, location }) => {
 
   const validationSchema = yup.object({
     dateSelect: yup.date(),
+    name: yup.string("Enter your name").required("Name is required"),
+    horseName: yup.string("Enter your name").required("Horse Name is required"),
     email: yup
       .string("Enter your email")
       .email("Enter a valid email")
       .required("Email is required"),
-    name: yup.string("Enter your name").required("Name is required"),
-    address: yup.string("Enter your address").required(),
+    phoneNumber: yup.number().required(),
     hcbc: yup.number().typeError("Needs to be a number").required(),
-    horseName: yup.string("Enter your name").required("Horse Name is required"),
+    emergContactName: yup.string().required(),
+    emergContactPh: yup.string().required(),
     sessions: yup.array().of(
       yup.object().shape({
         testSource: yup.string().required("Source is required"),
@@ -526,6 +528,7 @@ const Entry = ({ pageContext, data, location }) => {
               .then(() => {
                 alert(JSON.stringify(values, null, 2))
                 handleOpen("Success!", "Form has been successfully submitted!")
+                console.log(values)
                 actions.navigate("/form-success")
               })
               .catch(error => {
