@@ -537,7 +537,7 @@ const Entry = ({ pageContext, data, location }) => {
               })
               .finally(() => actions.setSubmitting(false))
           }}
-          validationSchema={validationSchema}
+          // validationSchema={validationSchema}
           initialValues={{
             dateSelect: location.state ? location.state.date : "",
             name: "Bob",
