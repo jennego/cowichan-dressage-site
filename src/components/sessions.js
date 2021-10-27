@@ -24,8 +24,6 @@ const Sessions = ({ sessionArr, props }) => {
     setAllSessions(newSessionArr)
   }, [])
 
-  console.log("sessions", sessions)
-
   const totalCost = selectedSessions.reduce(function (prev, cur) {
     return prev + cur.cost
   }, 0)
@@ -55,7 +53,7 @@ const Sessions = ({ sessionArr, props }) => {
   return (
     <div>
       <Field type="hidden" name="sessions-detect" />
-      {sessions.forEach((session, index) => (
+      {sessionArr.map((session, index) => (
         <Grid container style={{ margin: "1.5rem 0" }}>
           <Grid item>
             <Field type="hidden" name={`sessions-detect-${index}`} />
