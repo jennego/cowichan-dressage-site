@@ -54,8 +54,10 @@ const Sessions = ({ sessionArr, props }) => {
     <div name="sessionsSelected">
       {sessions.map((session, index) => (
         <Grid container style={{ margin: "1.5rem 0" }}>
+          <TextField name="session test input field" />
           <Grid item>
             <Checkbox
+              name="sessionsSelected"
               style={{
                 transform: "scale(1.2)",
               }}
