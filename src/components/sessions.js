@@ -37,10 +37,11 @@ const Sessions = ({ sessionArr, props }) => {
         session.id === item.id ? (item.checked = true) : item
       )
 
-      setSelectedSessions(selectedSessions => [...selectedSessions, session])
       props.setFieldValue(
         "sessionsSelected",
-        selectedSessions.map(item => item.title).join(", ")
+        setSelectedSessions(selectedSessions => [...selectedSessions, session])
+          .map(item => item.title)
+          .join(", ")
       )
     } else {
       session.checked = false
@@ -48,7 +49,7 @@ const Sessions = ({ sessionArr, props }) => {
     }
   }
 
-  console.log(props.value.sessionsSelected)
+  console.log(props.values.sessionsSelected)
 
   // try for each instead of map? Use formik array methods?
 
