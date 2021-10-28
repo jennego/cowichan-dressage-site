@@ -48,11 +48,12 @@ const Sessions = ({ sessionArr, props }) => {
     }
   }
 
+  console.log(props.value.sessionsSelected)
+
   // try for each instead of map? Use formik array methods?
 
   return (
     <div>
-      <Field type="hidden" name="sessions-detect" />
       {sessionArr.map((session, index) => (
         <Grid container style={{ margin: "1.5rem 0" }}>
           <Grid item>

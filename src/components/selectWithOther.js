@@ -23,18 +23,18 @@ const TestInfo = ({ form, props, testNumber, index }) => {
     <Grid container>
       <Grid item xs={3}>
         <FormControl fullWidth>
-          <InputLabel id="testSource">Test Source</InputLabel>
+          <InputLabel id="testSource1">Test Source ${testNumber} </InputLabel>
           <Select
-            labelId={`sessions[${index}].testSource${testNumber}`}
-            id={`sessions[${index}].testSource${testNumber}`}
+            labelId={`testSource1`}
+            id={`sessions[${index}].testSource`}
             variant="filled"
             name={`sessions[${index}].testSource`}
             displayEmpty
             fullWidth
-            value={props.values.sessions[index]["testSource" + testNumber]}
+            value={props.values.sessions[index]["testSource"]}
             onChange={e =>
               props.setFieldValue(
-                `sessions[${index}][testSource${testNumber}]`,
+                `sessions[${index}][testSource]`,
                 e.target.value
               )
             }
