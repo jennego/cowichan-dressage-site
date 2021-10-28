@@ -1,91 +1,108 @@
 import React from "react"
-import { navigate } from "gatsby"
+import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik"
 
-function encode(data) {
-  const formData = new FormData()
-
-  for (const key of Object.keys(data)) {
-    formData.append(key, data[key])
-  }
-
-  return formData
+const initialValues = {
+  friends: [
+    {
+      name: "",
+      email: "",
+    },
+  ],
 }
 
-export default class Contact extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
-
-  handleAttachment = e => {
-    this.setState({ [e.target.name]: e.target.files[0] })
-  }
-
-  handleSubmit = e => {
-    e.preventDefault()
-    const form = e.target
-    fetch("/", {
-      method: "POST",
-      body: encode({
-        "form-name": form.getAttribute("name"),
-        ...this.state,
-      }),
-    })
-      .then(
-        () => navigate(form.getAttribute("action")),
-        console.log(this.state)
-      )
-      .catch(error => alert(error))
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>File Upload</h1>
-        <form
-          name="file-upload"
-          method="post"
-          action="/form-success"
-          data-netlify="true"
-          data-netlify-honeypot="bot-field"
-          onSubmit={this.handleSubmit}
-        >
-          {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
-          <input type="hidden" name="form-name" value="file-upload" />
-          <p hidden>
-            <label>
-              Don’t fill this out:{" "}
-              <input name="bot-field" onChange={this.handleChange} />
-            </label>
-          </p>
-          <p>
-            <label>
-              Your name:
-              <br />
-              <input type="text" name="name" onChange={this.handleChange} />
-            </label>
-          </p>
-          <p>
-            <label>
-              File:
-              <br />
-              <input
-                type="file"
-                name="attachment"
-                onChange={this.handleAttachment}
-              />
-            </label>
-          </p>
-          <p>
-            <button type="submit">Send</button>
-            {console.log(this.state)}
-          </p>
-        </form>
-      </div>
-    )
-  }
+const encode = data => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&")
 }
+
+const InviteFriends = () => (
+  <div>
+    <h1>Invite friends</h1>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={(values, actions) => {
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: encode({
+            "form-name": `Array-Testing`,
+            ...values,
+          }),
+        })
+          .then(() => {
+            alert(JSON.stringify(values, null, 2))
+            // handleOpen("Success!", "Form has been successfully submitted!")
+            actions.resetForm()
+          })
+          .catch(() => {
+            alert(JSON.stringify(values, null, 2))
+
+            alert("Error")
+          })
+          .finally(() => actions.setSubmitting(false))
+      }}
+    >
+      {({ values }) => (
+        <Form name="Array-Testing" data-netlify="true">
+          <FieldArray name="friends">
+            {({ insert, remove, push }) => (
+              <div>
+                {values.friends.length > 0 &&
+                  values.friends.map((friend, index) => (
+                    <div className="row" key={index}>
+                      <div className="col">
+                        <label htmlFor={`friends.${index}.name`}>Name</label>
+                        <Field
+                          name={`friends.${index}.name`}
+                          placeholder="Jane Doe"
+                          type="text"
+                        />
+                        <ErrorMessage
+                          name={`friends.${index}.name`}
+                          component="div"
+                          className="field-error"
+                        />
+                      </div>
+                      <div className="col">
+                        <label htmlFor={`friends.${index}.email`}>Email</label>
+                        <Field
+                          name={`friends.${index}.email`}
+                          placeholder="jane@acme.com"
+                          type="email"
+                        />
+                        <ErrorMessage
+                          name={`friends.${index}.name`}
+                          component="div"
+                          className="field-error"
+                        />
+                      </div>
+                      <div className="col">
+                        <button
+                          type="button"
+                          className="secondary"
+                          onClick={() => remove(index)}
+                        >
+                          X
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                <button
+                  type="button"
+                  className="secondary"
+                  onClick={() => push({ name: "", email: "" })}
+                >
+                  Add Friend
+                </button>
+              </div>
+            )}
+          </FieldArray>
+          <button type="submit">SUBMIT FORM</button>
+        </Form>
+      )}
+    </Formik>
+  </div>
+)
+
+export default InviteFriends
