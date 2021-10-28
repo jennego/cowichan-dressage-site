@@ -28,7 +28,7 @@ const TestInfo = ({ form, props, testNumber, index }) => {
             labelId={`sessions[${index}].testSource${testNumber}`}
             id={`sessions[${index}].testSource${testNumber}`}
             variant="filled"
-            name={`testSource${testNumber}`}
+            name={`sessions[${index}].testSource`}
             displayEmpty
             fullWidth
             value={props.values.sessions[index]["testSource" + testNumber]}
@@ -56,7 +56,7 @@ const TestInfo = ({ form, props, testNumber, index }) => {
       {isOther ? (
         <Grid item xs={4}>
           <TextField
-            name={`otherDetails${testNumber}`}
+            name={`sessions${index}.otherDetails${testNumber}`}
             id={`otherDetails${testNumber}`}
             variant="filled"
             label="Specify Other"
@@ -79,7 +79,7 @@ const TestInfo = ({ form, props, testNumber, index }) => {
         <TextField
           id={`sessions[${index}].testDetails${testNumber}`}
           variant="filled"
-          id={`sessions[${index}].testDetails${testNumber}`}
+          name={`sessions[${index}].testDetails${testNumber}`}
           label="Test Details"
           placeholder="level and number/name etc"
           fullWidth
@@ -87,7 +87,8 @@ const TestInfo = ({ form, props, testNumber, index }) => {
           onChange={e =>
             props.setFieldValue(
               `sessions[${index}][testDetails]`,
-              e.target.value
+              e.target.value,
+              true
             )
           }
           error={
