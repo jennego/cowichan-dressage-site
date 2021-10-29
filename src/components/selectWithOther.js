@@ -11,24 +11,26 @@ const TestInfo = ({ form, props, testNumber, index }) => {
   const [otherValue, setOtherValue] = React.useState("")
   const [isOther, setIsOther] = React.useState(false)
 
-  useEffect(() => {
-    if (isOther === false) {
-      props.setFieldValue("otherDetails", "", false)
-    } else {
-      return
-    }
-  }, [isOther])
+  // useEffect(() => {
+  //   if (isOther === false) {
+  //     props.setFieldValue("otherDetails", "", false)
+  //   } else {
+  //     return
+  //   }
+  // }, [isOther])
 
   return (
     <Grid container>
       <Grid item xs={3}>
         <FormControl fullWidth>
-          <InputLabel id="testSource1">Test Source ${testNumber} </InputLabel>
+          <InputLabel id="testSource${testNumber}">
+            Test Source {testNumber}{" "}
+          </InputLabel>
           <Select
-            labelId={`testSource1`}
-            id={`sessions[${index}].testSource`}
+            labelId={`testSource${testNumber}`}
+            id={`testSource${testNumber}`}
             variant="filled"
-            name={`sessions[${index}].testSource`}
+            name={`testSource${testNumber}`}
             displayEmpty
             fullWidth
             value={props.values.sessions[index]["testSource"]}
