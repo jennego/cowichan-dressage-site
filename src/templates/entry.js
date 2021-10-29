@@ -401,9 +401,9 @@ const Entry = ({ pageContext, data, location }) => {
   )
 
   let sessions = testData.map((test, index) => ({
-    ["testSource" + (index + 1)]: "",
-    ["testOther" + (index + 1)]: "",
-    ["testDetails" + (index + 1)]: "",
+    ["testSource"]: "",
+    ["testOther"]: "",
+    ["testDetails"]: "",
   }))
 
   // let initialWaiversArr = selectedWaivers.map((test, index) => ({
@@ -413,14 +413,14 @@ const Entry = ({ pageContext, data, location }) => {
   // const initialTests = Object.assign({}, ...initialTestsArr)
   // const initialWaivers = Object.assign({}, ...initialWaiversArr)
 
-  const testSchema = yup.object().shape({
-    sessions: yup.array().of(
-      yup.object().shape({
-        testSource: yup.string().required("Source is required"),
-        testDetails: yup.string().required("Details are required"),
-      })
-    ),
-  })
+  const testSchema = testData.map((test, index) =>
+    yup.object().shape({
+      testSource: yup.string().required("Test source is required"),
+      [`testDetails${index + 1}`]: yup
+        .string()
+        .required("Test details are required"),
+    })
+  )
 
   const validationSchema = yup.object({
     dateSelect: yup.date(),
@@ -513,7 +513,7 @@ const Entry = ({ pageContext, data, location }) => {
               })
               .finally(() => actions.setSubmitting(false))
           }}
-          // validationSchema={validationSchema}
+          // validationSchema={testSchema}
           initialValues={{
             dateSelect: location.state ? location.state.date : "",
             name: "Bob",
