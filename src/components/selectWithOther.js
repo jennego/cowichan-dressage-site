@@ -23,14 +23,12 @@ const TestInfo = ({ form, props, testNumber, index }) => {
     <Grid container>
       <Grid item xs={3}>
         <FormControl fullWidth>
-          <InputLabel id="testSource${testNumber}">
-            Test Source {testNumber}{" "}
-          </InputLabel>
+          <InputLabel id="testSource">Test Source {testNumber}</InputLabel>
           <Select
-            labelId={`testSource${testNumber}`}
-            id={`testSource${testNumber}`}
+            labelId={`testSource`}
+            id={`testSource`}
             variant="filled"
-            name={`testSource${testNumber}`}
+            name={`testSource`}
             displayEmpty
             fullWidth
             value={props.values.sessions[index]["testSource"]}
