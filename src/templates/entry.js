@@ -413,6 +413,8 @@ const Entry = ({ pageContext, data, location }) => {
   // const initialTests = Object.assign({}, ...initialTestsArr)
   // const initialWaivers = Object.assign({}, ...initialWaiversArr)
 
+  // use conditionals instead....read yup documentation. Don't think netlify is going to accept the arrays so need to get yup to validate these dynamic values. Max 5?
+
   const testSchema = testData.map((test, index) =>
     yup.object().shape({
       testSource: yup.string().required("Test source is required"),
@@ -434,12 +436,6 @@ const Entry = ({ pageContext, data, location }) => {
     hcbc: yup.number().typeError("Needs to be a number").required(),
     emergContactName: yup.string().required(),
     emergContactPh: yup.string().required(),
-    sessions: yup.array().of(
-      yup.object().shape({
-        testSource: yup.string().required("Source is required"),
-        testDetails: yup.string().required("Details are required"),
-      })
-    ),
   })
 
   const encode = data => {
