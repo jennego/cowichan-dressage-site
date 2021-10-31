@@ -31,6 +31,8 @@ import HorseHeadIcon from "../components/horseHeadIcon"
 
 import { Formik, Form, Field } from "formik"
 import * as yup from "yup"
+import mapValues from "lodash/mapValues"
+
 import ResponsiveDialog from "../components/infoDialog"
 
 import { format, parseISO, isBefore } from "date-fns"
@@ -406,14 +408,25 @@ const Entry = ({ pageContext, data, location }) => {
     ["testDetails"]: "",
   }))
 
-  // let initialWaiversArr = selectedWaivers.map((test, index) => ({
-  //   ["waiver" + (index + 1)]: null,
-  // }))
+  let initialWaiversArr = selectedWaivers.map((test, index) => ({
+    ["waiver" + (index + 1)]: null,
+  }))
 
   // const initialTests = Object.assign({}, ...initialTestsArr)
-  // const initialWaivers = Object.assign({}, ...initialWaiversArr)
+  const initialWaivers = Object.assign({}, ...initialWaiversArr)
 
-  // use conditionals instead....read yup documentation. Don't think netlify is going to accept the arrays so need to get yup to validate these dynamic values. Max 5?
+  function merge(...schemas) {
+    const [first, ...rest] = schemas
+
+    const merged = rest.reduce(
+      (mergedSchemas, schema) => mergedSchemas.concat(schema),
+      first
+    )
+
+    return merged
+  }
+
+  /// I think I'm gonna have to shove it all into one lazy schema
 
   const testSchema = testData.map((test, index) =>
     yup.object().shape({
@@ -424,7 +437,17 @@ const Entry = ({ pageContext, data, location }) => {
     })
   )
 
-  const validationSchema = yup.object({
+  let waiverSchema = yup.lazy(obj =>
+    yup.object(
+      mapValues(obj, (value, key) => {
+        if (key.includes("waiver")) {
+          return yup.mixed().required()
+        }
+      })
+    )
+  )
+
+  const mainSchema = yup.object({
     dateSelect: yup.date(),
     name: yup.string("Enter your name").required("Name is required"),
     horseName: yup.string("Enter your name").required("Horse Name is required"),
@@ -437,6 +460,8 @@ const Entry = ({ pageContext, data, location }) => {
     emergContactName: yup.string().required(),
     emergContactPh: yup.string().required(),
   })
+
+  const validationSchema = merge(mainSchema, waiverSchema)
 
   const encode = data => {
     const formData = new FormData()
@@ -509,7 +534,7 @@ const Entry = ({ pageContext, data, location }) => {
               })
               .finally(() => actions.setSubmitting(false))
           }}
-          // validationSchema={testSchema}
+          validationSchema={waiverSchema}
           initialValues={{
             dateSelect: location.state ? location.state.date : "",
             name: "Bob",
@@ -518,6 +543,7 @@ const Entry = ({ pageContext, data, location }) => {
             age: "adult",
             sessionsSelected: "",
             sessions,
+            ...initialWaivers,
           }}
         >
           {props => (

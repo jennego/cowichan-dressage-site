@@ -122,6 +122,10 @@ a.menu-item {
   border: 3px dashed grey;
 }
 
+.error-border {
+  border: 3px solid #d32f2f;
+}
+
 .agendaDateRow {
   font-size: 1.375rem;
 }
@@ -201,4 +205,8 @@ a.menu-item {
 
 .entry-toolbar > div {
   margin: 5px;
+}
+
+.MuiFormHelperText-root {
+  font-size: 14px !important;
 }

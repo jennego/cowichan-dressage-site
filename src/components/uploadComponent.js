@@ -6,7 +6,7 @@ import { PictureAsPdf, Delete } from "@material-ui/icons"
 import Alert from "@material-ui/lab/Alert"
 import Button from "@material-ui/core/Button"
 import PDFListItem from "./pdfListItem"
-import { Typography, Paper, Grid } from "@material-ui/core"
+import { Typography, Paper, Grid, FormHelperText } from "@material-ui/core"
 
 const UploadField = ({ index, doc, props, waiverType }) => {
   const {
@@ -26,6 +26,7 @@ const UploadField = ({ index, doc, props, waiverType }) => {
 
   return (
     <div>
+      <FormHelperText> Hello </FormHelperText>
       <Paper elevation={5} className="pdf-item">
         <Grid container spacing={1}>
           <Grid item xs={12}>
@@ -40,7 +41,14 @@ const UploadField = ({ index, doc, props, waiverType }) => {
               Upload Completed
               <span style={{ fontStyle: "italic" }}> {doc.title} </span>
             </FormLabel>
-            <div className="dashed-border">
+            <div
+              className={
+                Boolean(props.errors[`waiver${index + 1}`]) &&
+                props.touched[`waiver${index + 1}`]
+                  ? "error-border"
+                  : "dashed-border"
+              }
+            >
               {acceptedFiles.length === 0 ? (
                 <div {...getRootProps({ className: "dropzone" })}>
                   <input {...getInputProps({ name: `waiver${index + 1}` })} />
@@ -87,6 +95,14 @@ const UploadField = ({ index, doc, props, waiverType }) => {
                 </Alert>
               )}
             </div>
+            {Boolean(props.errors[`waiver${index + 1}`]) &&
+            props.touched[`waiver${index + 1}`] ? (
+              <FormHelperText error={true} filled={true}>
+                The file {doc.file.fileName} is required.
+              </FormHelperText>
+            ) : (
+              ""
+            )}
           </Grid>
         </Grid>
       </Paper>
@@ -107,7 +123,6 @@ export const UploadComponent = ({ props, fileArray, waiverType }) => {
   return (
     <div style={{ marginTop: "1rem" }}>
       <Typography variant="h5">Waivers</Typography>
-
       <div style={{ margin: "0.5rem 0 1rem 0" }}>
         <Typography gutterBottom variant="body2">
           Please download listed PDFs, fill it out (if not a fillable PDF, you
