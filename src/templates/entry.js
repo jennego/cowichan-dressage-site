@@ -430,7 +430,14 @@ const Entry = ({ pageContext, data, location }) => {
   }
 
   // const initialTests = Object.assign({}, ...initialTestsArr)
-  const initialWaivers = Object.assign({}, ...initialWaiversArr)
+
+  const initialWaivers = () => {
+    if (initialWaiversArr !== null) {
+      return Object.assign({}, ...initialWaiversArr)
+    } else {
+      return
+    }
+  }
 
   /// I think I'm gonna have to shove it all into one lazy schema
 
