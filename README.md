@@ -34,7 +34,7 @@ Next step
 - is full badge
 - possibly eventdate pages or at least component
 
-Responsive Gatsby site and form-based serverless registration system using Netlify forms. Forms customizable via Contentful CMS, dynamically generated on rebuild.
+Responsive Gatsby site and form-based serverless registration system using Netlify forms. Forms customizable via Contentful CMS and are dynamically generated on rebuild. Forms are validated on touch and on submit via Yup.
 
 Tech
 
@@ -43,6 +43,7 @@ Tech
 - Gatsby/React
 - Material UI (v4) and Material Icons
 - Formik
+- Yup for form validation (using lazy for dynamic validation...and because I never figured out how to combine yup.object and yup.lazy)
 - Big Calendar
 - Date-Fns
 - Datebook (for ics/google cal generation)

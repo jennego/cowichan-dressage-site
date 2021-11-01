@@ -419,9 +419,15 @@ const Entry = ({ pageContext, data, location }) => {
     ["testDetails"]: "",
   }))
 
-  let initialWaiversArr = selectedWaivers.map((test, index) => ({
-    ["waiver" + (index + 1)]: null,
-  }))
+  const initialWaiversArr = () => {
+    if (selectedWaivers.length > 0) {
+      return selectedWaivers.map((test, index) => ({
+        ["waiver" + (index + 1)]: null,
+      }))
+    } else {
+      return
+    }
+  }
 
   // const initialTests = Object.assign({}, ...initialTestsArr)
   const initialWaivers = Object.assign({}, ...initialWaiversArr)
