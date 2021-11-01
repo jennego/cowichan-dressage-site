@@ -39,6 +39,10 @@ import { format, parseISO, isBefore } from "date-fns"
 import Sessions from "../components/sessions"
 import ResponsiveDialogContacts from "../components/listDialog"
 import { UploadComponent } from "../components/uploadComponent"
+import FocusError from "../components/focusError"
+
+import Snackbar from "@material-ui/core/Snackbar"
+import Alert from "@material-ui/lab/Alert"
 
 export const query = graphql`
   query entryQuery($id: String!) {
@@ -166,6 +170,7 @@ const EntryForm = ({ props, data }) => {
                 id="name"
                 name="name"
                 label="Name"
+                onBlur={props.handleBlur}
                 value={props.values.name}
                 onChange={props.handleChange}
                 error={props.touched.name && Boolean(props.errors.name)}
@@ -221,7 +226,7 @@ const EntryForm = ({ props, data }) => {
           </Grid>
         </Grid>
         <Grid item md={6} xs={12}>
-          <Grid container spacing={0} alignItems="center">
+          <Grid container>
             <Grid item xs={1}>
               <div className="icon-background">
                 <PhoneIcon />
@@ -261,6 +266,7 @@ const EntryForm = ({ props, data }) => {
                 id="hcbc"
                 name="hcbc"
                 label="Horse Council BC Member Number"
+                parse={parseInt(props.values.hcbc)}
                 value={props.values.hcbc}
                 onChange={props.handleChange}
                 error={props.touched.hcbc && Boolean(props.errors.hcbc)}
@@ -336,8 +342,13 @@ const EntryForm = ({ props, data }) => {
                 label="Emergency Contact Phone Number"
                 value={props.values.emergContactPh}
                 onChange={props.handleChange}
-                error={Boolean(props.errors.emergContactPh)}
-                helperText={props.errors.emergContactPh}
+                error={
+                  props.touched.emergContactPh &&
+                  Boolean(props.errors.emergContactPh)
+                }
+                helperText={
+                  props.touched.emergContactPh && props.errors.emergContactPh
+                }
               />
             </Grid>
           </Grid>
@@ -415,27 +426,7 @@ const Entry = ({ pageContext, data, location }) => {
   // const initialTests = Object.assign({}, ...initialTestsArr)
   const initialWaivers = Object.assign({}, ...initialWaiversArr)
 
-  function merge(...schemas) {
-    const [first, ...rest] = schemas
-
-    const merged = rest.reduce(
-      (mergedSchemas, schema) => mergedSchemas.concat(schema),
-      first
-    )
-
-    return merged
-  }
-
   /// I think I'm gonna have to shove it all into one lazy schema
-
-  const testSchema = testData.map((test, index) =>
-    yup.object().shape({
-      testSource: yup.string().required("Test source is required"),
-      [`testDetails${index + 1}`]: yup
-        .string()
-        .required("Test details are required"),
-    })
-  )
 
   let waiverSchema = yup.lazy(obj =>
     yup.object(
@@ -455,13 +446,13 @@ const Entry = ({ pageContext, data, location }) => {
       .string("Enter your email")
       .email("Enter a valid email")
       .required("Email is required"),
-    phoneNumber: yup.number().required(),
+    phoneNumber: yup.number().typeError("Needs to be a number").required(),
     hcbc: yup.number().typeError("Needs to be a number").required(),
     emergContactName: yup.string().required(),
     emergContactPh: yup.string().required(),
   })
 
-  const validationSchema = merge(mainSchema, waiverSchema)
+  // const validationSchema
 
   const encode = data => {
     const formData = new FormData()
@@ -469,6 +460,11 @@ const Entry = ({ pageContext, data, location }) => {
       formData.append(key, data[key])
     }
     return formData
+  }
+
+  const handleFormValidationError = (e, props) => {
+    props.handleSubmit(e)
+    alert("hello you filled out the form wrong")
   }
 
   return (
@@ -524,7 +520,6 @@ const Entry = ({ pageContext, data, location }) => {
             })
               .then(() => {
                 alert(JSON.stringify(values, null, 2))
-                handleOpen("Success!", "Form has been successfully submitted!")
                 console.log(values)
                 actions.navigate("/form-success")
               })
@@ -534,20 +529,28 @@ const Entry = ({ pageContext, data, location }) => {
               })
               .finally(() => actions.setSubmitting(false))
           }}
-          validationSchema={waiverSchema}
+          validationSchema={mainSchema}
           initialValues={{
             dateSelect: location.state ? location.state.date : "",
-            name: "Bob",
+            name: "",
             horseName: "",
+            email: "",
+            hcbc: "",
             phoneNumber: "",
             age: "adult",
             sessionsSelected: "",
+            emergContactName: "",
+            emergContactPh: "",
             sessions,
             ...initialWaivers,
           }}
+          validateOnMount
+          enableReinitialize
         >
           {props => (
             <Paper>
+              {console.log("touched", props.touched)}
+
               <Form
                 data-netlify="true"
                 name={`${pageContext.eventName} Entries`}
@@ -555,6 +558,20 @@ const Entry = ({ pageContext, data, location }) => {
                 netlify-honeypot="bot-field"
                 className="form-style"
               >
+                {!props.isValid && props.submitCount > 0 ? (
+                  <Snackbar
+                    open={true}
+                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                  >
+                    <Alert severity="error">
+                      Please ensure you have filled out these form fields.
+                    </Alert>
+                  </Snackbar>
+                ) : (
+                  " "
+                )}
+
+                <FocusError />
                 <Field type="hidden" name="bot-field" />
 
                 {console.log(props.values)}
