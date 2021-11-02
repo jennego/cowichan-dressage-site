@@ -20,6 +20,11 @@ const theme = createTheme({
   palette: {
     canvasColor: "#fff",
   },
+  overrides: {
+    MuiFormLabel: {
+      fontSize: 20,
+    },
+  },
 })
 
 const Layout = ({ children }) => {

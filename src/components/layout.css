@@ -83,7 +83,7 @@ h5 {
 }
 
 .icon-background {
-  background: rgba(0, 0, 0, 0.1);
+  background: #e3e3e3;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -91,7 +91,11 @@ h5 {
   height: 60px;
 }
 
-.active-nav {
+.MuiFilledInput-input {
+  background: #e3e3e3 !important;
+}
+
+.Mui .active-nav {
   text-decoration: underline !important;
 }
 

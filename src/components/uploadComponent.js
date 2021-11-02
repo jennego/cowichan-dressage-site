@@ -51,7 +51,12 @@ const UploadField = ({ index, doc, props, waiverType }) => {
             >
               {acceptedFiles.length === 0 ? (
                 <div {...getRootProps({ className: "dropzone" })}>
-                  <input {...getInputProps({ name: `waiver${index + 1}` })} />
+                  <input
+                    {...getInputProps({
+                      name: `waiver${index + 1}`,
+                      id: "`waiver${index + 1}`",
+                    })}
+                  />
                   {isDragActive ? (
                     <div style={{ padding: "1rem" }}>
                       <Typography variant="body1">
