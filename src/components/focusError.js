@@ -11,7 +11,19 @@ const ErrorFocus = () => {
       const errorElement = document.querySelector(`[id="${keys[0]}"]`)
 
       if (errorElement) {
-        errorElement.scrollIntoView({ behavior: "smooth" })
+        const pos = errorElement.style.position
+
+        const top = errorElement.style.top
+
+        errorElement.style.position = "relative"
+
+        errorElement.style.top = "-100px"
+
+        errorElement.scrollIntoView({ behavior: "smooth", block: "start" })
+
+        errorElement.style.top = top
+
+        errorElement.style.position = pos
       }
     }
   }, [isSubmitting, isValidating, errors])

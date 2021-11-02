@@ -8,7 +8,13 @@ import Main from "../components/MainContent"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 
-import { Grid, FormGroup, TextField, Paper } from "@material-ui/core"
+import {
+  Grid,
+  FormGroup,
+  TextField,
+  Paper,
+  FormHelperText,
+} from "@material-ui/core"
 import Radio from "@material-ui/core/Radio"
 import RadioGroup from "@material-ui/core/RadioGroup"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
@@ -35,7 +41,7 @@ import mapValues from "lodash/mapValues"
 
 import ResponsiveDialog from "../components/infoDialog"
 
-import { format, parseISO, isBefore } from "date-fns"
+import { format, parseISO, isAfter } from "date-fns"
 import Sessions from "../components/sessions"
 import ResponsiveDialogContacts from "../components/listDialog"
 import { UploadComponent } from "../components/uploadComponent"
@@ -106,18 +112,29 @@ const DateForm = ({ data, props, location }) => {
         <RadioGroup
           aria-label="date"
           name="dateSelect"
+          onBlur={props.handleBlur}
           onChange={props.handleChange}
           value={props.values.dateSelect}
+          id="dateSelect"
         >
           {data.contentfulEvent.eventDates.map(date => (
             <FormControlLabel
               name="dateSelect"
+              disabled={isAfter(parseISO(date.date), new Date()) ? false : true}
               value={date.date}
               control={<Radio color="primary" />}
               color="primary"
               label={format(new Date(parseISO(date.date)), "EEE, LLLL d, yyyy")}
             />
           ))}
+          {props.touched.name && Boolean(props.errors.name) ? (
+            <FormHelperText error>
+              Date is required. You cannot also register for an event that has
+              already happened.
+            </FormHelperText>
+          ) : (
+            ""
+          )}
         </RadioGroup>
       </FormControl>
     </div>
@@ -189,6 +206,7 @@ const EntryForm = ({ props, data }) => {
             <Grid item xs={11}>
               <TextField
                 fullWidth
+                onBlur={props.handleBlur}
                 variant="filled"
                 id="horseName"
                 name="horseName"
@@ -212,6 +230,7 @@ const EntryForm = ({ props, data }) => {
             </Grid>
             <Grid item xs={11}>
               <TextField
+                onBlur={props.handleBlur}
                 fullWidth
                 variant="filled"
                 id="email"
@@ -235,6 +254,7 @@ const EntryForm = ({ props, data }) => {
             <Grid item xs={11}>
               <TextField
                 fullWidth
+                onBlur={props.handleBlur}
                 variant="filled"
                 id="phoneNumber"
                 name="phoneNumber"
@@ -262,6 +282,7 @@ const EntryForm = ({ props, data }) => {
             <Grid item xs={11}>
               <TextField
                 fullWidth
+                onBlur={props.handleBlur}
                 variant="filled"
                 id="hcbc"
                 name="hcbc"
@@ -279,6 +300,7 @@ const EntryForm = ({ props, data }) => {
           <FormLabel component="legend">Age</FormLabel>
           <RadioGroup
             aria-label="age"
+            onBlur={props.handleBlur}
             name="age"
             style={{ display: "flex", flexDirection: "row", marginTop: "0" }}
             value={props.values.age}
@@ -313,6 +335,7 @@ const EntryForm = ({ props, data }) => {
                 name="emergContactName"
                 label="Emergency Contact Name"
                 value={props.values.emergContactName}
+                onBlur={props.handleBlur}
                 onChange={props.handleChange}
                 error={
                   props.touched.emergContactName &&
@@ -340,6 +363,7 @@ const EntryForm = ({ props, data }) => {
                 id="emergContactPh"
                 name="emergContactPh"
                 label="Emergency Contact Phone Number"
+                onBlur={props.handleBlur}
                 value={props.values.emergContactPh}
                 onChange={props.handleChange}
                 error={
@@ -374,6 +398,7 @@ const EntryForm = ({ props, data }) => {
             multiline
             rows={4}
             rowsMax={6}
+            onBlur={props.handleBlur}
             fullWidth
             variant="filled"
             value={props.values.notes}
@@ -452,7 +477,7 @@ const Entry = ({ pageContext, data, location }) => {
   )
 
   const mainSchema = yup.object({
-    dateSelect: yup.date(),
+    dateSelect: yup.date().required(),
     name: yup.string("Enter your name").required("Name is required"),
     horseName: yup.string("Enter your name").required("Horse Name is required"),
     email: yup
