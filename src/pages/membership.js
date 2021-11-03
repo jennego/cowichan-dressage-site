@@ -37,8 +37,7 @@ import AlertDialog from "../alertDialog"
 import Paper from "@material-ui/core/Paper"
 
 import ReCAPTCHA from "react-google-recaptcha"
-import MuiPhoneNumber from "material-ui-phone-number"
-import { Typography } from "@mui/material"
+import PhoneInput from "../components/PhoneInput"
 
 const BirthDatePickerField = ({ field, form, props, ...other }) => {
   const currentError = form.errors[field.name]
@@ -250,29 +249,11 @@ const MemberForm = () => {
                   </div>
                 </Grid>
                 <Grid item xs={11}>
-                  <MuiPhoneNumber
-                    fullWidth
-                    variant="filled"
-                    id="phonenumber"
-                    name="phonenumber"
-                    style={{ height: "60px" }}
-                    className="MuiFilledInput-root MuiFilledInput-input"
-                    label={
-                      <label style={{ fontSize: 20 }}> Phone Number </label>
-                    }
-                    value={props.values.phonenumber}
-                    defaultCountry={"ca"}
-                    disableDropdown={true}
-                    onlyCountries={["ca"]}
-                    disableCountryCode={true}
-                    onChange={e => props.setFieldValue("phonenumber", e, true)}
-                    error={
-                      props.touched.phonenumber &&
-                      Boolean(props.errors.phonenumber)
-                    }
-                    helperText={
-                      props.touched.phonenumber && props.errors.phonenumber
-                    }
+                  <PhoneInput
+                    props={props}
+                    fieldName="phonenumber"
+                    idName="phonenumber"
+                    labelName="Phone Number"
                   />
                   {/*                   
                   <TextField
