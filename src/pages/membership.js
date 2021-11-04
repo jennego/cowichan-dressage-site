@@ -354,16 +354,11 @@ const MemberForm = () => {
                   </div>
                 </Grid>
                 <Grid item xs={11}>
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    id="emergContactPh"
-                    name="emergContactPh"
-                    label="Emergency Contact Phone Number"
-                    value={props.values.emergContactPh}
-                    onChange={props.handleChange}
-                    error={Boolean(props.errors.emergContactPh)}
-                    helperText={props.errors.emergContactPh}
+                  <PhoneInput
+                    props={props}
+                    fieldName="emergContactPhone"
+                    idName="emergContactPhone"
+                    labelName="Emergency Contact Phone Number"
                   />
                 </Grid>
               </Grid>
