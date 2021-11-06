@@ -14,13 +14,10 @@ import MenuList from "@material-ui/core/MenuList"
 import MenuItem from "@material-ui/core/MenuItem"
 import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
-import useBreakpoint from "use-breakpoint"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import Link from "@material-ui/core/Link"
 
 import logo from "../images/cdclogo.png"
-
-const BREAKPOINTS = { md: 768, lg: 980 }
 
 const DesktopMenu = ({ children }) => (
   <MenuList style={{ display: "flex", flexDirection: "row" }}>
@@ -119,7 +116,6 @@ const MenuItems = () => (
 )
 
 function Nav() {
-  const { breakpoint } = useBreakpoint(BREAKPOINTS)
   const matches = useMediaQuery("(max-width:1080px)")
 
   const logo = useStaticQuery(graphql`
