@@ -32,7 +32,6 @@ import FormHelperText from "@material-ui/core/FormHelperText"
 
 import { UploadComponent } from "../components/uploadComponent"
 
-import { processForm } from "../components/formProcessing"
 import AlertDialog from "../alertDialog"
 import Paper from "@material-ui/core/Paper"
 
@@ -360,7 +359,6 @@ const MemberForm = () => {
                     idName="emergContactPhone"
                     labelName="Emergency Contact Phone Number"
                   />
-
                 </Grid>
               </Grid>
             </Grid>
