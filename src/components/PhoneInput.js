@@ -1,5 +1,5 @@
 import React from "react"
-import MuiPhoneNumber from "material-ui-phone-number"
+import MuiPhoneNumber from "mui-phone-input-ssr"
 
 const PhoneInput = ({ props, labelName, idName, fieldName }) => {
   return (
