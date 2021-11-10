@@ -24,6 +24,7 @@ import HorseHeadIcon from "../components/horseHeadIcon"
 import { format, parseISO, isAfter } from "date-fns"
 import Sessions from "../components/sessions"
 import { Field } from "formik"
+import PhoneInput from "../components/PhoneInput"
 
 export const DateForm = ({ data, props, location }) => {
   console.log(location)
@@ -174,22 +175,11 @@ export const EntryForm = ({ props, data }) => {
               </div>
             </Grid>
             <Grid item xs={11}>
-              <TextField
-                fullWidth
-                onBlur={props.handleBlur}
-                variant="filled"
-                id="phoneNumber"
-                name="phoneNumber"
-                label="Phone Number"
-                parse={parseInt(props.values.phoneNumber)}
-                value={props.values.phoneNumber}
-                onChange={props.handleChange}
-                error={
-                  props.touched.phoneNumber && Boolean(props.errors.phoneNumber)
-                }
-                helperText={
-                  props.touched.phoneNumber && props.errors.phoneNumber
-                }
+              <PhoneInput
+                props={props}
+                fieldName="phoneNumber"
+                idName="phoneNumber"
+                labelName="Phone Number"
               />
             </Grid>
           </Grid>
@@ -279,22 +269,11 @@ export const EntryForm = ({ props, data }) => {
               </div>
             </Grid>
             <Grid item xs={11}>
-              <TextField
-                fullWidth
-                variant="filled"
-                id="emergContactPh"
-                name="emergContactPh"
-                label="Emergency Contact Phone Number"
-                onBlur={props.handleBlur}
-                value={props.values.emergContactPh}
-                onChange={props.handleChange}
-                error={
-                  props.touched.emergContactPh &&
-                  Boolean(props.errors.emergContactPh)
-                }
-                helperText={
-                  props.touched.emergContactPh && props.errors.emergContactPh
-                }
+              <PhoneInput
+                props={props}
+                fieldName="emergContactPhone"
+                idName="emergContactPhone"
+                labelName="Emergency Contact Phone Number"
               />
             </Grid>
           </Grid>
