@@ -44,21 +44,31 @@ const HamburgerMenu = ({ children }) => {
         Menu
       </Button>
       <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={() => setAnchorEl(null)}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left",
+          horizontal: "center",
         }}
         transformOrigin={{
           vertical: "top",
           horizontal: "center",
         }}
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={() => setAnchorEl(null)}
+        PaperProps={{
+          style: {
+            marginTop: "30px",
+            background: "slategray",
+          },
+        }}
       >
-        <MenuItem style={{ flexDirection: "column", background: "slategray" }}>
+        <MenuItem
+          style={{
+            flexDirection: "column",
+          }}
+        >
           {children}
         </MenuItem>
       </Menu>
@@ -66,60 +76,34 @@ const HamburgerMenu = ({ children }) => {
   )
 }
 
+const isPartiallyActive = ({ isPartiallyCurrent }) => {
+  return isPartiallyCurrent
+    ? { className: "active-nav menu-item" }
+    : { className: "menu-item hvr-outline-in" }
+}
+
+const PartialNavLink = props => (
+  <GatsbyLink getProps={isPartiallyActive} {...props}>
+    {props.children}
+  </GatsbyLink>
+)
+
 const MenuItems = () => (
   <>
-    <Link
-      component={GatsbyLink}
-      to="/events"
-      className="menu-item"
-      style={{ alignSelf: "center" }}
-      activeClassName="active-nav"
-      partiallyActive={true}
-    >
+    <PartialNavLink to="/events" style={{ alignSelf: "center" }}>
       Events
-    </Link>
+    </PartialNavLink>
 
-    <Link
-      component={GatsbyLink}
-      to="/calendar"
-      className="menu-item"
-      style={{ alignSelf: "center" }}
-      activeClassName="active-nav"
-      partiallyActive={true}
-    >
+    <PartialNavLink to="/calendar" style={{ alignSelf: "center" }}>
       Calendar
-    </Link>
+    </PartialNavLink>
 
-    <Link
-      component={GatsbyLink}
-      to="/membership"
-      className="menu-item"
-      style={{ alignSelf: "center" }}
-      activeClassName="active-nav"
-      partiallyActive={true}
-    >
+    <PartialNavLink to="/membership" style={{ alignSelf: "center" }}>
       Membership
-    </Link>
-    <Link
-      component={GatsbyLink}
-      to="/resources"
-      className="menu-item"
-      style={{ alignSelf: "center" }}
-      activeClassName="active-nav"
-      partiallyActive={true}
-    >
+    </PartialNavLink>
+    <PartialNavLink to="/resources" style={{ alignSelf: "center" }}>
       Resources
-    </Link>
-    <Link
-      component={GatsbyLink}
-      to="/about"
-      className="menu-item"
-      style={{ alignSelf: "center" }}
-      activeClassName="active-nav"
-      partiallyActive={true}
-    >
-      About
-    </Link>
+    </PartialNavLink>
   </>
 )
 
