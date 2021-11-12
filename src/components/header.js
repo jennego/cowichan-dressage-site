@@ -49,6 +49,14 @@ const HamburgerMenu = ({ children }) => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
       >
         <MenuItem style={{ flexDirection: "column", background: "slategray" }}>
           {children}

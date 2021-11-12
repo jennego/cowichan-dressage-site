@@ -255,7 +255,7 @@ const IndexPage = () => {
                               <ListItem
                                 button
                                 onClick={() =>
-                                  navigate(`${event.slug}`, {
+                                  navigate(`events/${event.slug}/entry`, {
                                     state: { date: event.date },
                                   })
                                 }
