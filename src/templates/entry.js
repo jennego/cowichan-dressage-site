@@ -156,7 +156,7 @@ const Entry = ({ pageContext, data, location }) => {
       .string("Enter your email")
       .email("Enter a valid email")
       .required("Email is required"),
-    phoneNumber: yup.number().typeError("Needs to be a number").required(),
+    phoneNumber: yup.string().required(),
     hcbc: yup.number().typeError("Needs to be a number").required(),
     emergContactName: yup.string().required(),
     emergContactPh: yup.string().required(),
@@ -239,7 +239,7 @@ const Entry = ({ pageContext, data, location }) => {
               })
               .finally(() => actions.setSubmitting(false))
           }}
-          validationSchema={mainSchema}
+          // validationSchema={mainSchema}
           initialValues={{
             dateSelect: location.state ? location.state.date : "",
             name: "",
