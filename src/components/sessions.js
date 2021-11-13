@@ -31,31 +31,25 @@ const Sessions = ({ sessionArr, props }) => {
   const renderCost = totalCost > 1 ? "$" + totalCost : "Free"
 
   const handleSelections = (e, session, index) => {
-    console.log(e.target.checked, session, index)
     if (e.target.checked === true) {
-      sessions.map(item =>
-        session.id === item.id ? (item.checked = true) : item
-      )
-
-      props.setFieldValue(
-        "sessionsSelected",
-        setSelectedSessions(selectedSessions => [...selectedSessions, session])
-          .map(item => item.title)
-          .join(", ")
-      )
+      session.checked = true
+      setSelectedSessions(selectedSessions => [...selectedSessions, session])
     } else {
       session.checked = false
-      setSelectedSessions(selectedSessions.filter(item => index !== item.id))
+      const removeItemArr = selectedSessions.filter(item => index !== item.id)
+      setSelectedSessions(removeItemArr)
     }
   }
 
-  console.log(props.values.sessionsSelected)
+  const isChecked = (array, session) => {
+    return array.some(item => item.id === session.id)
+  }
 
   // try for each instead of map? Use formik array methods?
 
   return (
     <div>
-      {sessionArr.map((session, index) => (
+      {newSessionArr.map((session, index) => (
         <Grid container style={{ margin: "1.5rem 0" }}>
           <Grid item>
             <Checkbox
@@ -74,7 +68,9 @@ const Sessions = ({ sessionArr, props }) => {
             </FormLabel>
             <Card
               className={
-                session.checked === true ? "session-selected" : "session"
+                isChecked(selectedSessions, session) === true
+                  ? "session-selected"
+                  : "session"
               }
               variant="outlined"
             >

@@ -17,8 +17,6 @@ import Grid from "@material-ui/core/Grid"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import Link from "@material-ui/core/Link"
 
-import logo from "../images/cdclogo.png"
-
 const DesktopMenu = ({ children }) => (
   <MenuList style={{ display: "flex", flexDirection: "row" }}>
     {children}
@@ -135,7 +133,7 @@ function Nav() {
               <GatsbyImage
                 image={logo.file.childrenImageSharp[0].gatsbyImageData}
                 objectFit="contain"
-                style={{ width: "120px" }}
+                style={{ maxWidth: "120px" }}
                 alt="Cowichan Dresage Club logo"
               />
               <div className="logo-text-container">
