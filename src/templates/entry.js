@@ -248,7 +248,7 @@ const Entry = ({ pageContext, data, location }) => {
             hcbc: "",
             phoneNumber: "",
             age: "adult",
-            sessionsSelected: "",
+            selectedSessions: "",
             emergContactName: "",
             emergContactPh: "",
             sessions,

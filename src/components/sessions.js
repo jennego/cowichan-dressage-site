@@ -21,8 +21,11 @@ const Sessions = ({ sessionArr, props }) => {
   }))
 
   useEffect(() => {
-    setAllSessions(newSessionArr)
-  }, [])
+    props.setFieldValue(
+      "selectedSessions",
+      selectedSessions.map(item => item.title).join(", ")
+    )
+  }, [selectedSessions])
 
   const totalCost = selectedSessions.reduce(function (prev, cur) {
     return prev + cur.cost
@@ -38,8 +41,12 @@ const Sessions = ({ sessionArr, props }) => {
       session.checked = false
       const removeItemArr = selectedSessions.filter(item => index !== item.id)
       setSelectedSessions(removeItemArr)
+      props.setFieldValue("selectedSessions", removeItemArr)
     }
   }
+
+  console.log("selected sessions state", selectedSessions)
+  console.log("selected sessions field values", props.values.selectedSessions)
 
   const isChecked = (array, session) => {
     return array.some(item => item.id === session.id)
