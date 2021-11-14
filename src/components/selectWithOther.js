@@ -23,22 +23,17 @@ const TestInfo = ({ form, props, testNumber, index }) => {
     <Grid container>
       <Grid item xs={3}>
         <FormControl fullWidth>
-          <InputLabel id={`testSource${testNumber}`}>
-            Test Source {testNumber}
-          </InputLabel>
+          <InputLabel id="testSource">Test Source</InputLabel>
           <Select
             labelId={`testSource${testNumber}`}
-            id={`testSource`}
+            id={`testSource${testNumber}`}
             variant="filled"
-            name={`testSource${testNumber}`}
+            name="testSource"
             displayEmpty
             fullWidth
-            value={props.values.sessions[index]["testSource"]}
+            value={props.values[`testSource${testNumber}`]}
             onChange={e =>
-              props.setFieldValue(
-                `sessions[${index}][testSource]`,
-                e.target.value
-              )
+              props.setFieldValue(`testSource${testNumber}`, e.target.value)
             }
           >
             <MenuItem value={"EC"} onClick={() => setIsOther(false)}>
@@ -58,17 +53,18 @@ const TestInfo = ({ form, props, testNumber, index }) => {
       {isOther ? (
         <Grid item xs={4}>
           <TextField
-            name={`sessions${index}.otherDetails${testNumber}`}
+            name={`otherDetails${testNumber}`}
             id={`otherDetails${testNumber}`}
             variant="filled"
             label="Specify Other"
             helperText="details for other test source"
             fullWidth
-            value={props.values[`sessions${index}.otherDetails${testNumber}`]}
+            value={props.values[`otherDetails${testNumber}`]}
             onChange={e =>
               props.setFieldValue(
-                `sessions[${index}][otherDetails${testNumber}]`,
-                e.target.value
+                `otherDetails${testNumber}`,
+                e.target.value,
+                true
               )
             }
           />
@@ -79,27 +75,23 @@ const TestInfo = ({ form, props, testNumber, index }) => {
 
       <Grid item style={{ flexGrow: "1" }}>
         <TextField
-          id={`sessions[${index}].testDetails${testNumber}`}
+          id={`testDetails${testNumber}`}
           variant="filled"
-          name={`sessions[${index}].testDetails${testNumber}`}
+          name="testDetails"
           label="Test Details"
           placeholder="level and number/name etc"
           fullWidth
-          value={props.values.sessions[index]["testDetails"]}
+          value={props.values[`testDetails${testNumber}`]}
           onChange={e =>
-            props.setFieldValue(
-              `sessions[${index}][testDetails]`,
-              e.target.value,
-              true
-            )
+            props.setFieldValue(`testDetails${testNumber}`, e.target.value)
           }
           error={
-            Boolean(props.errors.sessions) &&
-            props.errors.sessions[index]["testDetails"]
+            props.touched[`testDetails${testNumber}`] &&
+            Boolean(props.errors[`testDetails${testNumber}`])
           }
           helperText={
-            Boolean(props.errors.sessions) &&
-            props.errors.sessions[index]["testDetails"]
+            props.touched[`testDetails${testNumber}`] &&
+            props.errors[`testDetails${testNumber}`]
           }
         />
       </Grid>

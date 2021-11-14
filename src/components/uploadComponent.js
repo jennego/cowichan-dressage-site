@@ -26,7 +26,6 @@ const UploadField = ({ index, doc, props, waiverType }) => {
 
   return (
     <div>
-      <FormHelperText> Hello </FormHelperText>
       <Paper elevation={5} className="pdf-item">
         <Grid container spacing={1}>
           <Grid item xs={12}>

@@ -137,12 +137,44 @@ const Entry = ({ pageContext, data, location }) => {
   }
 
   /// I think I'm gonna have to shove it all into one lazy schema
+  //check casing
 
-  let waiverSchema = yup.lazy(obj =>
+  let dynamicSchema = yup.lazy(obj =>
     yup.object(
       mapValues(obj, (value, key) => {
         if (key.includes("waiver")) {
           return yup.mixed().required()
+        }
+        if (key.includes("test") && !key.includes("other")) {
+          return yup.string().required()
+        }
+        if (key.includes("testOther") && !value.includes("other")) {
+          if (key.includes("otherDetails")) {
+            return yup.string().required()
+          }
+        }
+        if (key.includes("Name")) {
+          return yup.string().required()
+        }
+
+        if (key.includes("Phone")) {
+          return yup.string().required()
+        }
+
+        if (key.includes("age")) {
+          return yup.string().required()
+        }
+
+        if (key.includes("payment")) {
+          return yup.string().required()
+        }
+
+        if (key.includes("date")) {
+          return yup.date().required()
+        }
+
+        if (key.includes("email")) {
+          return yup.email().required()
         }
       })
     )
