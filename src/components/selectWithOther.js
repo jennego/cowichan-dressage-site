@@ -28,7 +28,7 @@ const TestInfo = ({ form, props, testNumber, index }) => {
             labelId={`testSource${testNumber}`}
             id={`testSource${testNumber}`}
             variant="filled"
-            name="testSource"
+            name={`testSource${testNumber}`}
             displayEmpty
             fullWidth
             value={props.values[`testSource${testNumber}`]}

@@ -1,7 +1,7 @@
 // figure out what to do with number fields - initial values and parse
 
 import { graphql, Link } from "gatsby"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Layout from "../components/layout"
 import Main from "../components/MainContent"
 
@@ -91,6 +91,8 @@ const Entry = ({ pageContext, data, location }) => {
   const [selectedWaivers, setSelectedWaivers] = useState(
     data.contentfulEvent.adultWaivers
   )
+  const [initialWaivers, setInitialWavers] = useState("")
+  const [initialTests, setInitialTests] = useState("")
 
   const handleOpen = (title, content) => {
     setOpen(true)
@@ -116,28 +118,28 @@ const Entry = ({ pageContext, data, location }) => {
     ["testDetails"]: "",
   }))
 
-  const initialWaiversArr = () => {
-    if (selectedWaivers.length > 0) {
-      return selectedWaivers.map((test, index) => ({
-        ["waiver" + (index + 1)]: null,
-      }))
-    } else {
-      return
-    }
-  }
+  useEffect(() => {
+    const initialWaiversArr = selectedWaivers.map((test, index) => ({
+      ["waiver" + (index + 1)]: null,
+    }))
+    setInitialWavers(Object.assign({}, ...initialWaiversArr))
+  }, [selectedWaivers])
+
+  useEffect(() => {
+    let sessionsArr = testData.map((test, index) => ({
+      ["testSource" + (index + 1)]: "",
+      ["otherDetails" + (index + 1)]: "",
+      ["testDetails" + (index + 1)]: "",
+    }))
+
+    setInitialTests(Object.assign({}, ...sessionsArr))
+  }, [])
 
   // const initialTests = Object.assign({}, ...initialTestsArr)
 
-  const initialWaivers = () => {
-    if (initialWaiversArr !== null) {
-      return Object.assign({}, ...initialWaiversArr)
-    } else {
-      return
-    }
-  }
-
-  /// I think I'm gonna have to shove it all into one lazy schema
-  //check casing
+  /// Do tests next
+  // Only if session is selected (seledcted session value includes?)
+  // Other field om
 
   let dynamicSchema = yup.lazy(obj =>
     yup.object(
@@ -145,16 +147,11 @@ const Entry = ({ pageContext, data, location }) => {
         if (key.includes("waiver")) {
           return yup.mixed().required()
         }
-        if (key.includes("test") && !key.includes("other")) {
-          return yup.string().required()
-        }
-        if (key.includes("testOther") && !value.includes("other")) {
-          if (key.includes("otherDetails")) {
-            return yup.string().required()
-          }
-        }
         if (key.includes("Name")) {
           return yup.string().required()
+        }
+        if (key.includes("hcbc")) {
+          return yup.number().required()
         }
 
         if (key.includes("Phone")) {
@@ -174,7 +171,7 @@ const Entry = ({ pageContext, data, location }) => {
         }
 
         if (key.includes("email")) {
-          return yup.email().required()
+          return yup.string().email().required()
         }
       })
     )
@@ -271,18 +268,19 @@ const Entry = ({ pageContext, data, location }) => {
               })
               .finally(() => actions.setSubmitting(false))
           }}
-          // validationSchema={mainSchema}
+          validationSchema={dynamicSchema}
           initialValues={{
             dateSelect: location.state ? location.state.date : "",
-            name: "",
+            Name: "",
             horseName: "",
             email: "",
             hcbc: "",
-            phoneNumber: "",
+            PhoneNumber: "",
             age: "adult",
             selectedSessions: "",
             emergContactName: "",
-            emergContactPh: "",
+            emergContactPhone: "",
+            selectedSessions: null,
             sessions,
             ...initialWaivers,
           }}

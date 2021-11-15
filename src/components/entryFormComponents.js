@@ -107,14 +107,14 @@ export const EntryForm = ({ props, data }) => {
               <TextField
                 fullWidth
                 variant="filled"
-                id="name"
-                name="name"
+                id="Name"
+                name="Name"
                 label="Name"
                 onBlur={props.handleBlur}
-                value={props.values.name}
+                value={props.values.Name}
                 onChange={props.handleChange}
-                error={props.touched.name && Boolean(props.errors.name)}
-                helperText={props.touched.name && props.errors.name}
+                error={props.touched.Name && Boolean(props.errors.Name)}
+                helperText={props.touched.Name && props.errors.Name}
               />
             </Grid>
           </Grid>
@@ -177,8 +177,8 @@ export const EntryForm = ({ props, data }) => {
             <Grid item xs={11}>
               <PhoneInput
                 props={props}
-                fieldName="phoneNumber"
-                idName="phoneNumber"
+                fieldName="PhoneNumber"
+                idName="PhoneNumber"
                 labelName="Phone Number"
               />
             </Grid>
