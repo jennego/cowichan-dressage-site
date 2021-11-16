@@ -14,7 +14,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel"
 
 import Checkbox from "@material-ui/core/Checkbox"
 
-import { Formik, Form, Field } from "formik"
+import { Formik, Form, Field, useFormikContext } from "formik"
 import * as yup from "yup"
 import mapValues from "lodash/mapValues"
 
@@ -119,6 +119,24 @@ const Entry = ({ pageContext, data, location }) => {
 
     setInitialTests(Object.assign({}, ...sessionsArr))
   }, [])
+
+  const UpdateWaivers = () => {
+    const { values } = useFormikContext()
+    useEffect(() => {
+      if (values.age === "junior") {
+        alert(values.age)
+      } else if (values.age === "adult") {
+        alert(values.age)
+      } else {
+        alert(undefined)
+      }
+
+      // values.age === "junior"
+      //   ? setSelectedWaivers(data.contentfulEvent.juniorWaivers)
+      //   : setSelectedWaivers(data.contentfulEvent.adultWaivers)
+    }, [values.age])
+    return null
+  }
 
   // const initialTests = Object.assign({}, ...initialTestsArr)
 
@@ -274,6 +292,7 @@ const Entry = ({ pageContext, data, location }) => {
           {props => (
             <Paper>
               {console.log("touched", props.touched)}
+              <UpdateWaivers />
 
               <Form
                 data-netlify="true"
@@ -307,11 +326,6 @@ const Entry = ({ pageContext, data, location }) => {
                   <UploadComponent
                     waiverType={props.values.age}
                     props={props}
-                    onChange={
-                      props.values.age === "junior"
-                        ? setSelectedWaivers(data.contentfulEvent.juniorWaivers)
-                        : setSelectedWaivers(data.contentfulEvent.adultWaivers)
-                    }
                     fileArray={selectedWaivers}
                   />
                 ) : (

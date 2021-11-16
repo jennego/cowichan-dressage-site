@@ -50,7 +50,7 @@ export const DateForm = ({ data, props, location }) => {
               label={format(new Date(parseISO(date.date)), "EEE, LLLL d, yyyy")}
             />
           ))}
-          {props.touched.name && Boolean(props.errors.name) ? (
+          {props.touched.date && Boolean(props.errors.date) ? (
             <FormHelperText error>
               Date is required. You cannot also register for an event that has
               already happened.
@@ -212,9 +212,10 @@ export const EntryForm = ({ props, data }) => {
           <FormLabel component="legend">Age</FormLabel>
           <RadioGroup
             aria-label="age"
-            onBlur={props.handleBlur}
             name="age"
+            id="age"
             style={{ display: "flex", flexDirection: "row", marginTop: "0" }}
+            onBlur={props.handleBlur}
             value={props.values.age}
             onChange={props.handleChange}
           >
@@ -224,12 +225,14 @@ export const EntryForm = ({ props, data }) => {
               label="Junior"
               name="age"
             />
+
             <FormControlLabel
               value="adult"
               control={<Radio />}
               label="Senior"
               name="age"
             />
+            {props.values.age}
           </RadioGroup>
         </Grid>
         <Grid item md={6} xs={12}>
