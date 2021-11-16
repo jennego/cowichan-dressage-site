@@ -23,7 +23,7 @@ const Sessions = ({ sessionArr, props }) => {
   useEffect(() => {
     props.setFieldValue(
       "selectedSessions",
-      selectedSessions.map(item => item.title).join(", ")
+      selectedSessions.map(item => item.title)
     )
   }, [selectedSessions])
 

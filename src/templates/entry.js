@@ -85,7 +85,6 @@ export const query = graphql`
 `
 
 const Entry = ({ pageContext, data, location }) => {
-  const [open, setOpen] = React.useState(false)
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   const [selectedWaivers, setSelectedWaivers] = useState(
@@ -93,20 +92,6 @@ const Entry = ({ pageContext, data, location }) => {
   )
   const [initialWaivers, setInitialWavers] = useState("")
   const [initialTests, setInitialTests] = useState("")
-
-  const handleOpen = (title, content) => {
-    setOpen(true)
-    setTitle(title)
-    setContent(content)
-
-    setTimeout(() => {
-      setOpen(false)
-    }, 2000)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
 
   let testData = data.contentfulEvent.sessions.filter(
     test => test.testFields === true
@@ -277,7 +262,6 @@ const Entry = ({ pageContext, data, location }) => {
             hcbc: "",
             PhoneNumber: "",
             age: "adult",
-            selectedSessions: "",
             emergContactName: "",
             emergContactPhone: "",
             selectedSessions: null,
