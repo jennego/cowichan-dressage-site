@@ -271,7 +271,7 @@ const Entry = ({ pageContext, data, location }) => {
               })
               .finally(() => actions.setSubmitting(false))
           }}
-          validationSchema={dynamicSchema}
+          // validationSchema={dynamicSchema}
           initialValues={{
             dateSelect: location.state ? location.state.date : "",
             Name: "",
