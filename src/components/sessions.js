@@ -60,7 +60,7 @@ const Sessions = ({ sessionArr, props }) => {
         <Grid container style={{ margin: "1.5rem 0" }}>
           <Grid item>
             <Checkbox
-              name="sessionsSelected"
+              name="selectedSessions"
               style={{
                 transform: "scale(1.2)",
               }}

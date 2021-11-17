@@ -77,7 +77,7 @@ const TestInfo = ({ form, props, testNumber, index }) => {
         <TextField
           id={`testDetails${testNumber}`}
           variant="filled"
-          name="testDetails"
+          name={`testDetails${testNumber}`}
           label="Test Details"
           placeholder="level and number/name etc"
           fullWidth
