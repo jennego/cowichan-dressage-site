@@ -124,11 +124,11 @@ const Entry = ({ pageContext, data, location }) => {
     const { values } = useFormikContext()
     useEffect(() => {
       if (values.age === "junior") {
-        alert(values.age)
+        setSelectedWaivers(data.contentfulEvent.juniorWaivers)
       } else if (values.age === "adult") {
-        alert(values.age)
+        setSelectedWaivers(data.contentfulEvent.adultWaivers)
       } else {
-        alert(undefined)
+        return
       }
 
       // values.age === "junior"
@@ -279,7 +279,7 @@ const Entry = ({ pageContext, data, location }) => {
             email: "",
             hcbc: "",
             PhoneNumber: "",
-            age: "adult",
+            age: "",
             emergContactName: "",
             emergContactPhone: "",
             selectedSessions: null,

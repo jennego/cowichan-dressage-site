@@ -7,8 +7,7 @@ import FormControl from "@material-ui/core/FormControl"
 import TextField from "@material-ui/core/TextField"
 import Grid from "@material-ui/core/Grid"
 
-const TestInfo = ({ form, props, testNumber, index }) => {
-  const [otherValue, setOtherValue] = React.useState("")
+const TestInfo = ({ form, props, testNumber, disabled, index }) => {
   const [isOther, setIsOther] = React.useState(false)
 
   // useEffect(() => {
@@ -22,19 +21,23 @@ const TestInfo = ({ form, props, testNumber, index }) => {
   return (
     <Grid container>
       <Grid item xs={3}>
-        <FormControl fullWidth>
-          <InputLabel id="testSource">Test Source</InputLabel>
+        <FormControl fullWidth variant="filled">
+          <InputLabel id="testSource">
+            <span style={{ color: disabled ? "grey" : "#171717" }}>
+              Test Source
+            </span>
+          </InputLabel>
           <Select
-            labelId={`testSource${testNumber}`}
+            labelId="testSource"
             id={`testSource${testNumber}`}
             variant="filled"
             name={`testSource${testNumber}`}
-            displayEmpty
             fullWidth
             value={props.values[`testSource${testNumber}`]}
             onChange={e =>
               props.setFieldValue(`testSource${testNumber}`, e.target.value)
             }
+            disabled={disabled}
           >
             <MenuItem value={"EC"} onClick={() => setIsOther(false)}>
               EC
@@ -82,6 +85,7 @@ const TestInfo = ({ form, props, testNumber, index }) => {
           placeholder="level and number/name etc"
           fullWidth
           value={props.values[`testDetails${testNumber}`]}
+          disabled={disabled}
           onChange={e =>
             props.setFieldValue(`testDetails${testNumber}`, e.target.value)
           }

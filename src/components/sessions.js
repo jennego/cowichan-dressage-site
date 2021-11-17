@@ -33,9 +33,12 @@ const Sessions = ({ sessionArr, props }) => {
 
   const renderCost = totalCost > 1 ? "$" + totalCost : "Free"
 
+  /// figure out another way that doesn't rely on check box - probably index?
+
   const handleSelections = (e, session, index) => {
     if (e.target.checked === true) {
       session.checked = true
+      console.log("session click", session, index)
       setSelectedSessions(selectedSessions => [...selectedSessions, session])
     } else {
       session.checked = false
@@ -44,9 +47,6 @@ const Sessions = ({ sessionArr, props }) => {
       props.setFieldValue("selectedSessions", removeItemArr)
     }
   }
-
-  console.log("selected sessions state", selectedSessions)
-  console.log("selected sessions field values", props.values.selectedSessions)
 
   const isChecked = (array, session) => {
     return array.some(item => item.id === session.id)
@@ -58,7 +58,7 @@ const Sessions = ({ sessionArr, props }) => {
     <div>
       {newSessionArr.map((session, index) => (
         <Grid container style={{ margin: "1.5rem 0" }}>
-          <Grid item>
+          <Grid>
             <Checkbox
               name="selectedSessions"
               style={{
@@ -70,10 +70,17 @@ const Sessions = ({ sessionArr, props }) => {
           </Grid>
           <Grid item style={{ flexGrow: "1" }}>
             <FormLabel>
-              Session {index + 1} - Cost:{" "}
-              {session.cost >= 1 ? "$" + session.cost : "Free"}
+              <span
+                style={{
+                  color: isChecked(selectedSessions, session) ? "blue" : "grey",
+                }}
+              >
+                Session {index + 1} - Cost:{" "}
+                {session.cost >= 1 ? "$" + session.cost : "Free"}
+              </span>
             </FormLabel>
             <Card
+              onClick={e => handleSelections(e, session, index)}
               className={
                 isChecked(selectedSessions, session) === true
                   ? "session-selected"
@@ -96,6 +103,11 @@ const Sessions = ({ sessionArr, props }) => {
                         props={props}
                         testNumber={index + 1}
                         index={index}
+                        disabled={
+                          isChecked(selectedSessions, session) === true
+                            ? false
+                            : true
+                        }
                       />
                       {/* <TestInfo
                         props={props}

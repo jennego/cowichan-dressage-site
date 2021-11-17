@@ -34,15 +34,15 @@ export const DateForm = ({ data, props, location }) => {
         <FormLabel component="legend">Date</FormLabel>
         <RadioGroup
           aria-label="date"
-          name="dateSelect"
+          name="date"
           onBlur={props.handleBlur}
           onChange={props.handleChange}
           value={props.values.dateSelect}
-          id="dateSelect"
+          id="date"
         >
           {data.contentfulEvent.eventDates.map(date => (
             <FormControlLabel
-              name="dateSelect"
+              name="date"
               disabled={isAfter(parseISO(date.date), new Date()) ? false : true}
               value={date.date}
               control={<Radio color="primary" />}

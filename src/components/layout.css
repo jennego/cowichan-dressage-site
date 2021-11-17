@@ -187,6 +187,10 @@ a.menu-item:hover {
   color: #171717 !important;
 }
 
+.Mui-disabled {
+  color: grey !important;
+}
+
 .session-selected {
   background: #edf5f4 !important;
   border: 2px #3f50b5 solid !important;

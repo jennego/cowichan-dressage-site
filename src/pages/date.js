@@ -1,56 +1,48 @@
 import React from "react"
-import mapValues from "lodash/mapValues"
-import { object, lazy, string, number, mixed } from "yup"
-import * as yup from "yup"
+import { makeStyles } from "@material-ui/core/styles"
+import InputLabel from "@material-ui/core/InputLabel"
+import MenuItem from "@material-ui/core/MenuItem"
+import FormHelperText from "@material-ui/core/FormHelperText"
+import FormControl from "@material-ui/core/FormControl"
+import Select from "@material-ui/core/Select"
 
-let testSchema = lazy(obj =>
-  object(
-    mapValues(obj, (value, key) => {
-      if (key.includes("test")) {
-        return string().required()
-      }
-      if (key.includes("testSource") === "other") {
-        if (key.includes("otherDetails")) {
-          return string().required()
-        }
-      }
-    })
+const useStyles = makeStyles(theme => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}))
+
+export default function SimpleSelect() {
+  const classes = useStyles()
+  const [age, setAge] = React.useState("")
+
+  const handleChange = event => {
+    setAge(event.target.value)
+  }
+
+  return (
+    <div>
+      <FormControl variant="filled" className={classes.formControl}>
+        <InputLabel id="demo-simple-select-filled-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-filled-label"
+          id="demo-simple-select-filled"
+          value={age}
+          onChange={handleChange}
+          disabled
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+    </div>
   )
-)
-
-let waiverSchema = yup.lazy(obj =>
-  yup.object(
-    mapValues(obj, (value, key) => {
-      if (key.includes("waiver")) {
-        return yup.mixed().required()
-      }
-    })
-  )
-)
-
-// console.log(
-//   testSchema.validate(
-//     {
-//       testName: "Foobar",
-//       test2: "hi",
-//       test: "",
-//     },
-//     { strict: true }
-//   )
-// )
-
-console.log(
-  waiverSchema.validate(
-    {
-      waiver: { file: { path: "filename" } },
-      // waiver3: null,
-    },
-    { strict: true }
-  )
-)
-
-const About = () => {
-  return <div>Hi </div>
 }
-
-export default About
