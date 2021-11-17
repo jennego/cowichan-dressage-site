@@ -23,7 +23,7 @@ const Sessions = ({ sessionArr, props }) => {
   useEffect(() => {
     props.setFieldValue(
       "selectedSessions",
-      selectedSessions.map(item => item.title)
+      selectedSessions.map(item => item.title).join(", ")
     )
   }, [selectedSessions])
 
@@ -120,6 +120,12 @@ const Sessions = ({ sessionArr, props }) => {
           session(s): ${selectedSessions.map(item => item.title).join(", ")}`
             : "No sessions currently selected"}
         </div>
+        <Field
+          type="hidden"
+          name="selectedSessions"
+          label="Selected Sessions"
+          value={props.values.selectedSessions}
+        />
 
         <div style={{ textAlign: "right" }}>
           {selectedSessions.length < 1

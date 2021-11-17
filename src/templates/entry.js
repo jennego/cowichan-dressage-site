@@ -283,7 +283,6 @@ const Entry = ({ pageContext, data, location }) => {
             emergContactName: "",
             emergContactPhone: "",
             selectedSessions: null,
-            sessions,
             ...initialWaivers,
           }}
           validateOnMount
