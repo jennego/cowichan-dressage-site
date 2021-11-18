@@ -16,16 +16,15 @@ const Sessions = ({ sessionArr, props }) => {
   const newSessionArr = sessionArr.map((session, index) => ({
     id: index,
     title: `Session ${index + 1}`,
-    checked: false,
     ...session,
   }))
 
-  useEffect(() => {
-    props.setFieldValue(
-      "selectedSessions",
-      selectedSessions.map(item => item.title).join(", ")
-    )
-  }, [selectedSessions])
+  // useEffect(() => {
+  //   props.setFieldValue(
+  //     "selectedSessions",
+  //     selectedSessions.map(item => item.title).join(", ")
+  //   )
+  // }, [selectedSessions])
 
   const totalCost = selectedSessions.reduce(function (prev, cur) {
     return prev + cur.cost
@@ -35,22 +34,21 @@ const Sessions = ({ sessionArr, props }) => {
 
   /// figure out another way that doesn't rely on check box - probably index?
 
-  const handleSelections = (e, session, index) => {
-    if (e.target.checked === true) {
-      session.checked = true
-      console.log("session click", session, index)
-      setSelectedSessions(selectedSessions => [...selectedSessions, session])
-    } else {
-      session.checked = false
-      const removeItemArr = selectedSessions.filter(item => index !== item.id)
-      setSelectedSessions(removeItemArr)
-      props.setFieldValue("selectedSessions", removeItemArr)
-    }
-  }
-
   const isChecked = (array, session) => {
     return array.some(item => item.id === session.id)
   }
+
+  const handleSelections = (e, session, index) => {
+    e.stopPropagation()
+    if (!isChecked(selectedSessions, session)) {
+      setSelectedSessions(selectedSessions => [...selectedSessions, session])
+    } else if (isChecked(selectedSessions, session)) {
+      const removeItemArr = selectedSessions.filter(item => index !== item.id)
+      setSelectedSessions(removeItemArr)
+    }
+  }
+
+  console.log("sessions", selectedSessions)
 
   // try for each instead of map? Use formik array methods?
 
@@ -65,6 +63,7 @@ const Sessions = ({ sessionArr, props }) => {
                 transform: "scale(1.2)",
               }}
               color="primary"
+              checked={isChecked(selectedSessions, session)}
               onChange={e => handleSelections(e, session, index)}
             />
           </Grid>
@@ -80,6 +79,7 @@ const Sessions = ({ sessionArr, props }) => {
               </span>
             </FormLabel>
             <Card
+              button
               onClick={e => handleSelections(e, session, index)}
               className={
                 isChecked(selectedSessions, session) === true
@@ -98,6 +98,7 @@ const Sessions = ({ sessionArr, props }) => {
                   {session.testFields ? (
                     <div>
                       <Field
+                        onClick={e => e.stopPropagation()}
                         name="Test"
                         component={TestInfo}
                         props={props}

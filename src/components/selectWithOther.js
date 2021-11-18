@@ -18,8 +18,16 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
   //   }
   // }, [isOther])
 
+  const handleClick = e => {
+    if (disabled === false) {
+      e.stopPropagation()
+    } else {
+      return
+    }
+  }
+
   return (
-    <Grid container>
+    <Grid container onClick={handleClick}>
       <Grid item xs={3}>
         <FormControl fullWidth variant="filled">
           <InputLabel id="testSource">

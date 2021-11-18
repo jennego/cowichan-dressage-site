@@ -191,6 +191,10 @@ a.menu-item:hover {
   color: grey !important;
 }
 
+.session {
+  cursor: pointer;
+}
+
 .session-selected {
   background: #edf5f4 !important;
   border: 2px #3f50b5 solid !important;
