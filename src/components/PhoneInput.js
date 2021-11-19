@@ -11,7 +11,7 @@ const PhoneInput = ({ props, labelName, idName, fieldName }) => {
       style={{ height: "60px" }}
       className="MuiFilledInput-root MuiFilledInput-input"
       label={<label style={{ fontSize: 20 }}> {labelName} </label>}
-      value={props.values[{ fieldName }]}
+      value={props.values[fieldName]}
       defaultCountry={"ca"}
       disableDropdown={true}
       onlyCountries={["ca"]}

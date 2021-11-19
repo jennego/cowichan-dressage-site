@@ -71,7 +71,10 @@ const Sessions = ({ sessionArr, props }) => {
             <FormLabel>
               <span
                 style={{
-                  color: isChecked(selectedSessions, session) ? "blue" : "grey",
+                  fontWeight: "bold",
+                  color: isChecked(selectedSessions, session)
+                    ? "#3f50b5"
+                    : "grey",
                 }}
               >
                 Session {index + 1} - Cost:{" "}

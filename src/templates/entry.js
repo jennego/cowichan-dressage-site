@@ -332,7 +332,11 @@ const Entry = ({ pageContext, data, location }) => {
                 )}
                 <PaymentForm props={props} data={data} />
 
-                <Button variant="contained" color="secondary">
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={e => props.resetForm()}
+                >
                   Clear
                 </Button>
                 <Button variant="contained" color="primary" type="submit">
