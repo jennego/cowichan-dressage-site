@@ -12,10 +12,25 @@ const Footer = () => {
       }}
     >
       <div style={{ marginLeft: "2rem" }}>
-        © {new Date().getFullYear()} Cowichan Dressage Club, Built with{" "}
-        <a href="https://www.gatsbyjs.com" style={{ color: "lightblue" }}>
-          Gatsby
-        </a>
+        <div>
+          <p>
+            © {new Date().getFullYear()} Cowichan Dressage Club. Built with{" "}
+            <a href="https://www.gatsbyjs.com" style={{ color: "lightblue" }}>
+              Gatsby
+            </a>
+          </p>
+          <p>
+            Site developed by{" "}
+            <a
+              href="http://jenniferchow.ca"
+              target="_blank"
+              rel="noreferrer"
+              style={{ color: "lightblue" }}
+            >
+              Jennifer Chow
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   )
