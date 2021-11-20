@@ -23,13 +23,6 @@ const Sessions = ({
     ...session,
   }))
 
-  // useEffect(() => {
-  //   props.setFieldValue(
-  //     "selectedSessions",
-  //     selectedSessions.map(item => item.title).join(", ")
-  //   )
-  // }, [selectedSessions])
-
   const totalCost = selectedSessions.reduce(function (prev, cur) {
     return prev + cur.cost
   }, 0)

@@ -16,6 +16,7 @@ import Checkbox from "@material-ui/core/Checkbox"
 import { Formik, Form, Field, useFormikContext } from "formik"
 import * as yup from "yup"
 import mapValues from "lodash/mapValues"
+import map from "lodash/map"
 
 import ResponsiveDialog from "../components/infoDialog"
 
@@ -164,7 +165,16 @@ const Entry = ({ pageContext, data, location }) => {
     return null
   }
 
-  // const initialTests = Object.assign({}, ...initialTestsArr)
+  const UpdateSelectedSessions = () => {
+    const { setFieldValue } = useFormikContext()
+    useEffect(() => {
+      setFieldValue(
+        "selectedSessions",
+        selectedSessions.map(item => item.title).join(", ")
+      )
+    }, [selectedSessions])
+    return null
+  }
 
   /// Do tests next
   // Only if session is selected (seledcted session value includes?)
@@ -203,14 +213,40 @@ const Entry = ({ pageContext, data, location }) => {
           return yup.string().email().required()
         }
 
-        if (key.includes("test")) {
+        // match for numbers in selected sessions somehow
+        // get selected sessions to equal true when with the correct number match (check to see if is in selected sessions, match with last of selected sessions)
+
+        // if (key.match(/\d/)) {
+        //   return yup.string().required()
+        // }
+
+        if (
+          key.match(/\d/) &&
+          selectedSessions.some(item =>
+            item.title.charAt(item.title.length - 1).match(/\d/)
+          )
+        ) {
           return yup.string().required()
         }
+
+        for (var i = 0; i < selectedSessions.length; i++) {
+          if (key.includes(i.toString())) {
+            return yup.string().required()
+          }
+        }
+
+        // use selected session index - map? forEach?
+        // match to key includes index + "test"
+        // if 'other' is value includes index + "other"
 
         console.log("yup object", obj)
       })
     )
   )
+
+  if (selectedSessions.includes(item => item.id === 1)) {
+    alert("got number one or two")
+  }
 
   const mainSchema = yup.object({
     dateSelect: yup.date().required(),
@@ -355,6 +391,7 @@ const Entry = ({ pageContext, data, location }) => {
 
                 {data.contentfulEvent.sessions && (
                   <Grid item xs={12}>
+                    <UpdateSelectedSessions />
                     <Field
                       component={Sessions}
                       name="sessions"
