@@ -7,10 +7,14 @@ import { Card, CardContent, Typography, TextField } from "@material-ui/core"
 
 import { Formik, Form, Field, FieldArray } from "formik"
 
-const Sessions = ({ sessionArr, props }) => {
-  const [selectedSessions, setSelectedSessions] = useState([])
-  const [sessions, setAllSessions] = useState([])
-
+const Sessions = ({
+  sessionArr,
+  props,
+  isChecked,
+  setSelectedSessions,
+  selectedSessions,
+  handleSelections,
+}) => {
   console.log("selected", selectedSessions)
 
   const newSessionArr = sessionArr.map((session, index) => ({
@@ -33,22 +37,6 @@ const Sessions = ({ sessionArr, props }) => {
   const renderCost = totalCost > 1 ? "$" + totalCost : "Free"
 
   /// figure out another way that doesn't rely on check box - probably index?
-
-  const isChecked = (array, session) => {
-    return array.some(item => item.id === session.id)
-  }
-
-  const handleSelections = (e, session, index) => {
-    e.stopPropagation()
-    if (!isChecked(selectedSessions, session)) {
-      setSelectedSessions(selectedSessions => [...selectedSessions, session])
-    } else if (isChecked(selectedSessions, session)) {
-      const removeItemArr = selectedSessions.filter(item => index !== item.id)
-      setSelectedSessions(removeItemArr)
-    }
-  }
-
-  console.log("sessions", selectedSessions)
 
   // try for each instead of map? Use formik array methods?
 
@@ -143,11 +131,11 @@ const Sessions = ({ sessionArr, props }) => {
           value={props.values.selectedSessions}
         />
 
-        <div style={{ textAlign: "right" }}>
+        {/* <div style={{ textAlign: "right" }}>
           {selectedSessions.length < 1
             ? "Select sessions to see cost"
             : `Cost: ${renderCost}`}
-        </div>
+        </div> */}
       </div>
     </div>
   )

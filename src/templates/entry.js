@@ -8,8 +8,7 @@ import Main from "../components/MainContent"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 
-import { Paper } from "@material-ui/core"
-import RadioGroup from "@material-ui/core/RadioGroup"
+import { Paper, Grid } from "@material-ui/core"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 
 import Checkbox from "@material-ui/core/Checkbox"
@@ -27,9 +26,10 @@ import FocusError from "../components/focusError"
 import Snackbar from "@material-ui/core/Snackbar"
 import Alert from "@material-ui/lab/Alert"
 
-import { DateForm } from "../components/entryFormComponents"
+import { DateForm, Notes } from "../components/entryFormComponents"
 import { EntryForm } from "../components/entryFormComponents"
 import { PaymentForm } from "../components/entryFormComponents"
+import Sessions from "../components/sessions"
 
 export const query = graphql`
   query entryQuery($id: String!) {
@@ -92,32 +92,58 @@ const Entry = ({ pageContext, data, location }) => {
   )
   const [initialWaivers, setInitialWavers] = useState("")
   const [initialTests, setInitialTests] = useState("")
+  const [selectedSessions, setSelectedSessions] = useState([])
+
+  const isChecked = (array, session) => {
+    return array.some(item => item.id === session.id)
+  }
+
+  const handleSelections = (e, session, index) => {
+    e.stopPropagation()
+    if (!isChecked(selectedSessions, session)) {
+      setSelectedSessions(selectedSessions => [...selectedSessions, session])
+    } else if (isChecked(selectedSessions, session)) {
+      const removeItemArr = selectedSessions.filter(item => index !== item.id)
+      setSelectedSessions(removeItemArr)
+    }
+  }
+
+  console.log("sessions from entry", selectedSessions)
 
   let testData = data.contentfulEvent.sessions.filter(
     test => test.testFields === true
   )
 
-  let sessions = testData.map((test, index) => ({
-    ["testSource"]: "",
-    ["testOther"]: "",
-    ["testDetails"]: "",
-  }))
-
   useEffect(() => {
-    const initialWaiversArr = selectedWaivers.map((test, index) => ({
-      ["waiver" + (index + 1)]: null,
-    }))
-    setInitialWavers(Object.assign({}, ...initialWaiversArr))
+    let initialWaiversArr
+    if (selectedWaivers !== null) {
+      initialWaiversArr = selectedWaivers.map((test, index) => ({
+        ["waiver" + (index + 1)]: null,
+      }))
+      setInitialWavers(Object.assign({}, ...initialWaiversArr))
+    } else {
+      return
+    }
   }, [selectedWaivers])
 
   useEffect(() => {
-    let sessionsArr = testData.map((test, index) => ({
-      ["testSource" + (index + 1)]: "",
-      ["otherDetails" + (index + 1)]: "",
-      ["testDetails" + (index + 1)]: "",
-    }))
+    if (testData.length > 0) {
+      let sessions = testData.map((test, index) => ({
+        ["testSource"]: "",
+        ["testOther"]: "",
+        ["testDetails"]: "",
+      }))
 
-    setInitialTests(Object.assign({}, ...sessionsArr))
+      let sessionsArr = testData.map((test, index) => ({
+        ["testSource" + (index + 1)]: "",
+        ["otherDetails" + (index + 1)]: "",
+        ["testDetails" + (index + 1)]: "",
+      }))
+
+      setInitialTests(Object.assign({}, ...sessionsArr))
+    } else {
+      return
+    }
   }, [])
 
   const UpdateWaivers = () => {
@@ -176,6 +202,12 @@ const Entry = ({ pageContext, data, location }) => {
         if (key.includes("email")) {
           return yup.string().email().required()
         }
+
+        if (key.includes("test")) {
+          return yup.string().required()
+        }
+
+        console.log("yup object", obj)
       })
     )
   )
@@ -271,7 +303,7 @@ const Entry = ({ pageContext, data, location }) => {
               })
               .finally(() => actions.setSubmitting(false))
           }}
-          // validationSchema={dynamicSchema}
+          validationSchema={dynamicSchema}
           initialValues={{
             dateSelect: location.state ? location.state.date : "",
             Name: "",
@@ -284,6 +316,7 @@ const Entry = ({ pageContext, data, location }) => {
             emergContactPhone: "",
             selectedSessions: null,
             ...initialWaivers,
+            ...initialTests,
           }}
           validateOnMount
           enableReinitialize
@@ -319,6 +352,22 @@ const Entry = ({ pageContext, data, location }) => {
                 {console.log(props.values)}
                 <DateForm props={props} data={data} location={location} />
                 <EntryForm props={props} data={data} />
+
+                {data.contentfulEvent.sessions && (
+                  <Grid item xs={12}>
+                    <Field
+                      component={Sessions}
+                      name="sessions"
+                      sessionArr={data.contentfulEvent.sessions}
+                      props={props}
+                      handleSelections={handleSelections}
+                      setSelectedSessions={setSelectedSessions}
+                      selectedSessions={selectedSessions}
+                      isChecked={isChecked}
+                    />
+                  </Grid>
+                )}
+                <Notes props={props} data={data} />
 
                 {data.contentfulEvent.juniorWaivers &&
                 data.contentfulEvent.adultWaivers ? (

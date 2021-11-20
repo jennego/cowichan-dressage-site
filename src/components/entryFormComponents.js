@@ -281,37 +281,28 @@ export const EntryForm = ({ props, data }) => {
             </Grid>
           </Grid>
         </Grid>
-
-        {data.contentfulEvent.sessions && (
-          <Grid item xs={12}>
-            <Field
-              component={Sessions}
-              name="sessions"
-              sessionArr={data.contentfulEvent.sessions}
-              props={props}
-            />
-          </Grid>
-        )}
-
-        <Grid item xs={12}>
-          <TextField
-            id="notes"
-            name="notes"
-            label="Notes (preferences etc) "
-            placeholder="Note to organizers (preferred ride times, travel considerations, etc.)"
-            multiline
-            rows={4}
-            rowsMax={6}
-            onBlur={props.handleBlur}
-            fullWidth
-            variant="filled"
-            value={props.values.notes}
-            onChange={props.handleChange}
-            error={props.touched.notes && Boolean(props.errors.notes)}
-            helperText={props.touched.notes && props.errors.notes}
-          />
-        </Grid>
       </Grid>
     </FormGroup>
   )
 }
+
+export const Notes = ({ props }) => (
+  <Grid item xs={12}>
+    <TextField
+      id="notes"
+      name="notes"
+      label="Notes (preferences etc) "
+      placeholder="Note to organizers (preferred ride times, travel considerations, etc.)"
+      multiline
+      rows={4}
+      rowsMax={6}
+      onBlur={props.handleBlur}
+      fullWidth
+      variant="filled"
+      value={props.values.notes}
+      onChange={props.handleChange}
+      error={props.touched.notes && Boolean(props.errors.notes)}
+      helperText={props.touched.notes && props.errors.notes}
+    />
+  </Grid>
+)

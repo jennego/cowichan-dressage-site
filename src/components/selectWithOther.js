@@ -36,6 +36,7 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
             </span>
           </InputLabel>
           <Select
+            defaultValue=""
             labelId="testSource"
             id={`testSource${testNumber}`}
             variant="filled"
