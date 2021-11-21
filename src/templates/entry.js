@@ -8,7 +8,7 @@ import Main from "../components/MainContent"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 
-import { Paper, Grid } from "@material-ui/core"
+import { Paper, Grid, Select } from "@material-ui/core"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 
 import Checkbox from "@material-ui/core/Checkbox"
@@ -176,6 +176,10 @@ const Entry = ({ pageContext, data, location }) => {
     return null
   }
 
+  const sessionsIdArr = testData.map((item, index) => index + 1)
+  const selectedIds = selectedSessions.map(item => item.id + 1)
+
+  console.log(sessionsIdArr)
   /// Do tests next
   // Only if session is selected (seledcted session value includes?)
   // Other field om
@@ -216,30 +220,24 @@ const Entry = ({ pageContext, data, location }) => {
         // match for numbers in selected sessions somehow
         // get selected sessions to equal true when with the correct number match (check to see if is in selected sessions, match with last of selected sessions)
 
-        // if (key.match(/\d/)) {
+        // now need to do other!
+
+        // if (
+        //   key.includes("other") &
+        //   (key.includes("testSource") === "other")
+        // ) {
         //   return yup.string().required()
         // }
 
-        if (
-          key.match(/\d/) &&
-          selectedSessions.some(item =>
-            item.title.charAt(item.title.length - 1).match(/\d/)
-          )
-        ) {
+        if (key.includes("test") && key.includes(selectedIds.toString())) {
           return yup.string().required()
-        }
-
-        for (var i = 0; i < selectedSessions.length; i++) {
-          if (key.includes(i.toString())) {
-            return yup.string().required()
-          }
         }
 
         // use selected session index - map? forEach?
         // match to key includes index + "test"
         // if 'other' is value includes index + "other"
 
-        console.log("yup object", obj)
+        console.log("yup object", key)
       })
     )
   )
