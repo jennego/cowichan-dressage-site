@@ -227,7 +227,6 @@ const Entry = ({ pageContext, data, location }) => {
           key.includes("test") &&
           selectedIds.some(num => key.includes(num))
         ) {
-          console.log(key)
           return yup.string().required()
         }
 

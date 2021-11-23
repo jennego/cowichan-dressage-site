@@ -6,17 +6,45 @@ import FormHelperText from "@material-ui/core/FormHelperText"
 import FormControl from "@material-ui/core/FormControl"
 import TextField from "@material-ui/core/TextField"
 import Grid from "@material-ui/core/Grid"
+import { Field } from "formik"
+
+const OtherTextField = ({ props, testNumber }) => (
+  <TextField
+    name={`otherDetails${testNumber}`}
+    id={`otherDetails${testNumber}`}
+    variant="filled"
+    label="Specify Other"
+    helperText="details for other test source"
+    fullWidth
+    onChange={e =>
+      props.setFieldValue(`otherDetails${testNumber}`, e.target.value)
+    }
+    value={props.values[`otherDetails${testNumber}`]}
+    error={
+      props.touched[`otherDetails${testNumber}`] &&
+      props.errors[`otherDetails${testNumber}`]
+    }
+  />
+)
 
 const TestInfo = ({ form, props, testNumber, disabled, index }) => {
   const [isOther, setIsOther] = React.useState(false)
 
-  // useEffect(() => {
-  //   if (isOther === false) {
-  //     props.setFieldValue("otherDetails", "", false)
-  //   } else {
-  //     return
-  //   }
-  // }, [isOther])
+  function validateOther(value) {
+    console.log("value of other", value)
+    let error
+    if (value.length === 0) {
+      error = "other must be filled"
+    }
+    return error
+  }
+
+  const handleOtherDetailsValidation = e => {
+    props.setFieldError(
+      `otherDetails${testNumber}`,
+      "other details is required"
+    )
+  }
 
   const handleClick = e => {
     if (disabled === false) {
@@ -42,9 +70,12 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
             variant="filled"
             name={`testSource${testNumber}`}
             fullWidth
+            onBlur={props.onBlur}
             value={props.values[`testSource${testNumber}`]}
             onChange={e =>
-              props.setFieldValue(`testSource${testNumber}`, e.target.value)
+              props.setFieldValue(
+                props.values[(`testSource${testNumber}`, e.value)]
+              )
             }
             disabled={disabled}
           >
@@ -54,7 +85,7 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
             <MenuItem value={"HCBC"} onClick={() => setIsOther(false)}>
               HCBC
             </MenuItem>
-            <MenuItem value={"Other"} onClick={() => setIsOther(true)}>
+            <MenuItem value={"other"} onClick={() => setIsOther(true)}>
               Other (specify)
             </MenuItem>
             {/* <MenuItem value={""}>Clear</MenuItem> */}
@@ -64,22 +95,21 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
 
       {isOther ? (
         <Grid item xs={4}>
-          <TextField
+          <Field
             name={`otherDetails${testNumber}`}
-            id={`otherDetails${testNumber}`}
-            variant="filled"
-            label="Specify Other"
-            helperText="details for other test source"
-            fullWidth
-            value={props.values[`otherDetails${testNumber}`]}
-            onChange={e =>
-              props.setFieldValue(
-                `otherDetails${testNumber}`,
-                e.target.value,
-                true
-              )
+            component={OtherTextField}
+            validate={() =>
+              validateOther(props.values[`otherDetails${testNumber}`])
             }
+            props={props}
+            testNumber={testNumber}
           />
+          {props.errors[`otherDetails${testNumber}`] &&
+            props.touched[`otherDetails${testNumber}`] && (
+              <FormHelperText error>
+                {props.errors[`otherDetails${testNumber}`]}
+              </FormHelperText>
+            )}
         </Grid>
       ) : (
         ""
@@ -95,6 +125,7 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
           fullWidth
           value={props.values[`testDetails${testNumber}`]}
           disabled={disabled}
+          onBlur={props.onBlur}
           onChange={e =>
             props.setFieldValue(`testDetails${testNumber}`, e.target.value)
           }
