@@ -8,7 +8,7 @@ import Main from "../components/MainContent"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 
-import { Paper, Grid, Select } from "@material-ui/core"
+import { Paper, Grid } from "@material-ui/core"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 
 import Checkbox from "@material-ui/core/Checkbox"
@@ -176,13 +176,12 @@ const Entry = ({ pageContext, data, location }) => {
     return null
   }
 
-  const sessionsIdArr = testData.map((item, index) => index + 1)
-  const selectedIds = selectedSessions.map(item => item.id + 1)
-
-  console.log(sessionsIdArr)
   /// Do tests next
   // Only if session is selected (seledcted session value includes?)
   // Other field om
+
+  const selectedIds = selectedSessions.map((item, index) => item.id + 1)
+  console.log("selected ids", selectedIds)
 
   let dynamicSchema = yup.lazy(obj =>
     yup.object(
@@ -220,16 +219,15 @@ const Entry = ({ pageContext, data, location }) => {
         // match for numbers in selected sessions somehow
         // get selected sessions to equal true when with the correct number match (check to see if is in selected sessions, match with last of selected sessions)
 
-        // now need to do other!
-
-        // if (
-        //   key.includes("other") &
-        //   (key.includes("testSource") === "other")
-        // ) {
+        // if (key.match(/\d/)) {
         //   return yup.string().required()
         // }
 
-        if (key.includes("test") && key.includes(selectedIds.toString())) {
+        if (
+          key.includes("test") &&
+          selectedIds.some(num => key.includes(num))
+        ) {
+          console.log(key)
           return yup.string().required()
         }
 
@@ -237,7 +235,7 @@ const Entry = ({ pageContext, data, location }) => {
         // match to key includes index + "test"
         // if 'other' is value includes index + "other"
 
-        console.log("yup object", key)
+        console.log("yup object", obj)
       })
     )
   )
