@@ -267,3 +267,12 @@ a.menu-item:hover {
 .MuiFormHelperText-root {
   font-size: 14px !important;
 }
+
+.MuiBadge-anchorOriginTopRightRectangle {
+  top: 20px !important;
+  right: -10px !important;
+}
+
+.MuiBadge-badge {
+  border-radius: 5px !important;
+}

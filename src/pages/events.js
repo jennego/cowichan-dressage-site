@@ -50,7 +50,7 @@ const Events = () => {
         {data.allContentfulEvent.edges.map(({ node }) => (
           <Card elevation="3" style={{ marginBottom: "2rem" }}>
             <Grid container>
-              <Grid item md={8}>
+              <Grid item md={node.image ? 8 : 12} sm={12} xs={12}>
                 <CardContent>
                   <Typography gutterBottom variant="h4">
                     {node.eventName}
@@ -80,19 +80,20 @@ const Events = () => {
                       Entry Form
                     </Button>
                   </Link>
-
-                  <List>
-                    <Grid container>
-                      {node.eventDates.map((date, index) => (
-                        <DateList
-                          date={date}
-                          indexId={index}
-                          entryURL={`${node.slug}/entry`}
-                          event={node}
-                        />
-                      ))}
-                    </Grid>
-                  </List>
+                  <Grid item xs={12}>
+                    <List>
+                      <Grid container style={{ width: "100%" }}>
+                        {node.eventDates.map((date, index) => (
+                          <DateList
+                            date={date}
+                            indexId={index}
+                            entryURL={`${node.slug}/entry`}
+                            event={node}
+                          />
+                        ))}
+                      </Grid>
+                    </List>
+                  </Grid>
                 </CardContent>
               </Grid>
               {node.image ? (
