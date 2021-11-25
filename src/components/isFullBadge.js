@@ -5,7 +5,7 @@ import Badge from "@material-ui/core/Badge"
 const ListBadge = withStyles(theme => ({
   badge: {
     right: -10,
-    top: 3,
+    top: 10,
   },
 }))(Badge)
 

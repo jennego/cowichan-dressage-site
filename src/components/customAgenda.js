@@ -106,7 +106,7 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                           </div>
                         </Grid>
                         <Grid item xs={12} sm={6} md={8}>
-                          <IsFullBadge isFull={true} isCal={true}>
+                          <IsFullBadge isFull={event.isFull} isCal={true}>
                             <div>{event.title}</div>
                           </IsFullBadge>
                         </Grid>
