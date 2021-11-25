@@ -18,6 +18,7 @@ import ExpandLess from "@material-ui/icons/ExpandLess"
 import ExpandMore from "@material-ui/icons/ExpandMore"
 import Collapse from "@material-ui/core/Collapse"
 import AddToCalendar from "./addToCalendar"
+import IsFullBadge from "./isFullBadge"
 
 function rangeFunc(start, end, unit = "day") {
   let current = start
@@ -60,7 +61,6 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
     return events.map((event, idx) => {
       return (
         <Grid container>
-          {console.log(event)}
           <div
             key={idx}
             style={{
@@ -106,7 +106,9 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                           </div>
                         </Grid>
                         <Grid item xs={12} sm={6} md={8}>
-                          <div>{event.title}</div>
+                          <IsFullBadge isFull={true} isCal={true}>
+                            <div>{event.title}</div>
+                          </IsFullBadge>
                         </Grid>
                       </Grid>
                       {event.id === selectedIndex ? (

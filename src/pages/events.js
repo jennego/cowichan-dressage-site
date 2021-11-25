@@ -35,6 +35,7 @@ const Events = () => {
             eventDates {
               id
               date
+              isFull
             }
           }
         }
@@ -49,9 +50,9 @@ const Events = () => {
         </Typography>
         {data.allContentfulEvent.edges.map(({ node }) => (
           <Card elevation="3" style={{ marginBottom: "2rem" }}>
-            <Grid container>
-              <Grid item md={node.image ? 8 : 12} sm={12} xs={12}>
-                <CardContent>
+            <CardContent>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={node.image ? 8 : 12}>
                   <Typography gutterBottom variant="h4">
                     {node.eventName}
                   </Typography>
@@ -80,33 +81,34 @@ const Events = () => {
                       Entry Form
                     </Button>
                   </Link>
-                  <Grid item xs={12}>
-                    <List>
-                      <Grid container style={{ width: "100%" }}>
-                        {node.eventDates.map((date, index) => (
-                          <DateList
-                            date={date}
-                            indexId={index}
-                            entryURL={`${node.slug}/entry`}
-                            event={node}
-                          />
-                        ))}
-                      </Grid>
-                    </List>
-                  </Grid>
-                </CardContent>
-              </Grid>
-              {node.image ? (
-                <Grid item md={4}>
-                  <GatsbyImage
-                    image={node.image.gatsbyImageData}
-                    alt={node.image.description ? node.image.description : ""}
-                  />
                 </Grid>
-              ) : (
-                ""
-              )}
-            </Grid>
+
+                {node.image ? (
+                  <Grid item xs={12} md={4} style={{ marginBottom: "1rem" }}>
+                    <GatsbyImage
+                      image={node.image.gatsbyImageData}
+                      alt={node.image.description ? node.image.description : ""}
+                    />
+                  </Grid>
+                ) : (
+                  ""
+                )}
+              </Grid>
+
+              <Grid item xs={12}>
+                <Grid container style={{ width: "100%" }}>
+                  {node.eventDates.map((date, index) => (
+                    <DateList
+                      date={date}
+                      indexId={index}
+                      entryURL={`${node.slug}/entry`}
+                      event={node}
+                      isFull={date.isFull}
+                    />
+                  ))}
+                </Grid>
+              </Grid>
+            </CardContent>
           </Card>
         ))}
       </Main>

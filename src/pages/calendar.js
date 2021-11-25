@@ -58,6 +58,7 @@ const Cal = () => {
               id
               date
               locationName
+              isFull
               location {
                 lat
                 lon
@@ -80,6 +81,7 @@ const Cal = () => {
       slug: node.slug,
       locationName: date.locationName ? date.locationName : node.locationName,
       allDay: true,
+      isFull: date.isFull,
       description: node.summary.summary,
     }))
   )
