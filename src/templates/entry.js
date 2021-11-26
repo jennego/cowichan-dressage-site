@@ -1,6 +1,6 @@
 // figure out what to do with number fields - initial values and parse
 
-import { graphql, Link } from "gatsby"
+import { graphql, Link, navigate } from "gatsby"
 import React, { useState, useEffect } from "react"
 import Layout from "../components/layout"
 import Main from "../components/MainContent"
@@ -87,14 +87,19 @@ export const query = graphql`
 `
 
 const Entry = ({ pageContext, data, location }) => {
-  const [title, setTitle] = useState("")
-  const [content, setContent] = useState("")
   const [selectedWaivers, setSelectedWaivers] = useState(
     data.contentfulEvent.adultWaivers
   )
   const [initialWaivers, setInitialWavers] = useState("")
   const [initialTests, setInitialTests] = useState("")
   const [selectedSessions, setSelectedSessions] = useState([])
+
+  let totalCost = 0
+  if (selectedSessions.length > 0) {
+    totalCost = selectedSessions.reduce(function (prev, cur) {
+      return prev + cur.cost
+    }, 0)
+  }
 
   const isChecked = (array, session) => {
     return array.some(item => item.id === session.id)
@@ -296,22 +301,38 @@ const Entry = ({ pageContext, data, location }) => {
         <hr />
         <Formik
           onSubmit={(values, actions) => {
-            fetch("/", {
-              method: "POST",
-              // headers: { "Content-Type": "multipart/form-data" },
-              body: encode({
-                "form-name": `${pageContext.eventName} Entries`,
-                ...values,
-              }),
+            navigate("/form-success", {
+              state: {
+                values,
+                event: data.contentfulEvent,
+                cost: totalCost,
+              },
             })
-              .then(() => {
-                actions.navigate("/form-success")
-              })
-              .catch(error => {
-                console.log(error)
-              })
-              .finally(() => actions.setSubmitting(false))
           }}
+          // onSubmit={(values, actions) => {
+          //   fetch("/", {
+          //     method: "POST",
+          //     // headers: { "Content-Type": "multipart/form-data" },
+          //     body: encode({
+          //       "form-name": `${pageContext.eventName} Entries`,
+          //       ...values,
+          //     }),
+          //   })
+          //     .then(() => {
+          //       navigate("/form-success", {
+          //         state: {
+          //           values,
+          //           formName: "pageContext.eventName",
+          //           event: data.contentfulEvent,
+          //           cost: totalCost,
+          //         },
+          //       })
+          //     })
+          //     .catch(error => {
+          //       console.log(error)
+          //     })
+          //     .finally(() => actions.setSubmitting(false))
+          // }}
           // validationSchema={dynamicSchema}
           initialValues={{
             date: location.state ? location.state.date : "",

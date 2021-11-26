@@ -288,7 +288,7 @@ export const EntryForm = ({ props, data }) => {
 }
 
 export const Notes = ({ props }) => (
-  <Grid item xs={12}>
+  <Grid item xs={12} style={{ marginTop: "2rem" }}>
     <TextField
       id="notes"
       name="notes"

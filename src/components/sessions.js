@@ -11,7 +11,6 @@ const Sessions = ({
   sessionArr,
   props,
   isChecked,
-  setSelectedSessions,
   selectedSessions,
   handleSelections,
 }) => {
@@ -117,6 +116,7 @@ const Sessions = ({
           session(s): ${selectedSessions.map(item => item.title).join(", ")}`
             : "No sessions currently selected"}
         </div>
+        <div>{renderCost}</div>
         <Field
           type="hidden"
           name="selectedSessions"
