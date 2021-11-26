@@ -6,6 +6,8 @@ import { ContactsOutlined, NightsStay } from "@material-ui/icons"
 import Obfuscate from "react-obfuscate"
 import AddToCalendar from "../components/addToCalendar"
 
+const Email = () => <Obfuscate email="cowichandressageclub@gmail.com" />
+
 const WhatForm = ({ location }) => {
   return (
     <Layout>
@@ -38,13 +40,13 @@ const Membership = ({ location }) => (
         {location.state.paymentMethod === "square" ? (
           <span>
             You have chosen to pay with square credit card. Please email{" "}
-            <Obfuscate to="cowichandressageclub@gmail.com" />
+            <Email />
             for square invoice.
           </span>
         ) : (
           <span>
             You have chosen to pay with e-transfer. Please e-transfer to{" "}
-            <Obfuscate to="cowichandressageclub@gmail.com" />
+            <Obfuscate Email />
             Auto-deposit is enabled so security question does not matter.
           </span>
         )}
@@ -65,7 +67,6 @@ const FormSuccess = ({ location }) => {
       return (
         <Layout>
           <Main>
-            {JSON.stringify(location, null, 2)}
             {console.log(location)}
 
             <Typography variant="h3" gutterBottom>
@@ -75,7 +76,8 @@ const FormSuccess = ({ location }) => {
               Your form has been successfully submitted.
             </Typography>
             <Typography variant="h4" gutterBottom>
-              You have entered in {location.state.event.eventName}
+              You have entered in {location.state.event.eventName} on
+              {location.state.values.date}
             </Typography>
             {/* 
           <AddToCalendar
@@ -89,13 +91,13 @@ const FormSuccess = ({ location }) => {
               {location.state.paymentMethod === "square" ? (
                 <span>
                   You have chosen to pay with square credit card. Please email{" "}
-                  <Obfuscate to="cowichandressageclub@gmail.com" />
+                  <Email />
                   for square invoice.
                 </span>
               ) : (
                 <span>
                   You have chosen to pay with e-transfer. Please e-transfer to{" "}
-                  <Obfuscate to="cowichandressageclub@gmail.com" />
+                  <Email />
                   Auto-deposit is enabled so security question does not matter.
                 </span>
               )}
