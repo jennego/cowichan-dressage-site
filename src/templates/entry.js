@@ -39,6 +39,7 @@ export const query = graphql`
       eventDates {
         date
         subtitle
+        isFull
       }
       contacts {
         email
@@ -109,11 +110,13 @@ const Entry = ({ pageContext, data, location }) => {
     }
   }
 
-  console.log("sessions from entry", selectedSessions)
+  let testData
 
-  let testData = data.contentfulEvent.sessions.filter(
-    test => test.testFields === true
-  )
+  if (data.contentfulEvent.sessions) {
+    let testData = data.contentfulEvent.sessions.filter(
+      test => test.testFields === true
+    )
+  }
 
   useEffect(() => {
     let initialWaiversArr
@@ -216,13 +219,6 @@ const Entry = ({ pageContext, data, location }) => {
           return yup.string().email().required()
         }
 
-        // match for numbers in selected sessions somehow
-        // get selected sessions to equal true when with the correct number match (check to see if is in selected sessions, match with last of selected sessions)
-
-        // if (key.match(/\d/)) {
-        //   return yup.string().required()
-        // }
-
         if (
           key.includes("test") &&
           selectedIds.some(num => key.includes(num))
@@ -230,32 +226,10 @@ const Entry = ({ pageContext, data, location }) => {
           return yup.string().required()
         }
 
-        // use selected session index - map? forEach?
-        // match to key includes index + "test"
-        // if 'other' is value includes index + "other"
-
         console.log("yup object", obj)
       })
     )
   )
-
-  if (selectedSessions.includes(item => item.id === 1)) {
-    alert("got number one or two")
-  }
-
-  const mainSchema = yup.object({
-    dateSelect: yup.date().required(),
-    name: yup.string("Enter your name").required("Name is required"),
-    horseName: yup.string("Enter your name").required("Horse Name is required"),
-    email: yup
-      .string("Enter your email")
-      .email("Enter a valid email")
-      .required("Email is required"),
-    phoneNumber: yup.string().required(),
-    hcbc: yup.number().typeError("Needs to be a number").required(),
-    emergContactName: yup.string().required(),
-    emergContactPh: yup.string().required(),
-  })
 
   // const validationSchema
 

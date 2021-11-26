@@ -25,6 +25,7 @@ import { format, parseISO, isAfter } from "date-fns"
 import Sessions from "../components/sessions"
 import { Field } from "formik"
 import PhoneInput from "../components/PhoneInput"
+import IsFullBadge from "./isFullBadge"
 
 export const DateForm = ({ data, props, location }) => {
   console.log(location)
@@ -41,14 +42,21 @@ export const DateForm = ({ data, props, location }) => {
           id="date"
         >
           {data.contentfulEvent.eventDates.map(date => (
-            <FormControlLabel
-              name="date"
-              disabled={isAfter(parseISO(date.date), new Date()) ? false : true}
-              value={date.date}
-              control={<Radio color="primary" />}
-              color="primary"
-              label={format(new Date(parseISO(date.date)), "EEE, LLLL d, yyyy")}
-            />
+            <IsFullBadge isFull={date.isFull}>
+              <FormControlLabel
+                name="date"
+                disabled={
+                  isAfter(parseISO(date.date), new Date()) ? false : true
+                }
+                value={date.date}
+                control={<Radio color="primary" />}
+                color="primary"
+                label={format(
+                  new Date(parseISO(date.date)),
+                  "EEE, LLLL d, yyyy"
+                )}
+              />
+            </IsFullBadge>
           ))}
           {props.touched.date && Boolean(props.errors.date) ? (
             <FormHelperText error>

@@ -44,17 +44,17 @@ export const DateList = ({ entryURL, event, date, indexId, isFull }) => {
         //     : { height: "fit-content" }
         // }
       >
-        <IsFullBadge isFull={isFull}>
-          <ListItem
-            button
-            key={indexId}
-            onClick={() => {
-              handleClick(indexId)
-            }}
-          >
-            <ListItemIcon>
-              <EventIcon fontSize="large" />
-            </ListItemIcon>
+        <ListItem
+          button
+          key={indexId}
+          onClick={() => {
+            handleClick(indexId)
+          }}
+        >
+          <ListItemIcon>
+            <EventIcon fontSize="large" />
+          </ListItemIcon>
+          <IsFullBadge isFull={isFull}>
             <ListItemText
               primary={format(
                 new Date(parseISO(date.date)),
@@ -63,9 +63,9 @@ export const DateList = ({ entryURL, event, date, indexId, isFull }) => {
               // secondary={date.subtitle}
               style={{ paddingRight: "0.5rem" }}
             />
-            {selectedIndex === indexId ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-        </IsFullBadge>
+          </IsFullBadge>
+          {selectedIndex === indexId ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
       </Paper>
       <Collapse in={indexId === selectedIndex} timeout="auto" unmountOnExit>
         <List component="div" disablePadding style={{ background: "#e3e3e3" }}>
@@ -77,12 +77,21 @@ export const DateList = ({ entryURL, event, date, indexId, isFull }) => {
             <ListItem button onClick={() => navigate(`/${date.date}/results`)}>
               <ListItemText
                 disableTypography
-                primary="Results"
+                primary="Ride Times"
                 className="date-menu"
               />
             </ListItem>
           )}
 
+          {date.results && (
+            <ListItem button onClick={() => navigate(`/${date.date}/results`)}>
+              <ListItemText
+                disableTypography
+                primary="Results"
+                className="date-menu"
+              />
+            </ListItem>
+          )}
           {isAfter(parseISO(date.date), new Date()) ? (
             <ListItem
               button
@@ -99,13 +108,7 @@ export const DateList = ({ entryURL, event, date, indexId, isFull }) => {
               />
             </ListItem>
           ) : (
-            <ListItem button onClick={() => navigate(`/${date.date}/results`)}>
-              <ListItemText
-                disableTypography
-                primary="Results"
-                className="date-menu"
-              />
-            </ListItem>
+            " "
           )}
         </List>
       </Collapse>

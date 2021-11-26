@@ -36,6 +36,16 @@ const Events = () => {
               id
               date
               isFull
+              results {
+                file {
+                  url
+                }
+              }
+              rideTimes {
+                file {
+                  url
+                }
+              }
             }
           }
         }
