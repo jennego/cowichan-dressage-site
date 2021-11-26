@@ -37,6 +37,7 @@ import Paper from "@material-ui/core/Paper"
 
 import ReCAPTCHA from "react-google-recaptcha"
 import PhoneInput from "../components/PhoneInput"
+import { useStaticQuery, graphql } from "gatsby"
 
 const BirthDatePickerField = ({ field, form, props, ...other }) => {
   const currentError = form.errors[field.name]
@@ -121,30 +122,40 @@ const MemberForm = () => {
     setOpen(false)
   }
 
+  const data = useStaticQuery(graphql`
+    {
+      allContentfulSiteInfo {
+        edges {
+          node {
+            membershipCost
+          }
+        }
+      }
+    }
+  `)
+
+  let cost = data.allContentfulSiteInfo.edges[0].node.membershipCost
+
   return (
     <Formik
       onSubmit={(values, actions) => {
-        navigate("/form-success", {
-          state: { values, formName: "membership" },
+        fetch("/", {
+          method: "POST",
+          // headers: { "Content-Type": "multipart/form-data" },
+          body: encode({ "form-name": "Membership", ...values }),
         })
+          .then(() => {
+            navigate("/form-success", {
+              state: { values, formName: "membership", cost: cost },
+            })
+          })
+          .catch(error => {
+            alert(JSON.stringify(values, null, 2))
+            alert("Error")
+          })
+          .finally(() => actions.setSubmitting(false))
       }}
-      // onSubmit={(values, actions) => {
-      //   fetch("/", {
-      //     method: "POST",
-      //     // headers: { "Content-Type": "multipart/form-data" },
-      //     body: encode({ "form-name": "Membership", ...values }),
-      //   })
-      //     .then(() => {
-      //       actions.navigate("/form-success")
-      //     })
-      //     .catch(error => {
-      //       alert(JSON.stringify(values, null, 2))
-      //       alert("Error")
-      //     })
-      //     .finally(() => actions.setSubmitting(false))
-      // }}
-      // validationSchema={validationSchema}
-
+      validationSchema={validationSchema}
       initialValues={{
         email: "",
         name: "",
@@ -257,23 +268,6 @@ const MemberForm = () => {
                     idName="phonenumber"
                     labelName="Phone Number"
                   />
-                  {/*                   
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    id="phonenumber"
-                    name="phonenumber"
-                    label="Phone Number"
-                    value={props.values.phonenumber}
-                    onChange={props.handleChange}
-                    error={
-                      props.touched.phonenumber &&
-                      Boolean(props.errors.phonenumber)
-                    }
-                    helperText={
-                      props.touched.phonenumber && props.errors.phonenumber
-                    }
-                  /> */}
                 </Grid>
               </Grid>
             </Grid>
@@ -372,6 +366,7 @@ const MemberForm = () => {
                   Boolean(props.errors.paymentMethod)
                 }
               >
+                <p> Membership cost is ${cost} </p>
                 Payment
                 <RadioGroup
                   aria-label="payment method"

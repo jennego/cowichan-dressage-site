@@ -300,40 +300,40 @@ const Entry = ({ pageContext, data, location }) => {
         </div>
         <hr />
         <Formik
-          onSubmit={(values, actions) => {
-            navigate("/form-success", {
-              state: {
-                values,
-                event: data.contentfulEvent,
-                cost: totalCost,
-              },
-            })
-          }}
           // onSubmit={(values, actions) => {
-          //   fetch("/", {
-          //     method: "POST",
-          //     // headers: { "Content-Type": "multipart/form-data" },
-          //     body: encode({
-          //       "form-name": `${pageContext.eventName} Entries`,
-          //       ...values,
-          //     }),
+          //   navigate("/form-success", {
+          //     state: {
+          //       values,
+          //       event: data.contentfulEvent,
+          //       cost: totalCost,
+          //     },
           //   })
-          //     .then(() => {
-          //       navigate("/form-success", {
-          //         state: {
-          //           values,
-          //           formName: "pageContext.eventName",
-          //           event: data.contentfulEvent,
-          //           cost: totalCost,
-          //         },
-          //       })
-          //     })
-          //     .catch(error => {
-          //       console.log(error)
-          //     })
-          //     .finally(() => actions.setSubmitting(false))
           // }}
-          // validationSchema={dynamicSchema}
+
+          onSubmit={(values, actions) => {
+            fetch("/", {
+              method: "POST",
+              // headers: { "Content-Type": "multipart/form-data" },
+              body: encode({
+                "form-name": `${pageContext.eventName} Entries`,
+                ...values,
+              }),
+            })
+              .then(() => {
+                navigate("/form-success", {
+                  state: {
+                    values,
+                    event: data.contentfulEvent,
+                    cost: totalCost,
+                  },
+                })
+              })
+              .catch(error => {
+                console.log(error)
+              })
+              .finally(() => actions.setSubmitting(false))
+          }}
+          validationSchema={dynamicSchema}
           initialValues={{
             date: location.state ? location.state.date : "",
             Name: "",
