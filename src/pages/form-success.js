@@ -22,82 +22,88 @@ const WhatForm = ({ location }) => {
   )
 }
 
+const Membership = ({ location }) => (
+  <Layout>
+    <Main>
+      {JSON.stringify(location, null, 2)}
+      <Typography variant="h3" gutterBottom>
+        Thank you for joining Cowichan Dressage Club!
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        Your form has been successfully submitted.
+      </Typography>
+
+      <Typography variant="body1" gutterBottom>
+        Your cost is ${}.
+        {location.state.paymentMethod === "square" ? (
+          <span>
+            You have chosen to pay with square credit card. Please email{" "}
+            <Obfuscate to="cowichandressageclub@gmail.com" />
+            for square invoice.
+          </span>
+        ) : (
+          <span>
+            You have chosen to pay with e-transfer. Please e-transfer to{" "}
+            <Obfuscate to="cowichandressageclub@gmail.com" />
+            Auto-deposit is enabled so security question does not matter.
+          </span>
+        )}
+      </Typography>
+    </Main>
+  </Layout>
+)
+
 const FormSuccess = ({ location }) => {
-  if (location.state === null) {
+  if (location.state === null || location.state === undefined) {
     return <WhatForm />
-  } else if (location.state.formName === "membership") {
-    return (
-      <Layout>
-        <Main>
-          {JSON.stringify(location, null, 2)}
-          <Typography variant="h3" gutterBottom>
-            Thank you for joining Cowichan Dressage Club!
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Your form has been successfully submitted.
-          </Typography>
+  }
 
-          <Typography variant="body1" gutterBottom>
-            Your cost is ${}.
-            {location.state.paymentMethod === "square" ? (
-              <span>
-                You have chosen to pay with square credit card. Please email{" "}
-                <Obfuscate to="cowichandressageclub@gmail.com" />
-                for square invoice.
-              </span>
-            ) : (
-              <span>
-                You have chosen to pay with e-transfer. Please e-transfer to{" "}
-                <Obfuscate to="cowichandressageclub@gmail.com" />
-                Auto-deposit is enabled so security question does not matter.
-              </span>
-            )}
-          </Typography>
-        </Main>
-      </Layout>
-    )
-  } else if (location.state.formName !== null) {
-    return (
-      <Layout>
-        <Main>
-          {JSON.stringify(location, null, 2)}
-          {console.log(location)}
+  if (location.state.formName !== null) {
+    if (location.state.formName === "membership") {
+      return <Membership location={location} />
+    } else {
+      return (
+        <Layout>
+          <Main>
+            {JSON.stringify(location, null, 2)}
+            {console.log(location)}
 
-          <Typography variant="h3" gutterBottom>
-            Thank you for entering!
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Your form has been successfully submitted.
-          </Typography>
-          <Typography variant="h4" gutterBottom>
-            You have entered in {location.state.event.eventName}
-          </Typography>
-          {/* 
+            <Typography variant="h3" gutterBottom>
+              Thank you for entering!
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Your form has been successfully submitted.
+            </Typography>
+            <Typography variant="h4" gutterBottom>
+              You have entered in {location.state.event.eventName}
+            </Typography>
+            {/* 
           <AddToCalendar
             event={location.event}
             date={location.state.values.date}
             isCalAr={false}
           /> */}
 
-          <Typography variant="body1" gutterBottom>
-            Your cost is ${location.state.cost}.
-            {location.state.paymentMethod === "square" ? (
-              <span>
-                You have chosen to pay with square credit card. Please email{" "}
-                <Obfuscate to="cowichandressageclub@gmail.com" />
-                for square invoice.
-              </span>
-            ) : (
-              <span>
-                You have chosen to pay with e-transfer. Please e-transfer to{" "}
-                <Obfuscate to="cowichandressageclub@gmail.com" />
-                Auto-deposit is enabled so security question does not matter.
-              </span>
-            )}
-          </Typography>
-        </Main>
-      </Layout>
-    )
+            <Typography variant="body1" gutterBottom>
+              Your cost is ${location.state.cost}.
+              {location.state.paymentMethod === "square" ? (
+                <span>
+                  You have chosen to pay with square credit card. Please email{" "}
+                  <Obfuscate to="cowichandressageclub@gmail.com" />
+                  for square invoice.
+                </span>
+              ) : (
+                <span>
+                  You have chosen to pay with e-transfer. Please e-transfer to{" "}
+                  <Obfuscate to="cowichandressageclub@gmail.com" />
+                  Auto-deposit is enabled so security question does not matter.
+                </span>
+              )}
+            </Typography>
+          </Main>
+        </Layout>
+      )
+    }
   }
 }
 
