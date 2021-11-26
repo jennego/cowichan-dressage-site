@@ -5,6 +5,8 @@ import { Typography } from "@material-ui/core"
 import { ContactsOutlined, NightsStay } from "@material-ui/icons"
 import Obfuscate from "react-obfuscate"
 import AddToCalendar from "../components/addToCalendar"
+import format from "date-fns/format"
+import parseISO from "date-fns/parseISO"
 
 const Email = () => <Obfuscate email="cowichandressageclub@gmail.com" />
 
@@ -40,14 +42,13 @@ const Membership = ({ location }) => (
         {location.state.paymentMethod === "square" ? (
           <span>
             You have chosen to pay with square credit card. Please email{" "}
-            <Email />
-            for square invoice.
+            <Email /> for square invoice.
           </span>
         ) : (
           <span>
             You have chosen to pay with e-transfer. Please e-transfer to{" "}
-            <Obfuscate Email />
-            Auto-deposit is enabled so security question does not matter.
+            <Obfuscate Email />. Auto-deposit is enabled so security question
+            does not matter.
           </span>
         )}
       </Typography>
@@ -76,32 +77,33 @@ const FormSuccess = ({ location }) => {
               Your form has been successfully submitted.
             </Typography>
             <Typography variant="h4" gutterBottom>
-              You have entered in {location.state.event.eventName} on
-              {location.state.values.date}
+              You have entered in {location.state.event.eventName} for{" "}
+              {format(
+                new Date(parseISO(location.state.values.date)),
+                "EEE, LLLL d, yyyy"
+              )}
             </Typography>
-            {/* 
-          <AddToCalendar
-            event={location.event}
-            date={location.state.values.date}
-            isCalAr={false}
-          /> */}
 
             <Typography variant="body1" gutterBottom>
               Your cost is ${location.state.cost}.
               {location.state.paymentMethod === "square" ? (
                 <span>
                   You have chosen to pay with square credit card. Please email{" "}
-                  <Email />
-                  for square invoice.
+                  <Email /> for square invoice.
                 </span>
               ) : (
                 <span>
                   You have chosen to pay with e-transfer. Please e-transfer to{" "}
-                  <Email />
-                  Auto-deposit is enabled so security question does not matter.
+                  <Email />. Auto-deposit is enabled so security question does
+                  not matter.
                 </span>
               )}
             </Typography>
+            <AddToCalendar
+              event={location.state.event}
+              date={location.state.values.date}
+              isCalAr={false}
+            />
           </Main>
         </Layout>
       )

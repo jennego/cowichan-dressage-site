@@ -218,7 +218,7 @@ export const EntryForm = ({ props, data }) => {
             style={{ display: "flex", flexDirection: "row", marginTop: "0" }}
             onBlur={props.handleBlur}
             value={props.values.age}
-            onChange={props.handleChange}
+            onChange={e => props.setFieldValue("age", e.target.value)}
           >
             <FormControlLabel
               value="junior"
@@ -233,7 +233,6 @@ export const EntryForm = ({ props, data }) => {
               label="Senior"
               name="age"
             />
-            {props.values.age}
           </RadioGroup>
         </Grid>
         <Grid item md={6} xs={12}>

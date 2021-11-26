@@ -18,6 +18,13 @@ const AddToCalendar = ({ event, date, isCalArr }) => {
     setAnchorEl(null)
   }
 
+  const eventInfo = {
+    title: event.eventName ? event.eventName : " ",
+    location: event.locationName ? event.locationName : " ",
+    description: event.summary ? event.summary.summary : " ",
+    start: toDate(new Date(date)),
+  }
+
   const eventInfoCalArray = {
     title: event.title ? event.title : " ",
     location: event.locationName ? event.locationName : " ",
@@ -26,14 +33,6 @@ const AddToCalendar = ({ event, date, isCalArr }) => {
     end: event.end ? toDate(new Date(event.end)) : "",
   }
 
-  const eventInfo = {
-    title: event.eventName ? event.eventName : " ",
-    location: event.locationName ? event.locationName : " ",
-    description: event.summary ? event.summary.summary : " ",
-    start: toDate(new Date(date)),
-  }
-
-  console.log(event)
   const googleCalendar = new GoogleCalendar(
     isCalArr ? eventInfoCalArray : eventInfo
   )

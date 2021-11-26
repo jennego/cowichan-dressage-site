@@ -149,24 +149,6 @@ const Entry = ({ pageContext, data, location }) => {
     }
   }, [])
 
-  const UpdateWaivers = () => {
-    const { values } = useFormikContext()
-    useEffect(() => {
-      if (values.age === "junior") {
-        setSelectedWaivers(data.contentfulEvent.juniorWaivers)
-      } else if (values.age === "adult") {
-        setSelectedWaivers(data.contentfulEvent.adultWaivers)
-      } else {
-        return
-      }
-
-      // values.age === "junior"
-      //   ? setSelectedWaivers(data.contentfulEvent.juniorWaivers)
-      //   : setSelectedWaivers(data.contentfulEvent.adultWaivers)
-    }, [values.age])
-    return null
-  }
-
   const UpdateSelectedSessions = () => {
     const { setFieldValue } = useFormikContext()
     useEffect(() => {
@@ -225,7 +207,7 @@ const Entry = ({ pageContext, data, location }) => {
           return yup.string().required()
         }
 
-        console.log("yup object", obj)
+        // console.log("yup object", obj)
       })
     )
   )
@@ -347,9 +329,6 @@ const Entry = ({ pageContext, data, location }) => {
         >
           {props => (
             <Paper>
-              {console.log("touched", props.touched)}
-              <UpdateWaivers />
-
               <Form
                 data-netlify="true"
                 name={`${pageContext.eventName} Entries`}
@@ -399,7 +378,11 @@ const Entry = ({ pageContext, data, location }) => {
                   <UploadComponent
                     waiverType={props.values.age}
                     props={props}
-                    fileArray={selectedWaivers}
+                    fileArray={
+                      props.values.age === "junior"
+                        ? data.contentfulEvent.juniorWaivers
+                        : data.contentfulEvent.adultWaivers
+                    }
                   />
                 ) : (
                   ""
