@@ -77,11 +77,11 @@ const validationSchema = yup.object({
   address: yup.string("Enter your address").required("Address is required"),
   birthDate: yup.date().typeError("Enter a date").required("Enter a date"),
   hcbc: yup.number().typeError("Needs to be a number"),
-  phonenumber: yup.string().typeError("Needs to be a number"),
+  phonenumber: yup.string().required(),
   emergContactName: yup
     .string("Enter name of emergency contact")
     .required("Emergency contact name is required"),
-  emergContactPh: yup.string().typeError("Needs to be a number"),
+  emergContactPh: yup.string().required(),
   paymentMethod: yup.string().required("You must choose a payment method"),
   "g-recaptcha-response": yup
     .string()
@@ -124,24 +124,27 @@ const MemberForm = () => {
   return (
     <Formik
       onSubmit={(values, actions) => {
-        fetch("/", {
-          method: "POST",
-          // headers: { "Content-Type": "multipart/form-data" },
-          body: encode({ "form-name": "Membership", ...values }),
+        navigate("/form-success", {
+          state: { values, formName: "membership" },
         })
-          .then(() => {
-            alert(JSON.stringify(values, null, 2))
-            handleOpen("Success!", "Form has been successfully submitted!")
-            actions.navigate("/form-success")
-          })
-          .catch(error => {
-            alert(JSON.stringify(values, null, 2))
-            alert("Error")
-          })
-          .finally(() => actions.setSubmitting(false))
       }}
+      // onSubmit={(values, actions) => {
+      //   fetch("/", {
+      //     method: "POST",
+      //     // headers: { "Content-Type": "multipart/form-data" },
+      //     body: encode({ "form-name": "Membership", ...values }),
+      //   })
+      //     .then(() => {
+      //       actions.navigate("/form-success")
+      //     })
+      //     .catch(error => {
+      //       alert(JSON.stringify(values, null, 2))
+      //       alert("Error")
+      //     })
+      //     .finally(() => actions.setSubmitting(false))
+      // }}
       // validationSchema={validationSchema}
-      // must build dynamic intital values for pdfs and probably sessions
+
       initialValues={{
         email: "",
         name: "",
@@ -174,7 +177,7 @@ const MemberForm = () => {
             handleClose={handleClose}
           />
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <Grid container>
                 <Grid item xs={1}>
                   <div className="icon-background">
@@ -196,7 +199,7 @@ const MemberForm = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <Grid container>
                 <Grid item xs={1}>
                   <div className="icon-background">
@@ -218,7 +221,7 @@ const MemberForm = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <Grid container>
                 <Grid item xs={1}>
                   <div className="icon-background">
@@ -240,7 +243,7 @@ const MemberForm = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <Grid container spacing={0} alignItems="center">
                 <Grid item xs={1}>
                   <div className="icon-background">
@@ -274,7 +277,7 @@ const MemberForm = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <Grid container>
                 <Grid item xs={1}>
                   <div className="icon-background">
@@ -293,7 +296,7 @@ const MemberForm = () => {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <Grid container>
                 <Grid item xs={1}>
                   <div className="icon-background">
@@ -316,7 +319,7 @@ const MemberForm = () => {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <Grid container>
                 <Grid item xs={1}>
                   <div className="icon-background">
@@ -345,7 +348,7 @@ const MemberForm = () => {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <Grid container>
                 <Grid item xs={1}>
                   <div className="icon-background">
@@ -362,7 +365,7 @@ const MemberForm = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <FormControl
                 error={
                   props.touched.paymentMethod &&

@@ -38,25 +38,18 @@ export const DateForm = ({ data, props, location }) => {
           name="date"
           onBlur={props.handleBlur}
           onChange={props.handleChange}
-          value={props.values.dateSelect}
+          value={props.values.date}
           id="date"
         >
           {data.contentfulEvent.eventDates.map(date => (
-            <IsFullBadge isFull={date.isFull}>
-              <FormControlLabel
-                name="date"
-                disabled={
-                  isAfter(parseISO(date.date), new Date()) ? false : true
-                }
-                value={date.date}
-                control={<Radio color="primary" />}
-                color="primary"
-                label={format(
-                  new Date(parseISO(date.date)),
-                  "EEE, LLLL d, yyyy"
-                )}
-              />
-            </IsFullBadge>
+            <FormControlLabel
+              name="date"
+              disabled={isAfter(parseISO(date.date), new Date()) ? false : true}
+              value={date.date}
+              control={<Radio color="primary" />}
+              color="primary"
+              label={format(new Date(parseISO(date.date)), "EEE, LLLL d, yyyy")}
+            />
           ))}
           {props.touched.date && Boolean(props.errors.date) ? (
             <FormHelperText error>

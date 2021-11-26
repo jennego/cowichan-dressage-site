@@ -44,6 +44,7 @@ const HamburgerMenu = ({ children }) => {
       <Menu
         anchorOrigin={{
           horizontal: "center",
+          vertical: "bottom",
         }}
         transformOrigin={{
           vertical: "top",

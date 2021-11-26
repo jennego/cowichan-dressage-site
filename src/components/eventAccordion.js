@@ -9,6 +9,7 @@ import AccordionDetails from "@material-ui/core/AccordionDetails"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import ContactCard from "./contactCard"
+import { Link } from "gatsby"
 
 // push or remove ids to an array, determine true/false based on presence in array
 
@@ -49,46 +50,50 @@ const EventAccordion = ({ event }) => {
 
   return (
     <div>
-      <Accordion
-        onChange={() => handleChange("info")}
-        className={
-          expand === "info" ? "event-border" : "event-border accordion-hover"
-        }
-        expanded={expand === "info" ? true : false}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="info-content"
-          id="info"
+      {event.eventInformation && (
+        <Accordion
+          onChange={() => handleChange("info")}
+          className={
+            expand === "info" ? "event-border" : "event-border accordion-hover"
+          }
+          expanded={expand === "info" ? true : false}
         >
-          <Typography variant="h4" component="h2">
-            Event Info
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>{renderRichText(event.eventInformation)}</Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        onChange={() => handleChange("rules")}
-        expanded={expand === "rules" ? true : false}
-        className={
-          expand === "rules" ? "event-border" : "event-border accordion-hover"
-        }
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="rules"
-          id="rules"
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="info-content"
+            id="info"
+          >
+            <Typography variant="h4" component="h2">
+              Event Info
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>{renderRichText(event.eventInformation)}</Typography>
+          </AccordionDetails>
+        </Accordion>
+      )}
+      {event.rules && (
+        <Accordion
+          onChange={() => handleChange("rules")}
+          expanded={expand === "rules" ? true : false}
+          className={
+            expand === "rules" ? "event-border" : "event-border accordion-hover"
+          }
         >
-          <Typography variant="h4" component="h2">
-            Rules
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>{renderRichText(event.rules)}</Typography>
-        </AccordionDetails>
-      </Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="rules"
+            id="rules"
+          >
+            <Typography variant="h4" component="h2">
+              Rules
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>{renderRichText(event.rules)}</Typography>
+          </AccordionDetails>
+        </Accordion>
+      )}
       <Accordion
         onChange={() => handleChange("reg")}
         expanded={expand === "reg" ? true : false}
@@ -106,10 +111,18 @@ const EventAccordion = ({ event }) => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails style={{ flexDirection: "column" }}>
-          <Typography>{renderRichText(event.registrationInfo)}</Typography>
-          <Button variant="contained" color="primary">
-            Entry Form
-          </Button>
+          {event.registrationInfo && (
+            <Typography>{renderRichText(event.registrationInfo)}</Typography>
+          )}
+          <Link to={"entry"} style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ margin: "0.5rem 0.2rem" }}
+            >
+              Entry Form
+            </Button>
+          </Link>
         </AccordionDetails>
       </Accordion>
       {event.contacts ? (

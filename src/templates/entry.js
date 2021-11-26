@@ -110,10 +110,10 @@ const Entry = ({ pageContext, data, location }) => {
     }
   }
 
-  let testData
+  let testData = []
 
   if (data.contentfulEvent.sessions) {
-    let testData = data.contentfulEvent.sessions.filter(
+    testData = data.contentfulEvent.sessions.filter(
       test => test.testFields === true
     )
   }
@@ -264,26 +264,33 @@ const Entry = ({ pageContext, data, location }) => {
                 Membership
               </Button>
             </div>
-            <ResponsiveDialogContacts
-              title="Contacts"
-              label="Contacts"
-              content={data.contentfulEvent.contacts}
-            />
-            {data.contentfulEvent.rules ? (
-              <ResponsiveDialog
-                title="Rules and Important Info"
-                label="Rules"
-                content={data.contentfulEvent.rules}
+            {data.contentfulEvent.contacts && (
+              <ResponsiveDialogContacts
+                title="Contacts"
+                label="Contacts"
+                content={data.contentfulEvent.contacts}
               />
-            ) : (
-              ""
             )}
-            <FormControlLabel
-              control={<Checkbox name="rules agreement" color="primary" />}
-              label={
-                <Typography variant="body2"> I have read the rules </Typography>
-              }
-            />
+            {data.contentfulEvent.rules && (
+              <div style={{ display: "flex" }}>
+                <ResponsiveDialog
+                  title="Rules and Important Info"
+                  label="Rules"
+                  content={data.contentfulEvent.rules}
+                />
+
+                <FormControlLabel
+                  style={{ marginLeft: "0.1rem" }}
+                  control={<Checkbox name="rules agreement" color="primary" />}
+                  label={
+                    <Typography variant="body2">
+                      {" "}
+                      I have read the rules{" "}
+                    </Typography>
+                  }
+                />
+              </div>
+            )}
           </div>
         </div>
         <hr />
@@ -298,19 +305,16 @@ const Entry = ({ pageContext, data, location }) => {
               }),
             })
               .then(() => {
-                alert(JSON.stringify(values, null, 2))
-                console.log(values)
                 actions.navigate("/form-success")
               })
               .catch(error => {
-                alert(JSON.stringify(values, null, 2))
                 console.log(error)
               })
               .finally(() => actions.setSubmitting(false))
           }}
-          validationSchema={dynamicSchema}
+          // validationSchema={dynamicSchema}
           initialValues={{
-            dateSelect: location.state ? location.state.date : "",
+            date: location.state ? location.state.date : "",
             Name: "",
             horseName: "",
             email: "",

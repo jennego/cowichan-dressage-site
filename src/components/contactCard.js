@@ -6,7 +6,7 @@ import Obfuscate from "react-obfuscate"
 const ContactCard = ({ contact }) => {
   const PhoneInfo = () => (
     <Grid container>
-      <Grid item style={{ marginTop: "5px", marginRight: "6px" }}>
+      <Grid item style={{ marginRight: "6px" }}>
         <Phone />
       </Grid>
       <Grid item>
@@ -16,8 +16,8 @@ const ContactCard = ({ contact }) => {
   )
 
   const EmailInfo = () => (
-    <Grid container>
-      <Grid item style={{ marginTop: "5px", marginRight: "6px" }}>
+    <Grid container style={{ marginTop: "-2px" }}>
+      <Grid item style={{ marginRight: "6px" }}>
         <AlternateEmail />
       </Grid>
       <Grid item>
