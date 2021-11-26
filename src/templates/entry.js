@@ -137,14 +137,8 @@ const Entry = ({ pageContext, data, location }) => {
 
   useEffect(() => {
     if (testData.length > 0) {
-      let sessions = testData.map((test, index) => ({
-        ["testSource"]: "",
-        ["testOther"]: "",
-        ["testDetails"]: "",
-      }))
-
       let sessionsArr = testData.map((test, index) => ({
-        ["testSource" + (index + 1)]: "",
+        ["testSource" + (index + 1)]: undefined,
         ["otherDetails" + (index + 1)]: "",
         ["testDetails" + (index + 1)]: "",
       }))

@@ -73,9 +73,7 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
             onBlur={props.onBlur}
             value={props.values[`testSource${testNumber}`]}
             onChange={e =>
-              props.setFieldValue(
-                props.values[(`testSource${testNumber}`, e.value)]
-              )
+              props.setFieldValue(`testSource${testNumber}`, e.target.value)
             }
             disabled={disabled}
           >
