@@ -1,13 +1,11 @@
 TO DO LIST
 
-~1. Create linked accordions that open and scroll by url on event page (and add conditional to hover style)~ -
-
-2. Create variable for displaying child/adult waivers - need to do membership page
-3. Make sure all variable in the cms is reflected in the entry page - I think done
-4. Have all forms send + validate + have initial values / show contacts/cost/event on success page
-5. Crate dynamic initial values and validation - need to plug it in and add phone inputs - done
-6. Have fallbacks for all non-required cms content
-7. Styling stuff (menu, footer, is full badge, buttons on top of forms, send button etc)
+- show ride times if one is included
+- sort events by most recent upcoming date
+- add rules checkbox to form
+- show session name if one is included
+- show resource pdf if included
+- see if I can remove unused testfields on submission
 
 Final touches
 
@@ -15,23 +13,6 @@ Final touches
 - testing - chrome, edge, firefox, limited IE (even if just a banner), mobile
 - test outlook cal
 - quick wira check
-- contact people for demo and instruction on cms etc
-
-Next step
-
-- Square credit card
-
-- change mobile menu? - maybe later as it currently works ok
-- implement session selection, including cost tally and select list (send select list to form, cost to form success page) - still need to send to form success
-- form success page - include contact, cost, event calendar link
-- have both forms send sucessfully
-- dynamically generate initial values and validation for form variables and arrays
-- style footer
-- control accordion via url for deeplinking
-- style headers (before form) for entry and membership forms (rules, contacts etc)
-  - add rule agreements to validation?
-- is full badge
-- possibly eventdate pages or at least component
 
 Responsive Gatsby site and form-based serverless registration system using Netlify forms. Forms customizable via Contentful CMS and are dynamically generated on rebuild. Forms are validated on touch and on submit via Yup.
 
