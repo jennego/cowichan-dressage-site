@@ -73,8 +73,11 @@ export const DateList = ({ entryURL, event, date, indexId, isFull }) => {
             <AddToCalendar date={date.date} event={event} />
           </ListItem>
 
-          {date.times && (
-            <ListItem button onClick={() => navigate(`/${date.date}/results`)}>
+          {date.rideTimes && (
+            <ListItem
+              button
+              onClick={() => navigate(`/${date.date}/ride-times`)}
+            >
               <ListItemText
                 disableTypography
                 primary="Ride Times"
