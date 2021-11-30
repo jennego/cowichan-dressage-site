@@ -12,7 +12,7 @@ const Results = ({ pageContext }) => {
     <Layout>
       <Main>
         <Typography variant="h4" component="h1">
-          Results for
+          Results for{" "}
           {pageContext.event ? pageContext.event[0].eventName : "an event"} on
           {format(new Date(parseISO(pageContext.date)), " LLL d, yyyy")}
         </Typography>

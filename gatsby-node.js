@@ -204,7 +204,7 @@ async function createTimesPages(graphql, actions) {
   const pageEdges = (result.data.allContentfulEventDate || {}).edges || []
 
   pageEdges.forEach((edge, index) => {
-    const { id, date, results, event } = edge.node
+    const { id, date, rideTimes, event } = edge.node
     const path = `/${date}/ride-times`
 
     createPage({
@@ -212,7 +212,7 @@ async function createTimesPages(graphql, actions) {
       component: require.resolve("./src/templates/ride-times.js"),
       context: {
         id,
-        results,
+        rideTimes,
         date,
         event,
         // prev: index === 0 ? null : pageEdges[index - 1].node,
