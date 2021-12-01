@@ -35,6 +35,17 @@ export const query = graphql`
       eventDates {
         date
         subtitle
+        isFull
+        rideTimes {
+          file {
+            url
+          }
+        }
+        results {
+          file {
+            url
+          }
+        }
       }
       contacts {
         email

@@ -1,6 +1,5 @@
 TO DO LIST
 
-- show ride times if one is included
 - sort events by most recent upcoming date
 - add rules checkbox to form
 - show session name if one is included

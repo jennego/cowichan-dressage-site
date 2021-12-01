@@ -19,6 +19,8 @@ import ExpandMore from "@material-ui/icons/ExpandMore"
 import Collapse from "@material-ui/core/Collapse"
 import AddToCalendar from "../components/addToCalendar"
 import { useStaticQuery, graphql, navigate } from "gatsby"
+import IsFullBadge from "../components/isFullBadge"
+import { sortBy } from "lodash"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -41,6 +43,17 @@ const IndexPage = () => {
               id
               date
               locationName
+              isFull
+              rideTimes {
+                file {
+                  url
+                }
+              }
+              results {
+                file {
+                  url
+                }
+              }
               location {
                 lat
                 lon
@@ -88,7 +101,9 @@ const IndexPage = () => {
 
   const dateArr = [].concat.apply([], dateArrays)
 
-  const upcoming = dateArr.filter(date =>
+  let sortedDateArr = sortBy(dateArr, ["start"])
+
+  const upcoming = sortedDateArr.filter(date =>
     isAfter(date.start, new Date()) ? date : ""
   )
 
@@ -208,7 +223,9 @@ const IndexPage = () => {
                               </div>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                              <div>{event.title}</div>
+                              <IsFullBadge isFull={event.isFull} isCal={true}>
+                                <div>{event.title}</div>
+                              </IsFullBadge>
                             </Grid>
                           </Grid>
                           {event.id === selectedIndex ? (

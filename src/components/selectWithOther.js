@@ -101,6 +101,7 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
             }
             props={props}
             testNumber={testNumber}
+            onChange={props.handleChange}
           />
           {props.errors[`otherDetails${testNumber}`] &&
             props.touched[`otherDetails${testNumber}`] && (
