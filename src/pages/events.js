@@ -106,7 +106,7 @@ const Events = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <Grid container style={{ width: "100%" }}>
+                <Grid container>
                   {node.eventDates.map((date, index) => (
                     <DateList
                       date={date}

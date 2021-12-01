@@ -16,7 +16,14 @@ import Collapse from "@material-ui/core/Collapse"
 import AddToCalendar from "./addToCalendar"
 import IsFullBadge from "./isFullBadge"
 
-export const DateList = ({ entryURL, event, date, indexId, isFull }) => {
+export const DateList = ({
+  entryURL,
+  event,
+  date,
+  indexId,
+  isFull,
+  withImage,
+}) => {
   const [selectedIndex, setSelectedIndex] = useState("")
   const [isOpen, setOpen] = useState(false)
 
@@ -35,7 +42,7 @@ export const DateList = ({ entryURL, event, date, indexId, isFull }) => {
   console.log(indexId)
 
   return (
-    <Grid item xs={12} md={5} lg={4}>
+    <Grid item xs={12} md={6} lg={withImage ? 6 : 4}>
       <Paper
         variant="outlined"
         // style={
@@ -118,3 +125,7 @@ export const DateList = ({ entryURL, event, date, indexId, isFull }) => {
     </Grid>
   )
 }
+
+// DateList.defaultProps = {
+//   withImg: false,
+// }

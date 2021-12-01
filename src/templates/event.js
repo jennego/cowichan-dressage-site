@@ -84,7 +84,7 @@ const Event = ({ data, pageContext }) => {
           {pageContext.eventName}
         </Typography>
         <Grid container spacing={1} style={{ marginBottom: "1rem" }}>
-          <Grid item md={8}>
+          <Grid item lg={event.image ? 8 : 12}>
             <List>
               <Grid container>
                 {event.eventDates.map((date, index) => (
@@ -93,21 +93,25 @@ const Event = ({ data, pageContext }) => {
                     indexId={index}
                     entryURL={`entry`}
                     event={event}
+                    isFull={date.isFull}
+                    withImage={Boolean(event.image)}
                   />
                 ))}
               </Grid>
             </List>
           </Grid>
-          <Grid item md={4}>
-            {event.image ? (
+          {event.image ? (
+            <Grid item lg={4}>
               <GatsbyImage
                 image={event.image.gatsbyImageData}
                 alt={event.image.title}
+                objectFit="contain"
+                style={{ maxHeight: "400px" }}
               />
-            ) : (
-              ""
-            )}
-          </Grid>
+            </Grid>
+          ) : (
+            ""
+          )}
         </Grid>
         <EventAccordion event={event} />
       </Main>
