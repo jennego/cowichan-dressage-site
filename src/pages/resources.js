@@ -18,6 +18,16 @@ const Resources = () => {
           }
         }
       }
+      allContentfulContact {
+        edges {
+          node {
+            name
+            title
+            phoneNumber
+            email
+          }
+        }
+      }
     }
   `)
   return (
@@ -29,6 +39,14 @@ const Resources = () => {
             {renderRichText(data.allContentfulSiteInfo.edges[0].node.resources)}
           </Typography>
         )}
+        <Typography variant="h4" style={{ marginTop: "2rem" }}>
+          Contacts
+        </Typography>
+        <Grid container spacing={2}>
+          {data.allContentfulContact.edges.map(({ node }, index) => (
+            <ContactCard contact={node} />
+          ))}
+        </Grid>
       </Main>
     </Layout>
   )
