@@ -40,7 +40,7 @@ const Resources = () => {
           </Typography>
         )}
         <Typography variant="h4" style={{ marginTop: "2rem" }}>
-          Contacts
+          Cowichan Dressage Club Contacts
         </Typography>
         <Grid container spacing={2}>
           {data.allContentfulContact.edges.map(({ node }, index) => (

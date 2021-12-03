@@ -107,20 +107,15 @@ const IndexPage = () => {
     isAfter(date.start, new Date()) ? date : ""
   )
 
-  console.log(upcoming)
-
   const [selectedIndex, setSelectedIndex] = React.useState("")
 
   const handleClick = index => {
-    console.log(index)
     if (selectedIndex === index) {
       setSelectedIndex("")
     } else {
       setSelectedIndex(index)
     }
   }
-
-  console.log(data)
 
   const siteInfo = data.allContentfulSiteInfo.edges[0].node
 
@@ -197,6 +192,7 @@ const IndexPage = () => {
                       alignItems: "center",
                     }}
                     className="agendaDateRow"
+                    key={event.id}
                   >
                     <Grid item xs={12}>
                       <Grid>
@@ -340,6 +336,7 @@ const IndexPage = () => {
             image={photo.gatsbyImageData}
             alt={photo.title}
             style={{ maxWidth: "40%" }}
+            key={photo.title}
           />
         ))}
       </div>

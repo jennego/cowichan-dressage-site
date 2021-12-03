@@ -1,6 +1,5 @@
 TO DO LIST
 
-- sort events by most recent upcoming date
 - add rules checkbox to form
 - show session name if one is included
 - show resource pdf if included
@@ -8,7 +7,7 @@ TO DO LIST
 
 Final touches
 
-- code cleanup
+- code cleanup / fix console errors
 - testing - chrome, edge, firefox, limited IE (even if just a banner), mobile
 - test outlook cal
 - quick wira check

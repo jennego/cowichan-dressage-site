@@ -48,10 +48,7 @@ const Footer = () => {
             rel="noreferrer"
           >
             <IconButton>
-              <FacebookIcon
-                color="white"
-                style={{ color: "white", fontSize: 35 }}
-              />
+              <FacebookIcon style={{ color: "white", fontSize: 35 }} />
             </IconButton>
           </a>
         </Grid>
