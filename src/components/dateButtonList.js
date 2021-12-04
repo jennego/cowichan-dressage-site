@@ -25,21 +25,14 @@ export const DateList = ({
   withImage,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState("")
-  const [isOpen, setOpen] = useState(false)
 
   const handleClick = indexId => {
     if (selectedIndex === indexId) {
       setSelectedIndex("")
-
-      setOpen(false)
     } else {
       setSelectedIndex(indexId)
-
-      setOpen(true)
     }
   }
-
-  console.log(indexId)
 
   return (
     <Grid item xs={12} md={6} lg={withImage ? 6 : 4}>

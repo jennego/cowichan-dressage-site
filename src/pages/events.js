@@ -3,13 +3,11 @@ import Layout from "../components/layout"
 import Main from "../components/MainContent"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import Card from "@material-ui/core/Card"
-import CardActions from "@material-ui/core/CardActions"
 import CardContent from "@material-ui/core/CardContent"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 import { GatsbyImage } from "gatsby-plugin-image"
 import Grid from "@material-ui/core/Grid"
-import List from "@material-ui/core/List"
 import { DateList } from "../components/dateButtonList"
 
 const Events = () => {
@@ -59,7 +57,7 @@ const Events = () => {
           Events
         </Typography>
         {data.allContentfulEvent.edges.map(({ node }) => (
-          <Card elevation="3" style={{ marginBottom: "2rem" }}>
+          <Card elevation={3} style={{ marginBottom: "2rem" }} key={node.id}>
             <CardContent>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={node.image ? 8 : 12}>
@@ -109,6 +107,7 @@ const Events = () => {
                 <Grid container>
                   {node.eventDates.map((date, index) => (
                     <DateList
+                      key={index}
                       date={date}
                       indexId={index}
                       entryURL={`${node.slug}/entry`}
