@@ -10,7 +10,9 @@ const ContactCard = ({ contact }) => {
         <Phone />
       </Grid>
       <Grid item>
-        <Obfuscate tel={contact.phoneNumber} />
+        <Typography variant="body1">
+          <Obfuscate sms={contact.phoneNumber} />
+        </Typography>
       </Grid>
     </Grid>
   )
@@ -21,7 +23,9 @@ const ContactCard = ({ contact }) => {
         <AlternateEmail />
       </Grid>
       <Grid item>
-        <Obfuscate email={contact.email} />
+        <Typography variant="body1">
+          <Obfuscate email={contact.email} />
+        </Typography>
       </Grid>
     </Grid>
   )
@@ -40,12 +44,9 @@ const ContactCard = ({ contact }) => {
           <Typography variant="body1" style={{ fontStyle: "italic" }}>
             {contact.title ? contact.title : ""}
           </Typography>
-          <Typography variant="body1">
-            {contact.phoneNumber ? <PhoneInfo /> : ""}
-          </Typography>
-          <Typography variant="body1">
-            {contact.email ? <EmailInfo /> : ""}
-          </Typography>
+          {contact.phoneNumber ? <PhoneInfo /> : ""}
+
+          {contact.email ? <EmailInfo /> : ""}
           <Typography variant="body2">
             {contact.details ? contact.details.details : ""}
           </Typography>

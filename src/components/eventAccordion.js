@@ -16,8 +16,6 @@ import { Link } from "gatsby"
 const EventAccordion = ({ event }) => {
   const [expand, setExpand] = useState("info")
 
-  console.log("expand", expand)
-
   useLayoutEffect(accordionId => {
     const anchor = window.location.hash.split("#")[1]
     if (anchor) {
@@ -146,8 +144,8 @@ const EventAccordion = ({ event }) => {
           </AccordionSummary>
           <AccordionDetails>
             <Grid container spacing={3}>
-              {event.contacts.map(contact => (
-                <ContactCard contact={contact} />
+              {event.contacts.map((contact, index) => (
+                <ContactCard contact={contact} key={index} />
               ))}
             </Grid>
           </AccordionDetails>

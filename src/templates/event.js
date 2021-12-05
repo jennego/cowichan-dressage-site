@@ -76,7 +76,6 @@ export const query = graphql`
 
 const Event = ({ data, pageContext }) => {
   const event = data.contentfulEvent
-  console.log("event", event)
   return (
     <Layout>
       <Main>
@@ -89,6 +88,7 @@ const Event = ({ data, pageContext }) => {
               <Grid container>
                 {event.eventDates.map((date, index) => (
                   <DateList
+                    key={index}
                     date={date}
                     indexId={index}
                     entryURL={`entry`}
