@@ -60,7 +60,7 @@ export default function ResponsiveDialogContacts({ content, label, title }) {
           <DialogContentText className="dialog-content">
             <Grid container spacing={1}>
               {content.map((item, index) => (
-                <ContactCard contact={item} />
+                <ContactCard contact={item} key={index} />
               ))}
             </Grid>
           </DialogContentText>

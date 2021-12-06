@@ -16,7 +16,14 @@ const CalBadge = withStyles(theme => ({
   },
 }))(Badge)
 
-export default function IsFullBadge({ isFull, isCal, children }) {
+const DateBadge = withStyles(theme => ({
+  badge: {
+    right: -10,
+    top: 13,
+  },
+}))(Badge)
+
+export default function IsFullBadge({ isFull, isCal, isDate, children }) {
   if (isCal) {
     return (
       <div>
@@ -29,6 +36,23 @@ export default function IsFullBadge({ isFull, isCal, children }) {
           >
             {children}
           </CalBadge>
+        ) : (
+          <div>{children}</div>
+        )}
+      </div>
+    )
+  } else if (isDate) {
+    return (
+      <div>
+        {isFull ? (
+          <DateBadge
+            className="badge-calendar"
+            badgeContent={"full"}
+            color="secondary"
+            // style={{ textTransform: "uppercase" }}
+          >
+            {children}
+          </DateBadge>
         ) : (
           <div>{children}</div>
         )}

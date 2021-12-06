@@ -1,11 +1,9 @@
 import React from "react"
 import * as dates from "date-arithmetic"
-import PropTypes from "prop-types"
-import cn from "classnames"
+
 import dayjs from "dayjs"
-import styles from "../components/layout.css"
 import Grid from "@material-ui/core/Grid"
-import { format, parseISO, isAfter } from "date-fns"
+import { format, isAfter } from "date-fns"
 import { navigate } from "gatsby"
 
 import List from "@material-ui/core/List"
@@ -51,8 +49,6 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
     }
   }
 
-  console.log(selectedIndex)
-
   const renderDay = (day, events) => {
     events = events.filter(e =>
       inRange(e, dates.startOf(day, "day"), dates.endOf(day, "day"), accessors)
@@ -60,9 +56,8 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
 
     return events.map((event, idx) => {
       return (
-        <Grid container>
+        <Grid container key={idx}>
           <div
-            key={idx}
             style={{
               display: "flex",
               width: "100%",
@@ -190,23 +185,23 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
     }, [])
   }
 
-  const timeRangeLabel = (day, event) => {
-    const end = accessors.end(event)
-    const start = accessors.start(event)
+  // const timeRangeLabel = (day, event) => {
+  //   const end = accessors.end(event)
+  //   const start = accessors.start(event)
 
-    if (!accessors.allDay(event)) {
-      if (dayjs(start).day() === dayjs(end).day()) {
-        const timePeriod = `${dayjs(start).format("h:mma")} – ${dayjs(
-          end
-        ).format("h:mma")}`
-        return timePeriod
-      } else {
-        const startDate = dayjs(start).format("DD-MM YYYY, h:mma")
-        const endDate = dayjs(end).format("DD-MM YYYY, h:mma")
-        return `${startDate} – ${endDate}`
-      }
-    }
-  }
+  //   if (!accessors.allDay(event)) {
+  //     if (dayjs(start).day() === dayjs(end).day()) {
+  //       const timePeriod = `${dayjs(start).format("h:mma")} – ${dayjs(
+  //         end
+  //       ).format("h:mma")}`
+  //       return timePeriod
+  //     } else {
+  //       const startDate = dayjs(start).format("DD-MM YYYY, h:mma")
+  //       const endDate = dayjs(end).format("DD-MM YYYY, h:mma")
+  //       return `${startDate} – ${endDate}`
+  //     }
+  //   }
+  // }
 
   const end = dates.add(date, length, "day")
   const range = rangeFunc(date, end, "day")

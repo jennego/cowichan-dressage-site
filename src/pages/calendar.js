@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import Layout from "../components/layout"
 import Main from "../components/MainContent"
 import { useStaticQuery, graphql, navigate, Link } from "gatsby"
@@ -15,7 +15,7 @@ import enUS from "date-fns/locale/en-US"
 import toDate from "date-fns/toDate"
 
 import "react-big-calendar/lib/css/react-big-calendar.css"
-import { Typography, Paper } from "@material-ui/core"
+import Paper from "@material-ui/core/Paper"
 import { AgendaView } from "../components/customAgenda"
 
 const MyAgendaEvent = e => (
@@ -103,20 +103,11 @@ const Cal = () => {
     },
   }
 
-  let event = {
-    title: "Sample Event",
-    description: "This is the sample event provided as an example only",
-    location: "Portland, OR",
-    startTime: "2016-09-16T20:15:00-04:00",
-    endTime: "2016-09-16T21:45:00-04:00",
-  }
-
   return (
     <Layout>
       <Main>
         <Paper>
           <div>
-            {console.log("data", data)}
             <Calendar
               formats={formats}
               components={components}
@@ -131,7 +122,6 @@ const Cal = () => {
               length={365}
             />
           </div>
-          {console.log(dateArr)}
         </Paper>
       </Main>
     </Layout>
