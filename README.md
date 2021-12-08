@@ -1,5 +1,7 @@
 TO DO LIST
 
+- console errors removal - entry, membership
+
 - order events by nearest upcoming date on events page (need to think about that one)
 - add rules checkbox to form
 - show session name if one is included
