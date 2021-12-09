@@ -56,7 +56,7 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
 
   return (
     <Grid container onClick={handleClick}>
-      <Grid item xs={3}>
+      <Grid item xs={isOther ? 6 : 12} sm={3}>
         <FormControl fullWidth variant="filled">
           <InputLabel id="testSource">
             <span style={{ color: disabled ? "grey" : "#171717" }}>
@@ -92,13 +92,14 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
       </Grid>
 
       {isOther ? (
-        <Grid item xs={4}>
+        <Grid item xs={6} sm={4}>
           <Field
             name={`otherDetails${testNumber}`}
             component={OtherTextField}
             validate={() =>
               validateOther(props.values[`otherDetails${testNumber}`])
             }
+            value={props.values[`otherDetails${testNumber}`]}
             props={props}
             testNumber={testNumber}
             onChange={props.handleChange}

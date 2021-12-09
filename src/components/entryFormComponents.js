@@ -1,13 +1,6 @@
-import Button from "@material-ui/core/Button"
 import React from "react"
 import Typography from "@material-ui/core/Typography"
-import {
-  Grid,
-  FormGroup,
-  TextField,
-  Paper,
-  FormHelperText,
-} from "@material-ui/core"
+import { Grid, FormGroup, TextField, FormHelperText } from "@material-ui/core"
 import Radio from "@material-ui/core/Radio"
 import RadioGroup from "@material-ui/core/RadioGroup"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
@@ -26,7 +19,6 @@ import PhoneInput from "../components/PhoneInput"
 import IsFullBadge from "./isFullBadge"
 
 export const DateForm = ({ data, props, location }) => {
-  console.log(location)
   return (
     <div style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
       <FormControl component="fieldset">
@@ -39,9 +31,10 @@ export const DateForm = ({ data, props, location }) => {
           value={props.values.date}
           id="date"
         >
-          {data.contentfulEvent.eventDates.map(date => (
-            <IsFullBadge isFull={date.isFull} isDate={true}>
+          {data.contentfulEvent.eventDates.map((date, index) => (
+            <IsFullBadge isFull={date.isFull} isDate={true} key={index}>
               <FormControlLabel
+                key={index}
                 name="date"
                 disabled={
                   isAfter(parseISO(date.date), new Date()) ? false : true
@@ -299,8 +292,8 @@ export const Notes = ({ props }) => (
       label="Notes (preferences etc) "
       placeholder="Note to organizers (preferred ride times, travel considerations, etc.)"
       multiline
-      rows={4}
-      rowsMax={6}
+      minRows={4}
+      maxRows={6}
       onBlur={props.handleBlur}
       fullWidth
       variant="filled"

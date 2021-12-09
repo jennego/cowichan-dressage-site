@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import Checkbox from "@material-ui/core/Checkbox"
 import FormLabel from "@material-ui/core/FormLabel"
 import Grid from "@material-ui/core/Grid"
 import TestInfo from "../components/selectWithOther"
-import { Card, CardContent, Typography, TextField } from "@material-ui/core"
+import { Card, CardContent, Typography } from "@material-ui/core"
 
-import { Formik, Form, Field, FieldArray } from "formik"
+import { Field } from "formik"
 
 const Sessions = ({
   sessionArr,
@@ -14,8 +14,6 @@ const Sessions = ({
   selectedSessions,
   handleSelections,
 }) => {
-  console.log("selected", selectedSessions)
-
   const newSessionArr = sessionArr.map((session, index) => ({
     id: index,
     title: `Session ${index + 1}`,
@@ -35,7 +33,7 @@ const Sessions = ({
   return (
     <div>
       {newSessionArr.map((session, index) => (
-        <Grid container style={{ margin: "1.5rem 0" }}>
+        <Grid container style={{ margin: "1.5rem 0" }} key={index}>
           <Grid>
             <Checkbox
               name="selectedSessions"
@@ -62,7 +60,6 @@ const Sessions = ({
               </span>
             </FormLabel>
             <Card
-              button
               onClick={e => handleSelections(e, session, index)}
               className={
                 isChecked(selectedSessions, session) === true

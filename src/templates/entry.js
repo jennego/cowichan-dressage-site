@@ -165,7 +165,6 @@ const Entry = ({ pageContext, data, location }) => {
   // Other field om
 
   const selectedIds = selectedSessions.map((item, index) => item.id + 1)
-  console.log("selected ids", selectedIds)
 
   let dynamicSchema = yup.lazy(obj =>
     yup.object(
@@ -177,7 +176,7 @@ const Entry = ({ pageContext, data, location }) => {
           return yup.string().required()
         }
         if (key.includes("hcbc")) {
-          return yup.number().required()
+          return yup.number().required().typeError("you must specify a number")
         }
 
         if (key.includes("Phone")) {
@@ -320,7 +319,7 @@ const Entry = ({ pageContext, data, location }) => {
             age: "",
             emergContactName: "",
             emergContactPhone: "",
-            selectedSessions: null,
+            selectedSessions: "",
             ...initialWaivers,
             ...initialTests,
           }}
@@ -352,7 +351,7 @@ const Entry = ({ pageContext, data, location }) => {
                 <FocusError />
                 <Field type="hidden" name="bot-field" />
 
-                {console.log(props.values)}
+                {console.log(props)}
                 <DateForm props={props} data={data} location={location} />
                 <EntryForm props={props} data={data} />
 
