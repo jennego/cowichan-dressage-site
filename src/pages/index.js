@@ -171,9 +171,11 @@ const IndexPage = () => {
                   {siteInfo.homeOpeningStatement.homeOpeningStatement}
                 </Typography>
               </div>
-              <Button variant="contained" color="primary">
-                Join Us!
-              </Button>
+              <Link to="/membership">
+                <Button variant="contained" color="primary">
+                  Join Us!
+                </Button>
+              </Link>
             </Paper>
           </Grid>
           <Grid item xs={12} md={6}>
