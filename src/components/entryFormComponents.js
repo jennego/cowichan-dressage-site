@@ -1,5 +1,4 @@
 import React from "react"
-import Typography from "@material-ui/core/Typography"
 import { Grid, FormGroup, TextField, FormHelperText } from "@material-ui/core"
 import Radio from "@material-ui/core/Radio"
 import RadioGroup from "@material-ui/core/RadioGroup"
@@ -87,7 +86,6 @@ export const PaymentForm = ({ props }) => {
 }
 
 export const EntryForm = ({ props, data }) => {
-  const list = [{ label: "EC" }, { label: "HCBC" }, { label: "Western" }]
 
   return (
     <FormGroup>

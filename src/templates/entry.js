@@ -16,7 +16,6 @@ import Checkbox from "@material-ui/core/Checkbox"
 import { Formik, Form, Field, useFormikContext } from "formik"
 import * as yup from "yup"
 import mapValues from "lodash/mapValues"
-import map from "lodash/map"
 
 import ResponsiveDialog from "../components/infoDialog"
 
