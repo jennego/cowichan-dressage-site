@@ -5,7 +5,7 @@ import RadioGroup from "@material-ui/core/RadioGroup"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 import FormControl from "@material-ui/core/FormControl"
 import FormLabel from "@material-ui/core/FormLabel"
-
+import Typography from "@material-ui/core/Typography"
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail"
 import PhoneIcon from "@material-ui/icons/Phone"
 import PersonIcon from "@material-ui/icons/Person"
@@ -69,6 +69,12 @@ export const PaymentForm = ({ props }) => {
       name="paymentMethod"
       onChange={props.handleChange}
     >
+      <FormLabel> Payment </FormLabel>
+      <Typography gutterBottom variant="body2">
+        Pay via E-Transfer or Square Credit Card. A 2% surcharge will apply to
+        square credit card payments.
+      </Typography>
+
       <FormControlLabel
         value="square"
         name="paymentMethod"
@@ -81,12 +87,16 @@ export const PaymentForm = ({ props }) => {
         control={<Radio color="primary" />}
         label="E-Transfer"
       />
+      {props.touched.paymentMethod && Boolean(props.errors.paymentMethod) ? (
+        <FormHelperText error>Payment Method is required.</FormHelperText>
+      ) : (
+        ""
+      )}
     </RadioGroup>
   )
 }
 
 export const EntryForm = ({ props, data }) => {
-
   return (
     <FormGroup>
       <Grid container spacing={3}>

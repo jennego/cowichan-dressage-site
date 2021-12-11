@@ -319,6 +319,7 @@ const Entry = ({ pageContext, data, location }) => {
             emergContactName: "",
             emergContactPhone: "",
             selectedSessions: "",
+            paymentMethod: "",
             ...initialWaivers,
             ...initialTests,
           }}
