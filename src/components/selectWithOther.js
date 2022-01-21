@@ -48,7 +48,7 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
   }
 
   useEffect(() => {
-    setOther(false)
+    setIsOther(false)
   }, [])
 
   return (
