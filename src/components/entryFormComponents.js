@@ -239,6 +239,13 @@ export const EntryForm = ({ props, data }) => {
               label="Senior"
               name="age"
             />
+            {props.touched.age && Boolean(props.errors.age) ? (
+              <FormHelperText error>
+                Age group is required and will reflect waivers.
+              </FormHelperText>
+            ) : (
+              ""
+            )}
           </RadioGroup>
         </Grid>
         <Grid item md={6} xs={12}>

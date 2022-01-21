@@ -8,7 +8,7 @@ import Main from "../components/MainContent"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 
-import { Paper, Grid } from "@material-ui/core"
+import { Paper, Grid, FormHelperText } from "@material-ui/core"
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 
 import Checkbox from "@material-ui/core/Checkbox"
@@ -198,6 +198,13 @@ const Entry = ({ pageContext, data, location }) => {
           return yup.string().email().required()
         }
 
+        if (key.includes("rules")) {
+          return yup
+            .bool()
+            .oneOf([true])
+            .required("Agreeing to the rules is required")
+        }
+
         if (
           key.includes("test") &&
           selectedIds.some(num => key.includes(num))
@@ -228,51 +235,6 @@ const Entry = ({ pageContext, data, location }) => {
   return (
     <Layout>
       <Main>
-        <div>
-          <Typography variant="h2">
-            Entry form for {pageContext.eventName}{" "}
-          </Typography>
-          <div className="entry-toolbar">
-            <div>
-              <Button
-                variant="outlined"
-                component={Link}
-                to="/membership"
-                color="primary"
-              >
-                Membership
-              </Button>
-            </div>
-            {data.contentfulEvent.contacts && (
-              <ResponsiveDialogContacts
-                title="Contacts"
-                label="Contacts"
-                content={data.contentfulEvent.contacts}
-              />
-            )}
-            {data.contentfulEvent.rules && (
-              <div style={{ display: "flex" }}>
-                <ResponsiveDialog
-                  title="Rules and Important Info"
-                  label="Rules"
-                  content={data.contentfulEvent.rules}
-                />
-
-                <FormControlLabel
-                  style={{ marginLeft: "0.1rem" }}
-                  control={<Checkbox name="rules agreement" color="primary" />}
-                  label={
-                    <Typography variant="body2">
-                      {" "}
-                      I have read the rules{" "}
-                    </Typography>
-                  }
-                />
-              </div>
-            )}
-          </div>
-        </div>
-        <hr />
         <Formik
           // onSubmit={(values, actions) => {
           //   navigate("/form-success", {
@@ -307,8 +269,9 @@ const Entry = ({ pageContext, data, location }) => {
               })
               .finally(() => actions.setSubmitting(false))
           }}
-          validationSchema={dynamicSchema}
+          // validationSchema={dynamicSchema}
           initialValues={{
+            rules: " ",
             date: location.state ? location.state.date : "",
             Name: "",
             horseName: "",
@@ -327,67 +290,125 @@ const Entry = ({ pageContext, data, location }) => {
           enableReinitialize
         >
           {props => (
-            <Paper>
-              <Form
-                data-netlify="true"
-                name={`${pageContext.eventName} Entries`}
-                // data-netlify-recaptcha="true"
-                netlify-honeypot="bot-field"
-                className="form-style"
-              >
-                {!props.isValid && props.submitCount > 0 ? (
-                  <Snackbar
-                    open={true}
-                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                  >
-                    <Alert severity="error">
-                      Please ensure you have filled out these form fields.
-                    </Alert>
-                  </Snackbar>
-                ) : (
-                  " "
-                )}
-
-                <FocusError />
-                <Field type="hidden" name="bot-field" />
-
-                {console.log(props)}
-                <DateForm props={props} data={data} location={location} />
-                <EntryForm props={props} data={data} />
-
-                {data.contentfulEvent.sessions && (
-                  <Grid item xs={12}>
-                    <UpdateSelectedSessions />
-                    <Field
-                      component={Sessions}
-                      name="sessions"
-                      sessionArr={data.contentfulEvent.sessions}
-                      props={props}
-                      handleSelections={handleSelections}
-                      setSelectedSessions={setSelectedSessions}
-                      selectedSessions={selectedSessions}
-                      isChecked={isChecked}
+            <>
+              <div>
+                <Typography variant="h2">
+                  Entry form for {pageContext.eventName}{" "}
+                </Typography>
+                <div className="entry-toolbar">
+                  <div>
+                    <Button
+                      variant="outlined"
+                      component={Link}
+                      to="/membership"
+                      color="primary"
+                    >
+                      Membership
+                    </Button>
+                  </div>
+                  {data.contentfulEvent.contacts && (
+                    <ResponsiveDialogContacts
+                      title="Contacts"
+                      label="Contacts"
+                      content={data.contentfulEvent.contacts}
                     />
-                  </Grid>
-                )}
-                <Notes props={props} data={data} />
+                  )}
+                  {data.contentfulEvent.rules && (
+                    <div style={{ display: "flex" }}>
+                      <ResponsiveDialog
+                        title="Rules and Important Info"
+                        label="Rules"
+                        content={data.contentfulEvent.rules}
+                      />
 
-                {data.contentfulEvent.juniorWaivers &&
-                data.contentfulEvent.adultWaivers ? (
-                  <UploadComponent
-                    waiverType={props.values.age}
-                    props={props}
-                    fileArray={
-                      props.values.age === "junior"
-                        ? data.contentfulEvent.juniorWaivers
-                        : data.contentfulEvent.adultWaivers
-                    }
-                  />
-                ) : (
-                  ""
-                )}
-                <PaymentForm props={props} data={data} />
-                {/* 
+                      <FormControlLabel
+                        style={{ marginLeft: "0.1rem" }}
+                        control={
+                          <Checkbox
+                            name="rules"
+                            color="primary"
+                            value={props.values.rules}
+                          />
+                        }
+                        label={
+                          <Typography variant="body2">
+                            I have read the rules{" "}
+                          </Typography>
+                        }
+                      />
+                      {props.touched.rules && Boolean(props.errors.rules) ? (
+                        <FormHelperText error>
+                          {props.errors.rules}
+                        </FormHelperText>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <hr />
+              <Paper>
+                <Form
+                  data-netlify="true"
+                  name={`${pageContext.eventName} Entries`}
+                  // data-netlify-recaptcha="true"
+                  netlify-honeypot="bot-field"
+                  className="form-style"
+                >
+                  {!props.isValid && props.submitCount > 0 ? (
+                    <Snackbar
+                      open={true}
+                      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                    >
+                      <Alert severity="error">
+                        Please ensure you have filled out these form fields.
+                      </Alert>
+                    </Snackbar>
+                  ) : (
+                    ""
+                  )}
+
+                  <FocusError />
+                  <Field type="hidden" name="bot-field" />
+
+                  {console.log(props)}
+                  <DateForm props={props} data={data} location={location} />
+                  <EntryForm props={props} data={data} />
+
+                  {data.contentfulEvent.sessions && (
+                    <Grid item xs={12}>
+                      <UpdateSelectedSessions />
+                      <Field
+                        component={Sessions}
+                        name="sessions"
+                        sessionArr={data.contentfulEvent.sessions}
+                        props={props}
+                        handleSelections={handleSelections}
+                        setSelectedSessions={setSelectedSessions}
+                        selectedSessions={selectedSessions}
+                        isChecked={isChecked}
+                      />
+                    </Grid>
+                  )}
+                  <Notes props={props} data={data} />
+
+                  {data.contentfulEvent.juniorWaivers &&
+                  data.contentfulEvent.adultWaivers ? (
+                    <UploadComponent
+                      waiverType={props.values.age}
+                      props={props}
+                      fileArray={
+                        props.values.age === "junior"
+                          ? data.contentfulEvent.juniorWaivers
+                          : data.contentfulEvent.adultWaivers
+                      }
+                    />
+                  ) : (
+                    ""
+                  )}
+                  <PaymentForm props={props} data={data} />
+                  {/* 
                 <Button
                   variant="contained"
                   color="secondary"
@@ -395,11 +416,12 @@ const Entry = ({ pageContext, data, location }) => {
                 >
                   Clear
                 </Button> */}
-                <Button variant="contained" color="primary" type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </Paper>
+                  <Button variant="contained" color="primary" type="submit">
+                    Submit
+                  </Button>
+                </Form>
+              </Paper>
+            </>
           )}
         </Formik>
       </Main>
