@@ -39,13 +39,6 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
     return error
   }
 
-  const handleOtherDetailsValidation = e => {
-    props.setFieldError(
-      `otherDetails${testNumber}`,
-      "other details is required"
-    )
-  }
-
   const handleClick = e => {
     if (disabled === false) {
       e.stopPropagation()
@@ -91,29 +84,29 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
         </FormControl>
       </Grid>
 
-      {isOther ? (
-        <Grid item xs={6} sm={4}>
-          <Field
-            name={`otherDetails${testNumber}`}
-            component={OtherTextField}
-            validate={() =>
-              validateOther(props.values[`otherDetails${testNumber}`])
-            }
-            value={props.values[`otherDetails${testNumber}`]}
-            props={props}
-            testNumber={testNumber}
-            onChange={props.handleChange}
-          />
-          {props.errors[`otherDetails${testNumber}`] &&
-            props.touched[`otherDetails${testNumber}`] && (
-              <FormHelperText error>
-                {props.errors[`otherDetails${testNumber}`]}
-              </FormHelperText>
-            )}
-        </Grid>
-      ) : (
+      {/* {isOther ? ( */}
+      <Grid item xs={6} sm={4}>
+        <Field
+          name={`otherDetails${testNumber}`}
+          component={OtherTextField}
+          validate={() =>
+            validateOther(props.values[`otherDetails${testNumber}`])
+          }
+          value={props.values[`otherDetails${testNumber}`]}
+          props={props}
+          testNumber={testNumber}
+          onChange={props.handleChange}
+        />
+        {props.errors[`otherDetails${testNumber}`] &&
+          props.touched[`otherDetails${testNumber}`] && (
+            <FormHelperText error>
+              {props.errors[`otherDetails${testNumber}`]}
+            </FormHelperText>
+          )}
+      </Grid>
+      {/* ) : (
         ""
-      )}
+      )} */}
 
       <Grid item style={{ flexGrow: "1" }}>
         <TextField
