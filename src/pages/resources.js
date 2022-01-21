@@ -25,6 +25,9 @@ const Resources = () => {
             title
             phoneNumber
             email
+            details {
+              details
+            }
           }
         }
       }

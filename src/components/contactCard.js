@@ -49,6 +49,7 @@ const ContactCard = ({ contact }) => {
           {contact.email ? <EmailInfo /> : ""}
           <Typography variant="body2">
             {contact.details ? contact.details.details : ""}
+            {console.log(contact)}
           </Typography>
         </CardContent>
       </Card>
