@@ -1,13 +1,12 @@
 TO DO LIST
 
-- console errors removal - entry, membership
-
 - order events by nearest upcoming date on events page (need to think about that one)
-- make sure other details reach the results
-- add rules checkbox to form
-- show session name if one is included
 - show resource pdf if included
-- see if I can remove unused testfields on submission
+- disable payment method if total cost is 0
+
+- show session name if one is included - done
+- make sure other details reach the results - done
+- add rules checkbox to form - done
 
 Final touches
 

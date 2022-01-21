@@ -13,7 +13,7 @@ const OtherTextField = ({ props, testNumber }) => (
     name={`otherDetails${testNumber}`}
     id={`otherDetails${testNumber}`}
     variant="filled"
-    label="Specify Other"
+    label={`Specify Other Test ${testNumber}`}
     helperText="details for other test source"
     fullWidth
     onChange={e =>
@@ -59,7 +59,7 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
         <FormControl fullWidth variant="filled">
           <InputLabel id="testSource">
             <span style={{ color: disabled ? "grey" : "#171717" }}>
-              Test Source
+              Test {testNumber} Source
             </span>
           </InputLabel>
           <Select
@@ -119,7 +119,7 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
           id={`testDetails${testNumber}`}
           variant="filled"
           name={`testDetails${testNumber}`}
-          label="Test Details"
+          label={`Test ${testNumber} Details`}
           placeholder="level and number/name etc"
           fullWidth
           value={props.values[`testDetails${testNumber}`]}

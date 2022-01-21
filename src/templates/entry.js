@@ -179,7 +179,7 @@ const Entry = ({ pageContext, data, location }) => {
         }
 
         if (key.includes("Phone")) {
-          return yup.string().required()
+          return yup.string().required("Phone number is required.")
         }
 
         if (key.includes("age")) {
@@ -187,7 +187,7 @@ const Entry = ({ pageContext, data, location }) => {
         }
 
         if (key.includes("payment")) {
-          return yup.string().required()
+          return yup.string().required("Payment type is required.")
         }
 
         if (key.includes("date")) {

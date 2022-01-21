@@ -121,11 +121,7 @@ const Sessions = ({
           value={props.values.selectedSessions}
         />
 
-        {/* <div style={{ textAlign: "right" }}>
-          {selectedSessions.length < 1
-            ? "Select sessions to see cost"
-            : `Cost: ${renderCost}`}
-        </div> */}
+        <div>Move payment here</div>
       </div>
     </div>
   )
