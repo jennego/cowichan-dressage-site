@@ -28,7 +28,7 @@ const OtherTextField = ({ props, testNumber }) => (
 )
 
 const TestInfo = ({ form, props, testNumber, disabled, index }) => {
-  const [isOther, setIsOther] = React.useState(false)
+  const [isOther, setIsOther] = React.useState(true)
 
   function validateOther(value) {
     console.log("value of other", value)
@@ -46,6 +46,10 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
       return
     }
   }
+
+  useEffect(() => {
+    setOther(true)
+  }, [])
 
   return (
     <Grid container onClick={handleClick}>
@@ -84,29 +88,29 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
         </FormControl>
       </Grid>
 
-      {/* {isOther ? ( */}
-      <Grid item xs={6} sm={4}>
-        <Field
-          name={`otherDetails${testNumber}`}
-          component={OtherTextField}
-          validate={() =>
-            validateOther(props.values[`otherDetails${testNumber}`])
-          }
-          value={props.values[`otherDetails${testNumber}`]}
-          props={props}
-          testNumber={testNumber}
-          onChange={props.handleChange}
-        />
-        {props.errors[`otherDetails${testNumber}`] &&
-          props.touched[`otherDetails${testNumber}`] && (
-            <FormHelperText error>
-              {props.errors[`otherDetails${testNumber}`]}
-            </FormHelperText>
-          )}
-      </Grid>
-      {/* ) : (
+      {isOther ? (
+        <Grid item xs={6} sm={4}>
+          <Field
+            name={`otherDetails${testNumber}`}
+            component={OtherTextField}
+            validate={() =>
+              validateOther(props.values[`otherDetails${testNumber}`])
+            }
+            value={props.values[`otherDetails${testNumber}`]}
+            props={props}
+            testNumber={testNumber}
+            onChange={props.handleChange}
+          />
+          {props.errors[`otherDetails${testNumber}`] &&
+            props.touched[`otherDetails${testNumber}`] && (
+              <FormHelperText error>
+                {props.errors[`otherDetails${testNumber}`]}
+              </FormHelperText>
+            )}
+        </Grid>
+      ) : (
         ""
-      )} */}
+      )}
 
       <Grid item style={{ flexGrow: "1" }}>
         <TextField
