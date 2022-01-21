@@ -30,6 +30,7 @@ import { DateForm, Notes } from "../components/entryFormComponents"
 import { EntryForm } from "../components/entryFormComponents"
 import { PaymentForm } from "../components/entryFormComponents"
 import Sessions from "../components/sessions"
+import HumanSubmit from "../components/humanCheck"
 
 export const query = graphql`
   query entryQuery($id: String!) {
@@ -205,6 +206,12 @@ const Entry = ({ pageContext, data, location }) => {
             .required("Agreeing to the rules is required")
         }
 
+        if (key.includes("g-recaptcha-response")) {
+          return yup
+            .string()
+            .required("Make sure to confirm that you are not a robot!")
+        }
+
         if (
           key.includes("test") &&
           selectedIds.some(num => key.includes(num))
@@ -283,6 +290,7 @@ const Entry = ({ pageContext, data, location }) => {
             emergContactPhone: "",
             selectedSessions: "",
             paymentMethod: "",
+            "g-recaptcha-response": "",
             ...initialWaivers,
             ...initialTests,
           }}
@@ -408,17 +416,8 @@ const Entry = ({ pageContext, data, location }) => {
                     ""
                   )}
                   <PaymentForm props={props} data={data} />
-                  {/* 
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={e => props.resetForm()}
-                >
-                  Clear
-                </Button> */}
-                  <Button variant="contained" color="primary" type="submit">
-                    Submit
-                  </Button>
+
+                  <HumanSubmit {...props} />
                 </Form>
               </Paper>
             </>

@@ -38,6 +38,7 @@ import Paper from "@material-ui/core/Paper"
 import ReCAPTCHA from "react-google-recaptcha"
 import PhoneInput from "../components/PhoneInput"
 import { useStaticQuery, graphql } from "gatsby"
+import HumanSubmit from "../components/humanCheck"
 
 const BirthDatePickerField = ({ field, form, props, ...other }) => {
   const currentError = form.errors[field.name]
@@ -401,30 +402,7 @@ const MemberForm = () => {
               /> */}
             </Grid>
           </Grid>
-          <div className="human-check-submit">
-            {/* <Button color="secondary" variant="contained">
-              Clear
-            </Button> */}
-            <ReCAPTCHA
-              sitekey="6LcpmH8cAAAAAAxPsO8hrUvpeg81VRHdeE5ekNJH"
-              onChange={value =>
-                props.setFieldValue("g-recaptcha-response", value, true)
-              }
-            />
-
-            <FormHelperText style={{ color: "red" }}>
-              {props.errors["g-recaptcha-response"] &&
-                props.touched["g-recaptcha-response"] && (
-                  <p>{props.errors["g-recaptcha-response"]}</p>
-                )}
-            </FormHelperText>
-            <div style={{ marginLeft: "1rem" }}>
-              <Button color="primary" variant="contained" type="submit">
-                Submit
-              </Button>
-            </div>
-            {console.log("form props", props)}
-          </div>
+          <HumanSubmit {...props} />
         </Form>
       )}
     </Formik>
