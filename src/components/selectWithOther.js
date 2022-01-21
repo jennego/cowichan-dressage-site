@@ -31,12 +31,14 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
   const [isOther, setIsOther] = React.useState(true)
 
   function validateOther(value) {
-    console.log("value of other", value)
-    let error
-    if (value.length === 0) {
-      error = "other must be filled"
+    if (value !== undefined) {
+      console.log("value of other", value)
+      let error
+      if (value.length === 0) {
+        error = "other must be filled"
+      }
+      return error
     }
-    return error
   }
 
   const handleClick = e => {
