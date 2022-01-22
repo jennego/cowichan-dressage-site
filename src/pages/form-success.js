@@ -70,13 +70,10 @@ const FormSuccess = ({ location }) => {
           <Main>
             {console.log(location)}
 
-            <Typography variant="h3" gutterBottom>
-              Thank you for entering!
-            </Typography>
             <Typography variant="body1" gutterBottom>
               Your form has been successfully submitted.
             </Typography>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h3" gutterBottom>
               You have entered in {location.state.event.eventName} for{" "}
               {format(
                 new Date(parseISO(location.state.values.date)),
@@ -103,6 +100,7 @@ const FormSuccess = ({ location }) => {
               event={location.state.event}
               date={location.state.values.date}
               isCalAr={false}
+              isButton={true}
             />
           </Main>
         </Layout>

@@ -66,7 +66,22 @@ const EventAccordion = ({ event }) => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>{renderRichText(event.eventInformation)}</Typography>
+            <Typography>
+              {renderRichText(event.eventInformation)}
+
+              {event.resources &&
+                event.resources.map(resource => (
+                  <a href={resource.file.url} target="_blank" rel="noreferrer">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      style={{ margin: "5px" }}
+                    >
+                      {resource.file.fileName}
+                    </Button>
+                  </a>
+                ))}
+            </Typography>
           </AccordionDetails>
         </Accordion>
       )}

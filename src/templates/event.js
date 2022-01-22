@@ -32,6 +32,13 @@ export const query = graphql`
           url
         }
       }
+      resources {
+        file {
+          url
+          fileName
+          contentType
+        }
+      }
       eventDates {
         date
         subtitle
@@ -65,6 +72,7 @@ export const query = graphql`
       registrationInfo {
         raw
       }
+
       locationName
       location {
         lat

@@ -7,7 +7,7 @@ import parseISO from "date-fns/parseISO"
 import toDate from "date-fns/toDate"
 import { createTheme, ThemeProvider } from "@material-ui/core/styles"
 
-const AddToCalendar = ({ event, date, isCalArr }) => {
+const AddToCalendar = ({ event, date, isCalArr, isButton }) => {
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const handleClick = event => {
@@ -46,6 +46,7 @@ const AddToCalendar = ({ event, date, isCalArr }) => {
         aria-controls="simple-menu"
         aria-haspopup="true"
         onClick={handleClick}
+        variant={isButton ? "contained" : ""}
       >
         Add to Calendar
       </Button>
@@ -87,6 +88,7 @@ const AddToCalendar = ({ event, date, isCalArr }) => {
 }
 AddToCalendar.defaultProps = {
   isCalArr: false,
+  isButton: false,
 }
 
 export default AddToCalendar
