@@ -243,16 +243,6 @@ const Entry = ({ pageContext, data, location }) => {
     <Layout>
       <Main>
         <Formik
-          // onSubmit={(values, actions) => {
-          //   navigate("/form-success", {
-          //     state: {
-          //       values,
-          //       event: data.contentfulEvent,
-          //       cost: totalCost,
-          //     },
-          //   })
-          // }}
-
           onSubmit={(values, actions) => {
             fetch("/", {
               method: "POST",
@@ -276,7 +266,7 @@ const Entry = ({ pageContext, data, location }) => {
               })
               .finally(() => actions.setSubmitting(false))
           }}
-          // validationSchema={dynamicSchema}
+          validationSchema={dynamicSchema}
           initialValues={{
             rules: " ",
             date: location.state ? location.state.date : "",
