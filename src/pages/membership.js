@@ -82,7 +82,7 @@ const validationSchema = yup.object({
   emergContactName: yup
     .string("Enter name of emergency contact")
     .required("Emergency contact name is required"),
-  emergContactPh: yup.string().required(),
+  emergContactPhone: yup.string().required(),
   paymentMethod: yup.string().required("You must choose a payment method"),
   "g-recaptcha-response": yup
     .string()
@@ -131,10 +131,13 @@ const MemberForm = props => {
       onSubmit={(values, actions) => {
         fetch("/", {
           method: "POST",
+
           // headers: { "Content-Type": "multipart/form-data" },
           body: encode({ "form-name": "Membership", ...values }),
         })
           .then(() => {
+            alert(JSON.stringify(values, null, 2))
+
             navigate("/form-success", {
               state: { values, formName: "membership", cost: cost },
             })
@@ -153,12 +156,10 @@ const MemberForm = props => {
         birthDate: null,
         paymentMethod: "",
         emergContactName: "",
-        emergContactPh: "",
+        emergContactPhone: "",
         phonenumber: "",
         hcbc: "",
-        paymentMethod: "",
         "g-recaptcha-response": "",
-        file: null,
       }}
     >
       {props => (
@@ -170,6 +171,7 @@ const MemberForm = props => {
           className="form-style"
         >
           <Field type="hidden" name="bot-field" />
+          {console.log(props)}
 
           <AlertDialog
             title={title}
