@@ -142,7 +142,7 @@ const MemberForm = props => {
         // "g-recaptcha-response": "",
       }}
       onSubmit={(values, actions) => {
-        console.log(values)
+        console.log(values["g-recaptcha-response"])
         fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
