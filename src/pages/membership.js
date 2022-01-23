@@ -86,6 +86,7 @@ const validationSchema = yup.object({
   paymentMethod: yup.string().required("You must choose a payment method"),
   "g-recaptcha-response": yup
     .string()
+    .nullable()
     .required("Make sure to confirm that you are not a robot!"),
 })
 

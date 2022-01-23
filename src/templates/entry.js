@@ -268,7 +268,7 @@ const Entry = ({ pageContext, data, location }) => {
           }}
           validationSchema={dynamicSchema}
           initialValues={{
-            rules: " ",
+            rules: false,
             date: location.state ? location.state.date : "",
             Name: "",
             horseName: "",
@@ -321,15 +321,12 @@ const Entry = ({ pageContext, data, location }) => {
                     </div>
                   )}
 
+                  {props.values.rules}
+
                   <FormControlLabel
                     style={{ marginLeft: "0.1rem" }}
-                    control={
-                      <Checkbox
-                        name="rules"
-                        color="primary"
-                        value={props.values.rules}
-                      />
-                    }
+                    onChange={props.handleChange}
+                    control={<Checkbox name="rules" color="primary" />}
                     label={
                       <Typography variant="body2">
                         I have read the rules{" "}
