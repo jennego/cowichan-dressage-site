@@ -218,8 +218,6 @@ const Entry = ({ pageContext, data, location }) => {
         ) {
           return yup.string().required()
         }
-
-        // console.log("yup object", obj)
       })
     )
   )
@@ -365,7 +363,6 @@ const Entry = ({ pageContext, data, location }) => {
                   <FocusError />
                   <Field type="hidden" name="bot-field" />
 
-                  {console.log(props)}
                   <DateForm props={props} data={data} location={location} />
                   <EntryForm props={props} data={data} />
 

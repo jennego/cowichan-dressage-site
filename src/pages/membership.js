@@ -148,7 +148,7 @@ const MemberForm = props => {
           })
           .finally(() => actions.setSubmitting(false))
       }}
-      validationSchema={validationSchema}
+      // validationSchema={validationSchema}
       initialValues={{
         email: "",
         name: "",
@@ -171,7 +171,6 @@ const MemberForm = props => {
           className="form-style"
         >
           <Field type="hidden" name="bot-field" />
-          {console.log(props)}
 
           <AlertDialog
             title={title}
