@@ -145,7 +145,7 @@ const MemberForm = props => {
         fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: encode({ "form-name": "membership", ...values }),
+          body: encode({ "form-name": "Membership", ...values }),
         })
           .then(() => {
             alert(JSON.stringify(values, null, 2))
@@ -181,12 +181,12 @@ const MemberForm = props => {
       {props => (
         <Form
           data-netlify="true"
-          name="membership"
+          name="Membership"
           // data-netlify-recaptcha="true"
-          // netlify-honeypot="bot-field"
+          netlify-honeypot="bot-field"
           className="form-style"
         >
-          {/* <Field type="hidden" name="bot-field" /> */}
+          <Field type="hidden" name="bot-field" />
 
           <AlertDialog
             title={title}
