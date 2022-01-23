@@ -278,7 +278,7 @@ const Entry = ({ pageContext, data, location }) => {
             emergContactPhone: "",
             selectedSessions: "",
             paymentMethod: "",
-            "g-recaptcha-response": "",
+            // "g-recaptcha-response": "",
             ...initialWaivers,
             ...initialTests,
           }}
@@ -344,7 +344,7 @@ const Entry = ({ pageContext, data, location }) => {
                 <Form
                   data-netlify="true"
                   name={`${pageContext.eventName} Entries`}
-                  data-netlify-recaptcha="true"
+                  // data-netlify-recaptcha="true"
                   netlify-honeypot="bot-field"
                   className="form-style"
                 >

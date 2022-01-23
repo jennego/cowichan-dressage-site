@@ -149,9 +149,11 @@ const MemberForm = props => {
         })
           .then(() => {
             actions.resetForm()
-            navigate("/form-success", {
-              state: { values, formName: "membership", cost: cost },
-            })
+            alert(JSON.stringify(values, null, 2))
+
+            // navigate("/form-success", {
+            //   state: { values, formName: "membership", cost: cost },
+            // })
           })
           .catch(error => {
             alert(JSON.stringify(values, null, 2))
@@ -381,17 +383,11 @@ const MemberForm = props => {
                 </FormHelperText>
               </FormControl>
             </Grid>
-
-            <Grid item xs={12}>
-              {/* <UploadComponent
-                waiver="file"
-                setFieldValue={props.setFieldValue}
-                formik={props}
-                label="Event Waiver"
-              /> */}
-            </Grid>
           </Grid>
-          <HumanSubmit {...props} />
+          <Button color="primary" variant="contained" type="submit">
+            Submit
+          </Button>
+          {/* <HumanSubmit {...props} /> */}
         </Form>
       )}
     </Formik>
