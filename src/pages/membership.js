@@ -30,15 +30,14 @@ import FormControlLabel from "@material-ui/core/FormControlLabel"
 import FormControl from "@material-ui/core/FormControl"
 import FormHelperText from "@material-ui/core/FormHelperText"
 
-import { UploadComponent } from "../components/uploadComponent"
-
 import AlertDialog from "../alertDialog"
 import Paper from "@material-ui/core/Paper"
+import Typography from "@material-ui/core/Typography"
 
-import ReCAPTCHA from "react-google-recaptcha"
 import PhoneInput from "../components/PhoneInput"
 import { useStaticQuery, graphql } from "gatsby"
 import HumanSubmit from "../components/humanCheck"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
 
 const BirthDatePickerField = ({ field, form, props, ...other }) => {
   const currentError = form.errors[field.name]
@@ -104,10 +103,12 @@ const encode = data => {
 //     .join("&")
 // }
 
-const MemberForm = () => {
+const MemberForm = props => {
   const [open, setOpen] = React.useState(false)
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
+
+  const data = props.data
 
   const handleOpen = (title, content) => {
     setOpen(true)
@@ -122,18 +123,6 @@ const MemberForm = () => {
   const handleClose = () => {
     setOpen(false)
   }
-
-  const data = useStaticQuery(graphql`
-    {
-      allContentfulSiteInfo {
-        edges {
-          node {
-            membershipCost
-          }
-        }
-      }
-    }
-  `)
 
   let cost = data.allContentfulSiteInfo.edges[0].node.membershipCost
 
@@ -410,17 +399,44 @@ const MemberForm = () => {
 }
 
 const Membership = () => {
+  const data = useStaticQuery(graphql`
+    {
+      allContentfulSiteInfo {
+        edges {
+          node {
+            membershipCost
+            membershipInfo {
+              raw
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  let membershipContent =
+    data.allContentfulSiteInfo.edges[0].node.membershipInfo
+
   return (
     <Layout>
       <Main>
-        <Paper>
-          <h2>Membership Info</h2>
-          <p>Blah blah</p>
+        <Paper style={{ padding: "0.5rem" }}>
+          <Typography variant="h3" component="h1">
+            Membership
+          </Typography>
+          <Typography variant="body1" style={{ marginBottom: "5px" }}>
+            {membershipContent && renderRichText(membershipContent)}
+          </Typography>
         </Paper>
         <Paper>
-          <h2>Membership Form</h2>
-
-          <MemberForm />
+          <Typography
+            variant="h4"
+            component="h2"
+            style={{ paddingLeft: "0.5rem" }}
+          >
+            Membership Form
+          </Typography>
+          <MemberForm data={data} />
         </Paper>
       </Main>
     </Layout>

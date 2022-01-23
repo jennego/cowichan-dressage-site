@@ -57,8 +57,8 @@ const Cal = () => {
             eventDates {
               id
               date
-              locationName
               isFull
+              # locationName
               # location {
               #   lat
               #   lon

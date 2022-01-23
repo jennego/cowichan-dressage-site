@@ -42,7 +42,6 @@ const IndexPage = () => {
             eventDates {
               id
               date
-              locationName
               isFull
               rideTimes {
                 file {
@@ -54,10 +53,10 @@ const IndexPage = () => {
                   url
                 }
               }
-              location {
-                lat
-                lon
-              }
+              # location {
+              #   lat
+              #   lon
+              # }
             }
           }
         }
