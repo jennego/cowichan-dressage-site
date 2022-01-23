@@ -29,7 +29,6 @@ const WhatForm = ({ location }) => {
 const Membership = ({ location }) => (
   <Layout>
     <Main>
-      {JSON.stringify(location, null, 2)}
       <Typography variant="h3" gutterBottom>
         Thank you for joining Cowichan Dressage Club!
       </Typography>
@@ -38,7 +37,7 @@ const Membership = ({ location }) => (
       </Typography>
 
       <Typography variant="body1" gutterBottom>
-        Your cost is ${}.
+        Your cost is ${location.state.cost}.
         {location.state.paymentMethod === "square" ? (
           <span>
             You have chosen to pay with square credit card. Please email{" "}
@@ -47,8 +46,8 @@ const Membership = ({ location }) => (
         ) : (
           <span>
             You have chosen to pay with e-transfer. Please e-transfer to{" "}
-            <Obfuscate Email />. Auto-deposit is enabled so security question
-            does not matter.
+            <Email />. Auto-deposit is enabled so security question does not
+            matter.
           </span>
         )}
       </Typography>
