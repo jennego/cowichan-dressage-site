@@ -59,10 +59,10 @@ const Cal = () => {
               date
               locationName
               isFull
-              location {
-                lat
-                lon
-              }
+              # location {
+              #   lat
+              #   lon
+              # }
             }
           }
         }
