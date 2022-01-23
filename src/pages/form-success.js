@@ -67,8 +67,6 @@ const FormSuccess = ({ location }) => {
       return (
         <Layout>
           <Main>
-            {console.log(location)}
-
             <Typography variant="body1" gutterBottom>
               Your form has been successfully submitted.
             </Typography>
