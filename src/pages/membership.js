@@ -148,19 +148,34 @@ const MemberForm = props => {
           body: encode({ "form-name": "membership", ...values }),
         })
           .then(() => {
+            alert(JSON.stringify(values, null, 2))
             actions.resetForm()
-            alert(JSON.stringify(values, null, 2))
-
-            // navigate("/form-success", {
-            //   state: { values, formName: "membership", cost: cost },
-            // })
           })
-          .catch(error => {
+          .catch(() => {
             alert(JSON.stringify(values, null, 2))
-            alert("Error")
           })
           .finally(() => actions.setSubmitting(false))
       }}
+      // onSubmit={(values, actions) => {
+      //   fetch("/", {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      //     body: encode({ "form-name": "membership", ...values }),
+      //   })
+      //     .then(() => {
+      //       actions.resetForm()
+      //       alert(JSON.stringify(values, null, 2))
+
+      //       // navigate("/form-success", {
+      //       //   state: { values, formName: "membership", cost: cost },
+      //       // })
+      //     })
+      //     .catch(error => {
+      //       alert(JSON.stringify(values, null, 2))
+      //       alert("Error")
+      //     })
+      //     .finally(() => actions.setSubmitting(false))
+      // }}
       // validationSchema={validationSchema}
     >
       {props => (
@@ -168,10 +183,10 @@ const MemberForm = props => {
           data-netlify="true"
           name="membership"
           // data-netlify-recaptcha="true"
-          netlify-honeypot="bot-field"
+          // netlify-honeypot="bot-field"
           className="form-style"
         >
-          <Field type="hidden" name="bot-field" />
+          {/* <Field type="hidden" name="bot-field" /> */}
 
           <AlertDialog
             title={title}
