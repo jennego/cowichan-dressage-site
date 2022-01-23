@@ -152,7 +152,10 @@ const MemberForm = props => {
           }),
         })
           .then(() => {
-            alert(JSON.stringify(values, null, 2))
+            navigate("/form-success", {
+              state: { values, formName: "membership", cost: cost },
+            })
+            // alert(JSON.stringify(values, null, 2))
             actions.resetForm()
           })
           .catch(() => {
