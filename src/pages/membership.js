@@ -142,6 +142,7 @@ const MemberForm = props => {
         // "g-recaptcha-response": "",
       }}
       onSubmit={(values, actions) => {
+        console.log(values)
         fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -176,7 +177,7 @@ const MemberForm = props => {
       //     })
       //     .finally(() => actions.setSubmitting(false))
       // }}
-      // validationSchema={validationSchema}
+      validationSchema={validationSchema}
     >
       {props => (
         <Form
