@@ -206,11 +206,11 @@ const Entry = ({ pageContext, data, location }) => {
             .required("Agreeing to the rules is required")
         }
 
-        if (key.includes("g-recaptcha-response")) {
-          return yup
-            .string()
-            .required("Make sure to confirm that you are not a robot!")
-        }
+        // if (key.includes("g-recaptcha-response")) {
+        //   return yup
+        //     .string()
+        //     .required("Make sure to confirm that you are not a robot!")
+        // }
 
         if (
           key.includes("test") &&
@@ -287,6 +287,7 @@ const Entry = ({ pageContext, data, location }) => {
         >
           {props => (
             <>
+              {console.log(props)}
               <div>
                 <Typography variant="h2">
                   Entry form for {pageContext.eventName}{" "}
@@ -399,7 +400,11 @@ const Entry = ({ pageContext, data, location }) => {
                   )}
                   <PaymentForm props={props} data={data} />
 
-                  <HumanSubmit {...props} />
+                  <Button color="primary" variant="contained" type="submit">
+                    Submit
+                  </Button>
+
+                  {/* <HumanSubmit {...props} /> */}
                 </Form>
               </Paper>
             </>
