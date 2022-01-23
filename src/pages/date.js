@@ -1,75 +1,65 @@
-import React, { useState, useEffect } from "react"
-import { Formik, Field, Form, ErrorMessage } from "formik"
+import React from "react"
+import { Formik, Form, Field, ErrorMessage } from "formik"
 
 const encode = data => {
   return Object.keys(data)
     .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
     .join("&")
 }
-function ContactForm() {
-  const [token, setToken] = useState(null)
 
-  return (
-    <Formik
-      initialValues={{ fullName: "", email: "" }}
-      validate={values => {
-        const errors = {}
-        if (!values.fullName) {
-          errors.fullName = "Required"
-        } else if (values.fullName.length <= 1) {
-          errors.fullName = "must be at least 2 characters"
-        }
-        if (!values.email) {
-          errors.email = "Required"
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-        ) {
-          errors.email = "Invalid email address"
-        }
-        return errors
-      }}
-      onSubmit={data => {
-        console.log(data)
-        if (token !== null) {
-          fetch("/", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: encode({
-              "form-name": "contact-form",
-              ...data,
-              // "g-recaptcha-response": token,
-            }),
-          })
-            .then(() => {
-              alert("send")
-            })
-            .catch(error => alert(error))
-        }
-      }}
-    >
-      <Form
-        name="contact-form"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-        data-netlify-recaptcha="true"
-      >
-        <Field type="hidden" name="form-name" />
-        <Field type="hidden" name="bot-field" />
+export default () => (
+  <Formik
+    initialValues={{
+      name: "",
+      email: "",
+      message: "",
+    }}
+    onSubmit={(values, actions) => {
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({ "form-name": "contact-demo", ...values }),
+      })
+        .then(() => {
+          alert("Success")
+          actions.resetForm()
+        })
+        .catch(() => {
+          alert("Error")
+        })
+        .finally(() => actions.setSubmitting(false))
+    }}
+    validate={values => {
+      const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+      const errors = {}
+      if (!values.name) {
+        errors.name = "Name Required"
+      }
+      if (!values.email || !emailRegex.test(values.email)) {
+        errors.email = "Valid Email Required"
+      }
+      if (!values.message) {
+        errors.message = "Message Required"
+      }
+      return errors
+    }}
+  >
+    {() => (
+      <Form name="contact-demo" data-netlify={true}>
+        <label htmlFor="name">Name: </label>
+        <Field name="name" />
+        <ErrorMessage name="name" />
 
-        <label htmlFor="fullName">Full name:</label>
-        <Field name="fullName" type="text" />
-        <ErrorMessage name="fullName" />
-        <br />
-        <label htmlFor="email">Email</label>
-        <Field name="email" type="text" />
+        <label htmlFor="email">Email: </label>
+        <Field name="email" />
         <ErrorMessage name="email" />
-        <br />
 
-        <br />
-        <button type="submit">Submit</button>
+        <label htmlFor="message">Message: </label>
+        <Field name="message" component="textarea" />
+        <ErrorMessage name="message" />
+
+        <button type="submit">Send</button>
       </Form>
-    </Formik>
-  )
-}
-
-export default ContactForm
+    )}
+  </Formik>
+)
