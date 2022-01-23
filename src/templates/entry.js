@@ -318,30 +318,28 @@ const Entry = ({ pageContext, data, location }) => {
                         label="Rules"
                         content={data.contentfulEvent.rules}
                       />
-
-                      <FormControlLabel
-                        style={{ marginLeft: "0.1rem" }}
-                        control={
-                          <Checkbox
-                            name="rules"
-                            color="primary"
-                            value={props.values.rules}
-                          />
-                        }
-                        label={
-                          <Typography variant="body2">
-                            I have read the rules{" "}
-                          </Typography>
-                        }
-                      />
-                      {props.touched.rules && Boolean(props.errors.rules) ? (
-                        <FormHelperText error>
-                          {props.errors.rules}
-                        </FormHelperText>
-                      ) : (
-                        ""
-                      )}
                     </div>
+                  )}
+
+                  <FormControlLabel
+                    style={{ marginLeft: "0.1rem" }}
+                    control={
+                      <Checkbox
+                        name="rules"
+                        color="primary"
+                        value={props.values.rules}
+                      />
+                    }
+                    label={
+                      <Typography variant="body2">
+                        I have read the rules{" "}
+                      </Typography>
+                    }
+                  />
+                  {props.touched.rules && Boolean(props.errors.rules) ? (
+                    <FormHelperText error>{props.errors.rules}</FormHelperText>
+                  ) : (
+                    ""
                   )}
                 </div>
               </div>

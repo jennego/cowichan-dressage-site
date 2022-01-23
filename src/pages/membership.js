@@ -89,19 +89,19 @@ const validationSchema = yup.object({
     .required("Make sure to confirm that you are not a robot!"),
 })
 
-const encode = data => {
-  const formData = new FormData()
-  for (const key of Object.keys(data)) {
-    formData.append(key, data[key])
-  }
-  return formData
-}
-
 // const encode = data => {
-//   return Object.keys(data)
-//     .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-//     .join("&")
+//   const formData = new FormData()
+//   for (const key of Object.keys(data)) {
+//     formData.append(key, data[key])
+//   }
+//   return formData
 // }
+
+const encode = data => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&")
+}
 
 const MemberForm = props => {
   const [open, setOpen] = React.useState(false)
@@ -131,13 +131,12 @@ const MemberForm = props => {
       onSubmit={(values, actions) => {
         fetch("/", {
           method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
 
           // headers: { "Content-Type": "multipart/form-data" },
           body: encode({ "form-name": "Membership", ...values }),
         })
           .then(() => {
-            alert(JSON.stringify(values, null, 2))
-
             navigate("/form-success", {
               state: { values, formName: "membership", cost: cost },
             })
