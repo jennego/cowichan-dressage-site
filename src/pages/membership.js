@@ -135,7 +135,7 @@ const MemberForm = props => {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
 
           // headers: { "Content-Type": "multipart/form-data" },
-          body: encode({ "form-name": "Membership", ...values }),
+          body: encode({ "form-name": "membership", ...values }),
         })
           .then(() => {
             navigate("/form-success", {
@@ -165,8 +165,8 @@ const MemberForm = props => {
       {props => (
         <Form
           data-netlify="true"
-          name="Membership"
-          data-netlify-recaptcha="true"
+          name="membership"
+          // data-netlify-recaptcha="true"
           netlify-honeypot="bot-field"
           className="form-style"
         >
