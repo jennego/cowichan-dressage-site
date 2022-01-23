@@ -142,7 +142,6 @@ const MemberForm = props => {
         // "g-recaptcha-response": "",
       }}
       onSubmit={(values, actions) => {
-        console.log(values["g-recaptcha-response"])
         fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -185,11 +184,12 @@ const MemberForm = props => {
     >
       {props => (
         <Form
-          data-netlify="true"
           name="Membership"
+          data-netlify="true"
           data-netlify-recaptcha="true"
           netlify-honeypot="bot-field"
           className="form-style"
+          method="POST"
         >
           <Field type="hidden" name="bot-field" />
 
