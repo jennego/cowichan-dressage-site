@@ -146,7 +146,11 @@ const MemberForm = props => {
         fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: encode({ "form-name": "Membership", ...values }),
+          body: encode({
+            "form-name": "Membership",
+            ...values,
+            "g-recaptcha-response": values["g-recaptcha-response"],
+          }),
         })
           .then(() => {
             alert(JSON.stringify(values, null, 2))
@@ -183,7 +187,7 @@ const MemberForm = props => {
         <Form
           data-netlify="true"
           name="Membership"
-          // data-netlify-recaptcha="true"
+          data-netlify-recaptcha="true"
           netlify-honeypot="bot-field"
           className="form-style"
         >
@@ -400,10 +404,10 @@ const MemberForm = props => {
               </FormControl>
             </Grid>
           </Grid>
-          <Button color="primary" variant="contained" type="submit">
+          {/* <Button color="primary" variant="contained" type="submit">
             Submit
-          </Button>
-          {/* <HumanSubmit {...props} /> */}
+          </Button> */}
+          <HumanSubmit {...props} />
         </Form>
       )}
     </Formik>
