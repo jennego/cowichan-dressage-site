@@ -69,26 +69,26 @@ const BirthDatePickerField = ({ field, form, props, ...other }) => {
   )
 }
 
-const validationSchema = yup.object({
-  email: yup
-    .string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
-  name: yup.string("Enter your name").required("Name is required"),
-  address: yup.string("Enter your address").required("Address is required"),
-  birthDate: yup.date().typeError("Enter a date").required("Enter a date"),
-  hcbc: yup.number().typeError("Needs to be a number"),
-  phonenumber: yup.string().required(),
-  emergContactName: yup
-    .string("Enter name of emergency contact")
-    .required("Emergency contact name is required"),
-  emergContactPhone: yup.string().required(),
-  paymentMethod: yup.string().required("You must choose a payment method"),
-  "g-recaptcha-response": yup
-    .string()
-    .nullable()
-    .required("Make sure to confirm that you are not a robot!"),
-})
+// const validationSchema = yup.object({
+//   email: yup
+//     .string("Enter your email")
+//     .email("Enter a valid email")
+//     .required("Email is required"),
+//   name: yup.string("Enter your name").required("Name is required"),
+//   address: yup.string("Enter your address").required("Address is required"),
+//   birthDate: yup.date().typeError("Enter a date").required("Enter a date"),
+//   hcbc: yup.number().typeError("Needs to be a number"),
+//   phonenumber: yup.string().required(),
+//   emergContactName: yup
+//     .string("Enter name of emergency contact")
+//     .required("Emergency contact name is required"),
+//   emergContactPhone: yup.string().required(),
+//   paymentMethod: yup.string().required("You must choose a payment method"),
+//   "g-recaptcha-response": yup
+//     .string()
+//     .nullable()
+//     .required("Make sure to confirm that you are not a robot!"),
+// })
 
 // const encode = data => {
 //   const formData = new FormData()
