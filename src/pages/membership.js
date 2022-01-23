@@ -129,15 +129,26 @@ const MemberForm = props => {
 
   return (
     <Formik
+      initialValues={{
+        email: "",
+        name: "",
+        address: "",
+        birthDate: null,
+        paymentMethod: "",
+        emergContactName: "",
+        emergContactPhone: "",
+        phonenumber: "",
+        hcbc: "",
+        // "g-recaptcha-response": "",
+      }}
       onSubmit={(values, actions) => {
         fetch("/", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-
-          // headers: { "Content-Type": "multipart/form-data" },
           body: encode({ "form-name": "membership", ...values }),
         })
           .then(() => {
+            actions.resetForm()
             navigate("/form-success", {
               state: { values, formName: "membership", cost: cost },
             })
@@ -149,18 +160,6 @@ const MemberForm = props => {
           .finally(() => actions.setSubmitting(false))
       }}
       // validationSchema={validationSchema}
-      initialValues={{
-        email: "",
-        name: "",
-        address: "",
-        birthDate: null,
-        paymentMethod: "",
-        emergContactName: "",
-        emergContactPhone: "",
-        phonenumber: "",
-        hcbc: "",
-        "g-recaptcha-response": "",
-      }}
     >
       {props => (
         <Form
