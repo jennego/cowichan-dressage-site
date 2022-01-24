@@ -120,9 +120,8 @@ const Sessions = ({
           label="Selected Sessions"
           value={props.values.selectedSessions}
         />
-
-        <div>Move payment here</div>
       </div>
+      {/* <div>Move payment here</div> */}
     </div>
   )
 }
