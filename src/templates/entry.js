@@ -248,6 +248,7 @@ const Entry = ({ pageContext, data, location }) => {
               body: encode({
                 "form-name": `${pageContext.eventName} Entries`,
                 ...values,
+                "g-recaptcha-response": values["g-recaptcha-response"],
               }),
             })
               .then(() => {
@@ -342,10 +343,11 @@ const Entry = ({ pageContext, data, location }) => {
               <hr />
               <Paper>
                 <Form
-                  data-netlify="true"
                   name={`${pageContext.eventName} Entries`}
-                  // data-netlify-recaptcha="true"
+                  data-netlify-recaptcha="true"
+                  data-netlify="true"
                   netlify-honeypot="bot-field"
+                  method="POST"
                   className="form-style"
                 >
                   {!props.isValid && props.submitCount > 0 ? (
@@ -400,11 +402,7 @@ const Entry = ({ pageContext, data, location }) => {
                   )}
                   <PaymentForm props={props} data={data} />
 
-                  <Button color="primary" variant="contained" type="submit">
-                    Submit
-                  </Button>
-
-                  {/* <HumanSubmit {...props} /> */}
+                  <HumanSubmit {...props} />
                 </Form>
               </Paper>
             </>
