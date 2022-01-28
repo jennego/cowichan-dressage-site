@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography"
 import { GatsbyImage } from "gatsby-plugin-image"
 import Grid from "@material-ui/core/Grid"
 import { DateList } from "../components/dateButtonList"
+import LocationInfo from "../components/event-location"
 
 const Events = () => {
   const data = useStaticQuery(graphql`
@@ -61,9 +62,12 @@ const Events = () => {
             <CardContent>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={node.image ? 8 : 12}>
-                  <Typography gutterBottom variant="h4">
-                    {node.eventName}
-                  </Typography>
+                  <Typography variant="h4">{node.eventName}</Typography>
+                  <LocationInfo
+                    locationName={node.locationName}
+                    lat={node.location.lat}
+                    lon={node.location.lon}
+                  />
                   <Typography gutterBottom variant="body1">
                     {node.summary ? node.summary.summary : ""}
                   </Typography>

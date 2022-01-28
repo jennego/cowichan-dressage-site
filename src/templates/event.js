@@ -11,6 +11,7 @@ import { GatsbyImage } from "gatsby-plugin-image"
 
 import { DateList } from "../components/dateButtonList"
 import EventAccordion from "../components/eventAccordion"
+import LocationInfo from "../components/event-location"
 
 // add eventdate results and ride times
 
@@ -90,6 +91,11 @@ const Event = ({ data, pageContext }) => {
         <Typography variant="h3" style={{ paddingTop: "1rem" }}>
           {pageContext.eventName}
         </Typography>
+        <LocationInfo
+          locationName={event.locationName}
+          lat={event.location.lat}
+          lon={event.location.lon}
+        />
         <Grid container spacing={1} style={{ marginBottom: "1rem" }}>
           <Grid item lg={event.image ? 8 : 12}>
             <List>
