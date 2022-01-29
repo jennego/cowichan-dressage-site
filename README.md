@@ -1,12 +1,6 @@
 TO DO LIST
 
-- order events by nearest upcoming date on events page (need to think about that one)
 - disable payment method if total cost is 0
-
-- show resource pdf if included - done
-- show session name if one is included - done
-- make sure other details reach the results - done
-- add rules checkbox to form - done
 
 Final touches
 

@@ -14,7 +14,7 @@ import LocationInfo from "../components/event-location"
 const Events = () => {
   const data = useStaticQuery(graphql`
     {
-      allContentfulEvent {
+      allContentfulEvent(sort: { fields: eventDates___date, order: DESC }) {
         edges {
           node {
             eventName
