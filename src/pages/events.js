@@ -62,7 +62,9 @@ const Events = () => {
             <CardContent>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={node.image ? 8 : 12}>
-                  <Typography variant="h4">{node.eventName}</Typography>
+                  <Link to={node.slug} className="event-link">
+                  <Typography variant="h4">{node.eventName}</Typography> 
+                  </Link>
                   <LocationInfo
                     locationName={node.locationName}
                     lat={node.location.lat}

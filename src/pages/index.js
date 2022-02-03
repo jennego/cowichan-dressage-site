@@ -22,6 +22,7 @@ import { useStaticQuery, graphql, navigate } from "gatsby"
 import IsFullBadge from "../components/isFullBadge"
 import { sortBy } from "lodash"
 
+
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
     {

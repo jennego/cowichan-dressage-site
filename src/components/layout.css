@@ -272,3 +272,12 @@ a.menu-item:hover {
   border-radius: 5px !important;
   text-transform: uppercase;
 }
+
+.event-link, .event-link:visited {
+  text-decoration:none;
+  color: #021533;
+}
+
+.event-link:hover {
+ color: #1c54b2;
+}

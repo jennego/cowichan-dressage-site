@@ -1,3 +1,7 @@
+// const SegfaultHandler = require('segfault-handler');
+// SegfaultHandler.registerHandler('crash.log');
+
+
 require("dotenv").config({
   path: `.env`,
 })

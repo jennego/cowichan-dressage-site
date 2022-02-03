@@ -36,6 +36,7 @@ export const query = graphql`
   query entryQuery($id: String!) {
     contentfulEvent(id: { eq: $id }) {
       eventName
+      membershipRequired
       eventDates {
         date
         subtitle
@@ -288,21 +289,31 @@ const Entry = ({ pageContext, data, location }) => {
         >
           {props => (
             <>
-              {console.log(props)}
               <div>
                 <Typography variant="h2">
                   Entry form for {pageContext.eventName}{" "}
                 </Typography>
-                <div className="entry-toolbar">
-                  <div>
-                    <Button
-                      variant="outlined"
-                      component={Link}
-                      to="/membership"
-                      color="primary"
-                    >
-                      Membership
-                    </Button>
+                <div
+                  className="entry-toolbar"
+                  style={{ display: "flex", flexDirection: "column" }}
+                >
+                  <div
+                    style={{
+                      padding: "0.5rem",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    {data.contentfulEvent.membershipRequired || undefined ? (
+                      <Typography>
+                        Current membership is required for this event.{" "}
+                        <a href="../membership">Go to Membership Form. </a>
+                      </Typography>
+                    ) : (
+                      <Typography>
+                        Membership is not required for this event.{" "}
+                      </Typography>
+                    )}
                   </div>
                   {data.contentfulEvent.contacts && (
                     <ResponsiveDialogContacts
@@ -311,33 +322,35 @@ const Entry = ({ pageContext, data, location }) => {
                       content={data.contentfulEvent.contacts}
                     />
                   )}
-                  {data.contentfulEvent.rules && (
-                    <div style={{ display: "flex" }}>
-                      <ResponsiveDialog
-                        title="Rules and Important Info"
-                        label="Rules"
-                        content={data.contentfulEvent.rules}
-                      />
-                    </div>
-                  )}
 
-                  {props.values.rules}
-
-                  <FormControlLabel
-                    style={{ marginLeft: "0.1rem" }}
-                    onChange={props.handleChange}
-                    control={<Checkbox name="rules" color="primary" />}
-                    label={
-                      <Typography variant="body2">
-                        I have read the rules{" "}
-                      </Typography>
-                    }
-                  />
-                  {props.touched.rules && Boolean(props.errors.rules) ? (
-                    <FormHelperText error>{props.errors.rules}</FormHelperText>
-                  ) : (
-                    ""
-                  )}
+                  <div style={{ display: "flex" }}>
+                    {data.contentfulEvent.rules && (
+                      <div style={{ display: "flex" }}>
+                        <ResponsiveDialog
+                          title="Rules and Important Info"
+                          label="Rules"
+                          content={data.contentfulEvent.rules}
+                        />
+                      </div>
+                    )}
+                    <FormControlLabel
+                      style={{ marginLeft: "0.1rem" }}
+                      onChange={props.handleChange}
+                      control={<Checkbox name="rules" color="primary" />}
+                      label={
+                        <Typography variant="body2">
+                          I have read and agree to the rules.
+                        </Typography>
+                      }
+                    />
+                    {props.touched.rules && Boolean(props.errors.rules) ? (
+                      <FormHelperText error>
+                        {props.errors.rules}
+                      </FormHelperText>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
               </div>
               <hr />
