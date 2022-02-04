@@ -38,6 +38,7 @@ import PhoneInput from "../components/PhoneInput"
 import { useStaticQuery, graphql } from "gatsby"
 import HumanSubmit from "../components/humanCheck"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
+import { FormLabel } from "@material-ui/core"
 
 const BirthDatePickerField = ({ field, form, props, ...other }) => {
   const currentError = form.errors[field.name]
@@ -77,12 +78,17 @@ const membershipSchema = yup.object().shape({
   name: yup.string("Enter your name").required("Name is required"),
   address: yup.string("Enter your address").required("Address is required"),
   birthDate: yup.date().typeError("Enter a date").required("Enter a date"),
-  hcbc: yup.number().typeError("Needs to be a number"),
-  phonenumber: yup.string().required(),
+  hcbc: yup
+    .number()
+    .typeError("Needs to be a number")
+    .required("HCBC or EC number is rerquired"),
+  phonenumber: yup.string().required("Phone number is required"),
   emergContactName: yup
     .string("Enter name of emergency contact")
     .required("Emergency contact name is required"),
-  emergContactPhone: yup.string().required(),
+  emergContactPhone: yup
+    .string()
+    .required("Emergency contact phone number is required"),
   paymentMethod: yup.string().required("You must choose a payment method"),
   // "g-recaptcha-response": yup
   //   .string()
@@ -381,8 +387,7 @@ const MemberForm = props => {
                   Boolean(props.errors.paymentMethod)
                 }
               >
-                <p> Membership cost is ${cost} </p>
-                Payment
+                <FormLabel component="legend">Payment Method</FormLabel>
                 <RadioGroup
                   aria-label="payment method"
                   name="paymentMethod"
@@ -436,6 +441,8 @@ const Membership = () => {
   let membershipContent =
     data.allContentfulSiteInfo.edges[0].node.membershipInfo
 
+  let cost = data.allContentfulSiteInfo.edges[0].node.membershipCost
+
   return (
     <Layout>
       <Main>
@@ -445,6 +452,10 @@ const Membership = () => {
           </Typography>
           <Typography variant="body1" style={{ marginBottom: "5px" }}>
             {membershipContent && renderRichText(membershipContent)}
+          </Typography>
+
+          <Typography gutterBottom>
+            Cowichan Dressage Club Membership cost is ${cost} per year.
           </Typography>
         </Paper>
         <Paper>

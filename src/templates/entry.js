@@ -174,10 +174,13 @@ const Entry = ({ pageContext, data, location }) => {
           return yup.mixed().required()
         }
         if (key.includes("Name")) {
-          return yup.string().required()
+          return yup.string().required("Name is required")
         }
         if (key.includes("hcbc")) {
-          return yup.number().required().typeError("you must specify a number")
+          return yup
+            .number()
+            .required("HCBC or EC number is required")
+            .typeError("you must specify a number")
         }
 
         if (key.includes("Phone")) {
@@ -197,13 +200,14 @@ const Entry = ({ pageContext, data, location }) => {
         }
 
         if (key.includes("email")) {
-          return yup.string().email().required()
+          return yup.string().email().required("Email is required")
         }
 
         if (key.includes("rules")) {
           return yup
             .bool()
             .oneOf([true])
+            .typeError("Agreeing to the rules is required")
             .required("Agreeing to the rules is required")
         }
 
@@ -280,7 +284,7 @@ const Entry = ({ pageContext, data, location }) => {
             emergContactPhone: "",
             selectedSessions: "",
             paymentMethod: "",
-            // "g-recaptcha-response": "",
+            "g-recaptcha-response": "",
             ...initialWaivers,
             ...initialTests,
           }}
@@ -334,6 +338,7 @@ const Entry = ({ pageContext, data, location }) => {
                       </div>
                     )}
                     <FormControlLabel
+                      id="rules"
                       style={{ marginLeft: "0.1rem" }}
                       onChange={props.handleChange}
                       control={<Checkbox name="rules" color="primary" />}
@@ -343,9 +348,11 @@ const Entry = ({ pageContext, data, location }) => {
                         </Typography>
                       }
                     />
+                  </div>
+                  <div style={{ marginTop: "-10px" }}>
                     {props.touched.rules && Boolean(props.errors.rules) ? (
                       <FormHelperText error>
-                        {props.errors.rules}
+                        Agreeing to the rules is required
                       </FormHelperText>
                     ) : (
                       ""
@@ -375,8 +382,8 @@ const Entry = ({ pageContext, data, location }) => {
                   ) : (
                     ""
                   )}
-
                   <FocusError />
+
                   <Field type="hidden" name="bot-field" />
 
                   <DateForm props={props} data={data} location={location} />
