@@ -1,15 +1,14 @@
 // const SegfaultHandler = require('segfault-handler');
 // SegfaultHandler.registerHandler('crash.log');
 
-
 require("dotenv").config({
   path: `.env`,
 })
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    title: `Cowichan Dressage Club`,
+    description: `The Cowichan Dressage Club is a nonprofit society dedicated to facilitating dressage-specific educational and developmental opportunities in the Cowichan Valley, BC, Canada. Our offerings include informational sessions, clinics, test days, & schooling competitions.`,
     author: `@gatsbyjs`,
     siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
   },
