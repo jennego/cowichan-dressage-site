@@ -306,8 +306,9 @@ export const Notes = ({ props }) => (
     <TextField
       id="notes"
       name="notes"
-      label="Notes (preferences etc) "
-      placeholder="Note to organizers (preferred ride times, travel considerations, etc.)"
+      label="Notes to organizers (preferred ride times, travel considerations, etc."
+      placeholder="Please identify any special needs or considerations you would like us to know. We will do our best to accommodate your requests, but
+may not be able to fulfill everything you ask for. PLEASE INDICATE IF YOU ARE TRAVELLING WITH ANOTHER ENTRY OR YOUR COACH"
       multiline
       minRows={4}
       maxRows={6}

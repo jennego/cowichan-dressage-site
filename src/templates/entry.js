@@ -17,6 +17,7 @@ import { Formik, Form, Field, useFormikContext } from "formik"
 import * as yup from "yup"
 import mapValues from "lodash/mapValues"
 
+import { renderRichText } from "gatsby-source-contentful/rich-text"
 import ResponsiveDialog from "../components/infoDialog"
 
 import ResponsiveDialogContacts from "../components/listDialog"
@@ -62,6 +63,14 @@ export const query = graphql`
         raw
       }
       registrationInfo {
+        raw
+      }
+
+      cancellationPolicy {
+        raw
+      }
+
+      confirmationMessage {
         raw
       }
       locationName
@@ -359,6 +368,25 @@ const Entry = ({ pageContext, data, location }) => {
                     )}
                   </div>
                 </div>
+
+                {data.contentfulEvent.cancellationPolicy && (
+                  <div>
+                    <Typography
+                      component="h4"
+                      style={{
+                        fontWeight: "bold",
+                        lineHeight: "3px",
+                        marginTop: "1rem",
+                      }}
+                    >
+                      Cancellation Policy
+                    </Typography>
+
+                    <Typography variant="body2">
+                      {renderRichText(data.contentfulEvent.cancellationPolicy)}
+                    </Typography>
+                  </div>
+                )}
               </div>
               <hr />
               <Paper>
@@ -421,6 +449,11 @@ const Entry = ({ pageContext, data, location }) => {
                     ""
                   )}
                   <PaymentForm props={props} data={data} />
+                  {data.contentfulEvent.confirmationMessage && (
+                    <Typography variant="body2">
+                      {renderRichText(data.contentfulEvent.confirmationMessage)}
+                    </Typography>
+                  )}
 
                   <HumanSubmit {...props} />
                 </Form>

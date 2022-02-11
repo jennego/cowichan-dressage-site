@@ -74,6 +74,17 @@ export const query = graphql`
         raw
       }
 
+      testInfo {
+        raw
+      }
+      cancellationPolicy {
+        raw
+      }
+
+      confirmationMessage {
+        raw
+      }
+
       locationName
       location {
         lat

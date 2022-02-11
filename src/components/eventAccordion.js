@@ -88,14 +88,14 @@ const EventAccordion = ({ event }) => {
       {event.rules && (
         <Accordion
           onChange={() => handleChange("rules")}
-          expanded={expand === "rules" ? true : false}
           className={
             expand === "rules" ? "event-border" : "event-border accordion-hover"
           }
+          expanded={expand === "rules" ? true : false}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls="rules"
+            aria-controls="rules-content"
             id="rules"
           >
             <Typography variant="h4" component="h2">
@@ -104,6 +104,54 @@ const EventAccordion = ({ event }) => {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>{renderRichText(event.rules)}</Typography>
+          </AccordionDetails>
+        </Accordion>
+      )}
+      {event.testInfo && (
+        <Accordion
+          onChange={() => handleChange("testInfo")}
+          expanded={expand === "testInfo" ? true : false}
+          className={
+            expand === "testInfo"
+              ? "event-border"
+              : "event-border accordion-hover"
+          }
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="testInfo"
+            id="testInfo"
+          >
+            <Typography variant="h4" component="h2">
+              Test Info
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>{renderRichText(event.testInfo)}</Typography>
+          </AccordionDetails>
+        </Accordion>
+      )}
+      {event.cancellationPolicy && (
+        <Accordion
+          onChange={() => handleChange("cancellationPolicy")}
+          className={
+            expand === "cancellationPolicy"
+              ? "event-border"
+              : "event-border accordion-hover"
+          }
+          expanded={expand === "cancellationPolicy" ? true : false}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="cancellation policy"
+            id="cancellationPolicy"
+          >
+            <Typography variant="h4" component="h2">
+              Cancellation Policy
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>{renderRichText(event.cancellationPolicy)}</Typography>
           </AccordionDetails>
         </Accordion>
       )}
@@ -124,6 +172,10 @@ const EventAccordion = ({ event }) => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails style={{ flexDirection: "column" }}>
+          {event.confirmationMessage && (
+            <Typography>{renderRichText(event.confirmationMessage)}</Typography>
+          )}
+
           {event.registrationInfo && (
             <Typography>{renderRichText(event.registrationInfo)}</Typography>
           )}
@@ -138,6 +190,7 @@ const EventAccordion = ({ event }) => {
           </Link>
         </AccordionDetails>
       </Accordion>
+
       {event.contacts ? (
         <Accordion
           onChange={() => handleChange("contacts")}

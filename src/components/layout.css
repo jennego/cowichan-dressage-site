@@ -299,3 +299,11 @@ a,
 a:hover > .MuiButton-label {
   text-decoration: none !important;
 }
+
+.MuiTypography-body1 li {
+  line-height: 1.5rem !important;
+}
+
+li > p {
+  margin: 0.2rem;
+}
