@@ -22,7 +22,6 @@ import { useStaticQuery, graphql, navigate } from "gatsby"
 import IsFullBadge from "../components/isFullBadge"
 import { sortBy } from "lodash"
 
-
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
     {
@@ -147,10 +146,15 @@ const IndexPage = () => {
             >
               {siteInfo.siteName}
             </Typography>
-            <br></br>
-            <Button variant="contained" color="primary">
-              See Events{" "}
-            </Button>
+            <Link to="/events">
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ marginTop: "1rem" }}
+              >
+                See Events
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
