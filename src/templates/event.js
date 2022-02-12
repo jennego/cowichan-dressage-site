@@ -23,6 +23,14 @@ export const query = graphql`
         gatsbyImageData
         title
       }
+      sessions {
+        testFields
+        cost
+        description {
+          description
+        }
+      }
+      membershipRequired
       adultWaivers {
         file {
           url
@@ -138,7 +146,7 @@ const Event = ({ data, pageContext }) => {
             ""
           )}
         </Grid>
-        <EventAccordion event={event} />
+        <EventAccordion event={event} data={data} />
       </Main>
     </Layout>
   )

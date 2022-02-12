@@ -10,10 +10,11 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import ContactCard from "./contactCard"
 import { Link } from "gatsby"
+import Entry from "../templates/entry"
 
 // push or remove ids to an array, determine true/false based on presence in array
 
-const EventAccordion = ({ event }) => {
+const EventAccordion = ({ event, data }) => {
   const [expand, setExpand] = useState("info")
 
   useLayoutEffect(accordionId => {
@@ -172,22 +173,25 @@ const EventAccordion = ({ event }) => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails style={{ flexDirection: "column" }}>
-          {event.confirmationMessage && (
+          {/* {event.confirmationMessage && (
             <Typography>{renderRichText(event.confirmationMessage)}</Typography>
           )}
 
           {event.registrationInfo && (
             <Typography>{renderRichText(event.registrationInfo)}</Typography>
-          )}
-          <Link to={"entry"} style={{ textDecoration: "none" }}>
+          )} */}
+          <Entry data={data} />
+
+          {/* <Link to={"entry"} style={{ textDecoration: "none" }}>
             <Button
               variant="contained"
               color="primary"
               style={{ margin: "0.5rem 0.2rem" }}
             >
               Entry Form
-            </Button>
+            </Button> 
           </Link>
+            */}
         </AccordionDetails>
       </Accordion>
 

@@ -254,13 +254,14 @@ const Entry = ({ pageContext, data, location }) => {
   return (
     <Layout>
       <Main>
+        {console.log(data.contentfulEvent.eventName)}
         <Formik
           onSubmit={(values, actions) => {
             fetch("/", {
               method: "POST",
               // headers: { "Content-Type": "multipart/form-data" },
               body: encode({
-                "form-name": `${pageContext.eventName} Entries`,
+                "form-name": `${data.contentfulEvent.eventName} Entries`,
                 ...values,
                 "g-recaptcha-response": values["g-recaptcha-response"],
               }),
@@ -282,7 +283,7 @@ const Entry = ({ pageContext, data, location }) => {
           validationSchema={dynamicSchema}
           initialValues={{
             rules: false,
-            date: location.state ? location.state.date : "",
+            // date: location.state ? location.state.date : "",
             Name: "",
             horseName: "",
             email: "",
@@ -304,7 +305,7 @@ const Entry = ({ pageContext, data, location }) => {
             <>
               <div>
                 <Typography variant="h2">
-                  Entry form for {pageContext.eventName}{" "}
+                  Entry form for {data.contentfulEvent.eventName}
                 </Typography>
                 <div
                   className="entry-toolbar"
@@ -371,7 +372,7 @@ const Entry = ({ pageContext, data, location }) => {
 
                 {data.contentfulEvent.cancellationPolicy && (
                   <div>
-                    <Typography
+                    {/* <Typography
                       component="h4"
                       style={{
                         fontWeight: "bold",
@@ -384,14 +385,14 @@ const Entry = ({ pageContext, data, location }) => {
 
                     <Typography variant="body2">
                       {renderRichText(data.contentfulEvent.cancellationPolicy)}
-                    </Typography>
+                    </Typography> */}
                   </div>
                 )}
               </div>
               <hr />
               <Paper>
                 <Form
-                  name={`${pageContext.eventName} Entries`}
+                  name={`${data.contentfulEvent.adultWaivers} Entries`}
                   data-netlify-recaptcha="true"
                   data-netlify="true"
                   netlify-honeypot="bot-field"

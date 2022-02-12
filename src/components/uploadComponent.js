@@ -37,7 +37,7 @@ const UploadField = ({ index, doc, props, waiverType }) => {
           </Grid>
           <Grid item xs={12}>
             <FormLabel>
-              Upload Completed
+              Upload Completed Form
               <span style={{ fontStyle: "italic" }}> {doc.title} </span>
             </FormLabel>
             <div
