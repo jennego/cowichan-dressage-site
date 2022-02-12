@@ -4,7 +4,8 @@ import FormLabel from "@material-ui/core/FormLabel"
 import Grid from "@material-ui/core/Grid"
 import TestInfo from "../components/selectWithOther"
 import { Card, CardContent, Typography } from "@material-ui/core"
-
+import { PaymentForm } from "../components/entryFormComponents"
+import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { Field } from "formik"
 
 const Sessions = ({
@@ -13,6 +14,7 @@ const Sessions = ({
   isChecked,
   selectedSessions,
   handleSelections,
+  data,
 }) => {
   const newSessionArr = sessionArr.map((session, index) => ({
     id: index,
@@ -121,7 +123,12 @@ const Sessions = ({
           value={props.values.selectedSessions}
         />
       </div>
-      {/* <div>Move payment here</div> */}
+      <PaymentForm props={props} data={data} />
+      {data.contentfulEvent.confirmationMessage && (
+        <Typography variant="body2">
+          {renderRichText(data.contentfulEvent.confirmationMessage)}
+        </Typography>
+      )}
     </div>
   )
 }
