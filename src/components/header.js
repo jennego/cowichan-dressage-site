@@ -75,6 +75,16 @@ const isPartiallyActive = ({ isPartiallyCurrent }) => {
     : { className: "menu-item hvr-outline-in" }
 }
 
+const isCurrent = ({ isCurrent }) => {
+  return isCurrent
+    ? { className: "active-nav menu-item" }
+    : { className: "menu-item hvr-outline-in" }
+}
+const FullNavLink = props => (
+  <GatsbyLink getProps={isCurrent} {...props}>
+    {props.children}
+  </GatsbyLink>
+)
 const PartialNavLink = props => (
   <GatsbyLink getProps={isPartiallyActive} {...props}>
     {props.children}
@@ -86,17 +96,18 @@ const MenuItems = () => (
     <PartialNavLink to="/events" style={{ alignSelf: "center" }}>
       Events
     </PartialNavLink>
-
     <PartialNavLink to="/calendar" style={{ alignSelf: "center" }}>
       Calendar
     </PartialNavLink>
-
     <PartialNavLink to="/membership" style={{ alignSelf: "center" }}>
       Membership
     </PartialNavLink>
     <PartialNavLink to="/resources" style={{ alignSelf: "center" }}>
       Resources
     </PartialNavLink>
+    <FullNavLink to="/" style={{ alignSelf: "center" }}>
+      Home
+    </FullNavLink>
   </>
 )
 

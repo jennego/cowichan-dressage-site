@@ -55,15 +55,15 @@ export const query = graphql`
           }
         }
       }
-      contacts {
-        email
-        name
-        title
-        phoneNumber
-        details {
-          details
-        }
-      }
+      # contacts {
+      #   email
+      #   name
+      #   title
+      #   phoneNumber
+      #   details {
+      #     details
+      #   }
+      # }
       eventInformation {
         raw
       }

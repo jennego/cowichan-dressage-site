@@ -18,19 +18,19 @@ const Resources = () => {
           }
         }
       }
-      allContentfulContact {
-        edges {
-          node {
-            name
-            title
-            phoneNumber
-            email
-            details {
-              details
-            }
-          }
-        }
-      }
+      # allContentfulContact {
+      #   edges {
+      #     node {
+      #       name
+      #       title
+      #       phoneNumber
+      #       email
+      #       details {
+      #         details
+      #       }
+      #     }
+      #   }
+      # }
     }
   `)
   return (

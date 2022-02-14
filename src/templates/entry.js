@@ -42,15 +42,15 @@ export const query = graphql`
         subtitle
         isFull
       }
-      contacts {
-        email
-        name
-        title
-        phoneNumber
-        details {
-          details
-        }
-      }
+      # contacts {
+      #   email
+      #   name
+      #   title
+      #   phoneNumber
+      #   details {
+      #     details
+      #   }
+      # }
       sessions {
         testFields
         cost
