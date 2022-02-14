@@ -42,14 +42,14 @@ const Resources = () => {
             {renderRichText(data.allContentfulSiteInfo.edges[0].node.resources)}
           </Typography>
         )}
-        <Typography variant="h4" style={{ marginTop: "2rem" }}>
+        {/* <Typography variant="h4" style={{ marginTop: "2rem" }}>
           Cowichan Dressage Club Contacts
         </Typography>
         <Grid container spacing={2}>
           {data.allContentfulContact.edges.map(({ node }, index) => (
             <ContactCard contact={node} />
           ))}
-        </Grid>
+        </Grid> */}
       </Main>
     </Layout>
   )
