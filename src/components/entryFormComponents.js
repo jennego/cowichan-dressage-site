@@ -68,6 +68,7 @@ export const PaymentForm = ({ props }) => {
       aria-label="payment method"
       name="paymentMethod"
       onChange={props.handleChange}
+      style={{ marginTop: "2rem" }}
     >
       <FormLabel> Payment </FormLabel>
       <Typography gutterBottom variant="body2">
@@ -302,23 +303,43 @@ export const EntryForm = ({ props, data }) => {
 }
 
 export const Notes = ({ props }) => (
-  <Grid item xs={12} style={{ marginTop: "2rem" }}>
-    <TextField
-      id="notes"
-      name="notes"
-      label="Notes to organizers (preferred ride times, travel considerations, etc."
-      placeholder="Please identify any special needs or considerations you would like us to know. We will do our best to accommodate your requests, but
-may not be able to fulfill everything you ask for. PLEASE INDICATE IF YOU ARE TRAVELLING WITH ANOTHER ENTRY OR YOUR COACH"
-      multiline
-      minRows={4}
-      maxRows={6}
-      onBlur={props.handleBlur}
-      fullWidth
-      variant="filled"
-      value={props.values.notes}
-      onChange={props.handleChange}
-      error={props.touched.notes && Boolean(props.errors.notes)}
-      helperText={props.touched.notes && props.errors.notes}
-    />
-  </Grid>
+  <>
+    <Grid item xs={12}>
+      <TextField
+        variant="filled"
+        id="coach"
+        name="coach"
+        label="Coach/Trainer"
+        value={props.values.coach}
+        onBlur={props.handleBlur}
+        onChange={props.handleChange}
+        error={props.touched.coach && Boolean(props.errors.coach)}
+        helperText={props.touched.coach && props.errors.coach}
+      />
+    </Grid>
+    <Grid item xs={12} style={{ marginTop: "2rem" }}>
+      <p>
+        Please identify any special needs or considerations you would like us to
+        know. We will do our best to accommodate your requests, but may not be
+        able to fulfill everything you ask for
+      </p>
+      <TextField
+        id="notes"
+        name="notes"
+        label="Special Needs and Considerations"
+        placeholder="Please identify any special needs or considerations you would like us to know. We will do our best to accommodate your requests, but
+      may not be able to fulfill everything you ask for. PLEASE INDICATE IF YOU ARE TRAVELLING WITH ANOTHER ENTRY OR YOUR COACH"
+        multiline
+        minRows={4}
+        maxRows={6}
+        onBlur={props.handleBlur}
+        fullWidth
+        variant="filled"
+        value={props.values.notes}
+        onChange={props.handleChange}
+        error={props.touched.notes && Boolean(props.errors.notes)}
+        helperText={props.touched.notes && props.errors.notes}
+      />
+    </Grid>
+  </>
 )

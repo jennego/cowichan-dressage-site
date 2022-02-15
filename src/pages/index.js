@@ -95,6 +95,7 @@ const IndexPage = () => {
       locationName: date.locationName ? date.locationName : node.locationName,
       allDay: true,
       description: node.summary.summary,
+      isFull: date.isFull,
     }))
   )
 

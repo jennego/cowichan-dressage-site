@@ -29,7 +29,6 @@ import Alert from "@material-ui/lab/Alert"
 
 import { DateForm, Notes } from "../components/entryFormComponents"
 import { EntryForm } from "../components/entryFormComponents"
-import { PaymentForm } from "../components/entryFormComponents"
 import Sessions from "../components/sessions"
 import HumanSubmit from "../components/humanCheck"
 
@@ -43,15 +42,15 @@ export const query = graphql`
         subtitle
         isFull
       }
-      contacts {
-        email
-        name
-        title
-        phoneNumber
-        details {
-          details
-        }
-      }
+      # contacts {
+      #   email
+      #   name
+      #   title
+      #   phoneNumber
+      #   details {
+      #     details
+      #   }
+      # }
       sessions {
         testFields
         cost
@@ -418,21 +417,6 @@ const Entry = ({ pageContext, data, location }) => {
                   <DateForm props={props} data={data} location={location} />
                   <EntryForm props={props} data={data} />
 
-                  {data.contentfulEvent.sessions && (
-                    <Grid item xs={12}>
-                      <UpdateSelectedSessions />
-                      <Field
-                        component={Sessions}
-                        name="sessions"
-                        sessionArr={data.contentfulEvent.sessions}
-                        props={props}
-                        handleSelections={handleSelections}
-                        setSelectedSessions={setSelectedSessions}
-                        selectedSessions={selectedSessions}
-                        isChecked={isChecked}
-                      />
-                    </Grid>
-                  )}
                   <Notes props={props} data={data} />
 
                   {data.contentfulEvent.juniorWaivers &&
@@ -449,13 +433,23 @@ const Entry = ({ pageContext, data, location }) => {
                   ) : (
                     ""
                   )}
-                  <PaymentForm props={props} data={data} />
-                  {data.contentfulEvent.confirmationMessage && (
-                    <Typography variant="body2">
-                      {renderRichText(data.contentfulEvent.confirmationMessage)}
-                    </Typography>
-                  )}
 
+                  {data.contentfulEvent.sessions && (
+                    <Grid item xs={12}>
+                      <UpdateSelectedSessions />
+                      <Field
+                        component={Sessions}
+                        name="sessions"
+                        sessionArr={data.contentfulEvent.sessions}
+                        props={props}
+                        handleSelections={handleSelections}
+                        setSelectedSessions={setSelectedSessions}
+                        selectedSessions={selectedSessions}
+                        isChecked={isChecked}
+                        data={data}
+                      />
+                    </Grid>
+                  )}
                   <HumanSubmit {...props} />
                 </Form>
               </Paper>
