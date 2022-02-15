@@ -307,3 +307,10 @@ a:hover > .MuiButton-label {
 li > p {
   margin: 0.2rem;
 }
+
+.eventAccordion .MuiAccordionSummary-root {
+  background: #e6f0f7 !important;
+}
+.eventAccordion .MuiAccordionSummary-root:hover {
+  background: #c7dceb !important;
+}

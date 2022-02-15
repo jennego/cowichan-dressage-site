@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect } from "react"
+import queryString from "query-string"
 
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
@@ -12,12 +13,23 @@ import ContactCard from "./contactCard"
 import { Link } from "gatsby"
 import Entry from "../templates/entry"
 
+// use query string to open/close accordian
+
 // push or remove ids to an array, determine true/false based on presence in array
 
-const EventAccordion = ({ event, data }) => {
+const EventAccordion = ({ event, data, location }) => {
   const [expand, setExpand] = useState("info")
 
+  const url = location.href
+  const parsed = queryString.parse(location.search)
+
+  const id = parsed.id
+
   useLayoutEffect(accordionId => {
+    /// grab query id
+    // match anchor
+    // scroll and open
+
     const anchor = window.location.hash.split("#")[1]
     if (anchor) {
       const anchorEl = document.getElementById(anchor)
@@ -48,7 +60,7 @@ const EventAccordion = ({ event, data }) => {
   }
 
   return (
-    <div>
+    <div className="eventAccordion">
       {event.eventInformation && (
         <Accordion
           onChange={() => handleChange("info")}
@@ -100,7 +112,7 @@ const EventAccordion = ({ event, data }) => {
             id="rules"
           >
             <Typography variant="h4" component="h2">
-              Rules
+              Rules &amp; Other Important Info
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -175,11 +187,10 @@ const EventAccordion = ({ event, data }) => {
         <AccordionDetails style={{ flexDirection: "column" }}>
           {/* {event.confirmationMessage && (
             <Typography>{renderRichText(event.confirmationMessage)}</Typography>
-          )}
-
+          )} */}
           {event.registrationInfo && (
             <Typography>{renderRichText(event.registrationInfo)}</Typography>
-          )} */}
+          )}
           <Entry data={data} />
 
           {/* <Link to={"entry"} style={{ textDecoration: "none" }}>

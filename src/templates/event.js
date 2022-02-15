@@ -2,6 +2,7 @@ import React from "react"
 import Main from "../components/MainContent"
 import Layout from "../components/layout"
 import Typography from "@material-ui/core/Typography"
+import Button from "@material-ui/core/Button"
 
 import Grid from "@material-ui/core/Grid"
 import List from "@material-ui/core/List"
@@ -102,7 +103,7 @@ export const query = graphql`
   }
 `
 
-const Event = ({ data, pageContext }) => {
+const Event = ({ data, pageContext, location }) => {
   const event = data.contentfulEvent
   return (
     <Layout>
@@ -145,8 +146,12 @@ const Event = ({ data, pageContext }) => {
           ) : (
             ""
           )}
+          <Button variant="contained" color="primary">
+            {" "}
+            Go to Entry Form{" "}
+          </Button>
         </Grid>
-        <EventAccordion event={event} data={data} />
+        <EventAccordion event={event} data={data} location={location} />
       </Main>
     </Layout>
   )

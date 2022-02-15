@@ -304,8 +304,10 @@ export const EntryForm = ({ props, data }) => {
 
 export const Notes = ({ props }) => (
   <>
-    <Grid item xs={12}>
+    <p> Specify coach/trainer for scheduling purposes. </p>
+    <Grid item xs={12} md={6}>
       <TextField
+        fullWidth
         variant="filled"
         id="coach"
         name="coach"
@@ -321,14 +323,14 @@ export const Notes = ({ props }) => (
       <p>
         Please identify any special needs or considerations you would like us to
         know. We will do our best to accommodate your requests, but may not be
-        able to fulfill everything you ask for
+        able to fulfill everything you ask for. PLEASE INDICATE IF YOU ARE
+        TRAVELLING WITH ANOTHER ENTRY OR YOUR COACH.
       </p>
       <TextField
         id="notes"
         name="notes"
         label="Special Needs and Considerations"
-        placeholder="Please identify any special needs or considerations you would like us to know. We will do our best to accommodate your requests, but
-      may not be able to fulfill everything you ask for. PLEASE INDICATE IF YOU ARE TRAVELLING WITH ANOTHER ENTRY OR YOUR COACH"
+        placeholder="Travelling plans, scheduling requests, special requests etc"
         multiline
         minRows={4}
         maxRows={6}
