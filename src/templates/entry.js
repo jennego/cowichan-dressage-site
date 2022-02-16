@@ -281,7 +281,7 @@ const Entry = ({ pageContext, data, location }) => {
         validationSchema={dynamicSchema}
         initialValues={{
           rules: false,
-          // date: location.state ? location.state.date : "",
+          date: location.state ? location.state.date : "",
           Name: "",
           horseName: "",
           email: "",

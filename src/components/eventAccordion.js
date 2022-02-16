@@ -1,5 +1,4 @@
-import React, { useState, useLayoutEffect } from "react"
-import queryString from "query-string"
+import React, { useState, useEffect, useLayoutEffect } from "react"
 
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
@@ -10,8 +9,9 @@ import AccordionDetails from "@material-ui/core/AccordionDetails"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import ContactCard from "./contactCard"
-import { Link } from "gatsby"
 import Entry from "../templates/entry"
+import { useQueryParam } from "gatsby-query-params"
+import queryString from "query-string"
 
 // use query string to open/close accordian
 
@@ -19,29 +19,27 @@ import Entry from "../templates/entry"
 
 const EventAccordion = ({ event, data, location }) => {
   const [expand, setExpand] = useState("info")
+  const queryValue = useQueryParam("id", "info")
 
-  const url = location.href
-  const parsed = queryString.parse(location.search)
-
-  const id = parsed.id
-
-  useLayoutEffect(accordionId => {
+  useEffect(() => {
     /// grab query id
     // match anchor
     // scroll and open
+    if (queryValue) {
+      setExpand(queryValue)
+      const anchorEl = document.getElementById(queryValue)
+      console.log("anchor", anchorEl)
 
-    const anchor = window.location.hash.split("#")[1]
-    if (anchor) {
-      const anchorEl = document.getElementById(anchor)
-      if (anchorEl) {
-        setExpand(anchor)
+      if (queryValue !== "info") {
         anchorEl.scrollIntoView({
           behavior: "smooth",
           block: "start",
         })
       }
+    } else {
+      setExpand("info")
     }
-  }, [])
+  }, [queryValue])
 
   const handleChange = idString => {
     if (expand === idString) {
@@ -49,14 +47,6 @@ const EventAccordion = ({ event, data, location }) => {
     } else {
       setExpand(idString)
     }
-
-    // setExpand(expand => [...expand, { idString: true }])
-    // setSelectedSessions(selectedSessions => [...selectedSessions, session])
-    // if ((expand[id] = true)) {
-    //   setExpand(...expand, { id: false })
-    // } else {
-    //   setExpand(...expand, { id: true })
-    // }
   }
 
   return (
@@ -191,7 +181,7 @@ const EventAccordion = ({ event, data, location }) => {
           {event.registrationInfo && (
             <Typography>{renderRichText(event.registrationInfo)}</Typography>
           )}
-          <Entry data={data} />
+          <Entry data={data} location={location} />
 
           {/* <Link to={"entry"} style={{ textDecoration: "none" }}>
             <Button
@@ -205,8 +195,8 @@ const EventAccordion = ({ event, data, location }) => {
             */}
         </AccordionDetails>
       </Accordion>
-
-      {event.contacts ? (
+      {/* 
+      {event.contacts &&(
         <Accordion
           onChange={() => handleChange("contacts")}
           expanded={expand === "contacts" ? true : false}
@@ -232,10 +222,7 @@ const EventAccordion = ({ event, data, location }) => {
               ))}
             </Grid>
           </AccordionDetails>
-        </Accordion>
-      ) : (
-        " "
-      )}
+        </Accordion>)} */}
     </div>
   )
 }

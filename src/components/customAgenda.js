@@ -150,7 +150,7 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                           <ListItem
                             button
                             onClick={() =>
-                              navigate(`/events/${event.slug}/entry`, {
+                              navigate(`/events/${event.slug}?id=reg`, {
                                 state: { date: event.date },
                               })
                             }

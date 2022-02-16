@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button"
 import Grid from "@material-ui/core/Grid"
 import List from "@material-ui/core/List"
 
-import { graphql } from "gatsby"
+import { graphql, navigate } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 
 import { DateList } from "../components/dateButtonList"
@@ -146,11 +146,15 @@ const Event = ({ data, pageContext, location }) => {
           ) : (
             ""
           )}
-          <Button variant="contained" color="primary">
-            {" "}
-            Go to Entry Form{" "}
-          </Button>
         </Grid>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("?id=reg")}
+          style={{ marginBottom: "1rem" }}
+        >
+          Go to Entry Form
+        </Button>
         <EventAccordion event={event} data={data} location={location} />
       </Main>
     </Layout>

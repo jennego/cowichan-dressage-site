@@ -63,7 +63,7 @@ const Events = () => {
               <Grid container spacing={3}>
                 <Grid item xs={12} md={node.image ? 8 : 12}>
                   <Link to={node.slug} className="event-link">
-                  <Typography variant="h4">{node.eventName}</Typography> 
+                    <Typography variant="h4">{node.eventName}</Typography>
                   </Link>
                   <LocationInfo
                     locationName={node.locationName}
@@ -84,7 +84,7 @@ const Events = () => {
                     </Button>
                   </Link>
                   <Link
-                    to={`${node.slug}/entry`}
+                    to={`${node.slug}?id=reg`}
                     style={{ textDecoration: "none" }}
                   >
                     <Button
@@ -116,7 +116,7 @@ const Events = () => {
                       key={index}
                       date={date}
                       indexId={index}
-                      entryURL={`${node.slug}/entry`}
+                      entryURL={`${node.slug}?id=reg`}
                       event={node}
                       isFull={date.isFull}
                     />
