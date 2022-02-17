@@ -17,7 +17,7 @@ import AddToCalendar from "./addToCalendar"
 import IsFullBadge from "./isFullBadge"
 
 export const DateList = ({
-  entryURL,
+  eventPage,
   event,
   date,
   indexId,
@@ -25,6 +25,7 @@ export const DateList = ({
   withImage,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState("")
+  const [counter, setCounter] = useState(0)
 
   const handleClick = indexId => {
     if (selectedIndex === indexId) {
@@ -32,6 +33,19 @@ export const DateList = ({
     } else {
       setSelectedIndex(indexId)
     }
+  }
+
+  const handleDateEntry = eventPage => {
+    setCounter(counter + 1)
+    console.log(counter)
+    navigate(
+      `${eventPage}?date=${encodeURIComponent(
+        date.date
+      )}&id=reg&refresh=${counter}`,
+      {
+        state: { date: date.date },
+      }
+    )
   }
 
   return (
@@ -96,14 +110,7 @@ export const DateList = ({
             </ListItem>
           )}
           {isAfter(parseISO(date.date), new Date()) ? (
-            <ListItem
-              button
-              onClick={() =>
-                navigate(entryURL, {
-                  state: { date: date.date },
-                })
-              }
-            >
+            <ListItem button onClick={() => handleDateEntry(eventPage)}>
               <ListItemText
                 disableTypography
                 primary="Entry Form"

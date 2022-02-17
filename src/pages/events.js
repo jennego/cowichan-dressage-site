@@ -116,7 +116,7 @@ const Events = () => {
                       key={index}
                       date={date}
                       indexId={index}
-                      entryURL={`${node.slug}?id=reg`}
+                      eventPage={node.slug}
                       event={node}
                       isFull={date.isFull}
                     />

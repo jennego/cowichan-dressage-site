@@ -49,6 +49,10 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
     }
   }
 
+  const stringDate = date => {
+    return format(date, "yyyy-MM-dd")
+  }
+
   const renderDay = (day, events) => {
     events = events.filter(e =>
       inRange(e, dates.startOf(day, "day"), dates.endOf(day, "day"), accessors)
@@ -150,9 +154,13 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                           <ListItem
                             button
                             onClick={() =>
-                              navigate(`/events/${event.slug}?id=reg`, {
-                                state: { date: event.date },
-                              })
+                              navigate(
+                                `/events/${
+                                  event.slug
+                                }?date=${encodeURIComponent(
+                                  stringDate(event.start)
+                                )}&id=reg`
+                              )
                             }
                           >
                             <ListItemText

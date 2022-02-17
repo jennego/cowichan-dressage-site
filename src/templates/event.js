@@ -125,7 +125,7 @@ const Event = ({ data, pageContext, location }) => {
                     key={index}
                     date={date}
                     indexId={index}
-                    entryURL={`entry`}
+                    entryURL={`?date=${encodeURIComponent(date.date)}&id=reg`}
                     event={event}
                     isFull={date.isFull}
                     withImage={Boolean(event.image)}
@@ -147,14 +147,7 @@ const Event = ({ data, pageContext, location }) => {
             ""
           )}
         </Grid>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => navigate("?id=reg")}
-          style={{ marginBottom: "1rem" }}
-        >
-          Go to Entry Form
-        </Button>
+
         <EventAccordion event={event} data={data} location={location} />
       </Main>
     </Layout>

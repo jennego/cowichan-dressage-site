@@ -95,7 +95,7 @@ export const query = graphql`
   }
 `
 
-const Entry = ({ pageContext, data, location }) => {
+const Entry = ({ pageContext, data, location, date }) => {
   const [selectedWaivers, setSelectedWaivers] = useState(
     data.contentfulEvent.adultWaivers
   )
@@ -245,14 +245,19 @@ const Entry = ({ pageContext, data, location }) => {
     return formData
   }
 
-  const handleFormValidationError = (e, props) => {
-    props.handleSubmit(e)
-    alert("hello you filled out the form wrong")
+  const getDate = () => {
+    if (date) {
+      return date
+    } else if (location.state) {
+      return location.state.date
+    } else {
+      return ""
+    }
   }
 
   return (
     <div>
-      {console.log(data.contentfulEvent.eventName)}
+      {console.log(date)}
       <Formik
         onSubmit={(values, actions) => {
           fetch("/", {
@@ -281,7 +286,7 @@ const Entry = ({ pageContext, data, location }) => {
         validationSchema={dynamicSchema}
         initialValues={{
           rules: false,
-          date: location.state ? location.state.date : "",
+          date: getDate(),
           Name: "",
           horseName: "",
           email: "",

@@ -80,9 +80,9 @@ const Cal = () => {
       title: node.eventName,
       slug: node.slug,
       locationName: date.locationName ? date.locationName : node.locationName,
-      allDay: true,
       isFull: date.isFull,
       description: node.summary.summary,
+      allDay: true,
     }))
   )
 

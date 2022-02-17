@@ -107,6 +107,10 @@ const IndexPage = () => {
     isAfter(date.start, new Date()) ? date : ""
   )
 
+  const stringDate = date => {
+    return format(date, "yyyy-MM-dd")
+  }
+
   const [selectedIndex, setSelectedIndex] = React.useState("")
 
   const handleClick = index => {
@@ -271,13 +275,18 @@ const IndexPage = () => {
                             >
                               <AddToCalendar event={event} isCalArr={true} />
                             </ListItem>
+                            {console.log(event)}
                             {isAfter(event.start, new Date()) ? (
                               <ListItem
                                 button
                                 onClick={() =>
-                                  navigate(`events/${event.slug}?id=reg`, {
-                                    state: { date: event.date },
-                                  })
+                                  navigate(
+                                    `events/${
+                                      event.slug
+                                    }?date=${encodeURIComponent(
+                                      stringDate(event.start)
+                                    )}&id=reg`
+                                  )
                                 }
                               >
                                 <ListItemText
