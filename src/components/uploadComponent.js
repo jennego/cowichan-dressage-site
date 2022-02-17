@@ -115,15 +115,6 @@ const UploadField = ({ index, doc, props, waiverType }) => {
 }
 
 export const UploadComponent = ({ props, fileArray, waiverType }) => {
-  // useEffect(() => {
-  //   if (formik.values[waiver] === undefined) {
-  //     formik.setFieldValue(waiver, null)
-  //   }
-  // }, [])
-
-  // console.log("reject", fileRejections.length, "accepted", acceptedFiles)
-  console.log(props)
-
   return (
     <div style={{ marginTop: "1rem" }}>
       <Typography variant="h5">Waivers</Typography>

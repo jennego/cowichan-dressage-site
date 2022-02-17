@@ -257,7 +257,6 @@ const Entry = ({ pageContext, data, location, date }) => {
 
   return (
     <div>
-      {console.log(date)}
       <Formik
         onSubmit={(values, actions) => {
           fetch("/", {
@@ -280,6 +279,9 @@ const Entry = ({ pageContext, data, location, date }) => {
             })
             .catch(error => {
               console.log(error)
+              alert(
+                "oops! There was an error. Try again. If it still doesn't work contact jen@jenniferchow.ca"
+              )
             })
             .finally(() => actions.setSubmitting(false))
         }}
