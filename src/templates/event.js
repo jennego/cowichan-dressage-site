@@ -42,13 +42,13 @@ export const query = graphql`
           url
         }
       }
-      resources {
-        file {
-          url
-          fileName
-          contentType
-        }
-      }
+      # resources {
+      #   file {
+      #     url
+      #     fileName
+      #     contentType
+      #   }
+      # }
       eventDates {
         date
         subtitle
