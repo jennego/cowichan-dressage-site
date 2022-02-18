@@ -1,15 +1,5 @@
-TO DO LIST
 
-- disable payment method if total cost is 0
-
-Final touches
-
-- code cleanup / fix console errors
-- testing - chrome, edge, firefox, limited IE (even if just a banner), mobile
-- test outlook cal
-- quick wira check
-
-Responsive Gatsby site and form-based serverless registration system using Netlify forms. Forms customizable via Contentful CMS and are dynamically generated on rebuild. Forms are validated on touch and on submit via Yup.
+Responsive Gatsby site and form-based serverless registration system using Netlify forms. Forms customizable via Contentful CMS and are dynamically generated on rebuild. Forms are validated on touch and on submit via Yup, with some custom error handling.
 
 Tech
 
