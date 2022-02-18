@@ -62,7 +62,7 @@ export const DateForm = ({ data, props, location }) => {
   )
 }
 
-export const PaymentForm = ({ props }) => {
+export const PaymentForm = ({ props, square, squareCost, cost }) => {
   return (
     <RadioGroup
       aria-label="payment method"
@@ -72,21 +72,34 @@ export const PaymentForm = ({ props }) => {
     >
       <FormLabel> Payment </FormLabel>
       <Typography gutterBottom variant="body2">
-        Pay via E-Transfer or Square Credit Card. A 2% surcharge will apply to
-        square credit card payments.
+        Pay via E-Transfer or Square Credit Card. A {square}% surcharge will
+        apply to square credit card payments.
       </Typography>
 
       <FormControlLabel
         value="square"
         name="paymentMethod"
         control={<Radio color="primary" />}
-        label="Square Credit Card"
+        label={
+          <div>
+            Square Credit Card{" "}
+            <span className="payment-cost">
+              {" "}
+              {squareCost ? squareCost : ""}{" "}
+            </span>
+          </div>
+        }
       />
       <FormControlLabel
         name="paymentMethod"
         value="etransfer"
         control={<Radio color="primary" />}
-        label="E-Transfer"
+        label={
+          <div>
+            E-Transfer{" "}
+            <span className="payment-cost"> {cost ? cost : ""} </span>
+          </div>
+        }
       />
       {props.touched.paymentMethod && Boolean(props.errors.paymentMethod) ? (
         <FormHelperText error>Payment Method is required.</FormHelperText>

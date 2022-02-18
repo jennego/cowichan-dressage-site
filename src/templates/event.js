@@ -100,11 +100,20 @@ export const query = graphql`
         lon
       }
     }
+    allContentfulSiteInfo {
+      edges {
+        node {
+          squareSurcharge
+        }
+      }
+    }
   }
 `
 
 const Event = ({ data, pageContext, location }) => {
   const event = data.contentfulEvent
+  const squareSurcharge =
+    data.allContentfulSiteInfo.edges[0].node.squareSurcharge
   return (
     <Layout>
       <Main>
@@ -148,7 +157,12 @@ const Event = ({ data, pageContext, location }) => {
           )}
         </Grid>
 
-        <EventAccordion event={event} data={data} location={location} />
+        <EventAccordion
+          event={event}
+          data={data}
+          location={location}
+          square={squareSurcharge}
+        />
       </Main>
     </Layout>
   )

@@ -32,70 +32,7 @@ import { EntryForm } from "../components/entryFormComponents"
 import Sessions from "../components/sessions"
 import HumanSubmit from "../components/humanCheck"
 
-export const query = graphql`
-  query entryQuery($id: String!) {
-    contentfulEvent(id: { eq: $id }) {
-      eventName
-      membershipRequired
-      eventDates {
-        date
-        subtitle
-        isFull
-      }
-      # contacts {
-      #   email
-      #   name
-      #   title
-      #   phoneNumber
-      #   details {
-      #     details
-      #   }
-      # }
-      sessions {
-        testFields
-        cost
-        description {
-          description
-        }
-      }
-      rules {
-        raw
-      }
-      registrationInfo {
-        raw
-      }
-
-      cancellationPolicy {
-        raw
-      }
-
-      confirmationMessage {
-        raw
-      }
-      locationName
-      location {
-        lat
-        lon
-      }
-      juniorWaivers {
-        title
-        file {
-          url
-          fileName
-        }
-      }
-      adultWaivers {
-        title
-        file {
-          url
-          fileName
-        }
-      }
-    }
-  }
-`
-
-const Entry = ({ pageContext, data, location, date }) => {
+const Entry = ({ pageContext, data, location, date, square }) => {
   const [selectedWaivers, setSelectedWaivers] = useState(
     data.contentfulEvent.adultWaivers
   )
@@ -219,11 +156,11 @@ const Entry = ({ pageContext, data, location, date }) => {
             .required("Agreeing to the rules is required")
         }
 
-        // if (key.includes("g-recaptcha-response")) {
-        //   return yup
-        //     .string()
-        //     .required("Make sure to confirm that you are not a robot!")
-        // }
+        if (key.includes("g-recaptcha-response")) {
+          return yup
+            .string()
+            .required("Make sure to confirm that you are not a robot!")
+        }
 
         if (
           key.includes("test") &&
@@ -235,7 +172,14 @@ const Entry = ({ pageContext, data, location, date }) => {
     )
   )
 
-  // const validationSchema
+  const handleRulesClick = () => {
+    navigate("?id=rules")
+    const anchorEl = document.getElementById("rules")
+    anchorEl.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    })
+  }
 
   const encode = data => {
     const formData = new FormData()
@@ -344,7 +288,15 @@ const Entry = ({ pageContext, data, location, date }) => {
 
                 <div style={{ display: "flex" }}>
                   {data.contentfulEvent.rules && (
-                    <div style={{ display: "flex" }}>Read Rules</div>
+                    <div style={{ display: "flex" }}>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={handleRulesClick}
+                      >
+                        Read Rules
+                      </Button>
+                    </div>
                   )}
                   <FormControlLabel
                     id="rules"
@@ -448,6 +400,7 @@ const Entry = ({ pageContext, data, location, date }) => {
                       selectedSessions={selectedSessions}
                       isChecked={isChecked}
                       data={data}
+                      square={square}
                     />
                   </Grid>
                 )}

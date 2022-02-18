@@ -3,7 +3,12 @@ import Checkbox from "@material-ui/core/Checkbox"
 import FormLabel from "@material-ui/core/FormLabel"
 import Grid from "@material-ui/core/Grid"
 import TestInfo from "../components/selectWithOther"
-import { Card, CardContent, Typography } from "@material-ui/core"
+import {
+  Card,
+  CardContent,
+  FormHelperText,
+  Typography,
+} from "@material-ui/core"
 import { PaymentForm } from "../components/entryFormComponents"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { Field } from "formik"
@@ -15,6 +20,7 @@ const Sessions = ({
   selectedSessions,
   handleSelections,
   data,
+  square,
 }) => {
   const newSessionArr = sessionArr.map((session, index) => ({
     id: index,
@@ -26,7 +32,18 @@ const Sessions = ({
     return prev + cur.cost
   }, 0)
 
-  const renderCost = totalCost > 1 ? "$" + totalCost : "Free"
+  const renderCost = totalCost > 1 ? "$" + totalCost : null
+  const squareCost = (totalCost * square) / 100 + totalCost
+  const renderSquareCost = totalCost > 1 ? "$" + squareCost.toFixed(2) : null
+
+  const minSessionsValidation = sessionsArr => {
+    let error
+
+    if (sessionsArr.length < 1) {
+      error = "Must include a session"
+    }
+    return error
+  }
 
   /// figure out another way that doesn't rely on check box - probably index?
 
@@ -121,11 +138,25 @@ const Sessions = ({
           name="selectedSessions"
           label="Selected Sessions"
           value={props.values.selectedSessions}
+          validate={() => minSessionsValidation(props.values.selectedSessions)}
         />
       </div>
-      <PaymentForm props={props} data={data} />
+      <div>
+        {props.errors.selectedSessions && props.touched.selectedSessions ? (
+          <FormHelperText error> You need to select a session </FormHelperText>
+        ) : (
+          ""
+        )}
+      </div>
+      <PaymentForm
+        props={props}
+        data={data}
+        square={square}
+        cost={renderCost}
+        squareCost={renderSquareCost}
+      />
       {data.contentfulEvent.confirmationMessage && (
-        <Typography variant="body2">
+        <Typography variant="body1">
           {renderRichText(data.contentfulEvent.confirmationMessage)}
         </Typography>
       )}

@@ -38,7 +38,7 @@ export const DateList = ({
   const handleDateEntry = eventPage => {
     setCounter(counter + 1)
     navigate(
-      `${eventPage}?date=${encodeURIComponent(
+      `${eventPage ? eventPage : ""}?date=${encodeURIComponent(
         date.date
       )}&id=reg&refresh=${counter}`,
       {

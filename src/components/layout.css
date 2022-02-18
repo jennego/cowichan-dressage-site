@@ -314,3 +314,8 @@ li > p {
 .eventAccordion .MuiAccordionSummary-root:hover {
   background: #c7dceb !important;
 }
+
+.payment-cost {
+  color: #4a4a4a;
+  font-size: 12px;
+}

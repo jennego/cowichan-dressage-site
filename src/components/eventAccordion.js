@@ -17,7 +17,7 @@ import queryString from "query-string"
 
 // push or remove ids to an array, determine true/false based on presence in array
 
-const EventAccordion = ({ event, data, location }) => {
+const EventAccordion = ({ event, data, location, square }) => {
   const [expand, setExpand] = useState("info")
   const queryValue = useQueryParam("id", "info")
   const dateQueryValue = useQueryParam("date")
@@ -218,7 +218,12 @@ const EventAccordion = ({ event, data, location }) => {
             {event.registrationInfo && (
               <Typography>{renderRichText(event.registrationInfo)}</Typography>
             )}
-            <Entry data={data} location={location} date={dateQueryValue} />
+            <Entry
+              data={data}
+              location={location}
+              date={dateQueryValue}
+              square={square}
+            />
 
             {/* <Link to={"entry"} style={{ textDecoration: "none" }}>
             <Button

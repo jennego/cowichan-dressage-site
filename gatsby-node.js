@@ -225,7 +225,7 @@ async function createTimesPages(graphql, actions) {
 exports.createPages = async ({ graphql, actions }) => {
   await createEvents(graphql, actions)
   // await createEventEntries(graphql, actions)
-  await createDatePages(graphql, actions)
+  // await createDatePages(graphql, actions)
   await createResultPages(graphql, actions)
   await createTimesPages(graphql, actions)
 }
