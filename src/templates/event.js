@@ -53,17 +53,17 @@ export const query = graphql`
         date
         subtitle
         isFull
-      #   rideTimes {
-      #     file {
-      #       url
-      #     }
-      #   }
-      #   results {
-      #     file {
-      #       url
-      #     }
-      #   }
-      # }
+        # rideTimes {
+        #   file {
+        #     url
+        #   }
+        # }
+        # results {
+        #   file {
+        #     url
+        #   }
+        # }
+      }
       # contacts {
       #   email
       #   name
