@@ -285,7 +285,10 @@ const IndexPage = () => {
                                       event.slug
                                     }?date=${encodeURIComponent(
                                       stringDate(event.start)
-                                    )}&id=reg`
+                                    )}&id=reg`,
+                                    {
+                                      state: { date: date.date },
+                                    }
                                   )
                                 }
                               >

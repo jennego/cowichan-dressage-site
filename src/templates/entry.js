@@ -18,7 +18,6 @@ import * as yup from "yup"
 import mapValues from "lodash/mapValues"
 
 import { renderRichText } from "gatsby-source-contentful/rich-text"
-import ResponsiveDialog from "../components/infoDialog"
 
 import ResponsiveDialogContacts from "../components/listDialog"
 import { UploadComponent } from "../components/uploadComponent"
@@ -31,14 +30,23 @@ import { DateForm, Notes } from "../components/entryFormComponents"
 import { EntryForm } from "../components/entryFormComponents"
 import Sessions from "../components/sessions"
 import HumanSubmit from "../components/humanCheck"
+import { useQueryParam } from "gatsby-query-params"
 
-const Entry = ({ pageContext, data, location, date, square }) => {
+const Entry = ({
+  pageContext,
+  data,
+  location,
+  date,
+  square,
+  scrollToRules,
+}) => {
   const [selectedWaivers, setSelectedWaivers] = useState(
     data.contentfulEvent.adultWaivers
   )
   const [initialWaivers, setInitialWavers] = useState("")
   const [initialTests, setInitialTests] = useState("")
   const [selectedSessions, setSelectedSessions] = useState([])
+  const dateQueryValue = useQueryParam("date")
 
   let totalCost = 0
   if (selectedSessions.length > 0) {
@@ -94,6 +102,14 @@ const Entry = ({ pageContext, data, location, date, square }) => {
       return
     }
   }, [])
+
+  const UpdateDate = () => {
+    const { setFieldValue } = useFormikContext()
+    useEffect(() => {
+      setFieldValue("date", dateQueryValue)
+    }, [dateQueryValue])
+    return null
+  }
 
   const UpdateSelectedSessions = () => {
     const { setFieldValue } = useFormikContext()
@@ -172,14 +188,14 @@ const Entry = ({ pageContext, data, location, date, square }) => {
     )
   )
 
-  const handleRulesClick = () => {
-    navigate("?id=rules")
-    const anchorEl = document.getElementById("rules")
-    anchorEl.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    })
-  }
+  // const handleRulesClick = () => {
+  //   navigate("?id=rules")
+  //   const anchorEl = document.getElementById("rules")
+  //   anchorEl.scrollIntoView({
+  //     behavior: "smooth",
+  //     block: "start",
+  //   })
+  // }
 
   const encode = data => {
     const formData = new FormData()
@@ -190,12 +206,8 @@ const Entry = ({ pageContext, data, location, date, square }) => {
   }
 
   const getDate = () => {
-    if (date) {
-      return date
-    } else if (location.state) {
-      return location.state.date
-    } else {
-      return ""
+    if (location.state) {
+      return location.state.datd
     }
   }
 
@@ -253,6 +265,7 @@ const Entry = ({ pageContext, data, location, date, square }) => {
         {props => (
           <>
             <div>
+              {console.log(props)}
               <Typography variant="h4" component="h2">
                 Entry form for {data.contentfulEvent.eventName}
               </Typography>
@@ -292,7 +305,7 @@ const Entry = ({ pageContext, data, location, date, square }) => {
                       <Button
                         variant="outlined"
                         color="primary"
-                        onClick={handleRulesClick}
+                        onClick={scrollToRules}
                       >
                         Read Rules
                       </Button>
@@ -368,6 +381,7 @@ const Entry = ({ pageContext, data, location, date, square }) => {
                 <Field type="hidden" name="bot-field" />
 
                 <DateForm props={props} data={data} location={location} />
+                <UpdateDate />
                 <EntryForm props={props} data={data} />
 
                 <Notes props={props} data={data} />
