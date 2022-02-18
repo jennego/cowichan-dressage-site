@@ -35,12 +35,14 @@ export const query = graphql`
       adultWaivers {
         title
         file {
+          fileName
           url
         }
       }
       juniorWaivers {
         title
         file {
+          fileName
           url
         }
       }
