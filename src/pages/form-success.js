@@ -34,8 +34,7 @@ const Membership = ({ location }) => (
         Thank you for joining Cowichan Dressage Club!
       </Typography>
       <Typography variant="body1" gutterBottom>
-        Your form has been successfully submitted. You will be emailed to
-        confirm payment and membership.
+        Your form has been successfully submitted.
       </Typography>
     </Main>
   </Layout>
