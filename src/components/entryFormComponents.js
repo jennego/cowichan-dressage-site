@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Grid, FormGroup, TextField, FormHelperText } from "@material-ui/core"
 import Radio from "@material-ui/core/Radio"
 import RadioGroup from "@material-ui/core/RadioGroup"
@@ -317,7 +317,6 @@ export const EntryForm = ({ props, data }) => {
 
 export const Notes = ({ props }) => (
   <>
-    <p> Specify coach/trainer for scheduling purposes. </p>
     <Grid item xs={12} md={6}>
       <TextField
         fullWidth
@@ -325,6 +324,7 @@ export const Notes = ({ props }) => (
         id="coach"
         name="coach"
         label="Coach/Trainer"
+        placeholder="Specifyfor scheduling purposes"
         value={props.values.coach}
         onBlur={props.handleBlur}
         onChange={props.handleChange}

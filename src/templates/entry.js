@@ -32,7 +32,14 @@ import { EntryForm } from "../components/entryFormComponents"
 import Sessions from "../components/sessions"
 import HumanSubmit from "../components/humanCheck"
 
-const Entry = ({ pageContext, data, location, date, square }) => {
+const Entry = ({
+  pageContext,
+  data,
+  location,
+  date,
+  square,
+  scrollToRules,
+}) => {
   const [selectedWaivers, setSelectedWaivers] = useState(
     data.contentfulEvent.adultWaivers
   )
@@ -172,14 +179,14 @@ const Entry = ({ pageContext, data, location, date, square }) => {
     )
   )
 
-  const handleRulesClick = () => {
-    navigate("?id=rules")
-    const anchorEl = document.getElementById("rules")
-    anchorEl.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    })
-  }
+  // const handleRulesClick = () => {
+  //   navigate("?id=rules")
+  //   const anchorEl = document.getElementById("rules")
+  //   anchorEl.scrollIntoView({
+  //     behavior: "smooth",
+  //     block: "start",
+  //   })
+  // }
 
   const encode = data => {
     const formData = new FormData()
@@ -194,8 +201,6 @@ const Entry = ({ pageContext, data, location, date, square }) => {
       return date
     } else if (location.state) {
       return location.state.date
-    } else {
-      return ""
     }
   }
 
@@ -292,7 +297,7 @@ const Entry = ({ pageContext, data, location, date, square }) => {
                       <Button
                         variant="outlined"
                         color="primary"
-                        onClick={handleRulesClick}
+                        onClick={scrollToRules}
                       >
                         Read Rules
                       </Button>

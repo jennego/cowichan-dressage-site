@@ -12,6 +12,7 @@ import ContactCard from "./contactCard"
 import Entry from "../templates/entry"
 import { useQueryParam } from "gatsby-query-params"
 import queryString from "query-string"
+import { navigate } from "gatsby"
 
 // use query string to open/close accordian
 
@@ -23,7 +24,7 @@ const EventAccordion = ({ event, data, location, square }) => {
   const dateQueryValue = useQueryParam("date")
   const refreshQueryValue = useQueryParam("refresh")
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (queryValue) {
       setExpand(queryValue)
       const anchorEl = document.getElementById(queryValue)
@@ -40,7 +41,9 @@ const EventAccordion = ({ event, data, location, square }) => {
   }, [queryValue])
 
   useEffect(() => {
+    setExpand("reg")
     const anchorEl = document.getElementById("reg")
+
     if (queryValue !== "info") {
       anchorEl.scrollIntoView({
         behavior: "smooth",
@@ -59,12 +62,18 @@ const EventAccordion = ({ event, data, location, square }) => {
 
   const scrollToReg = () => {
     const anchorEl = document.getElementById("reg")
+    setExpand("reg")
+
     if (queryValue !== "info") {
       anchorEl.scrollIntoView({
         behavior: "smooth",
         block: "start",
       })
     }
+  }
+
+  const scrollToRules = () => {
+    setExpand("rules")
   }
 
   return (
@@ -77,6 +86,7 @@ const EventAccordion = ({ event, data, location, square }) => {
       >
         Go to Entry Form
       </Button>
+
       <div className="eventAccordion">
         {event.eventInformation && (
           <Accordion
@@ -223,6 +233,7 @@ const EventAccordion = ({ event, data, location, square }) => {
               location={location}
               date={dateQueryValue}
               square={square}
+              scrollToRules={scrollToRules}
             />
 
             {/* <Link to={"entry"} style={{ textDecoration: "none" }}>
