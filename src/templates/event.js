@@ -33,11 +33,13 @@ export const query = graphql`
       }
       membershipRequired
       adultWaivers {
+        title
         file {
           url
         }
       }
       juniorWaivers {
+        title
         file {
           url
         }
