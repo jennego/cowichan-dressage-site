@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from "react"
 
-import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import Button from "@material-ui/core/Button"
 import Accordion from "@material-ui/core/Accordion"
@@ -8,7 +7,6 @@ import AccordionSummary from "@material-ui/core/AccordionSummary"
 import AccordionDetails from "@material-ui/core/AccordionDetails"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
-import ContactCard from "./contactCard"
 import Entry from "../templates/entry"
 import { useQueryParam } from "gatsby-query-params"
 import queryString from "query-string"
@@ -41,16 +39,18 @@ const EventAccordion = ({ event, data, location, square }) => {
   }, [queryValue])
 
   useEffect(() => {
-    setExpand("reg")
-    const anchorEl = document.getElementById("reg")
+    if (queryValue === "reg") {
+      setExpand("reg")
+      const anchorEl = document.getElementById("reg")
 
-    if (queryValue !== "info") {
-      anchorEl.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      })
+      if (queryValue !== "info") {
+        anchorEl.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        })
+      }
     }
-  }, [dateQueryValue, refreshQueryValue])
+  }, [dateQueryValue, refreshQueryValue, queryValue])
 
   const handleChange = idString => {
     if (expand === idString) {
@@ -61,15 +61,8 @@ const EventAccordion = ({ event, data, location, square }) => {
   }
 
   const scrollToReg = () => {
-    const anchorEl = document.getElementById("reg")
+    navigate("?id=reg")
     setExpand("reg")
-
-    if (queryValue !== "info") {
-      anchorEl.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      })
-    }
   }
 
   const scrollToRules = () => {

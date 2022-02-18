@@ -18,7 +18,6 @@ import * as yup from "yup"
 import mapValues from "lodash/mapValues"
 
 import { renderRichText } from "gatsby-source-contentful/rich-text"
-import ResponsiveDialog from "../components/infoDialog"
 
 import ResponsiveDialogContacts from "../components/listDialog"
 import { UploadComponent } from "../components/uploadComponent"
@@ -31,6 +30,7 @@ import { DateForm, Notes } from "../components/entryFormComponents"
 import { EntryForm } from "../components/entryFormComponents"
 import Sessions from "../components/sessions"
 import HumanSubmit from "../components/humanCheck"
+import { useQueryParam } from "gatsby-query-params"
 
 const Entry = ({
   pageContext,
@@ -46,6 +46,7 @@ const Entry = ({
   const [initialWaivers, setInitialWavers] = useState("")
   const [initialTests, setInitialTests] = useState("")
   const [selectedSessions, setSelectedSessions] = useState([])
+  const dateQueryValue = useQueryParam("date")
 
   let totalCost = 0
   if (selectedSessions.length > 0) {
@@ -101,6 +102,14 @@ const Entry = ({
       return
     }
   }, [])
+
+  const UpdateDate = () => {
+    const { setFieldValue } = useFormikContext()
+    useEffect(() => {
+      setFieldValue("date", dateQueryValue)
+    }, [dateQueryValue])
+    return null
+  }
 
   const UpdateSelectedSessions = () => {
     const { setFieldValue } = useFormikContext()
@@ -197,10 +206,8 @@ const Entry = ({
   }
 
   const getDate = () => {
-    if (date) {
-      return date
-    } else if (location.state) {
-      return location.state.date
+    if (location.state) {
+      return location.state.datd
     }
   }
 
@@ -258,6 +265,7 @@ const Entry = ({
         {props => (
           <>
             <div>
+              {console.log(props)}
               <Typography variant="h4" component="h2">
                 Entry form for {data.contentfulEvent.eventName}
               </Typography>
@@ -373,6 +381,7 @@ const Entry = ({
                 <Field type="hidden" name="bot-field" />
 
                 <DateForm props={props} data={data} location={location} />
+                <UpdateDate />
                 <EntryForm props={props} data={data} />
 
                 <Notes props={props} data={data} />

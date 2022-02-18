@@ -45,6 +45,7 @@ export const DateForm = ({ data, props, location }) => {
                   new Date(parseISO(date.date)),
                   "EEE, LLLL d, yyyy"
                 )}
+                checked={date.date === props.values.date ? true : false}
               />
             </IsFullBadge>
           ))}
