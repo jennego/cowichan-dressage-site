@@ -8,6 +8,7 @@ import format from "date-fns/format"
 import parseISO from "date-fns/parseISO"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import { Link } from "gatsby"
+import { Button } from "@material-ui/core"
 
 const Email = () => <Obfuscate email="cowichandressageclub@gmail.com" />
 
@@ -22,6 +23,19 @@ const WhatForm = ({ location }) => {
           If you got here via link or something, you may be looking for event
           information, please see <Link to="/events">events page.</Link>
         </Typography>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "2rem",
+          }}
+        >
+          <Link to="/">
+            <Button color="primary" variant="contained">
+              Go Home
+            </Button>
+          </Link>
+        </div>
       </Main>
     </Layout>
   )
@@ -36,6 +50,19 @@ const Membership = ({ location }) => (
       <Typography variant="body1" gutterBottom>
         Your form has been successfully submitted.
       </Typography>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "2rem",
+        }}
+      >
+        <Link to="/">
+          <Button color="primary" variant="contained">
+            Go Home
+          </Button>
+        </Link>
+      </div>
     </Main>
   </Layout>
 )
@@ -80,6 +107,19 @@ const FormSuccess = ({ location }) => {
               isCalAr={false}
               isButton={true}
             />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "2rem",
+              }}
+            >
+              <Link to="/">
+                <Button color="primary" variant="contained">
+                  Go Home
+                </Button>
+              </Link>
+            </div>
           </Main>
         </Layout>
       )
