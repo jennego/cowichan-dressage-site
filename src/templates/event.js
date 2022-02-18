@@ -2,11 +2,12 @@ import React from "react"
 import Main from "../components/MainContent"
 import Layout from "../components/layout"
 import Typography from "@material-ui/core/Typography"
+import Button from "@material-ui/core/Button"
 
 import Grid from "@material-ui/core/Grid"
 import List from "@material-ui/core/List"
 
-import { graphql } from "gatsby"
+import { graphql, navigate } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 
 import { DateList } from "../components/dateButtonList"
@@ -23,37 +24,49 @@ export const query = graphql`
         gatsbyImageData
         title
       }
+      sessions {
+        testFields
+        cost
+        description {
+          description
+        }
+      }
+      membershipRequired
       adultWaivers {
+        title
         file {
+          fileName
           url
         }
       }
       juniorWaivers {
+        title
         file {
-          url
-        }
-      }
-      resources {
-        file {
-          url
           fileName
-          contentType
+          url
         }
       }
+      # resources {
+      #   file {
+      #     url
+      #     fileName
+      #     contentType
+      #   }
+      # }
       eventDates {
         date
         subtitle
         isFull
-        rideTimes {
-          file {
-            url
-          }
-        }
-        results {
-          file {
-            url
-          }
-        }
+        # rideTimes {
+        #   file {
+        #     url
+        #   }
+        # }
+        # results {
+        #   file {
+        #     url
+        #   }
+        # }
       }
       # contacts {
       #   email
@@ -91,11 +104,20 @@ export const query = graphql`
         lon
       }
     }
+    allContentfulSiteInfo {
+      edges {
+        node {
+          squareSurcharge
+        }
+      }
+    }
   }
 `
 
-const Event = ({ data, pageContext }) => {
+const Event = ({ data, pageContext, location }) => {
   const event = data.contentfulEvent
+  const squareSurcharge =
+    data.allContentfulSiteInfo.edges[0].node.squareSurcharge
   return (
     <Layout>
       <Main>
@@ -116,7 +138,7 @@ const Event = ({ data, pageContext }) => {
                     key={index}
                     date={date}
                     indexId={index}
-                    entryURL={`entry`}
+                    entryURL={`?date=${encodeURIComponent(date.date)}&id=reg`}
                     event={event}
                     isFull={date.isFull}
                     withImage={Boolean(event.image)}
@@ -138,7 +160,13 @@ const Event = ({ data, pageContext }) => {
             ""
           )}
         </Grid>
-        <EventAccordion event={event} />
+
+        <EventAccordion
+          event={event}
+          data={data}
+          location={location}
+          square={squareSurcharge}
+        />
       </Main>
     </Layout>
   )

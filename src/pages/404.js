@@ -3,6 +3,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Main from "../components/MainContent"
 import { Typography, Button } from "@material-ui/core"
+import { Link } from "gatsby"
 
 const NotFoundPage = () => (
   <Layout>
@@ -13,9 +14,11 @@ const NotFoundPage = () => (
         You are at a url that doesn&#39;t exist on this site... well, that
         wasn't supposed to happen 🙁.
       </Typography>
-      <Button variant="contained" color="primary" href="/">
-        Go to home page
-      </Button>
+      <Link>
+        <Button variant="contained" color="primary">
+          Go to home page
+        </Button>
+      </Link>
     </Main>
   </Layout>
 )

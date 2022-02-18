@@ -32,70 +32,7 @@ import { EntryForm } from "../components/entryFormComponents"
 import Sessions from "../components/sessions"
 import HumanSubmit from "../components/humanCheck"
 
-export const query = graphql`
-  query entryQuery($id: String!) {
-    contentfulEvent(id: { eq: $id }) {
-      eventName
-      membershipRequired
-      eventDates {
-        date
-        subtitle
-        isFull
-      }
-      # contacts {
-      #   email
-      #   name
-      #   title
-      #   phoneNumber
-      #   details {
-      #     details
-      #   }
-      # }
-      sessions {
-        testFields
-        cost
-        description {
-          description
-        }
-      }
-      rules {
-        raw
-      }
-      registrationInfo {
-        raw
-      }
-
-      cancellationPolicy {
-        raw
-      }
-
-      confirmationMessage {
-        raw
-      }
-      locationName
-      location {
-        lat
-        lon
-      }
-      juniorWaivers {
-        title
-        file {
-          url
-          fileName
-        }
-      }
-      adultWaivers {
-        title
-        file {
-          url
-          fileName
-        }
-      }
-    }
-  }
-`
-
-const Entry = ({ pageContext, data, location }) => {
+const Entry = ({ pageContext, data, location, date, square }) => {
   const [selectedWaivers, setSelectedWaivers] = useState(
     data.contentfulEvent.adultWaivers
   )
@@ -219,11 +156,11 @@ const Entry = ({ pageContext, data, location }) => {
             .required("Agreeing to the rules is required")
         }
 
-        // if (key.includes("g-recaptcha-response")) {
-        //   return yup
-        //     .string()
-        //     .required("Make sure to confirm that you are not a robot!")
-        // }
+        if (key.includes("g-recaptcha-response")) {
+          return yup
+            .string()
+            .required("Make sure to confirm that you are not a robot!")
+        }
 
         if (
           key.includes("test") &&
@@ -235,7 +172,14 @@ const Entry = ({ pageContext, data, location }) => {
     )
   )
 
-  // const validationSchema
+  const handleRulesClick = () => {
+    navigate("?id=rules")
+    const anchorEl = document.getElementById("rules")
+    anchorEl.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    })
+  }
 
   const encode = data => {
     const formData = new FormData()
@@ -245,132 +189,142 @@ const Entry = ({ pageContext, data, location }) => {
     return formData
   }
 
-  const handleFormValidationError = (e, props) => {
-    props.handleSubmit(e)
-    alert("hello you filled out the form wrong")
+  const getDate = () => {
+    if (date) {
+      return date
+    } else if (location.state) {
+      return location.state.date
+    } else {
+      return ""
+    }
   }
 
   return (
-    <Layout>
-      <Main>
-        <Formik
-          onSubmit={(values, actions) => {
-            fetch("/", {
-              method: "POST",
-              // headers: { "Content-Type": "multipart/form-data" },
-              body: encode({
-                "form-name": `${pageContext.eventName} Entries`,
-                ...values,
-                "g-recaptcha-response": values["g-recaptcha-response"],
-              }),
+    <div>
+      <Formik
+        onSubmit={(values, actions) => {
+          fetch("/", {
+            method: "POST",
+            // headers: { "Content-Type": "multipart/form-data" },
+            body: encode({
+              "form-name": `${data.contentfulEvent.eventName} Entries`,
+              ...values,
+              "g-recaptcha-response": values["g-recaptcha-response"],
+            }),
+          })
+            .then(() => {
+              navigate("/form-success", {
+                state: {
+                  values,
+                  event: data.contentfulEvent,
+                  cost: totalCost,
+                },
+              })
             })
-              .then(() => {
-                navigate("/form-success", {
-                  state: {
-                    values,
-                    event: data.contentfulEvent,
-                    cost: totalCost,
-                  },
-                })
-              })
-              .catch(error => {
-                console.log(error)
-              })
-              .finally(() => actions.setSubmitting(false))
-          }}
-          validationSchema={dynamicSchema}
-          initialValues={{
-            rules: false,
-            date: location.state ? location.state.date : "",
-            Name: "",
-            horseName: "",
-            email: "",
-            hcbc: "",
-            PhoneNumber: "",
-            age: "",
-            emergContactName: "",
-            emergContactPhone: "",
-            selectedSessions: "",
-            paymentMethod: "",
-            "g-recaptcha-response": "",
-            ...initialWaivers,
-            ...initialTests,
-          }}
-          validateOnMount
-          enableReinitialize
-        >
-          {props => (
-            <>
-              <div>
-                <Typography variant="h2">
-                  Entry form for {pageContext.eventName}{" "}
-                </Typography>
+            .catch(error => {
+              console.log(error)
+              alert(
+                "oops! There was an error. Try again. If it still doesn't work contact jen@jenniferchow.ca"
+              )
+            })
+            .finally(() => actions.setSubmitting(false))
+        }}
+        validationSchema={dynamicSchema}
+        initialValues={{
+          rules: false,
+          date: getDate(),
+          Name: "",
+          horseName: "",
+          email: "",
+          hcbc: "",
+          PhoneNumber: "",
+          age: "",
+          emergContactName: "",
+          emergContactPhone: "",
+          selectedSessions: "",
+          paymentMethod: "",
+          "g-recaptcha-response": "",
+          ...initialWaivers,
+          ...initialTests,
+        }}
+        validateOnMount
+        enableReinitialize
+      >
+        {props => (
+          <>
+            <div>
+              <Typography variant="h4" component="h2">
+                Entry form for {data.contentfulEvent.eventName}
+              </Typography>
+              <div
+                className="entry-toolbar"
+                style={{ display: "flex", flexDirection: "column" }}
+              >
                 <div
-                  className="entry-toolbar"
-                  style={{ display: "flex", flexDirection: "column" }}
+                  style={{
+                    padding: "0.5rem",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
                 >
-                  <div
-                    style={{
-                      padding: "0.5rem",
-                      display: "flex",
-                      alignItems: "center",
-                    }}
-                  >
-                    {data.contentfulEvent.membershipRequired || undefined ? (
-                      <Typography>
-                        Current membership is required for this event.{" "}
-                        <a href="../membership">Go to Membership Form. </a>
-                      </Typography>
-                    ) : (
-                      <Typography>
-                        Membership is not required for this event.{" "}
-                      </Typography>
-                    )}
-                  </div>
-                  {data.contentfulEvent.contacts && (
-                    <ResponsiveDialogContacts
-                      title="Contacts"
-                      label="Contacts"
-                      content={data.contentfulEvent.contacts}
-                    />
+                  {data.contentfulEvent.membershipRequired || undefined ? (
+                    <Typography>
+                      Current membership is required for this event.{" "}
+                      <a href="../membership">Go to Membership Form. </a>
+                    </Typography>
+                  ) : (
+                    <Typography>
+                      Membership is not required for this event.{" "}
+                    </Typography>
                   )}
-
-                  <div style={{ display: "flex" }}>
-                    {data.contentfulEvent.rules && (
-                      <div style={{ display: "flex" }}>
-                        <ResponsiveDialog
-                          title="Rules and Important Info"
-                          label="Rules"
-                          content={data.contentfulEvent.rules}
-                        />
-                      </div>
-                    )}
-                    <FormControlLabel
-                      id="rules"
-                      style={{ marginLeft: "0.1rem" }}
-                      onChange={props.handleChange}
-                      control={<Checkbox name="rules" color="primary" />}
-                      label={
-                        <Typography variant="body2">
-                          I have read and agree to the rules.
-                        </Typography>
-                      }
-                    />
-                  </div>
-                  <div style={{ marginTop: "-10px" }}>
-                    {props.touched.rules && Boolean(props.errors.rules) ? (
-                      <FormHelperText error>
-                        Agreeing to the rules is required
-                      </FormHelperText>
-                    ) : (
-                      ""
-                    )}
-                  </div>
                 </div>
+                {data.contentfulEvent.contacts && (
+                  <ResponsiveDialogContacts
+                    title="Contacts"
+                    label="Contacts"
+                    content={data.contentfulEvent.contacts}
+                  />
+                )}
 
-                {data.contentfulEvent.cancellationPolicy && (
-                  <div>
-                    <Typography
+                <div style={{ display: "flex" }}>
+                  {data.contentfulEvent.rules && (
+                    <div style={{ display: "flex" }}>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={handleRulesClick}
+                      >
+                        Read Rules
+                      </Button>
+                    </div>
+                  )}
+                  <FormControlLabel
+                    id="rules"
+                    style={{ marginLeft: "0.1rem" }}
+                    onChange={props.handleChange}
+                    control={<Checkbox name="rules" color="primary" />}
+                    label={
+                      <Typography variant="body2">
+                        I have read and agree to the rules and other info as
+                        well as the cancellation policy.
+                      </Typography>
+                    }
+                  />
+                </div>
+                <div style={{ marginTop: "-10px" }}>
+                  {props.touched.rules && Boolean(props.errors.rules) ? (
+                    <FormHelperText error>
+                      Agreeing to the rules is required
+                    </FormHelperText>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </div>
+
+              {data.contentfulEvent.cancellationPolicy && (
+                <div>
+                  {/* <Typography
                       component="h4"
                       style={{
                         fontWeight: "bold",
@@ -383,80 +337,80 @@ const Entry = ({ pageContext, data, location }) => {
 
                     <Typography variant="body2">
                       {renderRichText(data.contentfulEvent.cancellationPolicy)}
-                    </Typography>
-                  </div>
+                    </Typography> */}
+                </div>
+              )}
+            </div>
+            <hr />
+            <Paper>
+              <Form
+                name={`${data.contentfulEvent.adultWaivers} Entries`}
+                data-netlify-recaptcha="true"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                method="POST"
+                className="form-style"
+              >
+                {!props.isValid && props.submitCount > 0 ? (
+                  <Snackbar
+                    open={true}
+                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                  >
+                    <Alert severity="error">
+                      Please ensure you have filled out these form fields.
+                    </Alert>
+                  </Snackbar>
+                ) : (
+                  ""
                 )}
-              </div>
-              <hr />
-              <Paper>
-                <Form
-                  name={`${pageContext.eventName} Entries`}
-                  data-netlify-recaptcha="true"
-                  data-netlify="true"
-                  netlify-honeypot="bot-field"
-                  method="POST"
-                  className="form-style"
-                >
-                  {!props.isValid && props.submitCount > 0 ? (
-                    <Snackbar
-                      open={true}
-                      anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                    >
-                      <Alert severity="error">
-                        Please ensure you have filled out these form fields.
-                      </Alert>
-                    </Snackbar>
-                  ) : (
-                    ""
-                  )}
-                  <FocusError />
+                <FocusError />
 
-                  <Field type="hidden" name="bot-field" />
+                <Field type="hidden" name="bot-field" />
 
-                  <DateForm props={props} data={data} location={location} />
-                  <EntryForm props={props} data={data} />
+                <DateForm props={props} data={data} location={location} />
+                <EntryForm props={props} data={data} />
 
-                  <Notes props={props} data={data} />
+                <Notes props={props} data={data} />
 
-                  {data.contentfulEvent.juniorWaivers &&
-                  data.contentfulEvent.adultWaivers ? (
-                    <UploadComponent
-                      waiverType={props.values.age}
+                {data.contentfulEvent.juniorWaivers &&
+                data.contentfulEvent.adultWaivers ? (
+                  <UploadComponent
+                    waiverType={props.values.age}
+                    props={props}
+                    fileArray={
+                      props.values.age === "junior"
+                        ? data.contentfulEvent.juniorWaivers
+                        : data.contentfulEvent.adultWaivers
+                    }
+                  />
+                ) : (
+                  ""
+                )}
+
+                {data.contentfulEvent.sessions && (
+                  <Grid item xs={12}>
+                    <UpdateSelectedSessions />
+                    <Field
+                      component={Sessions}
+                      name="sessions"
+                      sessionArr={data.contentfulEvent.sessions}
                       props={props}
-                      fileArray={
-                        props.values.age === "junior"
-                          ? data.contentfulEvent.juniorWaivers
-                          : data.contentfulEvent.adultWaivers
-                      }
+                      handleSelections={handleSelections}
+                      setSelectedSessions={setSelectedSessions}
+                      selectedSessions={selectedSessions}
+                      isChecked={isChecked}
+                      data={data}
+                      square={square}
                     />
-                  ) : (
-                    ""
-                  )}
-
-                  {data.contentfulEvent.sessions && (
-                    <Grid item xs={12}>
-                      <UpdateSelectedSessions />
-                      <Field
-                        component={Sessions}
-                        name="sessions"
-                        sessionArr={data.contentfulEvent.sessions}
-                        props={props}
-                        handleSelections={handleSelections}
-                        setSelectedSessions={setSelectedSessions}
-                        selectedSessions={selectedSessions}
-                        isChecked={isChecked}
-                        data={data}
-                      />
-                    </Grid>
-                  )}
-                  <HumanSubmit {...props} />
-                </Form>
-              </Paper>
-            </>
-          )}
-        </Formik>
-      </Main>
-    </Layout>
+                  </Grid>
+                )}
+                <HumanSubmit {...props} />
+              </Form>
+            </Paper>
+          </>
+        )}
+      </Formik>
+    </div>
   )
 }
 

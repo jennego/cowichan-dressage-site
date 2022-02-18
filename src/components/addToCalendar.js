@@ -30,7 +30,7 @@ const AddToCalendar = ({ event, date, isCalArr, isButton }) => {
     location: event.locationName ? event.locationName : " ",
     description: event.description ? event.description : " ",
     start: toDate(new Date(event.start)),
-    end: event.end ? toDate(new Date(event.end)) : "",
+    // end: event.end ? toDate(new Date(event.end)) : "",
   }
 
   const googleCalendar = new GoogleCalendar(

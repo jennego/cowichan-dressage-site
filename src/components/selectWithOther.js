@@ -32,7 +32,6 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
 
   function validateOther(value) {
     if (value !== undefined) {
-      console.log("value of other", value)
       let error
       if (value.length === 0) {
         error = "other must be filled"

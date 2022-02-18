@@ -5,6 +5,7 @@ import { Typography, Card, CardContent, Grid } from "@material-ui/core"
 import ContactCard from "../components/contactCard"
 import { useStaticQuery, graphql } from "gatsby"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
+import Obfuscate from "react-obfuscate"
 
 const Resources = () => {
   const data = useStaticQuery(graphql`
@@ -42,6 +43,11 @@ const Resources = () => {
             {renderRichText(data.allContentfulSiteInfo.edges[0].node.resources)}
           </Typography>
         )}
+
+        <p>
+          For issues with this site, please contact{" "}
+          <Obfuscate email="jen@jenniferchow.ca" />.
+        </p>
         {/* <Typography variant="h4" style={{ marginTop: "2rem" }}>
           Cowichan Dressage Club Contacts
         </Typography>

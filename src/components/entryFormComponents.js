@@ -62,7 +62,7 @@ export const DateForm = ({ data, props, location }) => {
   )
 }
 
-export const PaymentForm = ({ props }) => {
+export const PaymentForm = ({ props, square, squareCost, cost }) => {
   return (
     <RadioGroup
       aria-label="payment method"
@@ -72,21 +72,34 @@ export const PaymentForm = ({ props }) => {
     >
       <FormLabel> Payment </FormLabel>
       <Typography gutterBottom variant="body2">
-        Pay via E-Transfer or Square Credit Card. A 2% surcharge will apply to
-        square credit card payments.
+        Pay via E-Transfer or Square Credit Card. A {square}% surcharge will
+        apply to square credit card payments.
       </Typography>
 
       <FormControlLabel
         value="square"
         name="paymentMethod"
         control={<Radio color="primary" />}
-        label="Square Credit Card"
+        label={
+          <div>
+            Square Credit Card{" "}
+            <span className="payment-cost">
+              {" "}
+              {squareCost ? squareCost : ""}{" "}
+            </span>
+          </div>
+        }
       />
       <FormControlLabel
         name="paymentMethod"
         value="etransfer"
         control={<Radio color="primary" />}
-        label="E-Transfer"
+        label={
+          <div>
+            E-Transfer{" "}
+            <span className="payment-cost"> {cost ? cost : ""} </span>
+          </div>
+        }
       />
       {props.touched.paymentMethod && Boolean(props.errors.paymentMethod) ? (
         <FormHelperText error>Payment Method is required.</FormHelperText>
@@ -304,8 +317,10 @@ export const EntryForm = ({ props, data }) => {
 
 export const Notes = ({ props }) => (
   <>
-    <Grid item xs={12}>
+    <p> Specify coach/trainer for scheduling purposes. </p>
+    <Grid item xs={12} md={6}>
       <TextField
+        fullWidth
         variant="filled"
         id="coach"
         name="coach"
@@ -321,14 +336,14 @@ export const Notes = ({ props }) => (
       <p>
         Please identify any special needs or considerations you would like us to
         know. We will do our best to accommodate your requests, but may not be
-        able to fulfill everything you ask for
+        able to fulfill everything you ask for. PLEASE INDICATE IF YOU ARE
+        TRAVELLING WITH ANOTHER ENTRY OR YOUR COACH.
       </p>
       <TextField
         id="notes"
         name="notes"
         label="Special Needs and Considerations"
-        placeholder="Please identify any special needs or considerations you would like us to know. We will do our best to accommodate your requests, but
-      may not be able to fulfill everything you ask for. PLEASE INDICATE IF YOU ARE TRAVELLING WITH ANOTHER ENTRY OR YOUR COACH"
+        placeholder="Travelling plans, scheduling requests, special requests etc"
         multiline
         minRows={4}
         maxRows={6}
