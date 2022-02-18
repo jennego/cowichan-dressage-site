@@ -45,7 +45,7 @@ const Resources = () => {
         )}
 
         <p>
-          For issues with this site, please contact
+          For issues with this site, please contact{" "}
           <Obfuscate email="jen@jenniferchow.ca" />.
         </p>
         {/* <Typography variant="h4" style={{ marginTop: "2rem" }}>

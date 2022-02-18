@@ -7,6 +7,7 @@ import AddToCalendar from "../components/addToCalendar"
 import format from "date-fns/format"
 import parseISO from "date-fns/parseISO"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
+import { Link } from "gatsby"
 
 const Email = () => <Obfuscate email="cowichandressageclub@gmail.com" />
 
@@ -14,12 +15,12 @@ const WhatForm = ({ location }) => {
   return (
     <Layout>
       <Main>
-        <Typography variant="h2">
+        <Typography variant="h3">
           Uh oh! It looks like you haven't actually submitted a form.
         </Typography>
         <Typography>
-          If you got here via link or something, you may be looking for contact
-          or event information, please see events page.
+          If you got here via link or something, you may be looking for event
+          information, please see <Link to="/events">events page.</Link>
         </Typography>
       </Main>
     </Layout>
@@ -33,23 +34,8 @@ const Membership = ({ location }) => (
         Thank you for joining Cowichan Dressage Club!
       </Typography>
       <Typography variant="body1" gutterBottom>
-        Your form has been successfully submitted.
-      </Typography>
-
-      <Typography variant="body1" gutterBottom>
-        Your cost is ${location.state.cost}.
-        {location.state.paymentMethod === "square" ? (
-          <span>
-            You have chosen to pay with square credit card. Please email{" "}
-            <Email /> for square invoice.
-          </span>
-        ) : (
-          <span>
-            You have chosen to pay with e-transfer. Please e-transfer to{" "}
-            <Email />. Auto-deposit is enabled so security question does not
-            matter.
-          </span>
-        )}
+        Your form has been successfully submitted. You will be emailed to
+        confirm payment and membership.
       </Typography>
     </Main>
   </Layout>
@@ -67,7 +53,7 @@ const FormSuccess = ({ location }) => {
       return (
         <Layout>
           <Main>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="h3" gutterBottom>
               Registration Complete.
             </Typography>
 
@@ -77,12 +63,12 @@ const FormSuccess = ({ location }) => {
               </Typography>
             )}
 
-            <Typography variant="body1" gutterBottom>
+            {/* <Typography variant="body1" gutterBottom>
               Your estimated cost will be ${location.state.cost}.
-            </Typography>
+            </Typography> */}
 
             <Typography variant="body1" gutterBottom>
-              You have registered for {location.state.event.eventName} for
+              You have registered for {location.state.event.eventName} on{" "}
               {format(
                 new Date(parseISO(location.state.values.date)),
                 "EEE, LLLL d, yyyy"
