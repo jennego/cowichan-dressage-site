@@ -50,6 +50,17 @@ const Membership = ({ location }) => (
       <Typography variant="body1" gutterBottom>
         Your form has been successfully submitted.
       </Typography>
+      {location.state.paymentMethod === "square" ? (
+        <Typography variant="body1">
+          Please email <Email />
+          for square invoice.
+        </Typography>
+      ) : (
+        <Typography variant="body1">
+          Please e-transfer to <Email />. Auto-deposit is enabled so security
+          question does not matter.
+        </Typography>
+      )}
       <div
         style={{
           display: "flex",
