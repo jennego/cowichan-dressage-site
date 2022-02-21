@@ -238,7 +238,7 @@ const Entry = ({
             })
             .finally(() => actions.setSubmitting(false))
         }}
-        validationSchema={dynamicSchema}
+        // validationSchema={dynamicSchema}
         initialValues={{
           rules: false,
           date: getDate(),
