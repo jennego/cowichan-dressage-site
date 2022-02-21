@@ -53,7 +53,7 @@ const UploadField = ({ index, doc, props, waiverType }) => {
                   <input
                     {...getInputProps({
                       name: `waiver${index + 1}`,
-                      id: "`waiver${index + 1}`",
+                      id: `waiver${index + 1}`,
                     })}
                   />
                   {isDragActive ? (
