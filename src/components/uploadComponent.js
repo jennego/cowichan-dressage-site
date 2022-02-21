@@ -23,6 +23,7 @@ const UploadField = ({ index, doc, props, waiverType }) => {
     },
   })
   const isJunior = waiverType === "junior"
+  console.log(props)
 
   return (
     <div>
