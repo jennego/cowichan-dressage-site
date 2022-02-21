@@ -1,88 +1,100 @@
-import React from "react"
-import { Link, navigate } from "gatsby"
-import Helmet from "react-helmet"
+import React, { useState, useCallback } from "react"
+import { useDropzone } from "react-dropzone"
 
-function encode(data) {
-  const formData = new FormData()
+function Form() {
+  const [name, setName] = useState("")
+  const [status, setStatus] = useState("")
+  const [email, setEmail] = useState("")
+  const [message, setMessage] = useState("")
+  const [file, setFile] = useState({})
 
-  for (const key of Object.keys(data)) {
-    formData.append(key, data[key])
+  const onDrop = useCallback(acceptedFiles => {
+    console.log(acceptedFiles)
+    setFile(acceptedFiles[0])
+  }, [])
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
+  const encode = data => {
+    const formData = new FormData()
+    Object.keys(data).forEach(k => {
+      formData.append(k, data[k])
+    })
+    return formData
   }
 
-  return formData
-}
+  const handleSubmit = e => {
+    const data = { "form-name": "contact", name, email, message, file }
 
-export default class Contact extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
-
-  handleAttachment = e => {
-    this.setState({ [e.target.name]: e.target.files[0] })
-  }
-
-  handleSubmit = e => {
-    e.preventDefault()
-    const form = e.target
     fetch("/", {
       method: "POST",
-      body: encode({
-        "form-name": form.getAttribute("name"),
-        ...this.state,
-      }),
+      // headers: { "Content-Type": 'multipart/form-data; boundary=random' },
+      body: encode(data),
     })
-      .then(() => alert(JSON.stringify(this.state)))
-      .catch(error => alert(error))
+      .then(() => setStatus("Form Submission Successful!!"), alert(data))
+      .catch(error => setStatus("Form Submission Failed!"))
+
+    e.preventDefault()
   }
 
-  render() {
-    return (
-      <div>
-        <h1>File Upload</h1>
-        <form
-          name="file-upload"
-          method="post"
-          action="/thanks/"
-          data-netlify="true"
-          data-netlify-honeypot="bot-field"
-          onSubmit={this.handleSubmit}
-        >
-          {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
-          <input type="hidden" name="form-name" value="file-upload" />
-          <p hidden>
-            <label>
-              Don’t fill this out:{" "}
-              <input name="bot-field" onChange={this.handleChange} />
-            </label>
-          </p>
-          <p>
-            <label>
-              Your name:
-              <br />
-              <input type="text" name="name" onChange={this.handleChange} />
-            </label>
-          </p>
-          <p>
-            <label>
-              File:
-              <br />
-              <input
-                type="file"
-                name="attachment"
-                onChange={this.handleAttachment}
-              />
-            </label>
-          </p>
-          <p>
-            <button type="submit">Send</button>
-          </p>
-        </form>
-      </div>
-    )
+  const handleChange = e => {
+    const { name, value } = e.target
+    if (name === "name") {
+      return setName(value)
+    }
+    if (name === "email") {
+      return setEmail(value)
+    }
+    if (name === "message") {
+      return setMessage(value)
+    }
   }
+
+  return (
+    <div className="App">
+      <form onSubmit={handleSubmit} action="/thank-you/">
+        <p>
+          <label>
+            Your Name:{" "}
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={handleChange}
+            />
+          </label>
+        </p>
+        <p>
+          <label>
+            Your Email:{" "}
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+            />
+          </label>
+        </p>
+        <p>
+          <label>
+            Message:{" "}
+            <textarea name="message" value={message} onChange={handleChange} />
+          </label>
+        </p>
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>Drag 'n' drop some files here, or click to select files</p>
+          )}
+        </div>
+        <p>
+          <button type="submit">Send</button>
+        </p>
+      </form>
+      <h3>{status}</h3>
+    </div>
+  )
 }
+
+export default Form
