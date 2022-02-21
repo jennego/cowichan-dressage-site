@@ -23,7 +23,7 @@ function Form() {
   }
 
   const handleSubmit = e => {
-    const data = { "form-name": "contact", name, email, message, file }
+    const data = { "form-name": "Form Dropzone", name, email, message, file }
 
     fetch("/", {
       method: "POST",
