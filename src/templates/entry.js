@@ -203,7 +203,7 @@ const Entry = ({
 
   const getDate = () => {
     if (location.state) {
-      return location.state.datd
+      return location.state.data
     }
   }
 
