@@ -122,10 +122,6 @@ const Entry = ({
     return null
   }
 
-  /// Do tests next
-  // Only if session is selected (seledcted session value includes?)
-  // Other field om
-
   const selectedIds = selectedSessions.map((item, index) => item.id + 1)
 
   let dynamicSchema = yup.lazy(obj =>
@@ -172,11 +168,11 @@ const Entry = ({
             .required("Agreeing to the rules is required")
         }
 
-        if (key.includes("g-recaptcha-response")) {
-          return yup
-            .string()
-            .required("Make sure to confirm that you are not a robot!")
-        }
+        // if (key.includes("g-recaptcha-response")) {
+        //   return yup
+        //     .string()
+        //     .required("Make sure to confirm that you are not a robot!")
+        // }
 
         if (
           key.includes("test") &&
@@ -221,10 +217,11 @@ const Entry = ({
             body: encode({
               "form-name": `${data.contentfulEvent.eventName} Entries`,
               ...values,
-              "g-recaptcha-response": values["g-recaptcha-response"],
+              // "g-recaptcha-response": values["g-recaptcha-response"],
             }),
           })
             .then(() => {
+              alert(JSON.stringify(values))
               navigate("/form-success", {
                 state: {
                   values,
