@@ -51,7 +51,12 @@ function Form() {
 
   return (
     <div className="App">
-      <form onSubmit={handleSubmit} action="/thank-you/">
+      <form
+        onSubmit={handleSubmit}
+        action="/thank-you/"
+        data-netlify="true"
+        name="dropzone"
+      >
         <p>
           <label>
             Your Name:{" "}
