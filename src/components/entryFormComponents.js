@@ -320,12 +320,13 @@ export const Notes = ({ props }) => (
   <>
     <Grid item xs={12} md={6}>
       <TextField
+        style={{ marginTop: "2rem" }}
         fullWidth
         variant="filled"
         id="coach"
         name="coach"
         label="Coach/Trainer"
-        placeholder="Specifyfor scheduling purposes"
+        placeholder="Specify for scheduling purposes"
         value={props.values.coach}
         onBlur={props.handleBlur}
         onChange={props.handleChange}
