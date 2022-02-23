@@ -71,7 +71,7 @@ const Resources = () => {
 
         <Typography>
           Cowichan Dressage Club - Email:
-          <Obfuscate email="cowichacowichandressageclub@gmail.com" />
+          <Obfuscate email="cowichandressageclub@gmail.com" />
         </Typography>
         <p>
           For issues with this site, please contact{" "}
