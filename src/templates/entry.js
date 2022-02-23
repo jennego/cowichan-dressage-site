@@ -360,7 +360,7 @@ const Entry = ({
             <hr />
             <Paper>
               <Form
-                name={`${data.contentfulEvent.adultWaivers} Entries`}
+                name={`${data.contentfulEvent.eventName} Entries`}
                 data-netlify-recaptcha="true"
                 data-netlify="true"
                 netlify-honeypot="bot-field"
