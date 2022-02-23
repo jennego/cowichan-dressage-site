@@ -37,6 +37,11 @@ const Resources = () => {
   return (
     <Layout>
       <Main>
+        <Typography>
+          Cowichan Dressage Club Email
+          <Obfuscate email="cowichacowichandressageclub@gmail.com" />
+        </Typography>
+
         <Typography variant="h2"> Links and Resources </Typography>
         {data.allContentfulSiteInfo.edges[0].node.resources && (
           <Typography>

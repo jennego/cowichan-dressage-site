@@ -105,8 +105,11 @@ const Entry = ({
 
   const UpdateDate = () => {
     const { setFieldValue } = useFormikContext()
+
     useEffect(() => {
-      setFieldValue("date", dateQueryValue)
+      if (dateQueryValue) {
+        setFieldValue("date", dateQueryValue)
+      }
     }, [dateQueryValue])
     return null
   }
@@ -236,7 +239,7 @@ const Entry = ({
             .catch(error => {
               console.log(error)
               alert(
-                "oops! There was an error. Try again. If it still doesn't work contact jen@jenniferchow.ca"
+                "Oops! There was an error. Try again. If it still doesn't work contact jen@jenniferchow.ca with your browser and what you were doing. See resources for PDF"
               )
             })
             .finally(() => actions.setSubmitting(false))

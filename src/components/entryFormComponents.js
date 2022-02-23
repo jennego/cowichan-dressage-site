@@ -26,7 +26,7 @@ export const DateForm = ({ data, props, location }) => {
           aria-label="date"
           name="date"
           onBlur={props.handleBlur}
-          onChange={props.handleChange}
+          onChange={e => props.setFieldValue("date", e.target.value)}
           value={props.values.date}
           id="date"
         >
