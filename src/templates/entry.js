@@ -239,7 +239,7 @@ const Entry = ({
             .catch(error => {
               console.log(error)
               alert(
-                "Oops! There was an error. Try again. If it still doesn't work contact jen@jenniferchow.ca with your browser and what you were doing. See resources for PDF"
+                "Oops! There was an error. Try again. If it still doesn't work contact jen@jenniferchow.ca with your browser and what you were doing. See resources page for PDF entry form if needed."
               )
             })
             .finally(() => actions.setSubmitting(false))

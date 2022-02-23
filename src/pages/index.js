@@ -281,14 +281,11 @@ const IndexPage = () => {
                                 button
                                 onClick={() =>
                                   navigate(
-                                    `events/${
+                                    `/events/${
                                       event.slug
                                     }?date=${encodeURIComponent(
                                       stringDate(event.start)
-                                    )}&id=reg`,
-                                    {
-                                      state: { date: date.date },
-                                    }
+                                    )}&id=reg`
                                   )
                                 }
                               >

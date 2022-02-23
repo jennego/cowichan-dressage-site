@@ -159,10 +159,7 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                                   event.slug
                                 }?date=${encodeURIComponent(
                                   stringDate(event.start)
-                                )}&id=reg`,
-                                {
-                                  state: { date: date.date },
-                                }
+                                )}&id=reg`
                               )
                             }
                           >
@@ -173,16 +170,17 @@ export const AgendaView = ({ accessors, localizer, length, date, events }) => {
                             />
                           </ListItem>
                         ) : (
-                          <ListItem
-                            button
-                            onClick={() => navigate(`/${date.date}/results`)}
-                          >
-                            <ListItemText
-                              disableTypography
-                              primary="Results"
-                              className="date-menu"
-                            />
-                          </ListItem>
+                          ""
+                          // <ListItem
+                          //   button
+                          //   onClick={() => navigate(`/${date.date}/results`)}
+                          // >
+                          //   <ListItemText
+                          //     disableTypography
+                          //     primary="Results"
+                          //     className="date-menu"
+                          //   />
+                          // </ListItem>
                         )}
                       </List>
                     </Collapse>

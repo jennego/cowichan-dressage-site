@@ -25,10 +25,11 @@ a:visited {
   color: #2979ff;
   text-decoration: none;
 }
-a:focus,
-a:hover {
+
+a:hover,
+a:focus {
   color: #2979ff;
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 .hero {

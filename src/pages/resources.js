@@ -6,6 +6,7 @@ import ContactCard from "../components/contactCard"
 import { useStaticQuery, graphql } from "gatsby"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import Obfuscate from "react-obfuscate"
+import { PictureAsPdf } from "@material-ui/icons"
 
 const Resources = () => {
   const data = useStaticQuery(graphql`
@@ -15,6 +16,13 @@ const Resources = () => {
           node {
             resources {
               raw
+            }
+            allCurrentForms {
+              title
+              file {
+                fileName
+                url
+              }
             }
           }
         }
@@ -37,11 +45,6 @@ const Resources = () => {
   return (
     <Layout>
       <Main>
-        <Typography>
-          Cowichan Dressage Club Email
-          <Obfuscate email="cowichacowichandressageclub@gmail.com" />
-        </Typography>
-
         <Typography variant="h2"> Links and Resources </Typography>
         {data.allContentfulSiteInfo.edges[0].node.resources && (
           <Typography>
@@ -49,6 +52,27 @@ const Resources = () => {
           </Typography>
         )}
 
+        <Typography variant="h4"> All Current Forms </Typography>
+        <ul>
+          {data.allContentfulSiteInfo.edges[0].node.allCurrentForms.map(
+            ({ file }) => (
+              <li>
+                <a href={file.url} target="_parent" rel="noreferrer">
+                  <Typography>
+                    <PictureAsPdf /> {file.fileName}
+                  </Typography>
+                </a>
+              </li>
+            )
+          )}
+        </ul>
+
+        <Typography variant="h4"> Contact </Typography>
+
+        <Typography>
+          Cowichan Dressage Club - Email:
+          <Obfuscate email="cowichacowichandressageclub@gmail.com" />
+        </Typography>
         <p>
           For issues with this site, please contact{" "}
           <Obfuscate email="jen@jenniferchow.ca" />.
