@@ -320,3 +320,12 @@ li > p {
   color: #4a4a4a;
   font-size: 12px;
 }
+
+.waiver-placeholder {
+  height: 120px;
+  border: red 5px dashed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}

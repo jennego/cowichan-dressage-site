@@ -51,6 +51,10 @@ const Sessions = ({
 
   return (
     <div>
+      <Typography variant="h4" style={{ marginTop: "1.5rem" }}>
+        Sessions
+      </Typography>
+
       {newSessionArr.map((session, index) => (
         <Grid container style={{ margin: "1.5rem 0" }} key={index}>
           <Grid>
