@@ -17,7 +17,7 @@ import {
 } from "@material-ui/core"
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward"
 
-const UploadField = ({ index, doc, props, waiverType }) => {
+const UploadField = ({ index, doc, props, waiverType, hidden }) => {
   const {
     getRootProps,
     getInputProps,
@@ -34,7 +34,7 @@ const UploadField = ({ index, doc, props, waiverType }) => {
   const isJunior = waiverType === "junior"
 
   return (
-    <div>
+    <div style={{ visibility: hidden ? "hidden" : "block" }}>
       <Paper elevation={5} className="pdf-item">
         <Grid container spacing={1}>
           <Grid item xs={12}>
@@ -123,10 +123,15 @@ const UploadField = ({ index, doc, props, waiverType }) => {
   )
 }
 
-const WaiverPlaceholder = () => (
-  <div className="waiver-placeholder">
-    <ArrowUpwardIcon fontSize="large" /> Select Participant Age (above) to View
-    and Upload Required Waivers
+const WaiverPlaceholder = ({ fileArray, props }) => (
+  <div>
+    <div className="waiver-placeholder">
+      <ArrowUpwardIcon fontSize="large" /> Select Participant Age (above) to
+      View and Upload Required Waivers
+    </div>
+    {fileArray.map((doc, index) => (
+      <UploadField props={props} doc={doc} index={index} hidden={true} />
+    ))}
   </div>
 )
 
@@ -183,7 +188,7 @@ export const UploadComponent = ({ props, fileArray, waiverType }) => {
         </div>
       </Grid>
       {props.values.age === "" ? (
-        <WaiverPlaceholder />
+        <WaiverPlaceholder fileArray={fileArray} props={props} />
       ) : (
         <div>
           <Typography gutterBottom variant="body1">
