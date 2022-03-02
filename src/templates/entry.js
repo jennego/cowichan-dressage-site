@@ -32,6 +32,7 @@ import Sessions from "../components/sessions"
 import HumanSubmit from "../components/humanCheck"
 import { useQueryParam } from "gatsby-query-params"
 import Dialog from "@material-ui/core/Dialog"
+import Loading from "../images/loading-crop.gif"
 
 const Entry = ({
   pageContext,
@@ -58,7 +59,24 @@ const Entry = ({
           // onClose={handleClose}
           aria-labelledby="Submitting Form"
         >
-          <h1 style={{ padding: "0.5rem 2rem" }}>Submitting Form....</h1>
+          <h1 style={{ padding: "0 2rem" }}>Submitting Form..</h1>
+          <img
+            src={Loading}
+            alt="dots moving as if something is happening"
+            style={{
+              height: "50px",
+              objectFit: "contain",
+              paddingBottom: "0.5rem",
+            }}
+          />
+          <p
+            style={{
+              fontSize: "10px",
+              textAlign: "center",
+            }}
+          >
+            Ellipsis animation from loading.io
+          </p>
         </Dialog>
       )
     } else {
@@ -67,9 +85,25 @@ const Entry = ({
           open={false}
           // onClose={handleClose}
           aria-labelledby="Submitting Form"
-          aria-describedby="simple-modal-description"
         >
-          <h1 style={{ padding: "0.5rem 2rem" }}>Submitting Form....</h1>
+          <h1 style={{ padding: "0 2rem" }}>Submitting Form..</h1>
+          <img
+            src={Loading}
+            alt="dots moving as if something is happening"
+            style={{
+              height: "50px",
+              objectFit: "contain",
+              paddingBottom: "0.5rem",
+            }}
+          />
+          <p
+            style={{
+              fontSize: "10px",
+              textAlign: "center",
+            }}
+          >
+            Ellipsis animation from loading.io
+          </p>
         </Dialog>
       )
     }
