@@ -76,10 +76,10 @@ const TestInfo = ({ form, props, testNumber, disabled, index }) => {
             disabled={disabled}
           >
             <MenuItem value={"EC"} onClick={() => setIsOther(false)}>
-              EC
+              Equestrian Canada (EC/USEF)
             </MenuItem>
             <MenuItem value={"HCBC"} onClick={() => setIsOther(false)}>
-              HCBC
+              Horse Council BC (HCBC)
             </MenuItem>
             <MenuItem value={"other"} onClick={() => setIsOther(true)}>
               Other (specify)

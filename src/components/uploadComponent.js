@@ -6,9 +6,18 @@ import { PictureAsPdf, Delete } from "@material-ui/icons"
 import Alert from "@material-ui/lab/Alert"
 import Button from "@material-ui/core/Button"
 import PDFListItem from "./pdfListItem"
-import { Typography, Paper, Grid, FormHelperText } from "@material-ui/core"
+import {
+  Typography,
+  Paper,
+  Grid,
+  FormHelperText,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from "@material-ui/core"
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward"
 
-const UploadField = ({ index, doc, props, waiverType }) => {
+const UploadField = ({ index, doc, props, waiverType, hidden }) => {
   const {
     getRootProps,
     getInputProps,
@@ -25,7 +34,7 @@ const UploadField = ({ index, doc, props, waiverType }) => {
   const isJunior = waiverType === "junior"
 
   return (
-    <div>
+    <div style={{ visibility: hidden ? "hidden" : "block" }}>
       <Paper elevation={5} className="pdf-item">
         <Grid container spacing={1}>
           <Grid item xs={12}>
@@ -114,10 +123,22 @@ const UploadField = ({ index, doc, props, waiverType }) => {
   )
 }
 
+const WaiverPlaceholder = ({ fileArray, props }) => (
+  <div>
+    <div className="waiver-placeholder">
+      <ArrowUpwardIcon fontSize="large" /> Select Participant Age (above) to
+      View and Upload Required Waivers
+    </div>
+    {fileArray.map((doc, index) => (
+      <UploadField props={props} doc={doc} index={index} hidden={true} />
+    ))}
+  </div>
+)
+
 export const UploadComponent = ({ props, fileArray, waiverType }) => {
   return (
     <div style={{ marginTop: "1rem" }}>
-      <Typography variant="h5">Waivers</Typography>
+      <Typography variant="h4">Waivers</Typography>
       <div style={{ margin: "0.5rem 0 1rem 0" }}>
         <Typography gutterBottom variant="body2">
           Please download listed PDFs, fill it out (if not a fillable PDF, you
@@ -131,15 +152,60 @@ export const UploadComponent = ({ props, fileArray, waiverType }) => {
           </a>
           ) and upload it in the appropriate upload section.
         </Typography>
-        <Typography gutterBottom variant="body2">
-          Showing {waiverType ? "junior" : "adult"} waivers. Select&nbsp;
-          {waiverType ? "adult" : "junior"} age group to see&nbsp;
-          {waiverType ? "adult" : "junior"} waivers.
-        </Typography>
       </div>
-      {fileArray.map((doc, index) => (
-        <UploadField props={props} doc={doc} index={index} />
-      ))}
+      <Grid item xs={12}>
+        <FormLabel component="legend">Participant Age</FormLabel>
+        <RadioGroup
+          aria-label="age"
+          name="age"
+          id="age"
+          style={{ display: "flex", flexDirection: "row", marginTop: "0" }}
+          onBlur={props.handleBlur}
+          value={props.values.age}
+          onChange={e => props.setFieldValue("age", e.target.value)}
+        >
+          <FormControlLabel
+            value="adult"
+            control={<Radio />}
+            label="Senior (Over Age of Majority"
+            name="age"
+          />
+          <FormControlLabel
+            value="junior"
+            control={<Radio />}
+            label="Junior (Under Age of Majority)"
+            name="age"
+          />
+        </RadioGroup>
+        <div>
+          {props.touched.age && Boolean(props.errors.age) ? (
+            <FormHelperText error>
+              Age group is required and will reflect waivers.
+            </FormHelperText>
+          ) : (
+            ""
+          )}
+        </div>
+      </Grid>
+      {props.values.age === "" ? (
+        <WaiverPlaceholder fileArray={fileArray} props={props} />
+      ) : (
+        <div>
+          <Typography gutterBottom variant="body1">
+            Curently Showing{" "}
+            <span style={{ fontWeight: "bold" }}>
+              {props.values.age} waivers.
+            </span>{" "}
+            Select&nbsp;
+            {props.values.age === "junior" ? "senior" : "junior"} age group to
+            see&nbsp;
+            {props.values.age === "junior" ? "adult" : "junior"} waivers.
+          </Typography>
+          {fileArray.map((doc, index) => (
+            <UploadField props={props} doc={doc} index={index} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

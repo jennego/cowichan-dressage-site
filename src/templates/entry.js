@@ -31,6 +31,8 @@ import { EntryForm } from "../components/entryFormComponents"
 import Sessions from "../components/sessions"
 import HumanSubmit from "../components/humanCheck"
 import { useQueryParam } from "gatsby-query-params"
+import Dialog from "@material-ui/core/Dialog"
+import Loading from "../images/loading-crop.gif"
 
 const Entry = ({
   pageContext,
@@ -46,7 +48,66 @@ const Entry = ({
   const [initialWaivers, setInitialWavers] = useState("")
   const [initialTests, setInitialTests] = useState("")
   const [selectedSessions, setSelectedSessions] = useState([])
+
   const dateQueryValue = useQueryParam("date")
+
+  const IsSubmitting = ({ submitting }) => {
+    if (submitting) {
+      return (
+        <Dialog
+          open={true}
+          // onClose={handleClose}
+          aria-labelledby="Submitting Form"
+        >
+          <h1 style={{ padding: "0 2rem" }}>Submitting Form..</h1>
+          <img
+            src={Loading}
+            alt="dots moving as if something is happening"
+            style={{
+              height: "50px",
+              objectFit: "contain",
+              paddingBottom: "0.5rem",
+            }}
+          />
+          <p
+            style={{
+              fontSize: "10px",
+              textAlign: "center",
+            }}
+          >
+            Ellipsis animation from loading.io
+          </p>
+        </Dialog>
+      )
+    } else {
+      return (
+        <Dialog
+          open={false}
+          // onClose={handleClose}
+          aria-labelledby="Submitting Form"
+        >
+          <h1 style={{ padding: "0 2rem" }}>Submitting Form..</h1>
+          <img
+            src={Loading}
+            alt="dots moving as if something is happening"
+            style={{
+              height: "50px",
+              objectFit: "contain",
+              paddingBottom: "0.5rem",
+            }}
+          />
+          <p
+            style={{
+              fontSize: "10px",
+              textAlign: "center",
+            }}
+          >
+            Ellipsis animation from loading.io
+          </p>
+        </Dialog>
+      )
+    }
+  }
 
   let totalCost = 0
   if (selectedSessions.length > 0) {
@@ -268,6 +329,7 @@ const Entry = ({
         {props => (
           <>
             <div>
+              <IsSubmitting submitting={props.isSubmitting} />
               {console.log(props)}
               <Typography variant="h4" component="h2">
                 Entry form for {data.contentfulEvent.eventName}

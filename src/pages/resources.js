@@ -7,6 +7,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import Obfuscate from "react-obfuscate"
 import { PictureAsPdf } from "@material-ui/icons"
+import { RichTextLinks } from "../components/linkNewWindow"
 
 const Resources = () => {
   const data = useStaticQuery(graphql`
@@ -48,7 +49,7 @@ const Resources = () => {
         <Typography variant="h2"> Links and Resources </Typography>
         {data.allContentfulSiteInfo.edges[0].node.resources && (
           <Typography>
-            {renderRichText(data.allContentfulSiteInfo.edges[0].node.resources)}
+            {RichTextLinks(data.allContentfulSiteInfo.edges[0].node.resources)}
           </Typography>
         )}
 
@@ -57,7 +58,7 @@ const Resources = () => {
           {data.allContentfulSiteInfo.edges[0].node.allCurrentForms.map(
             ({ file }) => (
               <li>
-                <a href={file.url} target="_parent" rel="noreferrer">
+                <a href={file.url} target="_open" rel="noreferrer">
                   <Typography>
                     <PictureAsPdf /> {file.fileName}
                   </Typography>

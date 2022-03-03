@@ -230,41 +230,8 @@ export const EntryForm = ({ props, data }) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item md={6} xs={12}>
-          <FormLabel component="legend">Age</FormLabel>
-          <RadioGroup
-            aria-label="age"
-            name="age"
-            id="age"
-            style={{ display: "flex", flexDirection: "row", marginTop: "0" }}
-            onBlur={props.handleBlur}
-            value={props.values.age}
-            onChange={e => props.setFieldValue("age", e.target.value)}
-          >
-            <FormControlLabel
-              value="junior"
-              control={<Radio />}
-              label="Junior"
-              name="age"
-            />
+        <Grid item></Grid>
 
-            <FormControlLabel
-              value="adult"
-              control={<Radio />}
-              label="Senior"
-              name="age"
-            />
-          </RadioGroup>
-          <div>
-            {props.touched.age && Boolean(props.errors.age) ? (
-              <FormHelperText error>
-                Age group is required and will reflect waivers.
-              </FormHelperText>
-            ) : (
-              ""
-            )}
-          </div>
-        </Grid>
         <Grid item md={6} xs={12}>
           <Grid container>
             <Grid item xs={1}>
