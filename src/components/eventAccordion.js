@@ -6,11 +6,10 @@ import Accordion from "@material-ui/core/Accordion"
 import AccordionSummary from "@material-ui/core/AccordionSummary"
 import AccordionDetails from "@material-ui/core/AccordionDetails"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import { renderRichText } from "gatsby-source-contentful/rich-text"
 import Entry from "../templates/entry"
 import { useQueryParam } from "gatsby-query-params"
-import queryString from "query-string"
 import { navigate } from "gatsby"
+import { RichTextLinks } from "../components/linkNewWindow"
 
 // use query string to open/close accordian
 
@@ -102,7 +101,7 @@ const EventAccordion = ({ event, data, location, square }) => {
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                {renderRichText(event.eventInformation)}
+                {RichTextLinks(event.eventInformation)}
 
                 {event.resources &&
                   event.resources.map(resource => (
@@ -144,7 +143,7 @@ const EventAccordion = ({ event, data, location, square }) => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>{renderRichText(event.rules)}</Typography>
+              <Typography>{RichTextLinks(event.rules)}</Typography>
             </AccordionDetails>
           </Accordion>
         )}
@@ -168,7 +167,7 @@ const EventAccordion = ({ event, data, location, square }) => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>{renderRichText(event.testInfo)}</Typography>
+              <Typography>{RichTextLinks(event.testInfo)}</Typography>
             </AccordionDetails>
           </Accordion>
         )}
@@ -192,9 +191,7 @@ const EventAccordion = ({ event, data, location, square }) => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>
-                {renderRichText(event.cancellationPolicy)}
-              </Typography>
+              <Typography>{RichTextLinks(event.cancellationPolicy)}</Typography>
             </AccordionDetails>
           </Accordion>
         )}
@@ -216,10 +213,10 @@ const EventAccordion = ({ event, data, location, square }) => {
           </AccordionSummary>
           <AccordionDetails style={{ flexDirection: "column" }}>
             {/* {event.confirmationMessage && (
-            <Typography>{renderRichText(event.confirmationMessage)}</Typography>
+            <Typography>{RichTextLinks(event.confirmationMessage)}</Typography>
           )} */}
             {event.registrationInfo && (
-              <Typography>{renderRichText(event.registrationInfo)}</Typography>
+              <Typography>{RichTextLinks(event.registrationInfo)}</Typography>
             )}
             <Entry
               data={data}
