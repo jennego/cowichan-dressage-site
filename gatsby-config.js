@@ -9,10 +9,49 @@ module.exports = {
   siteMetadata: {
     title: `Cowichan Dressage Club`,
     description: `The Cowichan Dressage Club is a nonprofit society dedicated to facilitating dressage-specific educational and developmental opportunities in the Cowichan Valley, BC, Canada. Our offerings include informational sessions, clinics, test days, & schooling competitions.`,
-    author: `@gatsbyjs`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    siteUrl: "http://www.cowichandressage.ca",
+    author: "Cowichan Dressage Club",
   },
   plugins: [
+    "gatsby-plugin-robots-txt",
+    `gatsby-plugin-react-helmet-canonical-urls`,
+    {
+      resolve: "gatsby-plugin-sitemap",
+      options: {
+        output: "/sitemap",
+        excludes: ["/form-success"],
+        query: `
+        {
+          site {
+            siteMetadata {
+              siteUrl
+            }
+          }
+          allSitePage(
+            filter: {
+              path: { regex: "/^(?!/404/|/404.html|/dev-404-page/)/" }
+            }
+          ) {
+            nodes {
+              path
+            }
+          }
+        }
+        `,
+        resolvePages: ({ allSitePage: { nodes: allPages } }) => {
+          return allPages.map(page => {
+            return { ...page }
+          })
+        },
+        serialize: ({ path }) => {
+          return {
+            url: path,
+            changefreq: "weekly",
+            priority: 0.7,
+          }
+        },
+      },
+    },
     `gatsby-plugin-material-ui`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
