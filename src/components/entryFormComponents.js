@@ -21,10 +21,12 @@ export const DateForm = ({ data, props, location }) => {
   return (
     <div style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
       <FormControl component="fieldset">
-        <FormLabel component="legend">Date</FormLabel>
+        <FormLabel id="date-label">Event Date</FormLabel>
         <RadioGroup
-          aria-label="date"
+          aria-labelledby="date-label"
+          aria-label="event date"
           name="date"
+          label="Event Date"
           onBlur={props.handleBlur}
           onChange={props.handleChange}
           value={props.values.date}
