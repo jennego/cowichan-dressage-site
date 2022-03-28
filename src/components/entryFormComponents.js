@@ -21,12 +21,9 @@ export const DateForm = ({ data, props, location }) => {
   return (
     <div style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
       <FormControl component="fieldset">
-        <FormLabel id="event-date-label" component="legend">
-          Event Date
-        </FormLabel>
+        <FormLabel component="legend">Date</FormLabel>
         <RadioGroup
-          aria-label="event date"
-          aria-labelledby="event-date-label"
+          aria-label="date"
           name="date"
           onBlur={props.handleBlur}
           onChange={props.handleChange}
@@ -88,6 +85,7 @@ export const PaymentForm = ({ props, square, squareCost, cost }) => {
           <div>
             Square Credit Card{" "}
             <span className="payment-cost">
+              {" "}
               {squareCost ? squareCost : ""}{" "}
             </span>
           </div>
@@ -203,7 +201,7 @@ export const EntryForm = ({ props, data }) => {
                 props={props}
                 fieldName="PhoneNumber"
                 idName="PhoneNumber"
-                label="Phone Number"
+                labelName="Phone Number"
               />
             </Grid>
           </Grid>
@@ -275,7 +273,7 @@ export const EntryForm = ({ props, data }) => {
                 props={props}
                 fieldName="emergContactPhone"
                 idName="emergContactPhone"
-                label="Emergency Contact Phone Number"
+                labelName="Emergency Contact Phone Number"
               />
             </Grid>
           </Grid>
