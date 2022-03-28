@@ -21,9 +21,7 @@ export const DateForm = ({ data, props, location }) => {
   return (
     <div style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>
       <FormControl component="fieldset">
-        <FormLabel id="event-date-label" component="legend">
-          Event Date
-        </FormLabel>
+        <FormLabel id="event-date-label">Event Date</FormLabel>
         <RadioGroup
           aria-label="event date"
           aria-labelledby="event-date-label"
