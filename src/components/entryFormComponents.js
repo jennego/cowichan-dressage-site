@@ -25,6 +25,7 @@ export const DateForm = ({ data, props, location }) => {
         <RadioGroup
           aria-label="event date"
           aria-labelledby="event-date-label"
+          label="Event Date"
           name="date"
           onBlur={props.handleBlur}
           onChange={props.handleChange}
@@ -201,7 +202,7 @@ export const EntryForm = ({ props, data }) => {
                 props={props}
                 fieldName="PhoneNumber"
                 idName="PhoneNumber"
-                labelName="Phone Number"
+                label="Phone Number"
               />
             </Grid>
           </Grid>
@@ -273,7 +274,7 @@ export const EntryForm = ({ props, data }) => {
                 props={props}
                 fieldName="emergContactPhone"
                 idName="emergContactPhone"
-                labelName="Emergency Contact Phone Number"
+                label="Emergency Contact Phone Number"
               />
             </Grid>
           </Grid>
