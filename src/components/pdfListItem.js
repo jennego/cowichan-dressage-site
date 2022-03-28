@@ -22,6 +22,7 @@ const PDFListItem = ({ file }) => {
           component="a"
           style={{ border: "1px solid #000", color: "blue" }}
           href={file.url}
+          target="_blank"
         >
           <ListItemIcon>
             <PictureAsPdf />

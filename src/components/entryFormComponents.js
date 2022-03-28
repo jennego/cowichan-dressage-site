@@ -23,7 +23,8 @@ export const DateForm = ({ data, props, location }) => {
       <FormControl component="fieldset">
         <FormLabel component="legend">Event Date</FormLabel>
         <RadioGroup
-          aria-label="date"
+          aria-label="event date"
+          labelName="Event Date"
           name="date"
           onBlur={props.handleBlur}
           onChange={props.handleChange}
@@ -85,7 +86,6 @@ export const PaymentForm = ({ props, square, squareCost, cost }) => {
           <div>
             Square Credit Card{" "}
             <span className="payment-cost">
-              {" "}
               {squareCost ? squareCost : ""}{" "}
             </span>
           </div>
