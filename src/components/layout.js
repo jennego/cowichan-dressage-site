@@ -7,6 +7,7 @@ import { createTheme, ThemeProvider } from "@material-ui/core/styles"
 import Nav from "./header"
 import "./layout.css"
 import Footer from "./footer"
+import Seo from "./seo"
 
 const theme = createTheme({
   typography: {
@@ -44,6 +45,8 @@ const Layout = ({ children }) => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Seo title="Cowichan Dressage Club" />
+
       <Nav />
       <main>{children}</main>
       <Footer />
