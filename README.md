@@ -1,7 +1,3 @@
-To do
-- scroll to rules on rules error
-- force pdf download from remote (contentful)
-
 
 Responsive Gatsby site and form-based serverless registration system using Netlify forms. Forms customizable via Contentful CMS and are dynamically generated on rebuild. Forms are validated on touch and on submit via Yup, with some custom error handling.
 
@@ -18,6 +14,12 @@ Tech
 - Datebook (for ics/google cal generation)
 
 Makes use of GatsbyImage, Contentful/Gatsby provided GraphQL and hooks. Runs on Netlify and makes use of Netlify forms.
+
+To do
+- scroll to rules on rules error
+- force pdf download from remote (contentful)
+
+
 
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
