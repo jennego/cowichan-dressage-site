@@ -1,3 +1,7 @@
+To do
+- scroll to rules on rules error
+- force pdf download from remote (contentful)
+
 
 Responsive Gatsby site and form-based serverless registration system using Netlify forms. Forms customizable via Contentful CMS and are dynamically generated on rebuild. Forms are validated on touch and on submit via Yup, with some custom error handling.
 
