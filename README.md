@@ -15,6 +15,12 @@ Tech
 
 Makes use of GatsbyImage, Contentful/Gatsby provided GraphQL and hooks. Runs on Netlify and makes use of Netlify forms.
 
+To do
+- scroll to rules on rules error
+- force pdf download from remote (contentful)
+
+
+
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.com">
