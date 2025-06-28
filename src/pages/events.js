@@ -12,45 +12,43 @@ import { DateList } from "../components/dateButtonList"
 import LocationInfo from "../components/event-location"
 
 const Events = () => {
-  const data = useStaticQuery(graphql`
-    {
-      allContentfulEvent(sort: { fields: eventDates___date, order: DESC }) {
-        edges {
-          node {
-            eventName
-            id
-            slug
-            locationName
-            location {
-              lat
-              lon
+  const data = useStaticQuery(graphql`{
+  allContentfulEvent(sort: {eventDates: {date: DESC}}) {
+    edges {
+      node {
+        eventName
+        id
+        slug
+        locationName
+        location {
+          lat
+          lon
+        }
+        summary {
+          summary
+        }
+        image {
+          gatsbyImageData
+        }
+        eventDates {
+          id
+          date
+          isFull
+          results {
+            file {
+              url
             }
-            summary {
-              summary
-            }
-            image {
-              gatsbyImageData
-            }
-            eventDates {
-              id
-              date
-              isFull
-              results {
-                file {
-                  url
-                }
-              }
-              rideTimes {
-                file {
-                  url
-                }
-              }
+          }
+          rideTimes {
+            file {
+              url
             }
           }
         }
       }
     }
-  `)
+  }
+}`)
   return (
     <Layout>
       <Main>

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import Layout from "../components/layout"
 import Main from "../components/MainContent"
-import { navigate } from "gatsby-link"
+import { navigate } from "gatsby"
 import { useFormik, Formik, Form, Field } from "formik"
 import * as yup from "yup"
 import Button from "@material-ui/core/Button"
