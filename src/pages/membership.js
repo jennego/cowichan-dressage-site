@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import Layout from "../components/layout"
 import Main from "../components/MainContent"
+import { Alert } from "@material-ui/lab"
 import { navigate } from "gatsby"
 import { useFormik, Formik, Form, Field } from "formik"
 import * as yup from "yup"
@@ -450,6 +451,11 @@ const Membership = () => {
           <Typography variant="h3" component="h1">
             Membership
           </Typography>
+
+          <Alert severity="info" style={{ fontSize: "1em", marginTop: "1rem" }}>
+            Please note that the Cowichan Dressage Club disbanded on November
+            30, 2023. This site is provided for portfolio purposes only.
+          </Alert>
           <Typography variant="body1" style={{ marginBottom: "5px" }}>
             {membershipContent && renderRichText(membershipContent)}
           </Typography>

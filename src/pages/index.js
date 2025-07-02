@@ -6,6 +6,7 @@ import Seo from "../components/seo"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
+import { Alert, AlertTitle } from "@material-ui/lab"
 import { Typography, Button, Grid, Container, Paper } from "@material-ui/core"
 import logo from "../images/cdcpathwhitecrop.svg"
 
@@ -96,7 +97,7 @@ const IndexPage = () => {
       allDay: true,
       description: node.summary.summary,
       isFull: date.isFull,
-    }))
+    })),
   )
 
   const dateArr = [].concat.apply([], dateArrays)
@@ -104,7 +105,7 @@ const IndexPage = () => {
   let sortedDateArr = sortBy(dateArr, ["start"])
 
   const upcoming = sortedDateArr.filter(date =>
-    isAfter(date.start, new Date()) ? date : ""
+    isAfter(date.start, new Date()) ? date : "",
   )
 
   const stringDate = date => {
@@ -175,6 +176,15 @@ const IndexPage = () => {
                 paddingBottom: "2rem",
               }}
             >
+              <Alert
+                severity="info"
+                style={{ fontSize: "1em", marginTop: "1rem" }}
+              >
+                Please note that the Cowichan Dressage Club disbanded on
+                November 30, 2023. This site is provided for portfolio purposes
+                only.
+              </Alert>
+
               <div className="short-about">
                 <Typography variant="body1">
                   {siteInfo.homeOpeningStatement.homeOpeningStatement}
@@ -284,8 +294,8 @@ const IndexPage = () => {
                                     `/events/${
                                       event.slug
                                     }?date=${encodeURIComponent(
-                                      stringDate(event.start)
-                                    )}&id=reg`
+                                      stringDate(event.start),
+                                    )}&id=reg`,
                                   )
                                 }
                               >
