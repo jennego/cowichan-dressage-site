@@ -13,6 +13,7 @@ module.exports = {
     author: "Cowichan Dressage Club",
   },
   plugins: [
+    "gatsby-plugin-netlify",
     "gatsby-plugin-robots-txt",
     `gatsby-plugin-react-helmet-canonical-urls`,
     {
