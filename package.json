@@ -12,6 +12,7 @@
     "@material-ui/icons": "^4.11.3",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/pickers": "^3.3.10",
+    "@netlify/plugin-gatsby": "^3.8.4",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
     "datebook": "^8.0.1",
