@@ -1,15 +1,6 @@
 // const SegfaultHandler = require('segfault-handler');
 // SegfaultHandler.registerHandler('crash.log');
 
-const adapter = require("gatsby-adapter-netlify").default
-
-module.exports = {
-  adapter: adapter({
-    excludeDatastoreFromEngineFunction: false,
-    imageCDN: false,
-  }),
-}
-
 require("dotenv").config({
   path: `.env`,
 })
