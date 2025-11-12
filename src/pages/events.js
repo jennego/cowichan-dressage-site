@@ -73,11 +73,17 @@ const Events = () => {
                   <Link to={node.slug} className="event-link">
                     <Typography variant="h4">{node.eventName}</Typography>
                   </Link>
-                  <LocationInfo
-                    locationName={node.locationName}
-                    lat={node.location.lat}
-                    lon={node.location.lon}
-                  />
+
+                  {node.location ? (
+                    <LocationInfo
+                      locationName={node.locationName}
+                      lat={node.location.lat}
+                      lon={node.location.lon}
+                    />
+                  ) : (
+                    ""
+                  )}
+
                   <Typography gutterBottom variant="body1">
                     {node.summary ? node.summary.summary : ""}
                   </Typography>

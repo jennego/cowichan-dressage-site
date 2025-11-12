@@ -124,11 +124,17 @@ const Event = ({ data, pageContext, location }) => {
         <Typography variant="h3" style={{ paddingTop: "1rem" }}>
           {pageContext.eventName}
         </Typography>
-        <LocationInfo
-          locationName={event.locationName}
-          lat={event.location.lat}
-          lon={event.location.lon}
-        />
+
+        {event.location ? (
+          <LocationInfo
+            locationName={event.locationName}
+            lat={event.location.lat}
+            lon={event.location.lon}
+          />
+        ) : (
+          ""
+        )}
+
         <Grid container spacing={1} style={{ marginBottom: "1rem" }}>
           <Grid item lg={event.image ? 8 : 12}>
             <List>
