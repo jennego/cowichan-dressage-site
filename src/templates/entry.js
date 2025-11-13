@@ -43,7 +43,7 @@ const Entry = ({
   scrollToRules,
 }) => {
   const [selectedWaivers, setSelectedWaivers] = useState(
-    data.contentfulEvent.adultWaivers
+    data.contentfulEvent.adultWaivers,
   )
   const [initialWaivers, setInitialWavers] = useState("")
   const [initialTests, setInitialTests] = useState("")
@@ -134,7 +134,7 @@ const Entry = ({
 
   if (data.contentfulEvent.sessions) {
     testData = data.contentfulEvent.sessions.filter(
-      test => test.testFields === true
+      test => test.testFields === true,
     )
   }
 
@@ -180,7 +180,7 @@ const Entry = ({
     useEffect(() => {
       setFieldValue(
         "selectedSessions",
-        selectedSessions.map(item => item.title).join(", ")
+        selectedSessions.map(item => item.title).join(", "),
       )
     }, [selectedSessions])
     return null
@@ -248,8 +248,8 @@ const Entry = ({
         ) {
           return yup.string().required()
         }
-      })
-    )
+      }),
+    ),
   )
 
   // const handleRulesClick = () => {
@@ -300,7 +300,7 @@ const Entry = ({
             .catch(error => {
               console.log(error)
               alert(
-                "Oops! There was an error. Try again. If it still doesn't work contact jen@jenniferchow.ca with your browser and what you were doing. See resources page for PDF entry form if needed."
+                "Oops! There was an error. Try again. If it still doesn't work contact jen@jenniferchow.ca with your browser and what you were doing. See resources page for PDF entry form if needed.",
               )
             })
             .finally(() => actions.setSubmitting(false))
@@ -348,7 +348,8 @@ const Entry = ({
                   {data.contentfulEvent.membershipRequired || undefined ? (
                     <Typography>
                       Current membership is required for this event.{" "}
-                      <a href="../membership">Go to Membership Form. </a>
+                      <Link to="/membership">Go to Membership Form. </Link>
+                      {console.log("link", Link)}
                     </Typography>
                   ) : (
                     <Typography>

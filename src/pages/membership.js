@@ -381,37 +381,7 @@ const MemberForm = props => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <FormControl
-                error={
-                  props.touched.paymentMethod &&
-                  Boolean(props.errors.paymentMethod)
-                }
-              >
-                <FormLabel component="legend">Payment Method</FormLabel>
-                <RadioGroup
-                  aria-label="payment method"
-                  name="paymentMethod"
-                  onChange={props.handleChange}
-                >
-                  <FormControlLabel
-                    value="square"
-                    name="paymentMethod"
-                    control={<Radio />}
-                    label="Square Credit Card"
-                  />
-                  <FormControlLabel
-                    name="paymentMethod"
-                    value="etransfer"
-                    control={<Radio />}
-                    label="E-Transfer"
-                  />
-                </RadioGroup>
-                <FormHelperText>
-                  {props.touched.paymentMethod && props.errors.paymentMethod}
-                </FormHelperText>
-              </FormControl>
-            </Grid>
+            {/* payment can go here  */}
           </Grid>
           {/* <Button color="primary" variant="contained" type="submit">
             Submit
@@ -461,7 +431,8 @@ const Membership = () => {
           </Typography>
 
           <Typography gutterBottom>
-            Cowichan Dressage Club Membership cost is ${cost} per year.
+            Cowichan Dressage Club Membership cost is <strong>${cost}</strong>{" "}
+            per year.
           </Typography>
         </Paper>
         <Paper>

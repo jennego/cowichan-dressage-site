@@ -152,13 +152,13 @@ const Sessions = ({
           ""
         )}
       </div>
-      <PaymentForm
+      {/* <PaymentForm
         props={props}
         data={data}
         square={square}
         cost={renderCost}
         squareCost={renderSquareCost}
-      />
+      /> */}
       {data.contentfulEvent.confirmationMessage && (
         <Typography variant="body1">
           {renderRichText(data.contentfulEvent.confirmationMessage)}
